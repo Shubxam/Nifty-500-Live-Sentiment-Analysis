@@ -22,7 +22,7 @@ jobs:
           pip install -r requirements.txt
           
       - name: Execute python script to update sentiment page
-        run: python update_sentiment_page.py
+        run: python dashboard-generation.py
         
       - name: Clone repo from your github.io page and commit newly generated sentiment html file
         run: | 
