@@ -36,7 +36,7 @@ jobs:
         
       - name: Push updated html to github.io page
         uses: ad-m/github-push-action@master
-        with: #change all the "damianboh"s below to your username
+        with:
           github_token: ${{ secrets.TOKEN }}          
           repository: "shubxam/shubxam.github.io"
           branch: "main"
