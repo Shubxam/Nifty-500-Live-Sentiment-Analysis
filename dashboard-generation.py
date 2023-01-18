@@ -33,7 +33,7 @@ for i in range(270):
     #print(i)
     req = Request(url= '{}/{}'.format(news_url, tickers[i]),headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'})
     response = urlopen(req)
-    html = BeautifulSoup(response) 
+    html = BeautifulSoup(response, 'lxml') 
     news_links = html.select('.newslink')  
     for link in news_links:
         title = link.find('span', class_='h6').text
