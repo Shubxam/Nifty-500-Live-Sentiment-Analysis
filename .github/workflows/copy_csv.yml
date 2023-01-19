@@ -20,12 +20,15 @@ jobs:
         run: |
           git clone https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis.git
           cd Nifty-500-Live-Sentiment-Analysis
+          git remote set-url origin git@github.com:Shubxam/Nifty-500-Live-Sentiment-Analysis.git
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git checkout streamlit
           git checkout main -- sentiment_data.csv
           git add sentiment_data.csv
           git commit -m 'copy csv via checkout'
+          git fetch
+          git merge
           git push --force origin streamlit
 
 #      - name: Copy To streamlit Action
