@@ -34,7 +34,7 @@ news_url = 'https://ticker.finology.in/company/'
 data = []
 unavailable_tickers = []
 companies_len = len(tickers)
-length = 10
+length = companies_len
 print('Fetching Article data..')
 for i in range(length):
     print(i, tickers[i])
@@ -78,8 +78,8 @@ final_df = new_df.groupby('Ticker').mean()
 sector = []
 industry = []
 mCap = []
-#new_length = len(tickers)
-new_length = 10
+new_length = len(tickers)
+#new_length = 10
 print('Fetching industry data')
 for i in range(new_length):
     meta = nse_eq(tickers[i])

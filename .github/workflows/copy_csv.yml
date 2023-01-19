@@ -1,7 +1,7 @@
 name: Copy sentiment_data.csv to streamlit branch
 
 on: 
-  push:
+  #push:
   schedule:
     - cron: "00 12 * * 1-5" #runs 12:00 utc (17:30 ist) monday-friday "*/30 * * * *" # runs every half hour
 
