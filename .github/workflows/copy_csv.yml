@@ -19,7 +19,7 @@ jobs:
       - name: Copy to streamlit Action
         run: |
           git clone https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis.git
-          git cd Nifty-500-Live-Sentiment-Analysis
+          cd Nifty-500-Live-Sentiment-Analysis
           git checkout streamlit
           git checkout main -- sentiment_data.csv
           git add sentiment_data.csv
