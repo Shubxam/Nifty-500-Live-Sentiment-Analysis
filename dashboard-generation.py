@@ -17,6 +17,8 @@ import matplotlib.pyplot as plt
 import plotly
 import plotly.express as px
 
+import streamlit as st
+
 # Get company tickers and create a dataframe
 ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty500list.csv'
 tickers_file = pd.read_csv(ticker_url)
@@ -28,13 +30,22 @@ news_url = 'https://ticker.finology.in/company/'
 
 # list to store article data
 data = []
+unavailable_tickers = []
 companies_len = len(tickers)
-for i in range(270):
+length = 10
+
+for i in range(length):
     #print(i)
     req = Request(url= '{}/{}'.format(news_url, tickers[i]),headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'})
     response = urlopen(req)
     html = BeautifulSoup(response, 'lxml') 
-    news_links = html.select('.newslink')  
+    news_links = html.select('#newsarticles > a')     #select('.newslink')  
+    if len(news_links) == 0:
+        print('No news found for {}'.format(tickers[i]))
+        unavailable_tickers.append(tickers[i])
+        # delete all ticker from tickers and tickers_df together #todo
+        continue
+
     for link in news_links:
         title = link.find('span', class_='h6').text
         #separate date and time from datetime object
@@ -42,10 +53,17 @@ for i in range(270):
         art_date = date_time_obj.date().strftime('%Y/%m/%d')
         art_time = date_time_obj.time().strftime('%H:%M')
         data.append([tickers[i], title, art_date, art_time])  
-    '''if (i != 0 and i%200 == 0):
-        print('sleeping')
-        time.sleep(30)'''
+    ###if (i != 0 and i%200 == 0):
+    ####print('sleeping')
+    ####time.sleep(30)
 df = pd.DataFrame(data, columns=['Ticker', 'Headline', 'Date', 'Time'])
+
+# removing unavailable tickers from original df
+for ticker in unavailable_tickers:
+    if ticker in tickers:
+        tickers.drop(ticker, inplace=True)
+
+tickers_df.drop(tickers_df[tickers_df['Symbol'].isin(unavailable_tickers)].index.values, inplace=True)
 
 # Sentiment Analysis
 vader = SentimentIntensityAnalyzer()
@@ -58,15 +76,31 @@ final_df = new_df.groupby('Ticker').mean()
 sector = []
 industry = []
 mCap = []
-for i in range(270):
+for i in range(length):
     meta = nse_eq(tickers[i])
     #print(tickers[i])
-    sector.append(meta['industryInfo']['macro'])
+    try:
+        sector.append(meta['industryInfo']['macro'])
+    except KeyError:
+        print('{} is not available'.format(tickers[i]))
+        sector.append(np.nan)
+        industry.append(np.nan)
+        mCap.append(np.nan)
+        continue
     #pprint('Sector: {}'.format(meta['industryInfo']['macro']))
-    industry.append(meta['industryInfo']['sector'])
+    try:
+        industry.append(meta['industryInfo']['sector'])
+    except KeyError:
+        print('{} is not available'.format(tickers[i]))
+        industry.append(np.nan)
+        mCap.append(np.nan)
+        continue
     #pprint('Industry: {}'.format(meta['industryInfo']['sector']))
-    ticker_mcap = round((meta['priceInfo']['previousClose'] * meta['securityInfo']['issuedSize'])/1000000000, 2)
-    mCap.append(ticker_mcap)
+    try:
+        mCap.append(round((meta['priceInfo']['previousClose'] * meta['securityInfo']['issuedSize'])/1000000000, 2))
+    except KeyError:
+        print('{} is not available'.format(tickers[i]))
+        mCap.append(np.nan)
     #print('market cap is Rs {}'.format(ticker_mcap))
     #print('\n')
 
@@ -77,6 +111,8 @@ final_df['mCap (Billion)'] = mCap
 final_df = final_df.reset_index()
 final_df = pd.merge(final_df, tickers_df, left_on='Ticker', right_on='Symbol').drop('Symbol', axis=1)
 final_df.columns = ['Symbol', 'Negative', 'Neutral', 'Positive', 'Sentiment Score', 'Sector', 'Industry', 'MCap (Billion)', 'Company Name']
+
+final_df = final_df.dropna()
 
 # Plotting
 fig = px.treemap(
@@ -95,10 +131,17 @@ dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 timezone_string = datetime.now().astimezone().tzname()
 
 # Generate HTML File with Updated Time and Treemap
-with open('NIFTY_500_live_sentiment.html', 'a') as f:
-    f.truncate(0) # clear file if something is already written on it
-    title = "<h1>NIFTY 500 Stock Sentiment Dashboard</h1>"
-    updated = "<h2>Last updated: " + dt_string + " (Timezone: " + timezone_string + ")</h2>"
-    description = "This dashboard is updated every half an hour with sentiment analysis performed on latest scraped news headlines from the FinViz website.<br><br>"
-    f.write(title + updated + description)
-    f.write(fig.to_html(full_html=False, include_plotlyjs='cdn')) # write the fig created above into the html file
+#with open('NIFTY_500_live_sentiment.html', 'a') as f:
+#    f.truncate(0) # clear file if something is already written on it
+#    title = "<h1>NIFTY 500 Stock Sentiment Dashboard</h1>"
+#    updated = "<h2>Last updated: " + dt_string + " (Timezone: " + timezone_string + ")</h2>"
+#    description = "This dashboard is updated every half an hour with sentiment analysis performed on latest scraped news headlines from the FinViz website.<br><br>"
+#    f.write(title + updated + description)
+#    f.write(fig.to_html(full_html=False, include_plotlyjs='cdn')) # write the fig created above into the html file
+
+
+# Streamlit App
+st.set_page_config(page_title = "Nifty 500 Sentiment Analyzer", layout = "wide")
+st.header("Nifty 500 stocks Sentiment Analyzer")
+st.plotly_chart(fig)
+st.write('Description of chart comes here')
