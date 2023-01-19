@@ -33,8 +33,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add sentiment_data.csv
-          git commit -m 'upload csv using GH Actions'
+          git add sentiment_data.csv NIFTY_500_live_sentiment.html
+          git commit -m 'upload csv,html using GH Actions'
           git push --force origin main
         
       - name: Clone repo from your github.io page and commit newly generated sentiment html file
