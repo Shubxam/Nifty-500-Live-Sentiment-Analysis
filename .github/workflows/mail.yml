@@ -14,6 +14,7 @@ jobs:
         with:
           ref: main
           repository: ${{github.repository}}
+          token: ${{ secrets.ST_PUSH }}
     
       - name: Configure Python
         uses: actions/setup-python@v2
