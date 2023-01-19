@@ -16,9 +16,17 @@ jobs:
           repository: ${{github.repository}}
           token: ${{ secrets.ST_PUSH }}
 
-      - name: Copy To streamlit Action
-        uses: planetoftheweb/copy-to-branches@v1
-        env:
-          key: main
-          branches: streamlit
-          files: sentiment_data.csv
+      - name: Copy to streamlit Action
+          run: |
+          git checkout streamlit
+          git checkout main -- sentiment_data.csv
+          git add sentiment_data.csv
+          git commit -m 'copy csv via checkout'
+          git push --force origin streamlit
+
+#      - name: Copy To streamlit Action
+#        uses: planetoftheweb/copy-to-branches@v1
+#        env:
+#          key: main
+#          branches: streamlit
+#          files: sentiment_data.csv
