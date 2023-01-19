@@ -32,7 +32,7 @@ news_url = 'https://ticker.finology.in/company/'
 data = []
 unavailable_tickers = []
 companies_len = len(tickers)
-length = 10
+length = 100
 
 for i in range(length):
     #print(i)
