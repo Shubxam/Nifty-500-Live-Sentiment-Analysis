@@ -38,13 +38,13 @@ jobs:
 #          git commit -m "copy sentiment csv"
 #          git pull --rebase origin streamlit
 
-      - name: Push csv file to streamlit repo
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.ST_PUSH }}          
-          repository: "shubxam/Nifty-500-Live-Sentiment-Analysis"
-          branch: "streamlit"
-          directory: ./Nifty-500-Live-Sentiment-Analysis
+#      - name: Push csv file to streamlit repo
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.ST_PUSH }}          
+#          repository: "shubxam/Nifty-500-Live-Sentiment-Analysis"
+#          branch: "streamlit"
+#          directory: ./Nifty-500-Live-Sentiment-Analysis
         
       - name: Clone repo from your github.io page and commit newly generated sentiment html file
         run: | 
