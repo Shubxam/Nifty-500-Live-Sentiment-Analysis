@@ -40,7 +40,7 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.ST_PUSH }}          
-          repository: "shubxam/Nifty-500-Live-Sentiment-Analysis "
+          repository: "shubxam/Nifty-500-Live-Sentiment-Analysis"
           branch: "streamlit"
           directory: ./Nifty-500-Live-Sentiment-Analysis
         
