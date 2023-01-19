@@ -25,6 +25,12 @@ jobs:
           
       - name: Execute python script to update sentiment page
         run: python dashboard-generation.py
+
+      - name: copy sentiment_data.csv to streamlit branch
+        run: |
+          git worktree add streamlit
+          cp sentiment_data.csv ./streamlit/sentiment_data.csv
+          git worktree remove streamlit
         
       - name: Clone repo from your github.io page and commit newly generated sentiment html file
         run: | 

@@ -123,6 +123,8 @@ final_df.columns = ['Symbol', 'Negative', 'Neutral', 'Positive', 'Sentiment Scor
 
 final_df = final_df.dropna()
 
+final_df.to_csv('sentiment_data.csv')
+
 # Plotting
 print('Generating Plots')
 fig = px.treemap(
