@@ -26,8 +26,6 @@ jobs:
           git checkout main -- sentiment_data.csv
           git add sentiment_data.csv
           git commit -m 'copy csv via checkout'
-          git fetch
-          git merge
           git push --force origin streamlit
 
 #      - name: Copy To streamlit Action
