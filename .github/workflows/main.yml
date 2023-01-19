@@ -1,7 +1,8 @@
 name: Get Sentiment and update GitHub page
 
 on:
-  [push]
+  schedule:
+    - cron: "30 11 * * 1-5" #runs 11:30 utc (17:00 ist) monday-friday 
     
 jobs:
   refresh_page:
@@ -39,5 +40,5 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN }}          
           repository: "shubxam/shubxam.github.io"
-          branch: "main"
+          branch: "master"
           directory: ./shubxam.github.io
