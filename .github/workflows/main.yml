@@ -39,7 +39,7 @@ jobs:
       - name: Push csv file to streamlit repo
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.TOKEN }}          
+          github_token: ${{ secrets.ST_PUSH }}          
           repository: "shubxam/Nifty-500-Live-Sentiment-Analysis "
           branch: "streamlit"
           directory: ./Nifty-500-Live-Sentiment-Analysis

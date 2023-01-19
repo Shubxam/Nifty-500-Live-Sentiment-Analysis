@@ -34,7 +34,7 @@ news_url = 'https://ticker.finology.in/company/'
 data = []
 unavailable_tickers = []
 companies_len = len(tickers)
-length = companies_len
+length = 10
 print('Fetching Article data..')
 for i in range(length):
     print(i, tickers[i])
