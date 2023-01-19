@@ -17,7 +17,7 @@ jobs:
           token: ${{ secrets.ST_PUSH }}
 
       - name: Copy to streamlit Action
-          run: |
+        run: |
           git checkout streamlit
           git checkout main -- sentiment_data.csv
           git add sentiment_data.csv
