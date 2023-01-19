@@ -9,31 +9,14 @@ jobs:
   copy-csv:
     runs-on: ubuntu-latest
     steps:
-      - name: Access the repo
-        uses: actions/checkout@v3
-        with:
-          ref: main
-          repository: ${{github.repository}}
-          token: ${{ secrets.ST_PUSH }}
-
-      - name: Copy to streamlit Action
+      - uses: actions/checkout@v3
+        with: 
+          ref: streamlit
+      - name: copy csv file
         run: |
-          git clone https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis.git
-          cd Nifty-500-Live-Sentiment-Analysis
-          git remote set-url origin git@github.com:Shubxam/Nifty-500-Live-Sentiment-Analysis.git
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git checkout streamlit
           git checkout main -- sentiment_data.csv
+          git config user.name "Deploy from CI"
+          git config user.email ""
           git add sentiment_data.csv
-          git commit -m 'copy csv via checkout'
-          git fetch
-          git merge
-          git push --force origin streamlit
-
-#      - name: Copy To streamlit Action
-#        uses: planetoftheweb/copy-to-branches@v1
-#        env:
-#          key: main
-#          branches: streamlit
-#          files: sentiment_data.csv
+          git commit -m "Deploy $GITHUB_SHA to streamlit"
+          git push --force --set-upstream origin streamlit
