@@ -66,6 +66,7 @@ jobs:
         
       - name: Clone repo from your github.io page and commit newly generated sentiment html file
         run: | 
+          git checkout main
           git clone https://github.com/shubxam/shubxam.github.io.git/ 
           cp NIFTY_500_live_sentiment.html shubxam.github.io/NIFTY_500_live_sentiment.html
           cd shubxam.github.io 
