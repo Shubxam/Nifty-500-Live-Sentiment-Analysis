@@ -26,17 +26,21 @@ jobs:
       - name: Execute python script to update sentiment page
         run: python dashboard-generation.py
 
-#      - name: copy sentiment_data.csv to streamlit branch
-#        run: |
+      - name: copy sentiment_data.csv to streamlit branch
+        run: |
 #          git clone https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis.git
 #          cd Nifty-500-Live-Sentiment-Analysis
 #          git checkout -b streamlit
-#          cp ../sentiment_data.csv sentiment_data.csv
-#          git config --local user.email "action@github.com"
-#          git config --local user.name "GitHub Action"
-#          git add sentiment_data.csv
-#          git commit -m "copy sentiment csv"
-#          git pull --rebase origin streamlit
+          git checkout main
+          git worktree add streamlit
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          cd streamlit
+          git update-ref -d refs/heads/streamlit
+          cp ../sentiment_data.csv sentiment_data.csv
+          git add sentiment_data.csv
+          git commit -m "copy sentiment csv"
+          git push --force --set-upstream origin streamlit
 
 #      - name: Push csv file to streamlit repo
 #        uses: ad-m/github-push-action@master
