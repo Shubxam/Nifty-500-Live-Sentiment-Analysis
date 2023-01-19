@@ -29,13 +29,20 @@ jobs:
       - name: copy sentiment_data.csv to streamlit branch
         run: |
           git worktree add streamlit
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
           cp sentiment_data.csv ./streamlit/sentiment_data.csv
           cd streamlit
           git add sentiment_data.csv
           git commit -m "copy sentiment csv"
-          git push --force --set-upstream origin streamlit
+
+      - name: Push csv file to streamlit repo
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN }}          
+          repository: "shubxam/Nifty-500-Live-Sentiment-Analysis "
+          branch: "streamlit"
+          directory: ./Nifty-500-Live-Sentiment-Analysis
         
       - name: Clone repo from your github.io page and commit newly generated sentiment html file
         run: | 
