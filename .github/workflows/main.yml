@@ -29,8 +29,13 @@ jobs:
       - name: copy sentiment_data.csv to streamlit branch
         run: |
           git worktree add streamlit
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
           cp sentiment_data.csv ./streamlit/sentiment_data.csv
-          git worktree remove streamlit
+          cd streamlit
+          git add sentiment_data.csv
+          git commit -m "copy sentiment csv"
+          git push --force --set-upstream origin streamlit
         
       - name: Clone repo from your github.io page and commit newly generated sentiment html file
         run: | 

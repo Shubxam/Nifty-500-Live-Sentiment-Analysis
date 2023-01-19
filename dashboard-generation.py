@@ -148,6 +148,6 @@ with open('NIFTY_500_live_sentiment.html', 'a') as f:
     f.truncate(0) # clear file if something is already written on it
     title = "<h1>NIFTY 500 Stock Sentiment Dashboard</h1>"
     updated = "<h2>Last updated: " + dt_string + " (Timezone: " + timezone_string + ")</h2>"
-    description = "This dashboard is updated every half an hour with sentiment analysis performed on latest scraped news headlines from the FinViz website.<br><br>"
+    description = "This dashboard is updated every half an hour with sentiment analysis performed on latest scraped news headlines.<br><br>"
     f.write(title + updated + description)
     f.write(fig.to_html(full_html=False, include_plotlyjs='cdn')) # write the fig created above into the html file
