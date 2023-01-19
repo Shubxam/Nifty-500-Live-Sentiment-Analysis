@@ -30,6 +30,8 @@ jobs:
 
       - name: save csv file
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add sentiment_data.csv
           git commit -m 'upload csv using GH Actions'
           git push --force origin main
