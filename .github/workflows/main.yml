@@ -1,0 +1,43 @@
+name: Get Sentiment and update GitHub page
+
+on:
+  [push]
+    
+jobs:
+  refresh_page:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Access the repo
+        uses: actions/checkout@v2 
+    
+      - name: Configure Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11.1' 
+      
+      - name: Install necessary libraries
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Execute python script to update sentiment page
+        run: python dashboard-generation.py
+        
+      - name: Clone repo from your github.io page and commit newly generated sentiment html file
+        run: | 
+          git clone https://github.com/shubxam/shubxam.github.io.git/ 
+          cp NIFTY_500_live_sentiment.html shubxam.github.io/NIFTY_500_live_sentiment.html
+          cd shubxam.github.io 
+          git add NIFTY_500_live_sentiment.html
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m 'refresh Nifty 500 sentiment page'        
+        
+      - name: Push updated html to github.io page
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN }}          
+          repository: "shubxam/shubxam.github.io"
+          branch: "main"
+          directory: ./shubxam.github.io
