@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 from urllib.request import urlopen, Request
+import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
 from nsepython import *
@@ -18,8 +19,11 @@ import plotly
 import plotly.express as px
 
 # Get company tickers and create a dataframe
-ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty500list.csv'
-tickers_file = pd.read_csv(ticker_url)
+nifty_500_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty500list.csv'
+nifty_200_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty200list.csv'
+nifty_100_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty100list.csv'
+nifty_50_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty50list.csv'
+tickers_file = pd.read_csv(nifty_50_ticker_url)
 tickers_df = tickers_file[['Symbol', 'Company Name']]
 tickers = tickers_df['Symbol']
 
@@ -30,13 +34,19 @@ news_url = 'https://ticker.finology.in/company/'
 data = []
 unavailable_tickers = []
 companies_len = len(tickers)
-length = 270
+length = companies_len
 print('Fetching Article data..')
 for i in range(length):
     print(i, tickers[i])
-    req = Request(url= '{}/{}'.format(news_url, tickers[i]),headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'})
-    response = urlopen(req)
-    html = BeautifulSoup(response, 'lxml')
+    url= '{}/{}'.format(news_url, tickers[i])
+    headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'}
+    #req = Request(url= '{}/{}'.format(news_url, tickers[i]),headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'})
+    '''try:
+        response = urlopen(req)
+    except Bad ''' #todo
+    #response = urlopen(req)
+    response = requests.get(url, headers=headers)
+    html = BeautifulSoup(response.content, 'lxml')
     news_links = html.select('#newsarticles > a')
     if len(news_links) == 0:
         print('No news found for {}'.format(tickers[i]))
@@ -55,11 +65,10 @@ for i in range(length):
         time.sleep(30)'''
 df = pd.DataFrame(data, columns=['Ticker', 'Headline', 'Date', 'Time'])
 
-# removing unavailable tickers from original df
-for ticker in unavailable_tickers:
-    if ticker in tickers:
-        tickers.drop(ticker, inplace=True)
+print(unavailable_tickers)
 
+# removing unavailable tickers from original df
+tickers = np.setdiff1d(tickers, unavailable_tickers)
 tickers_df.drop(tickers_df[tickers_df['Symbol'].isin(unavailable_tickers)].index.values, inplace=True)
 
 # Sentiment Analysis
@@ -74,10 +83,11 @@ final_df = new_df.groupby('Ticker').mean()
 sector = []
 industry = []
 mCap = []
+new_length = len(tickers)
 print('Fetching industry data')
-for i in range(length):
+for i in range(new_length):
     meta = nse_eq(tickers[i])
-    print(tickers[i])
+    print(i, tickers[i])
     try:
         sector.append(meta['industryInfo']['macro'])
     except KeyError:
