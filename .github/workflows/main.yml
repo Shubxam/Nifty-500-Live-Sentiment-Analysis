@@ -13,6 +13,8 @@ jobs:
       - name: Access the repo
         uses: actions/checkout@v3
         with:
+          ref: main
+          repository: ${{github.repository}}
           token: ${{ secrets.ST_PUSH }} 
     
       - name: Configure Python
@@ -28,18 +30,31 @@ jobs:
       - name: Execute python script to update sentiment page
         run: python dashboard-generation.py
 
-      - name: copy sentiment_data.csv to streamlit branch
-        run: |
-          git checkout main
-          git worktree add streamlit
-          git config user.email "action@github.com"
-          git config user.name "GitHub Action"
-          cd streamlit
-          git update-ref -d refs/heads/streamlit
-          cp ../sentiment_data.csv sentiment_data.csv
-          git add sentiment_data.csv
-          git commit -m "copy sentiment csv"
-          git push -u origin streamlit #--force --set-upstream origin streamlit
+      - name: checkout streamlit branch
+        uses: actions/checkout@v3
+        with:
+          ref: streamlit
+          repository: ${{github.repository}}
+      
+      - name: Copy sentiment_data.csv
+        uses: actions/upload-artifact@v2
+        with:
+          name: sentiment_data.csv
+          path: sentiment_data.csv
+
+
+#      - name: copy sentiment_data.csv to streamlit branch
+#        run: |
+#          git checkout main
+#          git worktree add streamlit
+#          git config user.email "action@github.com"
+#          git config user.name "GitHub Action"
+#          cd streamlit
+#          git update-ref -d refs/heads/streamlit
+#          cp ../sentiment_data.csv sentiment_data.csv
+#          git add sentiment_data.csv
+#          git commit -m "copy sentiment csv"
+#          git push -u origin streamlit #--force --set-upstream origin streamlit
 
 #      - name: Push csv file to streamlit repo
 #        uses: ad-m/github-push-action@master
