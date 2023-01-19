@@ -28,11 +28,11 @@ jobs:
 
       - name: copy sentiment_data.csv to streamlit branch
         run: |
-          git worktree add streamlit
+          git clone https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis.git
           git config --local user.name "GitHub Action"
           git config --local user.email "action@github.com"
-          cp sentiment_data.csv ./streamlit/sentiment_data.csv
-          cd streamlit
+          cp sentiment_data.csv Nifty-500-Live-Sentiment-Analysis/sentiment_data.csv
+          cd Nifty-500-Live-Sentiment-Analysis
           git add sentiment_data.csv
           git commit -m "copy sentiment csv"
 
