@@ -40,11 +40,6 @@ for i in range(length):
     print(i, tickers[i])
     url= '{}/{}'.format(news_url, tickers[i])
     headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'}
-    #req = Request(url= '{}/{}'.format(news_url, tickers[i]),headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'})
-    '''try:
-        response = urlopen(req)
-    except Bad ''' #todo
-    #response = urlopen(req)
     response = requests.get(url, headers=headers)
     html = BeautifulSoup(response.content, 'lxml')
     news_links = html.select('#newsarticles > a')
