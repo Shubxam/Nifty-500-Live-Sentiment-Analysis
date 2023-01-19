@@ -1,6 +1,7 @@
 name: Get Sentiment and update GitHub page
 
 on:
+  push:
   schedule:
     - cron: "30 11 * * 1-5" #runs 11:30 utc (17:00 ist) monday-friday 
     
