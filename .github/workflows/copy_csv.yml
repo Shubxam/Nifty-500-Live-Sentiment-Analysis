@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with: 
-          ref: streamlit
       - name: copy csv file
         run: |
-          git checkout main -- sentiment_data.csv
+          git checkout main
+          git worktree add streamlit
           git config user.name "Deploy from CI"
           git config user.email ""
+          cd streamlit
+          cp ../sentiment_data.csv ./sentiment_data.csv
           git add sentiment_data.csv
           git commit -m "Deploy $GITHUB_SHA to streamlit"
           git push --force --set-upstream origin streamlit
