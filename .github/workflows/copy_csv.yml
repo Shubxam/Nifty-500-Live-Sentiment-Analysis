@@ -12,12 +12,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: copy csv file
         run: |
-          git checkout main
           git worktree add streamlit
           git config user.name "Deploy from CI"
           git config user.email ""
           cd streamlit
-          cp ../sentiment_data.csv ./sentiment_data.csv
-          git add sentiment_data.csv
+          mv ../sentiment_data.csv ./sentiment_data.csv
+          git add .
           git commit -m "Deploy $GITHUB_SHA to streamlit"
           git push --force --set-upstream origin streamlit
