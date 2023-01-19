@@ -1,0 +1,24 @@
+name: Copy sentiment_data.csv to streamlit branch
+
+on: 
+  push:
+  schedule:
+    - cron: "00 12 * * 1-5" #runs 12:00 utc (17:30 ist) monday-friday "*/30 * * * *" # runs every half hour
+
+jobs:
+  copy csv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Access the repo
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          repository: ${{github.repository}}
+          token: ${{ secrets.ST_PUSH }}
+
+      - name: Copy To streamlit Action
+        uses: planetoftheweb/copy-to-branches@v1
+        env:
+          key: main
+          branches: streamlit
+          files: sentiment_data.csv
