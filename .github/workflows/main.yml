@@ -11,7 +11,9 @@ jobs:
     
     steps:
       - name: Access the repo
-        uses: actions/checkout@v2 
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ST_PUSH }} 
     
       - name: Configure Python
         uses: actions/setup-python@v2
