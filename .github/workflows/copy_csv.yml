@@ -20,6 +20,8 @@ jobs:
         run: |
           git clone https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis.git
           cd Nifty-500-Live-Sentiment-Analysis
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git checkout streamlit
           git checkout main -- sentiment_data.csv
           git add sentiment_data.csv
