@@ -50,7 +50,6 @@ for i in range(length):
     if len(news_links) == 0:
         print('No news found for {}'.format(tickers[i]))
         unavailable_tickers.append(tickers[i])
-        # delete all ticker from tickers and tickers_df together #todo
         continue
     new_articles_counter = 0
     for link in news_links:
@@ -65,10 +64,7 @@ for i in range(length):
         new_articles_counter += 1
     if(new_articles_counter==0):
         unavailable_tickers.append(tickers[i])  
-    
-    '''if (i != 0 and i%200 == 0):
-        print('sleeping')
-        time.sleep(30)'''
+
 df = pd.DataFrame(data, columns=['Ticker', 'Headline', 'Date', 'Time'])
 
 print(unavailable_tickers)
