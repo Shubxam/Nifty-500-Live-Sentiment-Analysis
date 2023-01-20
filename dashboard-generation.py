@@ -114,6 +114,7 @@ import streamlit as st
 
 # final_df = final_df.dropna()
 
+xc_indices = pd.read_csv('xc-indices.csv', header=0)
 
 sentiment_data = pd.read_csv('sentiment_data.csv')
 
@@ -148,6 +149,9 @@ timezone_string = datetime.now().astimezone().tzname()
 st.set_page_config(page_title = "Nifty 500 Sentiment Analyzer", layout = "wide")
 st.header("Nifty 500 stocks Sentiment Analyzer")
 st.plotly_chart(fig,height=800,use_container_width=True)
-st.write('''The chart above depicts the real time sentiment of Stocks and Industries in the Nifty 500 Universe.\n 
-This dashboard is updated everyday at 17:30 IST with sentiment analysis performed on latest scraped news headlines from the Ticker-Finology website.
-''')
+
+st.write('''The chart above depicts the real time sentiment of Stocks and Industries in the Nifty 500 Universe.\n
+The following table could be used as reference to identify sector and industry names.''') 
+st.dataframe(xc_indices)
+st.write('''[github repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis) [Reference Article]()''')
+st.write('''This dashboard is updated everyday at 17:30 IST with sentiment analysis performed on latest scraped news headlines from the Ticker-Finology website.''')
