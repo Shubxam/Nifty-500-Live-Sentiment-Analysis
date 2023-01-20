@@ -1,4 +1,5 @@
 ,Symbol,Negative,Neutral,Positive,Sentiment Score,MCap (Billion),Company Name,Sector,Industry
+<<<<<<< HEAD
 0,ADANIENT,0.01,0.975,0.015,0.02,3948.45,Adani Enterprises Limited,XC - INDS,XC - CAG
 1,ADANIPORTS,0.0,0.851,0.149,0.26,1676.38,Adani Ports and Special Economic Zone Limited,XC - INDS,XC - SHP
 2,APOLLOHOSP,0.133,0.739,0.127,-0.017,620.88,Apollo Hospitals Enterprise Limited,XC - HECA,XC - HCS
@@ -44,3 +45,372 @@
 42,ULTRACEMCO,0.0,1.0,0.0,0.0,2082.06,UltraTech Cement Limited,XC - MTRL,XC - CMT
 43,UPL,0.0,1.0,0.0,0.0,561.12,UPL Limited,XC - MTRL,XC - CHM
 44,WIPRO,0.0,0.962,0.038,0.063,2213.44,Wipro Limited,XC - INTH,XC - ITS
+=======
+0,3MINDIA,0.0,1.0,0.0,0.0,254.92,3M India Limited,XC - INDS,XC - CAG
+1,AARTIDRUGS,0.0,1.0,0.0,0.0,40.85,Aarti Drugs Limited,XC - HECA,XC - PHR
+2,AAVAS,0.0,1.0,0.0,0.0,143.74,Aavas Financiers Limited,XC - FNCL,XC - NFC
+3,ABB,0.0,1.0,0.0,0.0,618.85,ABB India Limited,XC - INDS,XC - CAG
+4,ABCAPITAL,0.0,1.0,0.0,0.0,358.1,Aditya Birla Capital Limited,XC - FNCL,XC - NFC
+5,ABFRL,0.086,0.914,0.0,-0.159,251.4,Aditya Birla Fashion and Retail Limited,XC - CODI,XC - RTL
+6,ACC,0.0,0.812,0.188,0.291,444.12,ACC Limited,XC - MTRL,XC - CMT
+7,ADANIENT,0.01,0.975,0.015,0.02,4100.24,Adani Enterprises Limited,XC - INDS,XC - CAG
+8,ADANIGREEN,0.035,0.645,0.319,0.343,3321.56,Adani Green Energy Limited,XC - UTLT,XC - PGD
+9,ADANIPORTS,0.0,0.851,0.149,0.26,1698.95,Adani Ports and Special Economic Zone Limited,XC - INDS,XC - SHP
+10,ADANITRANS,0.0,1.0,0.0,0.0,3023.82,Adani Transmission Limited,XC - UTLT,XC - PTD
+11,AEGISCHEM,0.165,0.73,0.105,-0.092,125.13,Aegis Logistics Limited,XC - INDS,XC - LGT
+12,AETHER,0.0,1.0,0.0,0.0,108.44,Aether Industries Limited,XC - MTRL,XC - CHM
+13,AFFLE,0.0,1.0,0.0,0.0,135.55,Affle (India) Limited,XC - INTH,XC - INT
+14,AIAENG,0.0,1.0,0.0,0.0,227.72,AIA Engineering Limited,XC - INDS,XC - CAG
+15,AJANTPHARM,0.0,1.0,0.0,0.0,151.78,Ajanta Pharma Limited,XC - HECA,XC - PHR
+16,ALKEM,0.0,1.0,0.0,0.0,365.77,Alkem Laboratories Limited,XC - HECA,XC - PHR
+17,ALOKINDS,0.0,0.658,0.342,0.382,74.23,Alok Industries Limited,XC - CODI,XC - TXT
+18,AMBUJACEM,0.06,0.793,0.147,0.104,1033.43,Ambuja Cements Limited,XC - MTRL,XC - CMT
+19,ANGELONE,0.0,0.91,0.09,0.164,105.51,Angel One Limited,XC - FNCL,XC - NFC
+20,ANURAS,0.0,1.0,0.0,0.0,70.68,Anupam Rasayan India Limited,XC - MTRL,XC - CHM
+21,APLLTD,0.0,0.893,0.107,0.191,108.71,Alembic Pharmaceuticals Limited,XC - HECA,XC - PHR
+22,APOLLOHOSP,0.133,0.739,0.127,-0.017,624.0,Apollo Hospitals Enterprise Limited,XC - HECA,XC - HCS
+23,APOLLOTYRE,0.0,1.0,0.0,0.0,205.33,Apollo Tyres Limited,XC - CODI,XC - ANC
+24,ASAHIINDIA,0.0,1.0,0.0,0.0,123.57,Asahi India Glass Limited,XC - CODI,XC - ANC
+25,ASAHIINDIA,0.0,1.0,0.0,0.0,123.57,Asahi India Glass Limited,XC - CODI,XC - COD
+26,ASHOKLEY,0.04,0.825,0.136,0.147,432.79,Ashok Leyland Limited,XC - CODI,XC - ATO
+27,ASIANPAINT,0.0,0.9,0.1,0.183,2825.08,Asian Paints Limited,XC - COST,XC - HPP
+28,ASTERDM,0.0,0.896,0.104,0.199,111.24,Aster DM Healthcare Limited,XC - HECA,XC - PHR
+29,ASTRAL,0.0,1.0,0.0,0.0,408.53,Astral Limited,XC - INDS,XC - CAG
+30,ATGL,0.0,1.0,0.0,0.0,4185.27,Adani Total Gas Limited,XC - ENRG,XC - ODE
+31,AUBANK,0.0,0.809,0.191,0.382,419.57,AU Small Finance Bank Limited,XC - FNCL,XC - PVT
+32,AUROPHARMA,0.0,0.966,0.034,0.068,260.16,Aurobindo Pharma Limited,XC - HECA,XC - PHR
+33,AVANTIFEED,0.223,0.777,0.0,-0.318,52.86,Avanti Feeds Limited,XC - COST,XC - FOP
+34,AWL,0.0,0.604,0.396,0.71,735.62,Adani Wilmar Limited,XC - COST,XC - FOP
+35,AXISBANK,0.0,0.926,0.074,0.167,2841.69,Axis Bank Limited,XC - FNCL,XC - PVT
+36,BAJAJ-AUTO,0.0,1.0,0.0,0.0,1021.45,Bajaj Auto Limited,XC - CODI,XC - ATO
+37,BAJAJFINSV,0.096,0.792,0.112,-0.047,1306.71,Bajaj Finserv Limited,XC - FNCL,XC - NFC
+38,BAJAJHLDNG,0.0,1.0,0.0,0.0,627.88,Bajaj Holdings & Investment Limited,XC - FNCL,XC - NFC
+39,BAJFINANCE,0.0,0.776,0.224,0.382,3631.76,Bajaj Finance Limited,XC - FNCL,XC - NFC
+40,BALAMINES,0.0,1.0,0.0,0.0,79.13,Balaji Amines Limited,XC - MTRL,XC - CHM
+41,BALRAMCHIN,0.0,0.473,0.527,0.832,81.8,Balrampur Chini Mills Limited,XC - COST,XC - SGR
+42,BANDHANBNK,0.0,0.776,0.224,0.382,386.44,Bandhan Bank Limited,XC - FNCL,XC - PVT
+43,BANKBARODA,0.0,0.856,0.144,0.281,921.8,Bank of Baroda,XC - FNCL,XC - PSU
+44,BANKINDIA,0.031,0.917,0.052,0.034,366.65,Bank of India,XC - FNCL,XC - PSU
+45,BASF,0.063,0.847,0.091,0.035,115.37,BASF India Limited,XC - MTRL,XC - CHM
+46,BATAINDIA,0.0,1.0,0.0,0.0,204.79,Bata India Limited,XC - CODI,XC - RTL
+47,BBTC,0.0,1.0,0.0,0.0,63.91,Bombay Burmah Trading Corporation Limited,XC - COST,XC - FOP
+48,BCG,0.0,1.0,0.0,0.0,57.01,Brightcom Group Limited,XC - INTH,XC - INT
+49,BDL,0.0,0.741,0.259,0.273,170.74,Bharat Dynamics Limited,XC - INDS,XC - CAG
+50,BEL,0.0,1.0,0.0,0.0,750.71,Bharat Electronics Limited,XC - INDS,XC - CAG
+51,BHARATFORG,0.0,0.895,0.106,0.247,406.34,Bharat Forge Limited,XC - CODI,XC - ANC
+52,BHARTIARTL,0.055,0.945,0.0,-0.049,4327.54,Bharti Airtel Limited,XC - COSE,XC - TEL
+53,BHEL,0.0,0.869,0.131,0.247,281.7,Bharat Heavy Electricals Limited,XC - INDS,XC - CAG
+54,BIOCON,0.0,0.927,0.073,0.156,299.73,Biocon Limited,XC - HECA,XC - PHR
+55,BIRLACORPN,0.0,1.0,0.0,0.0,74.52,Birla Corporation Limited,XC - MTRL,XC - CMT
+56,BLUEDART,0.0,1.0,0.0,0.0,169.03,Blue Dart Express Limited,XC - INDS,XC - LGT
+57,BLUESTARCO,0.082,0.774,0.144,0.191,120.73,Blue Star Limited,XC - CODI,XC - COD
+58,BORORENEW,0.166,0.781,0.052,-0.166,63.78,BOROSIL RENEWABLES LIMITED,XC - INDS,XC - CAG
+59,BOSCHLTD,0.242,0.526,0.232,-0.026,503.25,Bosch Limited,XC - CODI,XC - ANC
+60,BPCL,0.05,0.851,0.099,0.113,750.67,Bharat Petroleum Corporation Limited,XC - ENRG,XC - REF
+61,BRIGADE,0.0,1.0,0.0,0.0,105.25,Brigade Enterprises Limited,XC - RLES,XC - REM
+62,BSE,0.0,0.882,0.118,0.238,71.37,BSE Limited,XC - FNCL,XC - NFC
+63,BSOFT,0.0,0.765,0.235,0.288,80.59,BIRLASOFT LIMITED,XC - INTH,XC - ITS
+64,CAMS,0.0,0.941,0.059,0.127,112.48,Computer Age Management Services Limited,XC - INTH,XC - INT
+65,CANBK,0.0,1.0,0.0,0.0,575.8,Canara Bank,XC - FNCL,XC - PSU
+66,CANFINHOME,0.0,1.0,0.0,0.0,71.04,Can Fin Homes Limited,XC - FNCL,XC - NFC
+67,CAPLIPOINT,0.202,0.702,0.096,-0.172,53.44,Caplin Point Laboratories Limited,XC - HECA,XC - PHR
+68,CARBORUNIV,0.0,1.0,0.0,0.0,174.96,Carborundum Universal Limited,XC - INDS,XC - CAG
+69,CASTROLIND,0.112,0.816,0.072,-0.07,120.82,Castrol India Limited,XC - ENRG,XC - REF
+70,CCL,0.048,0.936,0.016,-0.049,68.85,CCL Products (India) Limited,XC - COST,XC - FOP
+71,CENTRALBK,0.0,0.908,0.092,0.18,280.83,Central Bank of India,XC - FNCL,XC - PSU
+72,CENTURYTEX,0.0,1.0,0.0,0.0,78.48,Century Textiles & Industries Limited,XC - CODI,XC - TXT
+73,CGCL,0.0,1.0,0.0,0.0,131.69,Capri Global Capital Limited,XC - FNCL,XC - NFC
+74,CGPOWER,0.054,0.714,0.232,0.216,470.88,CG Power and Industrial Solutions Limited,XC - INDS,XC - CAG
+75,CHAMBLFERT,0.0,1.0,0.0,0.0,127.48,Chambal Fertilizers & Chemicals Limited,XC - MTRL,XC - FRT
+76,CHEMPLASTS,0.0,1.0,0.0,0.0,70.71,Chemplast Sanmar Limited,XC - MTRL,XC - CHM
+77,CHOLAFIN,0.0,1.0,0.0,0.0,568.77,Cholamandalam Investment and Finance Company Limited,XC - FNCL,XC - NFC
+78,CIPLA,0.0,0.956,0.044,0.068,858.31,Cipla Limited,XC - HECA,XC - PHR
+79,COALINDIA,0.0,0.944,0.056,0.1,1336.39,Coal India Limited,XC - MTRL,XC - MTL
+80,COCHINSHIP,0.0,1.0,0.0,0.0,66.75,Cochin Shipyard Limited,XC - INDS,XC - SHP
+81,COFORGE,0.0,1.0,0.0,0.0,239.75,Coforge Limited,XC - INTH,XC - ITS
+82,COROMANDEL,0.0,1.0,0.0,0.0,260.73,Coromandel International Limited,XC - MTRL,XC - FRT
+83,CREDITACC,0.0,1.0,0.0,0.0,139.75,CREDITACCESS GRAMEEN LIMITED,XC - FNCL,XC - NFC
+84,CRISIL,0.0,1.0,0.0,0.0,219.25,CRISIL Limited,XC - FNCL,XC - NFC
+85,CROMPTON,0.184,0.64,0.176,-0.026,206.98,Crompton Greaves Consumer Electricals Limited,XC - CODI,XC - RTL
+86,CSBBANK,0.0,0.944,0.056,0.127,43.96,CSB Bank Limited,XC - FNCL,XC - PVT
+87,CUB,0.0,1.0,0.0,0.0,118.16,City Union Bank Limited,XC - FNCL,XC - PVT
+88,CYIENT,0.0,0.947,0.053,0.088,97.4,Cyient Limited,XC - INTH,XC - ITS
+89,DABUR,0.034,0.925,0.042,0.032,987.94,Dabur India Limited,XC - COST,XC - HPP
+90,DALBHARAT,0.0,1.0,0.0,0.0,353.29,Dalmia Bharat Limited,XC - MTRL,XC - CMT
+91,DBL,0.0,1.0,0.0,0.0,32.2,Dilip Buildcon Limited,XC - INDS,XC - CNS
+92,DCMSHRIRAM,0.0,1.0,0.0,0.0,135.76,DCM Shriram Limited,XC - INDS,XC - CAG
+93,DEEPAKFERT,0.0,1.0,0.0,0.0,87.66,Deepak Fertilizers And Petrochemicals Corporation Limited,XC - MTRL,XC - CHM
+94,DEEPAKNTR,0.0,1.0,0.0,0.0,263.64,Deepak Nitrite Limited,XC - MTRL,XC - CHM
+95,DELHIVERY,0.0,0.824,0.176,0.222,223.99,Delhivery Limited,XC - INDS,XC - LGT
+96,DELTACORP,0.0,0.878,0.122,0.22,54.38,Delta Corp Limited,XC - INTH,XC - INT
+97,DHANI,0.0,1.0,0.0,0.0,23.41,Dhani Services Limited,XC - FNCL,XC - NFC
+98,DIVISLAB,0.0,1.0,0.0,0.0,899.54,Divi's Laboratories Limited,XC - HECA,XC - PHR
+99,DIXON,0.0,1.0,0.0,0.0,209.46,Dixon Technologies (India) Limited,XC - INDS,XC - CAG
+100,DLF,0.04,0.924,0.036,-0.013,931.71,DLF Limited,XC - RLES,XC - REM
+101,DMART,0.0,0.951,0.049,0.088,2363.47,Avenue Supermarts Limited,XC - CODI,XC - RTL
+102,DRREDDY,0.067,0.933,0.0,-0.165,726.77,Dr. Reddy's Laboratories Limited,XC - HECA,XC - PHR
+103,EASEMYTRIP,0.0,0.837,0.163,0.22,96.56,Easy Trip Planners Limited,XC - CODI,XC - HSP
+104,EDELWEISS,0.0,1.0,0.0,0.0,70.97,Edelweiss Financial Services Limited,XC - FNCL,XC - NFC
+105,EICHERMOT,0.0,0.944,0.056,0.095,869.0,Eicher Motors Limited,XC - CODI,XC - ATO
+106,EIDPARRY,0.0,1.0,0.0,0.0,97.51,EID Parry India Limited,XC - COST,XC - SGR
+107,ELGIEQUIP,0.0,1.0,0.0,0.0,126.13,Elgi Equipments Limited,XC - INDS,XC - CAG
+108,ENDURANCE,0.0,0.658,0.342,0.382,201.27,Endurance Technologies Limited,XC - CODI,XC - ANC
+109,ENGINERSIN,0.0,1.0,0.0,0.0,47.83,Engineers India Limited,XC - INDS,XC - CAG
+110,EQUITASBNK,0.073,0.927,0.0,-0.159,70.87,Equitas Small Finance Bank Limited,XC - FNCL,XC - PVT
+111,ESCORTS,0.0,0.905,0.096,0.191,275.9,Escorts Kubota Limited,XC - CODI,XC - ATO
+112,EXIDEIND,0.0,1.0,0.0,0.0,157.25,Exide Industries Limited,XC - CODI,XC - ANC
+113,FDC,0.0,1.0,0.0,0.0,43.81,FDC Limited,XC - HECA,XC - PHR
+114,FEDERALBNK,0.052,0.898,0.05,-0.007,289.25,The Federal Bank  Limited,XC - FNCL,XC - PVT
+115,FINCABLES,0.089,0.911,0.0,-0.099,85.54,Finolex Cables Limited,XC - INDS,XC - CAG
+116,FINPIPE,0.0,1.0,0.0,0.0,107.31,Finolex Industries Limited,XC - MTRL,XC - CHM
+117,FLUOROCHEM,0.0,1.0,0.0,0.0,306.2,Gujarat Fluorochemicals Limited,XC - MTRL,XC - CHM
+118,FORTIS,0.0,1.0,0.0,0.0,214.45,Fortis Healthcare Limited,XC - HECA,XC - HCS
+119,FSL,0.0,0.648,0.352,0.663,73.11,Firstsource Solutions Limited,XC - INTH,XC - ITS
+120,GAIL,0.0,1.0,0.0,0.0,639.43,GAIL (India) Limited,XC - ENRG,XC - ODE
+121,GALAXYSURF,0.11,0.786,0.105,-0.013,83.04,Galaxy Surfactants Limited,XC - MTRL,XC - CHM
+122,GESHIP,0.074,0.684,0.24,0.523,92.72,The Great Eastern Shipping Company Limited,XC - INDS,XC - SHP
+123,GLAND,0.0,0.918,0.082,0.165,234.43,Gland Pharma Limited,XC - HECA,XC - PHR
+124,GLAXO,0.0,1.0,0.0,0.0,221.02,GlaxoSmithKline Pharmaceuticals Limited,XC - HECA,XC - PHR
+125,GLENMARK,0.0,0.964,0.036,0.062,118.27,Glenmark Pharmaceuticals Limited,XC - HECA,XC - PHR
+126,GMMPFAUDLR,0.0,0.886,0.114,0.127,71.11,GMM Pfaudler Limited,XC - INDS,XC - CAG
+127,GMRINFRA,0.0,1.0,0.0,0.0,245.06,GMR Airports Infrastructure Limited,XC - INDS,XC - CNS
+128,GNFC,0.058,0.942,0.0,-0.106,88.1,Gujarat Narmada Valley Fertilizers and Chemicals Limited,XC - MTRL,XC - CHM
+129,GOCOLORS,0.0,1.0,0.0,0.0,64.44,Go Fashion (India) Limited,XC - CODI,XC - RTL
+130,GODREJAGRO,0.0,1.0,0.0,0.0,88.36,Godrej Agrovet Limited,XC - COST,XC - HPP
+131,GODREJCP,0.0,0.905,0.096,0.191,950.19,Godrej Consumer Products Limited,XC - COST,XC - HPP
+132,GODREJIND,0.0,1.0,0.0,0.0,148.84,Godrej Industries Limited,XC - COST,XC - HPP
+133,GODREJPROP,0.0,1.0,0.0,0.0,346.91,Godrej Properties Limited,XC - RLES,XC - REM
+134,GPPL,0.0,1.0,0.0,0.0,46.6,Gujarat Pipavav Port Limited,XC - INDS,XC - SHP
+135,GRANULES,0.0,1.0,0.0,0.0,75.81,Granules India Limited,XC - HECA,XC - PHR
+136,GRAPHITE,0.219,0.571,0.21,-0.026,72.02,Graphite India Limited,XC - INDS,XC - CAG
+137,GRASIM,0.0,1.0,0.0,0.0,1103.81,Grasim Industries Limited,XC - MTRL,XC - CMT
+138,GRINDWELL,0.0,1.0,0.0,0.0,214.83,Grindwell Norton Limited,XC - INDS,XC - CAG
+139,GRINFRA,0.0,1.0,0.0,0.0,116.53,G R Infraprojects Limited,XC - INDS,XC - CNS
+140,GSFC,0.0,0.864,0.136,0.191,53.42,Gujarat State Fertilizers & Chemicals Limited,XC - MTRL,XC - FRT
+141,HAPPSTMNDS,0.0,0.524,0.476,0.79,129.45,Happiest Minds Technologies Limited,XC - INTH,XC - ITS
+142,HATSUN,0.0,1.0,0.0,0.0,198.12,Hatsun Agro Product Limited,XC - COST,XC - FOP
+143,HAVELLS,0.0,1.0,0.0,0.0,753.57,Havells India Limited,XC - CODI,XC - COD
+144,HCLTECH,0.016,0.933,0.051,0.057,3026.14,HCL Technologies Limited,XC - INTH,XC - ITS
+145,HDFC,0.0,0.959,0.041,0.064,4902.36,Housing Development Finance Corporation Limited,XC - FNCL,XC - NFC
+146,HDFCBANK,0.0,0.959,0.041,0.073,9130.82,HDFC Bank Limited,XC - FNCL,XC - PVT
+147,HEG,0.0,1.0,0.0,0.0,42.18,HEG Limited,XC - INDS,XC - CAG
+148,HEROMOTOCO,0.0,0.651,0.349,0.557,553.52,Hero MotoCorp Limited,XC - CODI,XC - ATO
+149,HFCL,0.0,0.787,0.213,0.226,99.34,HFCL Limited,XC - COSE,XC - TEL
+150,HINDALCO,0.0,1.0,0.0,0.0,1130.23,Hindalco Industries Limited,XC - MTRL,XC - MTL
+151,HINDCOPPER,0.0,1.0,0.0,0.0,126.2,Hindustan Copper Limited,XC - MTRL,XC - MTL
+152,HINDPETRO,0.067,0.783,0.15,0.082,345.13,Hindustan Petroleum Corporation Limited,XC - ENRG,XC - REF
+153,HINDUNILVR,0.0,1.0,0.0,0.0,6311.47,Hindustan Unilever Limited,XC - COST,XC - HPP
+154,HINDZINC,0.0,1.0,0.0,0.0,1526.82,Hindustan Zinc Limited,XC - MTRL,XC - MTL
+155,HOMEFIRST,0.0,1.0,0.0,0.0,64.1,Home First Finance Company India Limited,XC - FNCL,XC - NFC
+156,IBREALEST,0.0,1.0,0.0,0.0,41.44,Indiabulls Real Estate Limited,XC - RLES,XC - REM
+157,ICICIBANK,0.089,0.769,0.142,0.063,6067.17,ICICI Bank Limited,XC - FNCL,XC - PVT
+158,ICICIGI,0.0,0.965,0.035,0.073,589.39,ICICI Lombard General Insurance Company Limited,XC - FNCL,XC - NFC
+159,ICICIPRULI,0.0,0.951,0.049,0.11,701.08,ICICI Prudential Life Insurance Company Limited,XC - FNCL,XC - NFC
+160,IDBI,0.0,0.94,0.06,0.123,590.31,IDBI Bank Limited,XC - FNCL,XC - PSU
+161,IDEA,0.0,1.0,0.0,0.0,234.47,Vodafone Idea Limited,XC - FNCL,XC - NFC
+162,IDEA,0.0,1.0,0.0,0.0,234.47,Vodafone Idea Limited,XC - COSE,XC - TEL
+163,IDFC,0.0,1.0,0.0,0.0,139.68,IDFC Limited,XC - FNCL,XC - NFC
+164,IEX,0.0,0.675,0.325,0.527,125.36,Indian Energy Exchange Limited,XC - FNCL,XC - NFC
+165,IIFL,0.0,0.902,0.098,0.201,193.16,IIFL Finance Limited,XC - FNCL,XC - NFC
+166,INDHOTEL,0.026,0.954,0.021,-0.027,431.52,The Indian Hotels Company Limited,XC - CODI,XC - HSP
+167,INDIAMART,0.0,1.0,0.0,0.0,138.09,Indiamart Intermesh Limited,XC - INTH,XC - INT
+168,INDIANB,0.0,1.0,0.0,0.0,349.47,Indian Bank,XC - FNCL,XC - PSU
+169,INDIGO,0.0,0.941,0.059,0.043,803.43,InterGlobe Aviation Limited,XC - INDS,XC - LGT
+170,INDIGOPNTS,0.239,0.761,0.0,-0.296,59.92,Indigo Paints Limited,XC - COST,XC - HPP
+171,INDUSINDBK,0.031,0.877,0.092,0.114,948.33,IndusInd Bank Limited,XC - FNCL,XC - PVT
+172,INDUSTOWER,0.0,1.0,0.0,0.0,477.14,Indus Towers Limited,XC - COSE,XC - TEL
+173,INFIBEAM,0.0,1.0,0.0,0.0,47.91,Infibeam Avenues Limited,XC - INTH,XC - INT
+174,INFY,0.0,0.887,0.113,0.168,6503.17,Infosys Limited,XC - INTH,XC - ITS
+175,INOXLEISUR,0.0,1.0,0.0,0.0,60.21,INOX Leisure Limited,XC - COSE,XC - MDA
+176,INTELLECT,0.0,0.682,0.318,0.506,57.82,Intellect Design Arena Limited,XC - INTH,XC - ITS
+177,IOC,0.041,0.959,0.0,-0.064,1160.06,Indian Oil Corporation Limited,XC - ENRG,XC - REF
+178,IRB,0.068,0.932,0.0,-0.159,187.15,IRB Infrastructure Developers Limited,XC - INDS,XC - CNS
+179,IRCTC,0.0,1.0,0.0,0.0,512.12,Indian Railway Catering And Tourism Corporation Limited,XC - CODI,XC - HSP
+180,ISEC,0.0,0.694,0.306,0.296,165.32,ICICI Securities Limited,XC - FNCL,XC - NFC
+181,ITC,0.0,1.0,0.0,0.0,4153.78,ITC Limited,XC - COST,XC - FOP
+182,ITI,0.081,0.698,0.221,0.166,99.9,ITI Limited,XC - COSE,XC - TEL
+183,JAMNAAUTO,0.0,1.0,0.0,0.0,42.05,Jamna Auto Industries Limited,XC - CODI,XC - ANC
+184,JBCHEPHARM,0.0,1.0,0.0,0.0,154.12,JB Chemicals & Pharmaceuticals Limited,XC - HECA,XC - PHR
+185,JBMA,0.0,1.0,0.0,0.0,65.53,JBM Auto Limited,XC - CODI,XC - ATO
+186,JINDALSTEL,0.0,1.0,0.0,0.0,613.12,Jindal Steel & Power Limited,XC - MTRL,XC - MTL
+187,JKCEMENT,0.055,0.754,0.191,0.267,229.26,JK Cement Limited,XC - MTRL,XC - CMT
+188,JKLAKSHMI,0.0,0.655,0.345,0.388,87.88,JK Lakshmi Cement Limited,XC - MTRL,XC - CMT
+189,JKPAPER,0.0,0.603,0.397,0.388,69.74,JK Paper Limited,XC - CODI,XC - COD
+190,JMFINANCIL,0.0,1.0,0.0,0.0,69.13,JM Financial Limited,XC - FNCL,XC - NFC
+191,JSL,0.0,1.0,0.0,0.0,127.91,Jindal Stainless Limited,XC - MTRL,XC - MTL
+192,JSWENERGY,0.0,0.774,0.226,0.26,435.59,JSW Energy Limited,XC - UTLT,XC - PGD
+193,JSWSTEEL,0.074,0.892,0.035,-0.1,1854.37,JSW Steel Limited,XC - MTRL,XC - MTL
+194,JUBLFOOD,0.0,0.742,0.258,0.612,332.43,Jubilant Foodworks Limited,XC - CODI,XC - RTL
+195,JUBLINGREA,0.0,0.556,0.444,0.612,79.26,Jubilant Ingrevia Limited,XC - MTRL,XC - CHM
+196,JUBLPHARMA,0.0,0.506,0.494,0.689,56.95,Jubilant Pharmova Limited,XC - HECA,XC - PHR
+197,JUSTDIAL,0.0,0.974,0.026,0.055,56.91,Just Dial Limited,XC - INTH,XC - INT
+198,JYOTHYLAB,0.223,0.777,0.0,-0.318,75.28,Jyothy Labs Limited,XC - COST,XC - HPP
+199,KAJARIACER,0.0,1.0,0.0,0.0,170.39,Kajaria Ceramics Limited,XC - INDS,XC - CNS
+200,KALPATPOWR,0.0,0.787,0.213,0.314,77.31,Kalpataru Power Transmission Limited,XC - UTLT,XC - PTD
+201,KALYANKJIL,0.0,0.912,0.088,0.186,122.58,Kalyan Jewellers India Limited,XC - CODI,XC - RTL
+202,KARURVYSYA,0.0,0.864,0.136,0.191,84.85,Karur Vysya Bank Limited,XC - FNCL,XC - PVT
+203,KEC,0.11,0.786,0.105,-0.013,125.61,KEC International Limited,XC - INDS,XC - CAG
+204,KEI,0.0,1.0,0.0,0.0,132.3,KEI Industries Limited,XC - INDS,XC - CAG
+205,KIMS,0.0,0.939,0.061,0.147,119.22,Krishna Institute of Medical Sciences Limited,XC - HECA,XC - HCS
+206,KOTAKBANK,0.043,0.957,0.0,-0.079,3573.17,Kotak Mahindra Bank Limited,XC - FNCL,XC - PVT
+207,KPRMILL,0.0,1.0,0.0,0.0,176.7,K.P.R. Mill Limited,XC - CODI,XC - TXT
+208,KRBL,0.0,1.0,0.0,0.0,95.54,KRBL Limited,XC - COST,XC - FOP
+209,LALPATHLAB,0.0,1.0,0.0,0.0,179.94,Dr. Lal Path Labs Ltd.,XC - HECA,XC - HCS
+210,LATENTVIEW,0.0,1.0,0.0,0.0,74.66,Latent View Analytics Limited,XC - INTH,XC - INT
+211,LAURUSLABS,0.077,0.923,0.0,-0.113,191.03,Laurus Labs Limited,XC - HECA,XC - PHR
+212,LAXMIMACH,0.0,1.0,0.0,0.0,121.96,Lakshmi Machine Works Limited,XC - INDS,XC - CAG
+213,LEMONTREE,0.0,1.0,0.0,0.0,60.13,Lemon Tree Hotels Limited,XC - CODI,XC - HSP
+214,LICHSGFIN,0.134,0.716,0.15,0.081,218.04,LIC Housing Finance Limited,XC - FNCL,XC - NFC
+215,LICI,0.0,1.0,0.0,0.0,4469.24,Life Insurance Corporation Of India,XC - FNCL,XC - NFC
+216,LINDEINDIA,0.0,1.0,0.0,0.0,287.71,Linde India Limited,XC - MTRL,XC - CHM
+217,LINDEINDIA,0.0,1.0,0.0,0.0,287.71,Linde India Limited,XC - ENRG,XC - ODE
+218,LODHA,0.0,1.0,0.0,0.0,533.24,Macrotech Developers Limited,XC - RLES,XC - REM
+219,LT,0.031,0.882,0.087,0.087,3185.26,Larsen & Toubro Limited,XC - INDS,XC - CAG
+220,LTIM,0.0,1.0,0.0,0.0,1264.17,LTIMindtree Limited,XC - INTH,XC - ITS
+221,LTTS,0.0,0.787,0.213,0.402,361.04,L&T Technology Services Limited,XC - INTH,XC - ITS
+222,LUPIN,0.046,0.861,0.093,0.078,348.87,Lupin Limited,XC - HECA,XC - PHR
+223,LXCHEM,0.0,1.0,0.0,0.0,76.01,Laxmi Organic Industries Limited,XC - MTRL,XC - CHM
+224,MAHABANK,0.0,0.925,0.075,0.135,215.38,Bank of Maharashtra,XC - FNCL,XC - PSU
+225,MAHINDCIE,0.2,0.609,0.191,-0.026,142.51,Mahindra CIE Automotive Limited,XC - INDS,XC - CAG
+226,MAHLIFE,0.0,0.874,0.126,0.223,53.77,Mahindra Lifespace Developers Limited,XC - RLES,XC - REM
+227,MANAPPURAM,0.0,0.946,0.054,0.074,98.99,Manappuram Finance Limited,XC - FNCL,XC - NFC
+228,MAPMYINDIA,0.0,0.643,0.357,0.727,57.53,C.E. Info Systems Limited,XC - INTH,XC - INT
+229,MARICO,0.0,1.0,0.0,0.0,656.92,Marico Limited,XC - COST,XC - HPP
+230,MARUTI,0.0,0.938,0.062,0.096,2565.88,Maruti Suzuki India Limited,XC - CODI,XC - ATO
+231,MASTEK,0.0,0.902,0.098,0.129,51.02,Mastek Limited,XC - INTH,XC - ITS
+232,MAXHEALTH,0.0,1.0,0.0,0.0,438.77,Max Healthcare Institute Limited,XC - HECA,XC - HCS
+233,MCDOWELL-N,0.18,0.429,0.391,0.402,617.24,United Spirits Limited,XC - COST,XC - FOP
+234,MCX,0.0,1.0,0.0,0.0,82.43,Multi Commodity Exchange of India Limited,XC - FNCL,XC - NFC
+235,METROBRAND,0.0,0.97,0.03,0.055,234.91,Metro Brands Limited,XC - CODI,XC - RTL
+236,MFSL,0.082,0.853,0.065,-0.101,285.88,Max Financial Services Limited,XC - FNCL,XC - NFC
+237,MHRIL,0.0,0.729,0.271,0.382,52.91,Mahindra Holidays & Resorts India Limited,XC - CODI,XC - HSP
+238,MMTC,0.306,0.694,0.0,-0.296,53.62,MMTC Limited,XC - MTRL,XC - MTL
+239,MOIL,0.0,1.0,0.0,0.0,34.51,MOIL Limited,XC - MTRL,XC - MTL
+240,MOTHERSON,0.0,1.0,0.0,0.0,504.17,Samvardhana Motherson International Limited,XC - CODI,XC - ANC
+241,MOTILALOFS,0.0,1.0,0.0,0.0,109.07,Motilal Oswal Financial Services Limited,XC - FNCL,XC - NFC
+242,MRPL,0.21,0.79,0.0,-0.307,103.93,Mangalore Refinery and Petrochemicals Limited,XC - ENRG,XC - REF
+243,MTARTECH,0.0,1.0,0.0,0.0,52.0,Mtar Technologies Limited,XC - INDS,XC - CAG
+244,NATCOPHARM,0.0,1.0,0.0,0.0,98.7,Natco Pharma Limited,XC - HECA,XC - PHR
+245,NAUKRI,0.0,1.0,0.0,0.0,484.29,Info Edge (India) Limited,XC - INTH,XC - INT
+246,NAZARA,0.0,1.0,0.0,0.0,38.92,Nazara Technologies Limited,XC - INTH,XC - INT
+247,NCC,0.0,0.956,0.044,0.057,57.95,NCC Limited,XC - INDS,XC - CNS
+248,NETWORK18,0.0,1.0,0.0,0.0,65.8,Network18 Media & Investments Limited,XC - COSE,XC - MDA
+249,NH,0.0,1.0,0.0,0.0,152.96,Narayana Hrudayalaya Ltd.,XC - HECA,XC - PHR
+250,NHPC,0.0,1.0,0.0,0.0,422.39,NHPC Limited,XC - UTLT,XC - PGD
+251,NIACL,0.0,0.745,0.255,0.34,208.47,The New India Assurance Company Limited,XC - FNCL,XC - NFC
+252,NLCINDIA,0.219,0.571,0.21,-0.026,114.4,NLC India Limited,XC - UTLT,XC - PGD
+253,NOCIL,0.0,1.0,0.0,0.0,37.78,NOCIL Limited,XC - MTRL,XC - CHM
+254,NTPC,0.0,1.0,0.0,0.0,1643.1,NTPC Limited,XC - UTLT,XC - PGD
+255,NUVOCO,0.0,1.0,0.0,0.0,135.76,Nuvoco Vistas Corporation Limited,XC - MTRL,XC - CMT
+256,OFSS,0.0,0.93,0.07,0.147,269.06,Oracle Financial Services Software Limited,XC - INTH,XC - ITS
+257,OIL,0.0,1.0,0.0,0.0,252.83,Oil India Limited,XC - ENRG,XC - ODE
+258,ONGC,0.043,0.957,0.0,-0.043,1877.61,Oil & Natural Gas Corporation Limited,XC - ENRG,XC - ODE
+259,ORIENTELEC,0.0,1.0,0.0,0.0,55.72,Orient Electric Limited,XC - CODI,XC - COD
+260,PAYTM,0.0,0.936,0.064,0.127,345.25,One 97 Communications Limited,XC - INTH,XC - INT
+261,PERSISTENT,0.0,0.86,0.14,0.234,302.61,Persistent Systems Limited,XC - INTH,XC - ITS
+262,PGHH,0.0,0.726,0.274,0.494,450.06,Procter & Gamble Hygiene and Health Care Limited,XC - COST,XC - HPP
+263,PHOENIXLTD,0.0,1.0,0.0,0.0,251.4,The Phoenix Mills Limited,XC - RLES,XC - REM
+264,PIDILITIND,0.0,0.94,0.06,0.074,1265.01,Pidilite Industries Limited,XC - MTRL,XC - CHM
+265,PIIND,0.0,1.0,0.0,0.0,493.07,PI Industries Limited,XC - MTRL,XC - FRT
+266,PNB,0.0,1.0,0.0,0.0,624.88,Punjab National Bank,XC - FNCL,XC - PSU
+267,PNBHOUSING,0.0,1.0,0.0,0.0,93.13,PNB Housing Finance Limited,XC - FNCL,XC - NFC
+268,PNCINFRA,0.0,0.838,0.162,0.231,83.64,PNC Infratech Limited,XC - INDS,XC - CNS
+269,POLICYBZR,0.0,1.0,0.0,0.0,200.3,PB Fintech Limited,XC - INTH,XC - INT
+270,POLYCAB,0.0,1.0,0.0,0.0,412.23,Polycab India Limited,XC - INDS,XC - CAG
+271,POLYMED,0.0,1.0,0.0,0.0,83.92,Poly Medicure Limited,XC - HECA,XC - HCS
+272,POONAWALLA,0.0,0.925,0.075,0.127,230.57,Poonawalla Fincorp Limited,XC - FNCL,XC - NFC
+273,POWERGRID,0.0,1.0,0.0,0.0,1530.07,Power Grid Corporation of India Limited,XC - UTLT,XC - PGD
+274,POWERINDIA,0.183,0.476,0.341,0.25,138.17,Hitachi Energy India Limited,XC - INDS,XC - CAG
+275,PRAJIND,0.0,1.0,0.0,0.0,64.99,Praj Industries Limited,XC - INDS,XC - CAG
+276,PRIVISCL,0.0,0.834,0.166,0.271,42.96,Privi Speciality Chemicals Limited,XC - MTRL,XC - CHM
+277,PRSMJOHNSN,0.0,1.0,0.0,0.0,52.0,Prism Johnson Limited,XC - MTRL,XC - CMT
+278,PVR,0.0,1.0,0.0,0.0,102.27,PVR Limited,XC - COSE,XC - MDA
+279,QUESS,0.0,1.0,0.0,0.0,57.34,Quess Corp Limited,XC - INDS,XC - CAG
+280,RALLIS,0.0,0.867,0.133,0.22,47.74,Rallis India Limited,XC - MTRL,XC - FRT
+281,RAMCOCEM,0.0,0.834,0.166,0.271,168.75,The Ramco Cements Limited,XC - MTRL,XC - CMT
+282,RAYMOND,0.124,0.876,0.0,-0.159,101.6,Raymond Limited,XC - CODI,XC - TXT
+283,RBA,0.0,1.0,0.0,0.0,56.52,Restaurant Brands Asia Limited,XC - COST,XC - FOP
+284,RBLBANK,0.211,0.612,0.177,-0.128,103.39,RBL Bank Limited,XC - FNCL,XC - PVT
+285,RCF,0.0,1.0,0.0,0.0,69.93,Rashtriya Chemicals and Fertilizers Limited,XC - MTRL,XC - FRT
+286,RECLTD,0.0,1.0,0.0,0.0,325.73,REC Limited,XC - FNCL,XC - NFC
+287,RELAXO,0.0,0.892,0.108,0.148,220.6,Relaxo Footwears Limited,XC - CODI,XC - COD
+288,RELIANCE,0.019,0.859,0.122,0.182,16742.54,Reliance Industries Limited,XC - ENRG,XC - REF
+289,RENUKA,0.0,1.0,0.0,0.0,116.64,Shree Renuka Sugars Limited,XC - COST,XC - SGR
+290,RHIM,0.0,1.0,0.0,0.0,137.62,RHI MAGNESITA INDIA LIMITED,XC - MTRL,XC - MTL
+291,RITES,0.0,1.0,0.0,0.0,81.82,RITES Limited,XC - INDS,XC - CNS
+292,ROSSARI,0.0,1.0,0.0,0.0,39.28,Rossari Biotech Limited,XC - MTRL,XC - CHM
+293,ROUTE,0.0,0.499,0.501,0.701,74.32,ROUTE MOBILE LIMITED,XC - INTH,XC - INT
+294,RTNINDIA,0.0,1.0,0.0,0.0,64.0,RattanIndia Enterprises Limited,XC - UTLT,XC - PGD
+295,RVNL,0.03,0.938,0.032,-0.026,162.94,Rail Vikas Nigam Limited,XC - INDS,XC - CNS
+296,SANOFI,0.11,0.786,0.105,-0.013,130.42,Sanofi India Limited,XC - HECA,XC - PHR
+297,SAPPHIRE,0.0,1.0,0.0,0.0,83.2,Sapphire Foods India Limited,XC - COST,XC - FOP
+298,SBICARD,0.0,0.822,0.178,0.382,723.56,SBI Cards and Payment Services Limited,XC - FNCL,XC - NFC
+299,SBIN,0.0,0.928,0.072,0.111,5278.46,State Bank of India,XC - FNCL,XC - PSU
+300,SCHAEFFLER,0.0,1.0,0.0,0.0,418.89,Schaeffler India Limited,XC - CODI,XC - ANC
+301,SFL,0.0,1.0,0.0,0.0,122.32,Sheela Foam Limited,XC - CODI,XC - COD
+302,SHARDACROP,0.0,1.0,0.0,0.0,42.67,Sharda Cropchem Limited,XC - MTRL,XC - FRT
+303,SHREECEM,0.0,1.0,0.0,0.0,868.1,SHREE CEMENT LIMITED,XC - MTRL,XC - CMT
+304,SHRIRAMFIN,0.0,0.98,0.02,0.029,480.76,Shriram Finance Limited,XC - FNCL,XC - NFC
+305,SHYAMMETL,0.0,0.78,0.22,0.273,77.6,Shyam Metalics and Energy Limited,XC - MTRL,XC - MTL
+306,SIEMENS,0.0,1.0,0.0,0.0,1091.38,Siemens Limited,XC - INDS,XC - CAG
+307,SJVN,0.0,0.89,0.11,0.18,134.01,SJVN Limited,XC - UTLT,XC - PGD
+308,SKFINDIA,0.073,0.857,0.07,-0.009,224.18,SKF India Limited,XC - CODI,XC - ANC
+309,SOBHA,0.0,0.923,0.077,0.113,56.28,Sobha Limited,XC - RLES,XC - REM
+310,SOLARINDS,0.0,1.0,0.0,0.0,384.09,Solar Industries India Limited,XC - MTRL,XC - CHM
+311,SONACOMS,0.0,0.888,0.112,0.247,245.83,Sona BLW Precision Forgings Limited,XC - CODI,XC - ANC
+312,SONATSOFTW,0.036,0.928,0.035,-0.004,81.76,Sonata Software Limited,XC - INTH,XC - ITS
+313,SPARC,0.0,0.806,0.194,0.25,56.97,Sun Pharma Advanced Research Company Limited,XC - HECA,XC - PHR
+314,STLTECH,0.112,0.889,0.0,-0.159,73.36,Sterlite Technologies Limited,XC - COSE,XC - TEL
+315,SUDARSCHEM,0.0,1.0,0.0,0.0,26.39,Sudarshan Chemical Industries Limited,XC - MTRL,XC - CHM
+316,SUNDRMFAST,0.0,0.782,0.218,0.266,208.89,Sundram Fasteners Limited,XC - CODI,XC - ANC
+317,SUNPHARMA,0.0,1.0,0.0,0.0,2495.55,Sun Pharmaceutical Industries Limited,XC - HECA,XC - PHR
+318,SUPRAJIT,0.0,1.0,0.0,0.0,45.05,Suprajit Engineering Limited,XC - CODI,XC - ANC
+319,SUVENPHAR,0.0,0.949,0.051,0.067,126.01,Suven Pharmaceuticals Limited,XC - HECA,XC - PHR
+320,SUZLON,0.0,0.656,0.344,0.273,98.72,Suzlon Energy Limited,XC - INDS,XC - CAG
+321,SWANENERGY,0.0,0.741,0.259,0.273,90.13,Swan Energy Limited,XC - CODI,XC - TXT
+322,SWSOLAR,0.0,0.792,0.208,0.273,49.83,Sterling and Wilson Renewable Energy Limited,XC - UTLT,XC - PGD
+323,SYNGENE,0.0,1.0,0.0,0.0,245.8,Syngene International Limited,XC - HECA,XC - PHR
+324,TATACHEM,0.0,1.0,0.0,0.0,254.49,Tata Chemicals Limited,XC - MTRL,XC - CHM
+325,TATACOFFEE,0.073,0.857,0.07,-0.009,40.37,Tata Coffee Limited,XC - COST,XC - FOP
+326,TATACOMM,0.0,0.928,0.072,0.099,395.61,Tata Communications Limited,XC - COSE,XC - TEL
+327,TATACONSUM,0.086,0.832,0.082,-0.011,697.22,TATA CONSUMER PRODUCTS LIMITED,XC - COST,XC - FOP
+328,TATAELXSI,0.11,0.786,0.105,-0.013,390.03,Tata Elxsi Limited,XC - INTH,XC - ITS
+329,TATAINVEST,0.04,0.877,0.083,0.083,112.36,Tata Investment Corporation Limited,XC - FNCL,XC - NFC
+330,TATAMOTORS,0.03,0.946,0.024,0.002,1356.43,Tata Motors Limited,XC - CODI,XC - ATO
+331,TATAPOWER,0.023,0.907,0.07,0.081,663.03,Tata Power Company Limited,XC - UTLT,XC - PGD
+332,TATASTEEL,0.021,0.927,0.052,0.036,1496.49,TATA Steel Limited,XC - MTRL,XC - MTL
+333,TCI,0.061,0.88,0.059,-0.009,49.84,Transport Corporation of India Limited,XC - INDS,XC - LGT
+334,TCIEXP,0.11,0.786,0.105,-0.013,70.78,TCI Express Limited,XC - INDS,XC - LGT
+335,TCS,0.0,0.863,0.137,0.241,12404.18,Tata Consultancy Services Limited,XC - INTH,XC - ITS
+336,TEAMLEASE,0.0,1.0,0.0,0.0,42.19,Teamlease Services Limited,XC - INTH,XC - ITS
+337,TECHM,0.0,0.94,0.06,0.074,1020.86,Tech Mahindra Limited,XC - INTH,XC - ITS
+338,TITAN,0.0,0.804,0.196,0.242,2152.08,Titan Company Limited,XC - CODI,XC - COD
+339,TORNTPOWER,0.223,0.777,0.0,-0.318,230.48,Torrent Power Limited,XC - UTLT,XC - PGD
+340,TRENT,0.081,0.842,0.077,-0.009,434.69,Trent Limited,XC - CODI,XC - RTL
+341,TRIDENT,0.0,1.0,0.0,0.0,170.2,Trident Limited,XC - CODI,XC - TXT
+342,TRIVENI,0.0,1.0,0.0,0.0,69.06,Triveni Engineering & Industries Limited,XC - INDS,XC - CAG
+343,TTKPRESTIG,0.0,0.912,0.088,0.089,108.56,TTK Prestige Limited,XC - CODI,XC - COD
+344,TV18BRDCST,0.0,0.939,0.061,0.11,61.46,TV18 Broadcast Limited,XC - COSE,XC - MDA
+345,TVSMOTOR,0.0,1.0,0.0,0.0,476.06,TVS Motor Company Limited,XC - CODI,XC - ATO
+346,UBL,0.133,0.474,0.393,0.407,426.66,United Breweries Limited,XC - COST,XC - FOP
+347,UCOBANK,0.0,0.935,0.065,0.099,371.23,UCO Bank,XC - FNCL,XC - PSU
+348,UFLEX,0.247,0.753,0.0,-0.318,41.09,UFLEX Limited,XC - INDS,XC - CAG
+349,ULTRACEMCO,0.0,1.0,0.0,0.0,2102.58,UltraTech Cement Limited,XC - MTRL,XC - CMT
+350,UNIONBANK,0.0,0.887,0.113,0.217,555.32,Union Bank of India,XC - FNCL,XC - PSU
+351,UNOMINDA,0.0,0.857,0.143,0.247,297.59,UNO Minda Limited,XC - CODI,XC - ANC
+352,UPL,0.0,1.0,0.0,0.0,549.71,UPL Limited,XC - MTRL,XC - CHM
+353,VARROC,0.0,1.0,0.0,0.0,44.19,Varroc Engineering Limited,XC - CODI,XC - ANC
+354,VEDL,0.117,0.76,0.123,-0.048,1204.93,Vedanta Limited,XC - MTRL,XC - MTL
+355,VGUARD,0.0,0.92,0.08,0.099,108.42,V-Guard Industries Limited,XC - INDS,XC - CAG
+356,VINATIORGA,0.067,0.933,0.0,-0.074,203.02,Vinati Organics Limited,XC - MTRL,XC - CHM
+357,VMART,0.0,1.0,0.0,0.0,55.68,V-Mart Retail Limited,XC - CODI,XC - RTL
+358,VTL,0.0,1.0,0.0,0.0,89.27,Vardhman Textiles Limited,XC - CODI,XC - TXT
+359,WELCORP,0.0,1.0,0.0,0.0,59.05,Welspun Corp Limited,XC - MTRL,XC - MTL
+360,WELSPUNIND,0.0,0.883,0.117,0.174,71.98,Welspun India Limited,XC - CODI,XC - TXT
+361,WESTLIFE,0.0,1.0,0.0,0.0,110.14,WESTLIFE FOODWORLD LIMITED,XC - CODI,XC - HSP
+362,WIPRO,0.0,0.962,0.038,0.063,2212.34,Wipro Limited,XC - INTH,XC - ITS
+363,YESBANK,0.0,0.688,0.312,0.402,585.13,Yes Bank Limited,XC - FNCL,XC - PVT
+364,ZENSARTECH,0.0,1.0,0.0,0.0,49.45,Zensar Technologies Limited,XC - INTH,XC - ITS
+365,ZYDUSLIFE,0.044,0.79,0.167,0.233,448.86,Zydus Lifesciences Limited,XC - HECA,XC - PHR
+366,ZYDUSWELL,0.092,0.518,0.389,0.431,93.79,Zydus Wellness Limited,XC - COST,XC - HPP
+>>>>>>> refs/remotes/origin/main
