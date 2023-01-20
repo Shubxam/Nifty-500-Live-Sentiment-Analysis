@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from pprint import pprint
 from nsepython import *
 import datetime
+import pytz
 #import time
 
 import nltk
@@ -136,6 +137,7 @@ final_df = pd.merge(final_df, xc_indices, left_on='Ticker', right_on='Ticker', h
 final_df.columns = ['Symbol', 'Negative', 'Neutral', 'Positive', 'Sentiment Score','MCap (Billion)', 'Company Name', 'Sector', 'Industry']
 
 final_df = final_df.dropna()
+final_df = final_df.round(3)
 
 final_df.to_csv('sentiment_data.csv')
 
@@ -153,8 +155,9 @@ fig.update_layout(margin = dict(t=30, l=10, r=10, b=10), font_size=20)
 
 # Get current date, time and timezone to print to the html page
 now = datetime.datetime.now()
+IST = pytz.timezone('Asia/Kolkata')
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-timezone_string = datetime.datetime.now().astimezone().tzname()
+timezone_string = datetime.datetime.now(IST).astimezone().tzname()
 
 # Generate HTML File with Updated Time and Treemap
 print('Writing HTML')
