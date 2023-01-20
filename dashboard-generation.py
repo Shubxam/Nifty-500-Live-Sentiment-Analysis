@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
 from nsepython import *
-from datetime import datetime
+import datetime
 #import time
 
 import nltk
@@ -23,18 +23,22 @@ nifty_500_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty500li
 nifty_200_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty200list.csv'
 nifty_100_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty100list.csv'
 nifty_50_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty50list.csv'
-tickers_file = pd.read_csv(nifty_50_ticker_url)
+tickers_file = pd.read_csv(nifty_500_ticker_url)
 tickers_df = tickers_file[['Symbol', 'Company Name']]
 tickers = tickers_df['Symbol']
 
 # Get articles and put them into a df
 news_url = 'https://ticker.finology.in/company/'
 
+#import XC indices
+xc_indices = pd.read_csv('XC-tickers.csv', header=0)
+
 # list to store article data
 data = []
 unavailable_tickers = []
 companies_len = len(tickers)
 length = companies_len
+days_limit = datetime.datetime.now() - datetime.timedelta(days=30) #only 30 days old or newer articles
 print('Fetching Article data..')
 for i in range(length):
     print(i, tickers[i])
@@ -48,13 +52,20 @@ for i in range(length):
         unavailable_tickers.append(tickers[i])
         # delete all ticker from tickers and tickers_df together #todo
         continue
+    new_articles_counter = 0
     for link in news_links:
         title = link.find('span', class_='h6').text
         #separate date and time from datetime object
-        date_time_obj = datetime.strptime(link.find('small').text, '%d %b %Y, %I:%M%p')
+        date_time_obj = datetime.datetime.strptime(link.find('small').text, '%d %b %Y, %I:%M%p')
+        if (date_time_obj <= days_limit):
+             continue
         art_date = date_time_obj.date().strftime('%Y/%m/%d')
         art_time = date_time_obj.time().strftime('%H:%M')
-        data.append([tickers[i], title, art_date, art_time])  
+        data.append([tickers[i], title, art_date, art_time])
+        new_articles_counter += 1
+    if(new_articles_counter==0):
+        unavailable_tickers.append(tickers[i])  
+    
     '''if (i != 0 and i%200 == 0):
         print('sleeping')
         time.sleep(30)'''
@@ -78,6 +89,7 @@ final_df = new_df.groupby('Ticker').mean()
 sector = []
 industry = []
 mCap = []
+companyName = []
 new_length = len(tickers)
 #new_length = 10
 print('Fetching industry data')
@@ -91,6 +103,7 @@ for i in range(new_length):
         sector.append(np.nan)
         industry.append(np.nan)
         mCap.append(np.nan)
+        companyName.append(np.nan)
         continue
     #pprint('Sector: {}'.format(meta['industryInfo']['macro']))
     try:
@@ -99,6 +112,7 @@ for i in range(new_length):
         print('{} is not available'.format(tickers[i]))
         industry.append(np.nan)
         mCap.append(np.nan)
+        companyName.append(np.nan)
         continue
     #pprint('Industry: {}'.format(meta['industryInfo']['sector']))
     try:
@@ -106,16 +120,24 @@ for i in range(new_length):
     except KeyError:
         print('{} is not available'.format(tickers[i]))
         mCap.append(np.nan)
+        companyName.append(np.nan)
+    try:
+        companyName.append(meta['info']['companyName'])
+    except KeyError:
+        print('{} is not available'.format(tickers[i]))
+        companyName.append(np.nan)
+    
     #print('market cap is Rs {}'.format(ticker_mcap))
     #print('\n')
 
-final_df['sector'] = sector
-final_df['industry'] = industry
+#final_df['sector'] = sector
+#final_df['industry'] = industry
 final_df['mCap (Billion)'] = mCap
+final_df['Company Name'] = companyName
 
 final_df = final_df.reset_index()
-final_df = pd.merge(final_df, tickers_df, left_on='Ticker', right_on='Symbol').drop('Symbol', axis=1)
-final_df.columns = ['Symbol', 'Negative', 'Neutral', 'Positive', 'Sentiment Score', 'Sector', 'Industry', 'MCap (Billion)', 'Company Name']
+final_df = pd.merge(final_df, xc_indices, left_on='Ticker', right_on='Ticker', how='inner')
+final_df.columns = ['Symbol', 'Negative', 'Neutral', 'Positive', 'Sentiment Score','MCap (Billion)', 'Company Name', 'Sector', 'Industry']
 
 final_df = final_df.dropna()
 
@@ -134,9 +156,9 @@ fig.update_layout(margin = dict(t=30, l=10, r=10, b=10), font_size=20)
 
 
 # Get current date, time and timezone to print to the html page
-now = datetime.now()
+now = datetime.datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-timezone_string = datetime.now().astimezone().tzname()
+timezone_string = datetime.datetime.now().astimezone().tzname()
 
 # Generate HTML File with Updated Time and Treemap
 print('Writing HTML')
