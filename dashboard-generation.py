@@ -24,7 +24,7 @@ nifty_500_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty500li
 nifty_200_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty200list.csv'
 nifty_100_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty100list.csv'
 nifty_50_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty50list.csv'
-tickers_file = pd.read_csv(nifty_500_ticker_url)
+tickers_file = pd.read_csv(nifty_50_ticker_url)
 tickers_df = tickers_file[['Symbol', 'Company Name']]
 tickers = tickers_df['Symbol']
 
@@ -118,6 +118,7 @@ for i in range(new_length):
         print('{} is not available'.format(tickers[i]))
         mCap.append(np.nan)
         companyName.append(np.nan)
+        continue
     try:
         companyName.append(meta['info']['companyName'])
     except KeyError:
