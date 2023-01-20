@@ -153,5 +153,5 @@ st.plotly_chart(fig,height=800,use_container_width=True)
 st.write('''The chart above depicts the real time sentiment of Stocks and Industries in the Nifty 500 Universe.\n
 The following table could be used as reference to identify sector and industry names.''') 
 st.dataframe(xc_indices)
-st.write('''[github repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis) [Reference Article]()''')
+st.write('''[github repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis)<br>[Companion Article]()''')
 st.write('''This dashboard is updated everyday at 17:30 IST with sentiment analysis performed on latest scraped news headlines from the Ticker-Finology website.''')
