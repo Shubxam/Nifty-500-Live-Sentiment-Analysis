@@ -24,7 +24,7 @@ nifty_500_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty500li
 nifty_200_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty200list.csv'
 nifty_100_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty100list.csv'
 nifty_50_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty50list.csv'
-tickers_file = pd.read_csv(nifty_50_ticker_url)
+tickers_file = pd.read_csv(nifty_500_ticker_url)
 tickers_df = tickers_file[['Symbol', 'Company Name']]
 tickers = tickers_df['Symbol']
 
@@ -156,16 +156,15 @@ fig.update_layout(margin = dict(t=30, l=10, r=10, b=10), font_size=20)
 
 # Get current date, time and timezone to print to the html page
 now = datetime.datetime.now()
-IST = pytz.timezone('Asia/Kolkata')
-dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-timezone_string = datetime.datetime.now(IST).astimezone().tzname()
+ist_timezone = pytz.timezone('Asia/Kolkata')
+dt_string = now.astimezone(ist_timezone).strftime("%d/%m/%Y %H:%M:%S")
 
 # Generate HTML File with Updated Time and Treemap
 print('Writing HTML')
 with open('NIFTY_500_live_sentiment.html', 'a') as f:
     f.truncate(0) # clear file if something is already written on it
     title = "<h1>NIFTY 500 Stock Sentiment Dashboard</h1>"
-    updated = "<h2>Last updated: " + dt_string + " (Timezone: " + timezone_string + ")</h2>"
-    description = "This dashboard is updated every half an hour with sentiment analysis performed on latest scraped news headlines.<br><br>"
+    updated = "<h2>Last updated: " + dt_string + " (Timezone: IST" + ")</h2>"
+    description = "This dashboard is updated at 17:30 IST Monday-Friday with sentiment analysis performed on latest scraped news headlines.<br><br>"
     f.write(title + updated + description)
     f.write(fig.to_html(full_html=False, include_plotlyjs='cdn')) # write the fig created above into the html file
