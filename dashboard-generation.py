@@ -14,7 +14,6 @@ import nltk
 nltk.downloader.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-import pandas as pd
 import matplotlib.pyplot as plt
 import plotly
 import plotly.express as px
@@ -24,7 +23,7 @@ nifty_500_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty500li
 nifty_200_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty200list.csv'
 nifty_100_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty100list.csv'
 nifty_50_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty50list.csv'
-tickers_file = pd.read_csv(nifty_500_ticker_url)
+tickers_file = pd.read_csv(nifty_50_ticker_url)
 tickers_df = tickers_file[['Symbol', 'Company Name']]
 tickers = tickers_df['Symbol']
 
@@ -64,6 +63,7 @@ for i in range(length):
         data.append([tickers[i], title, art_date, art_time])
         new_articles_counter += 1
     if(new_articles_counter==0):
+        print('Article length 0 for {}'.format())
         unavailable_tickers.append(tickers[i])  
 
 df = pd.DataFrame(data, columns=['Ticker', 'Headline', 'Date', 'Time'])
