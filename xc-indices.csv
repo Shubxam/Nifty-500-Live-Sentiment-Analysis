@@ -1,0 +1,27 @@
+SECTOR,SECTOR SYMBOL,INDUSTRY,INDUSTRY SYMBOL
+Communcation Services,XC - COSE,Telecom,XC - TEL
+Communcation Services,XC - COSE,Media,XC - MDA
+Consumer Discretionary        ,XC - CODI,Auto Components,XC - ANC
+Consumer Discretionary        ,XC - CODI,Automobiles,XC - ATO
+Consumer Discretionary        ,XC - CODI,Consumer Durables,XC - COD
+Consumer Discretionary        ,XC - CODI,Hospitality,XC - HSP
+Consumer Discretionary        ,XC - CODI,Retailing,XC - RTL
+Consumer Discretionary        ,XC - CODI,Textiles,XC - TXT
+Consumer Staples        ,XC - COST,FMCG,XC - FCG
+Consumer Staples        ,XC - COST,Sugar,XC - SGR
+Energy        ,XC - ENRG,Oil & Gas,XC - OLG
+Financials        ,XC - FNCL,Banking,XC - BNK
+Financials        ,XC - FNCL,NBFC,XC - NFC
+Health Care        ,XC - HECA,Pharmaceutical,XC - PHR
+Health Care        ,XC - HECA,Health Care Services,XC - HCS
+Industrials        ,XC - INDS,Capital Goods,XC - CAG
+Industrials        ,XC - INDS,Logistics,XC - LGT
+Industrials        ,XC - INDS,Shipping,XC - SHP
+Industrials        ,XC - INDS,Construction,XC - CNS
+Information Technology,XC - INTH,Information Technology,XC - INT
+Materials        ,XC - MTRL,Cement,XC - CMT
+Materials        ,XC - MTRL,Fertilizer,XC - FRT
+Materials        ,XC - MTRL,Metal & Mining,XC - MTL
+Materials        ,XC - MTRL,Chemical,XC - CHM
+Real Estate        ,XC - RLES,Real Estate,XC - RES
+Utilities        ,XC - UTLT,Power,XC - PWR
