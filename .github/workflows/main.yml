@@ -11,6 +11,7 @@ jobs:
       - name: Access the repo
         uses: actions/checkout@v3
         with:
+          path: main
           ref: main
           repository: ${{github.repository}}
           token: ${{ secrets.ST_PUSH }}
@@ -25,6 +26,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           
+      - name: Execute fetch-data python file
+        run: |
+          cd main
+          python fetch-data.py
+          
       - name: Execute python script to update sentiment page
         run: python dashboard-generation.py
 
@@ -32,7 +38,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add sentiment_data.csv NIFTY_500_live_sentiment.html
+          git add .
           git commit -m 'upload csv,html using GH Actions'
           git push --force origin main
         
