@@ -18,7 +18,7 @@ jobs:
       - name: checkout streamlit
         uses: actions/checkout@v3
         with:
-          path: 'test'
+          path: 'dest'
           ref: 'streamlit'
       
       - name: copy
