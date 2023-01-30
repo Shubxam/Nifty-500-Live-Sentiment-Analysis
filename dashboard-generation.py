@@ -15,6 +15,8 @@ if 'date_filter' not in st.session_state:
     st.session_state['date_filter'] = 'Past 1 Month'
 if 'universe_filter' not in st.session_state:
     st.session_state['universe_filter'] = 'NIFTY_100'
+if 'newsbox' not in st.session_state:
+    st.session_state['newsbox'] = 'SBIN'
 
 
 # Get current date, time and timezone to print to the App
@@ -83,6 +85,10 @@ fig.update_layout(height=800)
 fig.update_layout(margin = dict(t=30, l=10, r=10, b=10), font_size=20)
     
 
+#stock specific news section
+news_ticker_name = st.session_state.newsbox
+news_df = date_filter_article[date_filter_article['Ticker'] == news_ticker_name][['Headline','Date','compound']].reset_index(drop=True)
+
 
 
 
@@ -106,8 +112,17 @@ chart_area = st.empty()
 chart_area.plotly_chart(fig,height=800,use_container_width=True)
 
 st.markdown('The chart above depicts the real time sentiment of Stocks and Industries in the Nifty 500 Universe.')
-st.markdown('The following table could be used as reference to identify sector and industry names.') 
-st.dataframe(xc_indices)
+
+
+col_1, col_2 = st.columns(2)
+with col_1:
+    st.markdown('The following table could be used as reference to identify sector and industry names.') 
+    st.dataframe(xc_indices)
+
+with col_2:
+    st.selectbox('Type the Symbol name to get associated news: ', final_df['Symbol'], key='newsbox')
+    st.dataframe(news_df)
+
 st.markdown('''
 - [github repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis)
 - [Companion Article](https://xumitcapital.medium.com/sentiment-analysis-dashboard-using-python-d40506e2709d)
