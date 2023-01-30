@@ -1,6 +1,7 @@
 name: Copy sentiment_data.csv to streamlit branch
 
 on: 
+  push:
   schedule:
     - cron: "00 12 * * 1-5" #runs 12:00 utc (17:30 ist) monday-friday "*/30 * * * *" # runs every half hour
 
@@ -17,13 +18,13 @@ jobs:
       - name: checkout streamlit
         uses: actions/checkout@v3
         with:
-          path: 'dest'
+          path: 'test'
           ref: 'streamlit'
       
       - name: copy
         shell: bash
         run: |
-          cp src/sentiment_data.csv dest/sentiment_data.csv
+          cp src/datasets/* dest/datasets/
           
       - name: commit files
         shell: bash
