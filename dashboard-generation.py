@@ -12,9 +12,9 @@ import streamlit as st
 
 #initialize session state
 if 'date_filter' not in st.session_state:
-    st.session_state['date_filter'] = 'Past 7 days'
+    st.session_state['date_filter'] = 'Past 1 Month'
 if 'universe_filter' not in st.session_state:
-    st.session_state['universe_filter'] = 'NIFTY_50'
+    st.session_state['universe_filter'] = 'NIFTY_100'
 
 
 # Get current date, time and timezone to print to the App
@@ -76,7 +76,7 @@ fig = px.treemap(
     final_df, path=[px.Constant(universe_string), 'XC-Sector', 'XC-Industry', 'Symbol'], values= 'Market Cap (Billion Rs)', color='Sentiment Score',
     hover_data=['Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score'], color_continuous_scale=['#FF0000', "#000000", '#00FF00'], color_continuous_midpoint=0
     )
-fig.data[0].customdata = final_df[['Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']]
+#fig.data[0].customdata = final_df[['Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']]
 fig.data[0].texttemplate = "%{label}<br>%{customdata[4]}"
 fig.update_traces(textposition="middle center")
 fig.update_layout(height=800)
@@ -89,6 +89,9 @@ fig.update_layout(margin = dict(t=30, l=10, r=10, b=10), font_size=20)
 # Streamlit App
 st.set_page_config(page_title = "{} Sentiment Analyzer".format(universe_string), layout = "wide")
 st.header("{} stocks Sentiment Analyzer".format(universe_string))
+#st.subheader()
+
+st.markdown('This dashboard gives users a almost real-time comprehensive visual overview on the sentiments regarding various NIFTY indices.')
 
 # Update filters
 
@@ -102,11 +105,12 @@ chart_area = st.empty()
 
 chart_area.plotly_chart(fig,height=800,use_container_width=True)
 
-st.write('''The chart above depicts the real time sentiment of Stocks and Industries in the Nifty 500 Universe.\n
-The following table could be used as reference to identify sector and industry names.''') 
+st.markdown('The chart above depicts the real time sentiment of Stocks and Industries in the Nifty 500 Universe.')
+st.markdown('The following table could be used as reference to identify sector and industry names.') 
 st.dataframe(xc_indices)
-st.write('''
+st.markdown('''
 - [github repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis)
 - [Companion Article](https://xumitcapital.medium.com/sentiment-analysis-dashboard-using-python-d40506e2709d)
 ''')
+st.markdown('This is a treemap generated using python, plotly and streamlit.')
 st.info('''This dashboard is updated everyday at 17:30 IST with sentiment analysis performed on latest scraped news headlines from the Ticker-Finology website.''')
