@@ -248,6 +248,9 @@ for i, ticker in enumerate(tickers_list):
         companyName = np.nan
         ticker_meta.append([ticker, sector, industry, mCap, companyName])
     ticker_meta.append([ticker, sector, industry, mCap, companyName])
+end_time = time.time()
+
+print('Time Taken: {}'.format(end_time-start_time))
 
 end_time = time.time()
 time_taken = end_time - start_time
