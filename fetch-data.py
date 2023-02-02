@@ -4,6 +4,8 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 from nsepython import *
+import concurrent.futures
+import time
 
 # sentiment analysis libraries
 import nltk
@@ -26,7 +28,7 @@ nifty_50 = pd.read_csv(nifty_50_ticker_url)
 nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
 # Set universe
-universe = nifty_500
+universe = nifty_50
 
 # Read CSV & create a tickers df
 tickers_df = universe[['Symbol', 'Company Name']]
@@ -35,8 +37,14 @@ tickers_list = tickers_df['Symbol']
 # News URL
 news_url = 'https://ticker.finology.in/company/'
 
+# Header for sending requests
+header={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'}
+
 # list to store article data
 article_data = []
+
+#list to store meta data
+ticker_meta = []
 
 # list to store tickers for which data is unavailable
 unavailable_tickers = []
@@ -45,8 +53,93 @@ unavailable_tickers = []
 companies_len = len(tickers_list)
 tickers_length = companies_len
 
-#days_limit = datetime.datetime.now() - datetime.timedelta(days=30) #only 30 days old or newer articles
+#function to fetch news and meta concurrently
+def get_url_content(ticker):
+    url= '{}/{}'.format(news_url, ticker)
+    response = requests.get(url, headers=header)
+    soup = BeautifulSoup(response.content, 'lxml')
+    meta = nse_eq(ticker)
+    # scrape page contents using bs4 library
+    return ticker,soup, meta
 
+#function to parse news data and create a df
+def ticker_article_fetch(i, ticker, soup):
+    print('Fetching Article')
+    news_links = soup.select('#newsarticles > a')
+    if len(news_links) == 0:
+        print('No news found for {}'.format(ticker))
+        return True
+    ticker_articles_counter = 0
+    for link in news_links:
+        art_title = link.find('span', class_='h6').text
+        #separate date and time from datetime object
+        date_time_obj = datetime.datetime.strptime(link.find('small').text, '%d %b %Y, %I:%M%p')
+        #if (date_time_obj <= days_limit):
+        #continue
+        art_date = date_time_obj.date().strftime('%Y/%m/%d')
+        art_time = date_time_obj.time().strftime('%H:%M')
+        article_data.append([ticker, art_title, art_date, art_time])
+        ticker_articles_counter += 1
+    print('No of articles: {}'.format(ticker_articles_counter))
+
+#function to parse meta data and create a df
+def ticker_meta_fetch(i, ticker, meta):
+    print('Fetching meta')
+    try:
+        sector = meta['industryInfo']['macro']
+    except KeyError:
+        print('{} sector info is not available'.format(ticker))
+        sector = np.nan
+        industry = np.nan
+        mCap = np.nan
+        companyName = np.nan
+        ticker_meta.append([ticker, sector, industry, mCap, companyName])
+        return True
+    try:
+        industry = meta['industryInfo']['industry']
+    except KeyError:
+        print('{} industry info is not available'.format(ticker))
+        industry = np.nan
+        mCap = np.nan
+        companyName = np.nan
+        ticker_meta.append([ticker, sector, industry, mCap, companyName])
+        return True
+    try:
+        mCap = round((meta['priceInfo']['previousClose'] * meta['securityInfo']['issuedSize'])/1000000000, 2)
+    except KeyError:
+        print('{} mCap data is not available'.format(ticker))
+        mCap = np.nan
+        companyName = np.nan
+        ticker_meta.append([ticker, sector, industry, mCap, companyName])
+        return True
+    try:
+        companyName = meta['info']['companyName']
+    except KeyError:
+        print('{} company Name is not available'.format(ticker))
+        companyName = np.nan
+        ticker_meta.append([ticker, sector, industry, mCap, companyName])
+        return True
+    ticker_meta.append([ticker, sector, industry, mCap, companyName])
+
+
+start_time = time.time()
+# send multiple concurrent requests using concurrent.futures
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+    results = [executor.submit(get_url_content, ticker) for ticker in tickers_list]
+    for i,future in enumerate(concurrent.futures.as_completed(results)):
+        ticker, soup, meta = future.result()
+        print(i, ticker)
+        ticker_article_response = ticker_article_fetch(i, ticker, soup)
+        if ticker_article_response:
+            unavailable_tickers.append(ticker)
+            print('skipping meta check for {}'.format(ticker))
+            continue
+        ticker_meta_response = ticker_meta_fetch(i,ticker,meta)
+        if ticker_meta_response:
+            unavailable_tickers.append(ticker)
+end_time = time.time()
+
+'''start_time = time.time()
 print('Fetching Article data..')
 for i,ticker in enumerate(tickers_list):
     print(i, ticker)
@@ -66,26 +159,32 @@ for i,ticker in enumerate(tickers_list):
         art_title = link.find('span', class_='h6').text
         #separate date and time from datetime object
         date_time_obj = datetime.datetime.strptime(link.find('small').text, '%d %b %Y, %I:%M%p')
-        #if (date_time_obj <= days_limit):
-        #     continue
         art_date = date_time_obj.date().strftime('%Y/%m/%d')
         art_time = date_time_obj.time().strftime('%H:%M')
         article_data.append([ticker, art_title, art_date, art_time])
         ticker_articles_counter += 1
-    if(ticker_articles_counter==0):
-        unavailable_tickers.append(ticker)  
+end_time = time.time()'''
 
 print(unavailable_tickers)
 
+# calculate and print the time taken to send requests
+time_taken = end_time - start_time
+print("Time taken to send requests: {:.2f} seconds".format(time_taken))
+
+#create df from article_data
 articles_df = pd.DataFrame(article_data, columns=['Ticker', 'Headline', 'Date', 'Time'])
+
+#create df from metadata
+ticker_meta_df = pd.DataFrame(ticker_meta, columns=['Ticker', 'Sector', 'Industry', 'Market Cap', 'Company Name'])
 
 #np.setdiff1d(tickers_list, unavailable_tickers)
 
+'''#update tickers_list
 tickers_list = articles_df['Ticker'].unique()
-print('Available', len(tickers_list))
+print('Available', len(tickers_list))'''
 
-#keep the symbols in tickers_list remove the rest from tickers_df
-tickers_df = tickers_df[tickers_df['Symbol'].isin(tickers_list)].reset_index(drop=True)
+'''#keep the symbols in tickers_list remove the rest from tickers_df
+tickers_df = tickers_df[tickers_df['Symbol'].isin(tickers_list)].reset_index(drop=True)'''
 
 # Sentiment Analysis
 print('Performing Sentiment Analysis')
@@ -101,7 +200,7 @@ art_scores_df = pd.merge(articles_df, art_scores_df, left_index=True, right_inde
 #export article data to csv file
 art_scores_df.to_csv('./datasets/NIFTY_500_Articles.csv')
 
-# Now the art_scores_df could be filtered by Date or Universe, since it has both data in it.
+'''# Now the art_scores_df could be filtered by Date or Universe, since it has both data in it.
 # Get Company,Sector,Industry,mCap Data
 ticker_meta = []
 new_length = len(tickers_list)
@@ -109,6 +208,8 @@ new_length = len(tickers_list)
 print('Fetching ticker meta data')
 # whether to get only data available in tickers_list or the whole universe bc even if we take whole universe, we will later merge the dfs ticker_meta and art_scores_df
 # but since we're planning on not to fetch industry and sector data that often, its better to take the universe meta
+
+start_time = time.time()
 
 for i, ticker in enumerate(tickers_list):
     meta = nse_eq(ticker)
@@ -148,8 +249,14 @@ for i, ticker in enumerate(tickers_list):
         ticker_meta.append([ticker, sector, industry, mCap, companyName])
     ticker_meta.append([ticker, sector, industry, mCap, companyName])
 
+end_time = time.time()
+time_taken = end_time - start_time
+print("Time taken to send requests for meta: {:.2f} seconds".format(time_taken))
+'''
+'''
 # create dataframe
 ticker_meta_df = pd.DataFrame(ticker_meta, columns=['Ticker', 'Sector', 'Industry', 'Market Cap', 'Company Name'])
+'''
 
 # remove null values
 ticker_meta_df = ticker_meta_df.dropna()
