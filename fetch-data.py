@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 from nsepython import *
+import time
 
 # sentiment analysis libraries
 import nltk
@@ -26,7 +27,7 @@ nifty_50 = pd.read_csv(nifty_50_ticker_url)
 nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
 # Set universe
-universe = nifty_500
+universe = nifty_50
 
 # Read CSV & create a tickers df
 tickers_df = universe[['Symbol', 'Company Name']]
@@ -47,6 +48,7 @@ tickers_length = companies_len
 
 #days_limit = datetime.datetime.now() - datetime.timedelta(days=30) #only 30 days old or newer articles
 
+start_time = time.time()
 print('Fetching Article data..')
 for i,ticker in enumerate(tickers_list):
     print(i, ticker)
@@ -147,6 +149,9 @@ for i, ticker in enumerate(tickers_list):
         companyName = np.nan
         ticker_meta.append([ticker, sector, industry, mCap, companyName])
     ticker_meta.append([ticker, sector, industry, mCap, companyName])
+end_time = time.time()
+
+print('Time Taken: {}'.format(end_time-start_time))
 
 # create dataframe
 ticker_meta_df = pd.DataFrame(ticker_meta, columns=['Ticker', 'Sector', 'Industry', 'Market Cap', 'Company Name'])
