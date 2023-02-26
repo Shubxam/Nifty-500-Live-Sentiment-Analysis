@@ -1,19 +1,19 @@
 ,Ticker,Sector,Industry,Market Cap,Company Name,XC-Sector,XC-Industry
-0,ACC,Commodities,Cement & Cement Products,324.41,ACC Limited,XC - MTRL,XC - CMT
+0,ABB,Industrials,Electrical Equipment,665.04,ABB India Limited,XC - INDS,XC - CAG
 1,3MINDIA,Diversified,Diversified,248.86,3M India Limited,XC - INDS,XC - CAG
-2,ABB,Industrials,Electrical Equipment,665.04,ABB India Limited,XC - INDS,XC - CAG
+2,ACC,Commodities,Cement & Cement Products,324.41,ACC Limited,XC - MTRL,XC - CMT
 3,APLAPOLLO,Industrials,Industrial Products,350.05,APL Apollo Tubes Limited,XC - MTRL,XC - MTL
-4,AIAENG,Industrials,Industrial Products,254.93,AIA Engineering Limited,XC - INDS,XC - CAG
-5,AARTIDRUGS,Healthcare,Pharmaceuticals & Biotechnology,33.92,Aarti Drugs Limited,XC - HECA,XC - PHR
-6,AUBANK,Financial Services,Banks,395.56,AU Small Finance Bank Limited,XC - FNCL,XC - PVT
+4,AUBANK,Financial Services,Banks,395.56,AU Small Finance Bank Limited,XC - FNCL,XC - PVT
+5,AIAENG,Industrials,Industrial Products,254.93,AIA Engineering Limited,XC - INDS,XC - CAG
+6,AARTIDRUGS,Healthcare,Pharmaceuticals & Biotechnology,33.92,Aarti Drugs Limited,XC - HECA,XC - PHR
 7,AAVAS,Financial Services,Finance,150.95,Aavas Financiers Limited,XC - FNCL,XC - NFC
 8,ADANIENT,Commodities,Metals & Minerals Trading,1576.22,Adani Enterprises Limited,XC - INDS,XC - CAG
-9,ADANIGREEN,Utilities,Power,811.18,Adani Green Energy Limited,XC - UTLT,XC - PGD
-10,ABBOTINDIA,Healthcare,Pharmaceuticals & Biotechnology,280.2,Abbott India Limited,XC - HECA,XC - PHR
+9,ABBOTINDIA,Healthcare,Pharmaceuticals & Biotechnology,280.2,Abbott India Limited,XC - HECA,XC - PHR
+10,ADANIGREEN,Utilities,Power,811.18,Adani Green Energy Limited,XC - UTLT,XC - PGD
 11,ADANIPORTS,Services,Transport Infrastructure,1192.07,Adani Ports and Special Economic Zone Limited,XC - INDS,XC - SHP
-12,ATGL,Energy,Gas,870.33,Adani Total Gas Limited,XC - ENRG,XC - ODE
-13,ADANITRANS,Utilities,Power,836.34,Adani Transmission Limited,XC - UTLT,XC - PTD
-14,AWL,Fast Moving Consumer Goods,Agricultural Food & other Products,486.47,Adani Wilmar Limited,XC - COST,XC - FOP
+12,ADANITRANS,Utilities,Power,836.34,Adani Transmission Limited,XC - UTLT,XC - PTD
+13,AWL,Fast Moving Consumer Goods,Agricultural Food & other Products,486.47,Adani Wilmar Limited,XC - COST,XC - FOP
+14,ATGL,Energy,Gas,870.33,Adani Total Gas Limited,XC - ENRG,XC - ODE
 15,ABCAPITAL,Financial Services,Insurance,337.44,Aditya Birla Capital Limited,XC - FNCL,XC - NFC
 16,ABFRL,Consumer Discretionary,Retailing,219.39,Aditya Birla Fashion and Retail Limited,XC - CODI,XC - RTL
 17,ABSLAMC,Financial Services,Capital Markets,112.41,Aditya Birla Sun Life AMC Limited,XC - FNCL,XC - NFC
@@ -22,19 +22,19 @@
 20,AFFLE,Information Technology,IT - Services,135.61,Affle (India) Limited,XC - INTH,XC - INT
 21,AJANTPHARM,Healthcare,Pharmaceuticals & Biotechnology,150.0,Ajanta Pharma Limited,XC - HECA,XC - PHR
 22,APLLTD,Healthcare,Pharmaceuticals & Biotechnology,103.16,Alembic Pharmaceuticals Limited,XC - HECA,XC - PHR
-23,ALKEM,Healthcare,Pharmaceuticals & Biotechnology,391.64,Alkem Laboratories Limited,XC - HECA,XC - PHR
-24,ALKYLAMINE,Commodities,Chemicals & Petrochemicals,129.26,Alkyl Amines Chemicals Limited,XC - MTRL,XC - CHM
+23,ALKYLAMINE,Commodities,Chemicals & Petrochemicals,129.26,Alkyl Amines Chemicals Limited,XC - MTRL,XC - CHM
+24,ALKEM,Healthcare,Pharmaceuticals & Biotechnology,391.64,Alkem Laboratories Limited,XC - HECA,XC - PHR
 25,ALOKINDS,Consumer Discretionary,Textiles & Apparels,57.85,Alok Industries Limited,XC - CODI,XC - TXT
 26,AMARAJABAT,Consumer Discretionary,Auto Components,97.5,Amara Raja Batteries Limited,XC - CODI,XC - ANC
 27,AMBER,Consumer Discretionary,Consumer Durables,63.43,Amber Enterprises India Limited,XC - CODI,XC - COD
-28,ANGELONE,Financial Services,Capital Markets,89.35,Angel One Limited,XC - FNCL,XC - NFC
-29,AMBUJACEM,Commodities,Cement & Cement Products,668.96,Ambuja Cements Limited,XC - MTRL,XC - CMT
-30,ANURAS,Commodities,Chemicals & Petrochemicals,69.11,Anupam Rasayan India Limited,XC - MTRL,XC - CHM
+28,AMBUJACEM,Commodities,Cement & Cement Products,668.96,Ambuja Cements Limited,XC - MTRL,XC - CMT
+29,ANURAS,Commodities,Chemicals & Petrochemicals,69.11,Anupam Rasayan India Limited,XC - MTRL,XC - CHM
+30,ANGELONE,Financial Services,Capital Markets,89.35,Angel One Limited,XC - FNCL,XC - NFC
 31,APOLLOHOSP,Healthcare,Healthcare Services,639.56,Apollo Hospitals Enterprise Limited,XC - HECA,XC - HCS
-32,ASAHIINDIA,Consumer Discretionary,Auto Components,121.5,Asahi India Glass Limited,XC - CODI,XC - ANC
-33,ASAHIINDIA,Consumer Discretionary,Auto Components,121.5,Asahi India Glass Limited,XC - CODI,XC - COD
-34,APOLLOTYRE,Consumer Discretionary,Auto Components,208.22,Apollo Tyres Limited,XC - CODI,XC - ANC
-35,APTUS,Financial Services,Finance,125.32,Aptus Value Housing Finance India Limited,XC - FNCL,XC - NFC
+32,APOLLOTYRE,Consumer Discretionary,Auto Components,208.22,Apollo Tyres Limited,XC - CODI,XC - ANC
+33,APTUS,Financial Services,Finance,125.32,Aptus Value Housing Finance India Limited,XC - FNCL,XC - NFC
+34,ASAHIINDIA,Consumer Discretionary,Auto Components,121.5,Asahi India Glass Limited,XC - CODI,XC - ANC
+35,ASAHIINDIA,Consumer Discretionary,Auto Components,121.5,Asahi India Glass Limited,XC - CODI,XC - COD
 36,ASHOKLEY,Industrials,Agricultural Commercial & Construction Vehicles,412.82,Ashok Leyland Limited,XC - CODI,XC - ATO
 37,ASIANPAINT,Consumer Discretionary,Consumer Durables,2595.54,Asian Paints Limited,XC - COST,XC - HPP
 38,ASTERDM,Healthcare,Healthcare Services,114.79,Aster DM Healthcare Limited,XC - HECA,XC - PHR
@@ -42,31 +42,31 @@
 40,ASTRAL,Industrials,Industrial Products,378.14,Astral Limited,XC - INDS,XC - CAG
 41,ATUL,Commodities,Chemicals & Petrochemicals,211.25,Atul Limited,XC - MTRL,XC - CHM
 42,AUROPHARMA,Healthcare,Pharmaceuticals & Biotechnology,273.98,Aurobindo Pharma Limited,XC - HECA,XC - PHR
-43,DMART,Consumer Discretionary,Retailing,2253.45,Avenue Supermarts Limited,XC - CODI,XC - RTL
-44,AVANTIFEED,Fast Moving Consumer Goods,Food Products,51.02,Avanti Feeds Limited,XC - COST,XC - FOP
-45,BASF,Commodities,Chemicals & Petrochemicals,100.67,BASF India Limited,XC - MTRL,XC - CHM
-46,AXISBANK,Financial Services,Banks,2597.18,Axis Bank Limited,XC - FNCL,XC - PVT
+43,AVANTIFEED,Fast Moving Consumer Goods,Food Products,51.02,Avanti Feeds Limited,XC - COST,XC - FOP
+44,DMART,Consumer Discretionary,Retailing,2253.45,Avenue Supermarts Limited,XC - CODI,XC - RTL
+45,AXISBANK,Financial Services,Banks,2597.18,Axis Bank Limited,XC - FNCL,XC - PVT
+46,BASF,Commodities,Chemicals & Petrochemicals,100.67,BASF India Limited,XC - MTRL,XC - CHM
 47,BEML,Industrials,Agricultural Commercial & Construction Vehicles,56.98,BEML Limited,XC - INDS,XC - CAG
 48,BSE,Financial Services,Capital Markets,60.48,BSE Limited,XC - FNCL,XC - NFC
-49,BAJAJELEC,Consumer Discretionary,Consumer Durables,128.51,Bajaj Electricals Limited,XC - CODI,XC - COD
-50,BAJAJ-AUTO,Consumer Discretionary,Automobiles,1084.26,Bajaj Auto Limited,XC - CODI,XC - ATO
+49,BAJAJ-AUTO,Consumer Discretionary,Automobiles,1084.26,Bajaj Auto Limited,XC - CODI,XC - ATO
+50,BAJAJELEC,Consumer Discretionary,Consumer Durables,128.51,Bajaj Electricals Limited,XC - CODI,XC - COD
 51,BAJFINANCE,Financial Services,Finance,3755.08,Bajaj Finance Limited,XC - FNCL,XC - NFC
 52,BAJAJFINSV,Financial Services,Finance,1287.27,Bajaj Finserv Limited,XC - FNCL,XC - NFC
-53,BALAMINES,Commodities,Chemicals & Petrochemicals,69.73,Balaji Amines Limited,XC - MTRL,XC - CHM
-54,BAJAJHLDNG,Financial Services,Finance,670.01,Bajaj Holdings & Investment Limited,XC - FNCL,XC - NFC
-55,BALKRISIND,Consumer Discretionary,Auto Components,398.26,Balkrishna Industries Limited,XC - CODI,XC - ANC
+53,BAJAJHLDNG,Financial Services,Finance,670.01,Bajaj Holdings & Investment Limited,XC - FNCL,XC - NFC
+54,BALKRISIND,Consumer Discretionary,Auto Components,398.26,Balkrishna Industries Limited,XC - CODI,XC - ANC
+55,BALAMINES,Commodities,Chemicals & Petrochemicals,69.73,Balaji Amines Limited,XC - MTRL,XC - CHM
 56,BALRAMCHIN,Fast Moving Consumer Goods,Agricultural Food & other Products,73.94,Balrampur Chini Mills Limited,XC - COST,XC - SGR
 57,BANDHANBNK,Financial Services,Banks,369.04,Bandhan Bank Limited,XC - FNCL,XC - PVT
 58,BANKBARODA,Financial Services,Banks,804.15,Bank of Baroda,XC - FNCL,XC - PSU
-59,MAHABANK,Financial Services,Banks,172.64,Bank of Maharashtra,XC - FNCL,XC - PSU
-60,BANKINDIA,Financial Services,Banks,291.97,Bank of India,XC - FNCL,XC - PSU
+59,BANKINDIA,Financial Services,Banks,291.97,Bank of India,XC - FNCL,XC - PSU
+60,MAHABANK,Financial Services,Banks,172.64,Bank of Maharashtra,XC - FNCL,XC - PSU
 61,BATAINDIA,Consumer Discretionary,Consumer Durables,181.94,Bata India Limited,XC - CODI,XC - RTL
 62,BAYERCROP,Commodities,Fertilizers & Agrochemicals,219.82,Bayer Cropscience Limited,XC - MTRL,XC - FRT
 63,BERGEPAINT,Consumer Discretionary,Consumer Durables,544.62,Berger Paints (I) Limited,XC - COST,XC - HPP
 64,BDL,Industrials,Aerospace & Defense,177.78,Bharat Dynamics Limited,XC - INDS,XC - CAG
 65,BEL,Industrials,Aerospace & Defense,697.35,Bharat Electronics Limited,XC - INDS,XC - CAG
-66,BHEL,Industrials,Electrical Equipment,240.09,Bharat Heavy Electricals Limited,XC - INDS,XC - CAG
-67,BHARATFORG,Industrials,Industrial Products,386.51,Bharat Forge Limited,XC - CODI,XC - ANC
+66,BHARATFORG,Industrials,Industrial Products,386.51,Bharat Forge Limited,XC - CODI,XC - ANC
+67,BHEL,Industrials,Electrical Equipment,240.09,Bharat Heavy Electricals Limited,XC - INDS,XC - CAG
 68,BPCL,Energy,Petroleum Products,695.35,Bharat Petroleum Corporation Limited,XC - ENRG,XC - REF
 69,BHARATRAS,Commodities,Fertilizers & Agrochemicals,37.71,Bharat Rasayan Limited,XC - MTRL,XC - CHM
 70,BHARTIARTL,Telecommunication,Telecom - Services,4252.39,Bharti Airtel Limited,XC - COSE,XC - TEL
@@ -76,31 +76,31 @@
 74,BLUEDART,Services,Transport Services,149.02,Blue Dart Express Limited,XC - INDS,XC - LGT
 75,BLUESTARCO,Consumer Discretionary,Consumer Durables,137.0,Blue Star Limited,XC - CODI,XC - COD
 76,BBTC,Fast Moving Consumer Goods,Food Products,61.84,Bombay Burmah Trading Corporation Limited,XC - COST,XC - FOP
-77,BOSCHLTD,Consumer Discretionary,Auto Components,540.11,Bosch Limited,XC - CODI,XC - ANC
-78,BORORENEW,Industrials,Industrial Products,59.02,BOROSIL RENEWABLES LIMITED,XC - INDS,XC - CAG
-79,BRIGADE,Consumer Discretionary,Realty,110.11,Brigade Enterprises Limited,XC - RLES,XC - REM
+77,BORORENEW,Industrials,Industrial Products,59.02,BOROSIL RENEWABLES LIMITED,XC - INDS,XC - CAG
+78,BOSCHLTD,Consumer Discretionary,Auto Components,540.11,Bosch Limited,XC - CODI,XC - ANC
+79,BRITANNIA,Fast Moving Consumer Goods,Food Products,1072.23,Britannia Industries Limited,XC - COST,XC - FOP
 80,BCG,Information Technology,IT - Services,46.71,Brightcom Group Limited,XC - INTH,XC - INT
 81,MAPMYINDIA,Information Technology,IT - Software,61.99,C.E. Info Systems Limited,XC - INTH,XC - INT
-82,BRITANNIA,Fast Moving Consumer Goods,Food Products,1072.23,Britannia Industries Limited,XC - COST,XC - FOP
-83,CCL,Fast Moving Consumer Goods,Agricultural Food & other Products,73.09,CCL Products (India) Limited,XC - COST,XC - FOP
-84,CESC,Utilities,Power,102.73,CESC Limited,XC - UTLT,XC - PGD
-85,CGPOWER,Industrials,Electrical Equipment,479.81,CG Power and Industrial Solutions Limited,XC - INDS,XC - CAG
+82,CESC,Utilities,Power,102.73,CESC Limited,XC - UTLT,XC - PGD
+83,BRIGADE,Consumer Discretionary,Realty,110.11,Brigade Enterprises Limited,XC - RLES,XC - REM
+84,CGPOWER,Industrials,Electrical Equipment,479.81,CG Power and Industrial Solutions Limited,XC - INDS,XC - CAG
+85,CCL,Fast Moving Consumer Goods,Agricultural Food & other Products,73.09,CCL Products (India) Limited,XC - COST,XC - FOP
 86,CRISIL,Financial Services,Finance,234.25,CRISIL Limited,XC - FNCL,XC - NFC
-87,CSBBANK,Financial Services,Banks,39.73,CSB Bank Limited,XC - FNCL,XC - PVT
-88,CAMPUS,Consumer Discretionary,Consumer Durables,114.53,Campus Activewear Limited,XC - CODI,XC - RTL
+87,CAMPUS,Consumer Discretionary,Consumer Durables,114.53,Campus Activewear Limited,XC - CODI,XC - RTL
+88,CSBBANK,Financial Services,Banks,39.73,CSB Bank Limited,XC - FNCL,XC - PVT
 89,CANFINHOME,Financial Services,Finance,75.01,Can Fin Homes Limited,XC - FNCL,XC - NFC
 90,CANBK,Financial Services,Banks,496.71,Canara Bank,XC - FNCL,XC - PSU
 91,CAPLIPOINT,Healthcare,Pharmaceuticals & Biotechnology,50.56,Caplin Point Laboratories Limited,XC - HECA,XC - PHR
 92,CGCL,Financial Services,Finance,143.55,Capri Global Capital Limited,XC - FNCL,XC - NFC
 93,CARBORUNIV,Industrials,Industrial Products,187.22,Carborundum Universal Limited,XC - INDS,XC - CAG
-94,CEATLTD,Consumer Discretionary,Auto Components,59.77,CEAT Limited,XC - CODI,XC - ANC
-95,CASTROLIND,Energy,Petroleum Products,118.25,Castrol India Limited,XC - ENRG,XC - REF
+94,CASTROLIND,Energy,Petroleum Products,118.25,Castrol India Limited,XC - ENRG,XC - REF
+95,CEATLTD,Consumer Discretionary,Auto Components,59.77,CEAT Limited,XC - CODI,XC - ANC
 96,CENTRALBK,Financial Services,Banks,224.4,Central Bank of India,XC - FNCL,XC - PSU
 97,CDSL,Financial Services,Capital Markets,103.91,Central Depository Services (India) Limited,XC - FNCL,XC - NFC
-98,CENTURYPLY,Consumer Discretionary,Consumer Durables,114.84,Century Plyboards (India) Limited,XC - CODI,XC - COD
+98,CENTURYTEX,Commodities,Paper Forest & Jute Products,68.58,Century Textiles & Industries Limited,XC - CODI,XC - TXT
 99,CERA,Consumer Discretionary,Consumer Durables,83.88,Cera Sanitaryware Limited,XC - INDS,XC - CNS
-100,CENTURYTEX,Commodities,Paper Forest & Jute Products,68.58,Century Textiles & Industries Limited,XC - CODI,XC - TXT
-101,CHALET,Consumer Discretionary,Leisure Services,74.74,Chalet Hotels Limited,XC - CODI,XC - HSP
+100,CHALET,Consumer Discretionary,Leisure Services,74.74,Chalet Hotels Limited,XC - CODI,XC - HSP
+101,CENTURYPLY,Consumer Discretionary,Consumer Durables,114.84,Century Plyboards (India) Limited,XC - CODI,XC - COD
 102,CHAMBLFERT,Commodities,Fertilizers & Agrochemicals,115.46,Chambal Fertilizers & Chemicals Limited,XC - MTRL,XC - FRT
 103,CHEMPLASTS,Commodities,Chemicals & Petrochemicals,62.45,Chemplast Sanmar Limited,XC - MTRL,XC - CHM
 104,CHOLAHLDNG,Financial Services,Finance,108.7,Cholamandalam Financial Holdings Limited,XC - FNCL,XC - NFC
@@ -109,46 +109,46 @@
 107,CUB,Financial Services,Banks,98.07,City Union Bank Limited,XC - FNCL,XC - PVT
 108,CLEAN,Commodities,Chemicals & Petrochemicals,149.66,Clean Science and Technology Limited,XC - MTRL,XC - CHM
 109,COALINDIA,Energy,Consumable Fuels,1324.37,Coal India Limited,XC - MTRL,XC - MTL
-110,COCHINSHIP,Industrials,Industrial Manufacturing,60.69,Cochin Shipyard Limited,XC - INDS,XC - SHP
-111,COFORGE,Information Technology,IT - Software,270.01,Coforge Limited,XC - INTH,XC - ITS
-112,COLPAL,Fast Moving Consumer Goods,Personal Products,395.48,Colgate Palmolive (India) Limited,XC - COST,XC - HPP
+110,COFORGE,Information Technology,IT - Software,270.01,Coforge Limited,XC - INTH,XC - ITS
+111,COLPAL,Fast Moving Consumer Goods,Personal Products,395.48,Colgate Palmolive (India) Limited,XC - COST,XC - HPP
+112,COCHINSHIP,Industrials,Industrial Manufacturing,60.69,Cochin Shipyard Limited,XC - INDS,XC - SHP
 113,CAMS,Financial Services,Capital Markets,112.74,Computer Age Management Services Limited,XC - INTH,XC - INT
-114,COROMANDEL,Commodities,Fertilizers & Agrochemicals,260.64,Coromandel International Limited,XC - MTRL,XC - FRT
-115,CONCOR,Services,Transport Services,358.08,Container Corporation of India Limited,XC - INDS,XC - LGT
-116,CREDITACC,Financial Services,Finance,155.1,CREDITACCESS GRAMEEN LIMITED,XC - FNCL,XC - NFC
+114,CONCOR,Services,Transport Services,358.08,Container Corporation of India Limited,XC - INDS,XC - LGT
+115,CREDITACC,Financial Services,Finance,155.1,CREDITACCESS GRAMEEN LIMITED,XC - FNCL,XC - NFC
+116,COROMANDEL,Commodities,Fertilizers & Agrochemicals,260.64,Coromandel International Limited,XC - MTRL,XC - FRT
 117,CROMPTON,Consumer Discretionary,Consumer Durables,189.25,Crompton Greaves Consumer Electricals Limited,XC - CODI,XC - RTL
-118,CUMMINSIND,Industrials,Industrial Products,442.59,Cummins India Limited,XC - INDS,XC - CAG
-119,CYIENT,Information Technology,IT - Services,108.15,Cyient Limited,XC - INTH,XC - ITS
-120,DABUR,Fast Moving Consumer Goods,Personal Products,956.31,Dabur India Limited,XC - COST,XC - HPP
-121,DCMSHRIRAM,Diversified,Diversified,132.25,DCM Shriram Limited,XC - INDS,XC - CAG
-122,DLF,Consumer Discretionary,Realty,848.79,DLF Limited,XC - RLES,XC - REM
-123,DALBHARAT,Commodities,Cement & Cement Products,355.25,Dalmia Bharat Limited,XC - MTRL,XC - CMT
-124,DEEPAKFERT,Commodities,Chemicals & Petrochemicals,79.3,Deepak Fertilizers And Petrochemicals Corporation Limited,XC - MTRL,XC - CHM
-125,DEEPAKNTR,Commodities,Chemicals & Petrochemicals,244.59,Deepak Nitrite Limited,XC - MTRL,XC - CHM
-126,DELHIVERY,Services,Transport Services,251.82,Delhivery Limited,XC - INDS,XC - LGT
+118,DLF,Consumer Discretionary,Realty,848.79,DLF Limited,XC - RLES,XC - REM
+119,CUMMINSIND,Industrials,Industrial Products,442.59,Cummins India Limited,XC - INDS,XC - CAG
+120,DCMSHRIRAM,Diversified,Diversified,132.25,DCM Shriram Limited,XC - INDS,XC - CAG
+121,CYIENT,Information Technology,IT - Services,108.15,Cyient Limited,XC - INTH,XC - ITS
+122,DABUR,Fast Moving Consumer Goods,Personal Products,956.31,Dabur India Limited,XC - COST,XC - HPP
+123,DEEPAKFERT,Commodities,Chemicals & Petrochemicals,79.3,Deepak Fertilizers And Petrochemicals Corporation Limited,XC - MTRL,XC - CHM
+124,DALBHARAT,Commodities,Cement & Cement Products,355.25,Dalmia Bharat Limited,XC - MTRL,XC - CMT
+125,DELHIVERY,Services,Transport Services,251.82,Delhivery Limited,XC - INDS,XC - LGT
+126,DEEPAKNTR,Commodities,Chemicals & Petrochemicals,244.59,Deepak Nitrite Limited,XC - MTRL,XC - CHM
 127,DELTACORP,Consumer Discretionary,Leisure Services,50.02,Delta Corp Limited,XC - INTH,XC - INT
 128,DEVYANI,Consumer Discretionary,Leisure Services,179.75,Devyani International Limited,XC - COST,XC - FOP
 129,DHANI,Financial Services,Finance,19.09,Dhani Services Limited,XC - FNCL,XC - NFC
-130,DIVISLAB,Healthcare,Pharmaceuticals & Biotechnology,762.74,Divi's Laboratories Limited,XC - HECA,XC - PHR
-131,DBL,Industrials,Construction,28.9,Dilip Buildcon Limited,XC - INDS,XC - CNS
+130,DBL,Industrials,Construction,28.9,Dilip Buildcon Limited,XC - INDS,XC - CNS
+131,DIVISLAB,Healthcare,Pharmaceuticals & Biotechnology,762.74,Divi's Laboratories Limited,XC - HECA,XC - PHR
 132,DIXON,Consumer Discretionary,Consumer Durables,160.11,Dixon Technologies (India) Limited,XC - INDS,XC - CAG
 133,LALPATHLAB,Healthcare,Healthcare Services,159.05,Dr. Lal Path Labs Ltd.,XC - HECA,XC - HCS
-134,EIDPARRY,Commodities,Fertilizers & Agrochemicals,88.79,EID Parry India Limited,XC - COST,XC - SGR
-135,DRREDDY,Healthcare,Pharmaceuticals & Biotechnology,740.97,Dr. Reddy's Laboratories Limited,XC - HECA,XC - PHR
+134,DRREDDY,Healthcare,Pharmaceuticals & Biotechnology,740.97,Dr. Reddy's Laboratories Limited,XC - HECA,XC - PHR
+135,EIDPARRY,Commodities,Fertilizers & Agrochemicals,88.79,EID Parry India Limited,XC - COST,XC - SGR
 136,EIHOTEL,Consumer Discretionary,Leisure Services,102.93,EIH Limited,XC - CODI,XC - HSP
-137,EPL,Industrials,Industrial Products,51.65,EPL Limited,XC - INDS,XC - CAG
-138,EDELWEISS,Financial Services,Finance,60.31,Edelweiss Financial Services Limited,XC - FNCL,XC - NFC
-139,EASEMYTRIP,Consumer Discretionary,Leisure Services,82.22,Easy Trip Planners Limited,XC - CODI,XC - HSP
-140,EICHERMOT,Consumer Discretionary,Automobiles,886.61,Eicher Motors Limited,XC - CODI,XC - ATO
-141,ENDURANCE,Consumer Discretionary,Auto Components,185.53,Endurance Technologies Limited,XC - CODI,XC - ANC
-142,ELGIEQUIP,Industrials,Industrial Products,141.93,Elgi Equipments Limited,XC - INDS,XC - CAG
-143,EMAMILTD,Fast Moving Consumer Goods,Personal Products,171.06,Emami Limited,XC - COST,XC - HPP
-144,EQUITASBNK,Financial Services,Banks,77.22,Equitas Small Finance Bank Limited,XC - FNCL,XC - PVT
-145,ESCORTS,Industrials,Agricultural Commercial & Construction Vehicles,269.37,Escorts Kubota Limited,XC - CODI,XC - ATO
-146,EXIDEIND,Consumer Discretionary,Auto Components,147.31,Exide Industries Limited,XC - CODI,XC - ANC
-147,ENGINERSIN,Industrials,Construction,40.61,Engineers India Limited,XC - INDS,XC - CAG
-148,NYKAA,Consumer Discretionary,Retailing,414.44,FSN E-Commerce Ventures Limited,XC - INTH,XC - INT
-149,FDC,Healthcare,Pharmaceuticals & Biotechnology,44.93,FDC Limited,XC - HECA,XC - PHR
+137,EASEMYTRIP,Consumer Discretionary,Leisure Services,82.22,Easy Trip Planners Limited,XC - CODI,XC - HSP
+138,EPL,Industrials,Industrial Products,51.65,EPL Limited,XC - INDS,XC - CAG
+139,EICHERMOT,Consumer Discretionary,Automobiles,886.61,Eicher Motors Limited,XC - CODI,XC - ATO
+140,EDELWEISS,Financial Services,Finance,60.31,Edelweiss Financial Services Limited,XC - FNCL,XC - NFC
+141,ELGIEQUIP,Industrials,Industrial Products,141.93,Elgi Equipments Limited,XC - INDS,XC - CAG
+142,EMAMILTD,Fast Moving Consumer Goods,Personal Products,171.06,Emami Limited,XC - COST,XC - HPP
+143,ENDURANCE,Consumer Discretionary,Auto Components,185.53,Endurance Technologies Limited,XC - CODI,XC - ANC
+144,ENGINERSIN,Industrials,Construction,40.61,Engineers India Limited,XC - INDS,XC - CAG
+145,EQUITASBNK,Financial Services,Banks,77.22,Equitas Small Finance Bank Limited,XC - FNCL,XC - PVT
+146,ESCORTS,Industrials,Agricultural Commercial & Construction Vehicles,269.37,Escorts Kubota Limited,XC - CODI,XC - ATO
+147,EXIDEIND,Consumer Discretionary,Auto Components,147.31,Exide Industries Limited,XC - CODI,XC - ANC
+148,FDC,Healthcare,Pharmaceuticals & Biotechnology,44.93,FDC Limited,XC - HECA,XC - PHR
+149,NYKAA,Consumer Discretionary,Retailing,414.44,FSN E-Commerce Ventures Limited,XC - INTH,XC - INT
 150,FEDERALBNK,Financial Services,Banks,270.6,The Federal Bank  Limited,XC - FNCL,XC - PVT
 151,FACT,Commodities,Fertilizers & Agrochemicals,153.49,Fertilizers and Chemicals Travancore Limited,XC - MTRL,XC - FRT
 152,FINEORG,Commodities,Chemicals & Petrochemicals,146.82,Fine Organic Industries Limited,XC - MTRL,XC - CHM
@@ -158,22 +158,22 @@
 156,FORTIS,Healthcare,Healthcare Services,205.8,Fortis Healthcare Limited,XC - HECA,XC - HCS
 157,GRINFRA,Industrials,Construction,103.25,G R Infraprojects Limited,XC - INDS,XC - CNS
 158,GAIL,Energy,Gas,644.69,GAIL (India) Limited,XC - ENRG,XC - ODE
-159,GMMPFAUDLR,Industrials,Industrial Manufacturing,70.05,GMM Pfaudler Limited,XC - INDS,XC - CAG
-160,GMRINFRA,Services,Transport Infrastructure,226.35,GMR Airports Infrastructure Limited,XC - INDS,XC - CNS
-161,GARFIBRES,Consumer Discretionary,Textiles & Apparels,60.15,Garware Technical Fibres Limited,XC - CODI,XC - TXT
-162,GICRE,Financial Services,Insurance,262.55,General Insurance Corporation of India,XC - FNCL,XC - NFC
-163,GALAXYSURF,Commodities,Chemicals & Petrochemicals,84.81,Galaxy Surfactants Limited,XC - MTRL,XC - CHM
+159,GMRINFRA,Services,Transport Infrastructure,226.35,GMR Airports Infrastructure Limited,XC - INDS,XC - CNS
+160,GMMPFAUDLR,Industrials,Industrial Manufacturing,70.05,GMM Pfaudler Limited,XC - INDS,XC - CAG
+161,GALAXYSURF,Commodities,Chemicals & Petrochemicals,84.81,Galaxy Surfactants Limited,XC - MTRL,XC - CHM
+162,GARFIBRES,Consumer Discretionary,Textiles & Apparels,60.15,Garware Technical Fibres Limited,XC - CODI,XC - TXT
+163,GICRE,Financial Services,Insurance,262.55,General Insurance Corporation of India,XC - FNCL,XC - NFC
 164,GLAND,Healthcare,Pharmaceuticals & Biotechnology,216.68,Gland Pharma Limited,XC - HECA,XC - PHR
-165,GLAXO,Healthcare,Pharmaceuticals & Biotechnology,220.09,GlaxoSmithKline Pharmaceuticals Limited,XC - HECA,XC - PHR
-166,GLENMARK,Healthcare,Pharmaceuticals & Biotechnology,126.47,Glenmark Pharmaceuticals Limited,XC - HECA,XC - PHR
+165,GLENMARK,Healthcare,Pharmaceuticals & Biotechnology,126.47,Glenmark Pharmaceuticals Limited,XC - HECA,XC - PHR
+166,GLAXO,Healthcare,Pharmaceuticals & Biotechnology,220.09,GlaxoSmithKline Pharmaceuticals Limited,XC - HECA,XC - PHR
 167,GOCOLORS,Consumer Discretionary,Retailing,52.32,Go Fashion (India) Limited,XC - CODI,XC - RTL
 168,GODFRYPHLP,Fast Moving Consumer Goods,Cigarettes & Tobacco Products,89.75,Godfrey Phillips India Limited,XC - COST,XC - FOP
-169,GODREJAGRO,Fast Moving Consumer Goods,Food Products,84.4,Godrej Agrovet Limited,XC - COST,XC - HPP
-170,GODREJCP,Fast Moving Consumer Goods,Personal Products,955.56,Godrej Consumer Products Limited,XC - COST,XC - HPP
+169,GODREJCP,Fast Moving Consumer Goods,Personal Products,955.56,Godrej Consumer Products Limited,XC - COST,XC - HPP
+170,GODREJAGRO,Fast Moving Consumer Goods,Food Products,84.4,Godrej Agrovet Limited,XC - COST,XC - HPP
 171,GODREJIND,Diversified,Diversified,141.42,Godrej Industries Limited,XC - COST,XC - HPP
 172,GODREJPROP,Consumer Discretionary,Realty,302.81,Godrej Properties Limited,XC - RLES,XC - REM
-173,GRAPHITE,Industrials,Industrial Products,58.4,Graphite India Limited,XC - INDS,XC - CAG
-174,GRANULES,Healthcare,Pharmaceuticals & Biotechnology,68.58,Granules India Limited,XC - HECA,XC - PHR
+173,GRANULES,Healthcare,Pharmaceuticals & Biotechnology,68.58,Granules India Limited,XC - HECA,XC - PHR
+174,GRAPHITE,Industrials,Industrial Products,58.4,Graphite India Limited,XC - INDS,XC - CAG
 175,GRASIM,Commodities,Cement & Cement Products,1040.55,Grasim Industries Limited,XC - MTRL,XC - CMT
 176,GESHIP,Services,Transport Services,81.16,The Great Eastern Shipping Company Limited,XC - INDS,XC - SHP
 177,GREENPANEL,Consumer Discretionary,Consumer Durables,34.47,Greenpanel Industries Limited,XC - CODI,XC - COD
@@ -183,16 +183,16 @@
 181,FLUOROCHEM,Commodities,Chemicals & Petrochemicals,336.73,Gujarat Fluorochemicals Limited,XC - MTRL,XC - CHM
 182,GUJGASLTD,Energy,Gas,347.02,Gujarat Gas Limited,XC - ENRG,XC - ODE
 183,GNFC,Commodities,Chemicals & Petrochemicals,81.52,Gujarat Narmada Valley Fertilizers and Chemicals Limited,XC - MTRL,XC - CHM
-184,GSFC,Commodities,Fertilizers & Agrochemicals,51.18,Gujarat State Fertilizers & Chemicals Limited,XC - MTRL,XC - FRT
-185,GPPL,Services,Transport Infrastructure,50.62,Gujarat Pipavav Port Limited,XC - INDS,XC - SHP
+184,GPPL,Services,Transport Infrastructure,50.62,Gujarat Pipavav Port Limited,XC - INDS,XC - SHP
+185,GSFC,Commodities,Fertilizers & Agrochemicals,51.18,Gujarat State Fertilizers & Chemicals Limited,XC - MTRL,XC - FRT
 186,GSPL,Energy,Gas,152.76,Gujarat State Petronet Limited,XC - ENRG,XC - ODE
 187,HEG,Industrials,Industrial Products,37.71,HEG Limited,XC - INDS,XC - CAG
-188,HDFCAMC,Financial Services,Capital Markets,379.74,HDFC Asset Management Company Limited,XC - FNCL,XC - NFC
-189,HCLTECH,Information Technology,IT - Software,2969.7,HCL Technologies Limited,XC - INTH,XC - ITS
+188,HCLTECH,Information Technology,IT - Software,2969.7,HCL Technologies Limited,XC - INTH,XC - ITS
+189,HDFCAMC,Financial Services,Capital Markets,379.74,HDFC Asset Management Company Limited,XC - FNCL,XC - NFC
 190,HDFCBANK,Financial Services,Banks,8943.27,HDFC Bank Limited,XC - FNCL,XC - PVT
 191,HDFCLIFE,Financial Services,Insurance,1046.41,HDFC Life Insurance Company Limited,XC - FNCL,XC - NFC
-192,HLEGLAS,Industrials,Industrial Manufacturing,35.42,HLE Glascoat Limited,XC - INDS,XC - CAG
-193,HFCL,Telecommunication,Telecom - Services,88.66,HFCL Limited,XC - COSE,XC - TEL
+192,HFCL,Telecommunication,Telecom - Services,88.66,HFCL Limited,XC - COSE,XC - TEL
+193,HLEGLAS,Industrials,Industrial Manufacturing,34.61,HLE Glascoat Limited,XC - INDS,XC - CAG
 194,HAPPSTMNDS,Information Technology,IT - Software,127.35,Happiest Minds Technologies Limited,XC - INTH,XC - ITS
 195,HATSUN,Fast Moving Consumer Goods,Food Products,201.44,Hatsun Agro Product Limited,XC - COST,XC - FOP
 196,HAVELLS,Consumer Discretionary,Consumer Durables,751.84,Havells India Limited,XC - CODI,XC - COD
@@ -209,31 +209,31 @@
 207,HOMEFIRST,Financial Services,Finance,66.35,Home First Finance Company India Limited,XC - FNCL,XC - NFC
 208,HONAUT,Industrials,Industrial Manufacturing,324.83,Honeywell Automation India Limited,XC - CODI,XC - COD
 209,HUDCO,Financial Services,Finance,87.88,Housing & Urban Development Corporation Limited,XC - FNCL,XC - NFC
-210,HDFC,Financial Services,Finance,4749.72,Housing Development Finance Corporation Limited,XC - FNCL,XC - NFC
-211,ICICIBANK,Financial Services,Banks,5862.24,ICICI Bank Limited,XC - FNCL,XC - PVT
+210,ICICIBANK,Financial Services,Banks,5862.24,ICICI Bank Limited,XC - FNCL,XC - PVT
+211,HDFC,Financial Services,Finance,4749.72,Housing Development Finance Corporation Limited,XC - FNCL,XC - NFC
 212,ICICIGI,Financial Services,Insurance,537.31,ICICI Lombard General Insurance Company Limited,XC - FNCL,XC - NFC
 213,ICICIPRULI,Financial Services,Insurance,579.02,ICICI Prudential Life Insurance Company Limited,XC - FNCL,XC - NFC
 214,ISEC,Financial Services,Capital Markets,154.14,ICICI Securities Limited,XC - FNCL,XC - NFC
 215,IDBI,Financial Services,Banks,526.87,IDBI Bank Limited,XC - FNCL,XC - PSU
 216,IDFCFIRSTB,Financial Services,Banks,335.33,IDFC First Bank Limited,XC - FNCL,XC - PVT
 217,IDFC,Financial Services,Finance,118.96,IDFC Limited,XC - FNCL,XC - NFC
-218,IIFL,Financial Services,Finance,165.39,IIFL Finance Limited,XC - FNCL,XC - NFC
-219,IFBIND,Consumer Discretionary,Consumer Durables,34.07,IFB Industries Limited,XC - CODI,XC - COD
+218,IFBIND,Consumer Discretionary,Consumer Durables,34.07,IFB Industries Limited,XC - CODI,XC - COD
+219,IIFL,Financial Services,Finance,165.39,IIFL Finance Limited,XC - FNCL,XC - NFC
 220,IRB,Industrials,Construction,179.36,IRB Infrastructure Developers Limited,XC - INDS,XC - CNS
 221,ITC,Fast Moving Consumer Goods,Diversified FMCG,4812.63,ITC Limited,XC - COST,XC - FOP
-222,INDIACEM,Commodities,Cement & Cement Products,58.35,The India Cements Limited,XC - MTRL,XC - CMT
-223,ITI,Telecommunication,Telecom - Equipment & Accessories,92.87,ITI Limited,XC - COSE,XC - TEL
+222,ITI,Telecommunication,Telecom - Equipment & Accessories,92.87,ITI Limited,XC - COSE,XC - TEL
+223,INDIACEM,Commodities,Cement & Cement Products,58.35,The India Cements Limited,XC - MTRL,XC - CMT
 224,IBULHSGFIN,Financial Services,Finance,48.36,Indiabulls Housing Finance Limited,XC - FNCL,XC - NFC
 225,IBREALEST,Consumer Discretionary,Realty,28.68,Indiabulls Real Estate Limited,XC - RLES,XC - REM
 226,INDIAMART,Consumer Discretionary,Retailing,146.6,Indiamart Intermesh Limited,XC - INTH,XC - INT
-227,INDIANB,Financial Services,Banks,346.73,Indian Bank,XC - FNCL,XC - PSU
-228,IEX,Financial Services,Capital Markets,127.43,Indian Energy Exchange Limited,XC - FNCL,XC - NFC
+227,IEX,Financial Services,Capital Markets,127.43,Indian Energy Exchange Limited,XC - FNCL,XC - NFC
+228,INDIANB,Financial Services,Banks,346.73,Indian Bank,XC - FNCL,XC - PSU
 229,INDHOTEL,Consumer Discretionary,Leisure Services,437.91,The Indian Hotels Company Limited,XC - CODI,XC - HSP
 230,IOC,Energy,Petroleum Products,1090.16,Indian Oil Corporation Limited,XC - ENRG,XC - REF
 231,IOB,Financial Services,Banks,467.83,Indian Overseas Bank,XC - FNCL,XC - PSU
-232,INDIGOPNTS,Consumer Discretionary,Consumer Durables,49.13,Indigo Paints Limited,XC - COST,XC - HPP
-233,IRCTC,Consumer Discretionary,Leisure Services,481.84,Indian Railway Catering And Tourism Corporation Limited,XC - CODI,XC - HSP
-234,IRFC,Financial Services,Finance,362.65,Indian Railway Finance Corporation Limited,XC - FNCL,XC - NFC
+232,IRCTC,Consumer Discretionary,Leisure Services,481.84,Indian Railway Catering And Tourism Corporation Limited,XC - CODI,XC - HSP
+233,IRFC,Financial Services,Finance,362.65,Indian Railway Finance Corporation Limited,XC - FNCL,XC - NFC
+234,INDIGOPNTS,Consumer Discretionary,Consumer Durables,49.13,Indigo Paints Limited,XC - COST,XC - HPP
 235,INDOCO,Healthcare,Pharmaceuticals & Biotechnology,33.4,Indoco Remedies Limited,XC - HECA,XC - PHR
 236,IGL,Energy,Gas,303.24,Indraprastha Gas Limited,XC - ENRG,XC - ODE
 237,INDUSTOWER,Telecommunication,Telecom - Services,466.22,Indus Towers Limited,XC - COSE,XC - TEL
@@ -243,14 +243,14 @@
 241,INFY,Information Technology,IT - Software,6431.77,Infosys Limited,XC - INTH,XC - ITS
 242,INTELLECT,Information Technology,IT - Software,62.2,Intellect Design Arena Limited,XC - INTH,XC - ITS
 243,INDIGO,Services,Transport Services,719.05,InterGlobe Aviation Limited,XC - INDS,XC - LGT
-244,IPCALAB,Healthcare,Pharmaceuticals & Biotechnology,208.01,IPCA Laboratories Limited,XC - HECA,XC - PHR
-245,JBCHEPHARM,Healthcare,Pharmaceuticals & Biotechnology,150.95,JB Chemicals & Pharmaceuticals Limited,XC - HECA,XC - PHR
-246,JKCEMENT,Commodities,Cement & Cement Products,217.23,JK Cement Limited,XC - MTRL,XC - CMT
-247,JBMA,Consumer Discretionary,Auto Components,65.47,JBM Auto Limited,XC - CODI,XC - ATO
-248,JKPAPER,Commodities,Paper Forest & Jute Products,66.32,JK Paper Limited,XC - CODI,XC - COD
-249,JMFINANCIL,Financial Services,Finance,62.01,JM Financial Limited,XC - FNCL,XC - NFC
-250,JSWENERGY,Utilities,Power,352.54,JSW Energy Limited,XC - UTLT,XC - PGD
-251,JKLAKSHMI,Commodities,Cement & Cement Products,87.98,JK Lakshmi Cement Limited,XC - MTRL,XC - CMT
+244,JBCHEPHARM,Healthcare,Pharmaceuticals & Biotechnology,150.95,JB Chemicals & Pharmaceuticals Limited,XC - HECA,XC - PHR
+245,JKCEMENT,Commodities,Cement & Cement Products,217.23,JK Cement Limited,XC - MTRL,XC - CMT
+246,JBMA,Consumer Discretionary,Auto Components,65.47,JBM Auto Limited,XC - CODI,XC - ATO
+247,IPCALAB,Healthcare,Pharmaceuticals & Biotechnology,208.01,IPCA Laboratories Limited,XC - HECA,XC - PHR
+248,JKLAKSHMI,Commodities,Cement & Cement Products,87.98,JK Lakshmi Cement Limited,XC - MTRL,XC - CMT
+249,JKPAPER,Commodities,Paper Forest & Jute Products,66.32,JK Paper Limited,XC - CODI,XC - COD
+250,JMFINANCIL,Financial Services,Finance,62.01,JM Financial Limited,XC - FNCL,XC - NFC
+251,JSWENERGY,Utilities,Power,352.54,JSW Energy Limited,XC - UTLT,XC - PGD
 252,JSWSTEEL,Commodities,Ferrous Metals,1695.2,JSW Steel Limited,XC - MTRL,XC - MTL
 253,JAMNAAUTO,Consumer Discretionary,Auto Components,41.02,Jamna Auto Industries Limited,XC - CODI,XC - ANC
 254,JSL,Commodities,Ferrous Metals,142.38,Jindal Stainless Limited,XC - MTRL,XC - MTL
@@ -262,34 +262,34 @@
 260,JYOTHYLAB,Fast Moving Consumer Goods,Household Products,71.64,Jyothy Labs Limited,XC - COST,XC - HPP
 261,KPRMILL,Consumer Discretionary,Textiles & Apparels,204.54,K.P.R. Mill Limited,XC - CODI,XC - TXT
 262,KEI,Industrials,Industrial Products,148.75,KEI Industries Limited,XC - INDS,XC - CAG
-263,KPITTECH,Information Technology,IT - Software,225.77,KPIT Technologies Limited,XC - INTH,XC - ITS
-264,KRBL,Fast Moving Consumer Goods,Agricultural Food & other Products,83.34,KRBL Limited,XC - COST,XC - FOP
-265,KNRCON,Industrials,Construction,71.1,KNR Constructions Limited,XC - INDS,XC - CNS
+263,KNRCON,Industrials,Construction,71.1,KNR Constructions Limited,XC - INDS,XC - CNS
+264,KPITTECH,Information Technology,IT - Software,225.77,KPIT Technologies Limited,XC - INTH,XC - ITS
+265,KRBL,Fast Moving Consumer Goods,Agricultural Food & other Products,83.34,KRBL Limited,XC - COST,XC - FOP
 266,KAJARIACER,Consumer Discretionary,Consumer Durables,166.62,Kajaria Ceramics Limited,XC - INDS,XC - CNS
-267,KALPATPOWR,Industrials,Construction,83.93,Kalpataru Power Transmission Limited,XC - UTLT,XC - PTD
-268,KALYANKJIL,Consumer Discretionary,Consumer Durables,121.86,Kalyan Jewellers India Limited,XC - CODI,XC - RTL
-269,KANSAINER,Consumer Discretionary,Consumer Durables,223.17,Kansai Nerolac Paints Limited,XC - COST,XC - HPP
+267,KALYANKJIL,Consumer Discretionary,Consumer Durables,121.86,Kalyan Jewellers India Limited,XC - CODI,XC - RTL
+268,KANSAINER,Consumer Discretionary,Consumer Durables,223.17,Kansai Nerolac Paints Limited,XC - COST,XC - HPP
+269,KALPATPOWR,Industrials,Construction,83.93,Kalpataru Power Transmission Limited,XC - UTLT,XC - PTD
 270,KARURVYSYA,Financial Services,Banks,81.89,Karur Vysya Bank Limited,XC - FNCL,XC - PVT
 271,KEC,Industrials,Electrical Equipment,121.49,KEC International Limited,XC - INDS,XC - CAG
 272,KOTAKBANK,Financial Services,Banks,3391.15,Kotak Mahindra Bank Limited,XC - FNCL,XC - PVT
 273,KIMS,Healthcare,Healthcare Services,110.35,Krishna Institute of Medical Sciences Limited,XC - HECA,XC - HCS
-274,LICHSGFIN,Financial Services,Finance,193.81,LIC Housing Finance Limited,XC - FNCL,XC - NFC
-275,LTTS,Information Technology,IT - Services,391.41,L&T Technology Services Limited,XC - INTH,XC - ITS
-276,LTIM,Information Technology,IT - Software,1435.78,LTIMindtree Limited,XC - INTH,XC - ITS
+274,LTTS,Information Technology,IT - Services,391.41,L&T Technology Services Limited,XC - INTH,XC - ITS
+275,LTIM,Information Technology,IT - Software,1435.78,LTIMindtree Limited,XC - INTH,XC - ITS
+276,LICHSGFIN,Financial Services,Finance,193.81,LIC Housing Finance Limited,XC - FNCL,XC - NFC
 277,LAXMIMACH,Industrials,Industrial Manufacturing,115.74,Lakshmi Machine Works Limited,XC - INDS,XC - CAG
 278,LT,Industrials,Construction,3034.55,Larsen & Toubro Limited,XC - INDS,XC - CAG
 279,LATENTVIEW,Information Technology,IT - Software,71.43,Latent View Analytics Limited,XC - INTH,XC - INT
-280,LXCHEM,Commodities,Chemicals & Petrochemicals,68.08,Laxmi Organic Industries Limited,XC - MTRL,XC - CHM
-281,LAURUSLABS,Healthcare,Pharmaceuticals & Biotechnology,170.32,Laurus Labs Limited,XC - HECA,XC - PHR
+280,LAURUSLABS,Healthcare,Pharmaceuticals & Biotechnology,170.32,Laurus Labs Limited,XC - HECA,XC - PHR
+281,LXCHEM,Commodities,Chemicals & Petrochemicals,68.08,Laxmi Organic Industries Limited,XC - MTRL,XC - CHM
 282,LEMONTREE,Consumer Discretionary,Leisure Services,59.06,Lemon Tree Hotels Limited,XC - CODI,XC - HSP
 283,LICI,Financial Services,Insurance,3737.44,Life Insurance Corporation Of India,XC - FNCL,XC - NFC
-284,LUPIN,Healthcare,Pharmaceuticals & Biotechnology,299.51,Lupin Limited,XC - HECA,XC - PHR
-285,LINDEINDIA,Commodities,Chemicals & Petrochemicals,327.63,Linde India Limited,XC - MTRL,XC - CHM
-286,LINDEINDIA,Commodities,Chemicals & Petrochemicals,327.63,Linde India Limited,XC - ENRG,XC - ODE
-287,MMTC,Services,Commercial Services & Supplies,47.85,MMTC Limited,XC - MTRL,XC - MTL
-288,LUXIND,Consumer Discretionary,Textiles & Apparels,41.03,Lux Industries Limited,XC - CODI,XC - TXT
-289,MOIL,Commodities,Minerals & Mining,31.22,MOIL Limited,XC - MTRL,XC - MTL
-290,MRF,Consumer Discretionary,Auto Components,367.84,MRF Limited,XC - CODI,XC - ANC
+284,LINDEINDIA,Commodities,Chemicals & Petrochemicals,327.63,Linde India Limited,XC - MTRL,XC - CHM
+285,LINDEINDIA,Commodities,Chemicals & Petrochemicals,327.63,Linde India Limited,XC - ENRG,XC - ODE
+286,LUPIN,Healthcare,Pharmaceuticals & Biotechnology,299.51,Lupin Limited,XC - HECA,XC - PHR
+287,LUXIND,Consumer Discretionary,Textiles & Apparels,41.03,Lux Industries Limited,XC - CODI,XC - TXT
+288,MMTC,Services,Commercial Services & Supplies,47.85,MMTC Limited,XC - MTRL,XC - MTL
+289,MRF,Consumer Discretionary,Auto Components,367.84,MRF Limited,XC - CODI,XC - ANC
+290,MOIL,Commodities,Minerals & Mining,31.22,MOIL Limited,XC - MTRL,XC - MTL
 291,MTARTECH,Industrials,Aerospace & Defense,51.58,Mtar Technologies Limited,XC - INDS,XC - CAG
 292,LODHA,Consumer Discretionary,Realty,388.22,Macrotech Developers Limited,XC - RLES,XC - REM
 293,MGL,Energy,Gas,86.47,Mahanagar Gas Limited,XC - ENRG,XC - REF
@@ -298,9 +298,9 @@
 296,MAHLIFE,Consumer Discretionary,Realty,58.6,Mahindra Lifespace Developers Limited,XC - RLES,XC - REM
 297,MAHLOG,Services,Transport Services,26.91,Mahindra Logistics Limited,XC - INDS,XC - LGT
 298,MANAPPURAM,Financial Services,Finance,88.07,Manappuram Finance Limited,XC - FNCL,XC - NFC
-299,MRPL,Energy,Petroleum Products,90.52,Mangalore Refinery and Petrochemicals Limited,XC - ENRG,XC - REF
-300,MARICO,Fast Moving Consumer Goods,Personal Products,647.81,Marico Limited,XC - COST,XC - HPP
-301,MARUTI,Consumer Discretionary,Automobiles,2626.96,Maruti Suzuki India Limited,XC - CODI,XC - ATO
+299,MARICO,Fast Moving Consumer Goods,Personal Products,647.81,Marico Limited,XC - COST,XC - HPP
+300,MARUTI,Consumer Discretionary,Automobiles,2626.96,Maruti Suzuki India Limited,XC - CODI,XC - ATO
+301,MRPL,Energy,Petroleum Products,90.52,Mangalore Refinery and Petrochemicals Limited,XC - ENRG,XC - REF
 302,MASTEK,Information Technology,IT - Software,51.29,Mastek Limited,XC - INTH,XC - ITS
 303,MFSL,Financial Services,Insurance,238.15,Max Financial Services Limited,XC - FNCL,XC - NFC
 304,MAXHEALTH,Healthcare,Healthcare Services,415.77,Max Healthcare Institute Limited,XC - HECA,XC - HCS
@@ -311,27 +311,27 @@
 309,MSUMI,Consumer Discretionary,Auto Components,220.83,Motherson Sumi Wiring India Limited,XC - CODI,XC - ANC
 310,MOTILALOFS,Financial Services,Capital Markets,92.24,Motilal Oswal Financial Services Limited,XC - FNCL,XC - NFC
 311,MCX,Financial Services,Capital Markets,70.45,Multi Commodity Exchange of India Limited,XC - FNCL,XC - NFC
-312,MPHASIS,Information Technology,IT - Software,411.24,MphasiS Limited,XC - INTH,XC - ITS
-313,MUTHOOTFIN,Financial Services,Finance,384.21,Muthoot Finance Limited,XC - FNCL,XC - NFC
-314,NATCOPHARM,Healthcare,Pharmaceuticals & Biotechnology,98.21,Natco Pharma Limited,XC - HECA,XC - PHR
-315,NBCC,Industrials,Construction,59.94,NBCC (India) Limited,XC - INDS,XC - CNS
-316,NCC,Industrials,Construction,56.04,NCC Limited,XC - INDS,XC - CNS
+312,MUTHOOTFIN,Financial Services,Finance,384.21,Muthoot Finance Limited,XC - FNCL,XC - NFC
+313,MPHASIS,Information Technology,IT - Software,411.24,MphasiS Limited,XC - INTH,XC - ITS
+314,NBCC,Industrials,Construction,59.94,NBCC (India) Limited,XC - INDS,XC - CNS
+315,NCC,Industrials,Construction,56.04,NCC Limited,XC - INDS,XC - CNS
+316,NATCOPHARM,Healthcare,Pharmaceuticals & Biotechnology,98.21,Natco Pharma Limited,XC - HECA,XC - PHR
 317,NHPC,Utilities,Power,388.74,NHPC Limited,XC - UTLT,XC - PGD
-318,NOCIL,Commodities,Chemicals & Petrochemicals,38.29,NOCIL Limited,XC - MTRL,XC - CHM
-319,NTPC,Utilities,Power,1644.55,NTPC Limited,XC - UTLT,XC - PGD
-320,NLCINDIA,Utilities,Power,111.0,NLC India Limited,XC - UTLT,XC - PGD
+318,NLCINDIA,Utilities,Power,111.0,NLC India Limited,XC - UTLT,XC - PGD
+319,NOCIL,Commodities,Chemicals & Petrochemicals,38.29,NOCIL Limited,XC - MTRL,XC - CHM
+320,NTPC,Utilities,Power,1644.55,NTPC Limited,XC - UTLT,XC - PGD
 321,NH,Healthcare,Healthcare Services,151.56,Narayana Hrudayalaya Ltd.,XC - HECA,XC - PHR
 322,NATIONALUM,Commodities,Non - Ferrous Metals,150.7,National Aluminium Company Limited,XC - MTRL,XC - MTL
-323,NAVINFLUOR,Commodities,Chemicals & Petrochemicals,207.03,Navin Fluorine International Limited,XC - MTRL,XC - CHM
-324,NAZARA,Consumer Discretionary,Entertainment,35.25,Nazara Technologies Limited,XC - INTH,XC - INT
+323,NAZARA,Consumer Discretionary,Entertainment,35.25,Nazara Technologies Limited,XC - INTH,XC - INT
+324,NAVINFLUOR,Commodities,Chemicals & Petrochemicals,207.03,Navin Fluorine International Limited,XC - MTRL,XC - CHM
 325,NESTLEIND,Fast Moving Consumer Goods,Food Products,1797.96,Nestle India Limited,XC - COST,XC - FOP
-326,NAM-INDIA,Financial Services,Capital Markets,138.28,Nippon Life India Asset Management Limited,XC - FNCL,XC - NFC
-327,NETWORK18,Consumer Discretionary,Entertainment,61.82,Network18 Media & Investments Limited,XC - COSE,XC - MDA
-328,NUVOCO,Commodities,Cement & Cement Products,129.02,Nuvoco Vistas Corporation Limited,XC - MTRL,XC - CMT
+326,NETWORK18,Consumer Discretionary,Entertainment,61.82,Network18 Media & Investments Limited,XC - COSE,XC - MDA
+327,NUVOCO,Commodities,Cement & Cement Products,129.02,Nuvoco Vistas Corporation Limited,XC - MTRL,XC - CMT
+328,NAM-INDIA,Financial Services,Capital Markets,138.28,Nippon Life India Asset Management Limited,XC - FNCL,XC - NFC
 329,OBEROIRLTY,Consumer Discretionary,Realty,304.32,Oberoi Realty Limited,XC - RLES,XC - REM
 330,ONGC,Energy,Oil,1945.54,Oil & Natural Gas Corporation Limited,XC - ENRG,XC - ODE
-331,OIL,Energy,Oil,266.55,Oil India Limited,XC - ENRG,XC - ODE
-332,OLECTRA,Consumer Discretionary,Automobiles,33.02,Olectra Greentech Limited,XC - INDS,XC - CAG
+331,OLECTRA,Consumer Discretionary,Automobiles,33.02,Olectra Greentech Limited,XC - INDS,XC - CAG
+332,OIL,Energy,Oil,266.55,Oil India Limited,XC - ENRG,XC - ODE
 333,PAYTM,Financial Services,Financial Technology (Fintech),392.95,One 97 Communications Limited,XC - INTH,XC - INT
 334,OFSS,Information Technology,IT - Software,272.41,Oracle Financial Services Software Limited,XC - INTH,XC - ITS
 335,ORIENTELEC,Consumer Discretionary,Consumer Durables,57.53,Orient Electric Limited,XC - CODI,XC - COD
@@ -341,20 +341,20 @@
 339,PNBHOUSING,Financial Services,Finance,99.67,PNB Housing Finance Limited,XC - FNCL,XC - NFC
 340,PNCINFRA,Industrials,Construction,78.41,PNC Infratech Limited,XC - INDS,XC - CNS
 341,PVR,Consumer Discretionary,Entertainment,98.02,PVR Limited,XC - COSE,XC - MDA
-342,PAGEIND,Consumer Discretionary,Textiles & Apparels,424.55,Page Industries Limited,XC - CODI,XC - TXT
-343,PATANJALI,Fast Moving Consumer Goods,Agricultural Food & other Products,342.66,Patanjali Foods Limited,XC - COST,XC - FOP
+342,PATANJALI,Fast Moving Consumer Goods,Agricultural Food & other Products,342.66,Patanjali Foods Limited,XC - COST,XC - FOP
+343,PAGEIND,Consumer Discretionary,Textiles & Apparels,424.55,Page Industries Limited,XC - CODI,XC - TXT
 344,PERSISTENT,Information Technology,IT - Software,379.91,Persistent Systems Limited,XC - INTH,XC - ITS
 345,PETRONET,Energy,Gas,329.48,Petronet LNG Limited,XC - ENRG,XC - ODE
 346,PFIZER,Healthcare,Pharmaceuticals & Biotechnology,174.33,Pfizer Limited,XC - HECA,XC - PHR
-347,PIDILITIND,Commodities,Chemicals & Petrochemicals,1152.93,Pidilite Industries Limited,XC - MTRL,XC - CHM
-348,POLYMED,Healthcare,Healthcare Equipment & Supplies,92.59,Poly Medicure Limited,XC - HECA,XC - HCS
-349,PHOENIXLTD,Consumer Discretionary,Realty,229.93,The Phoenix Mills Limited,XC - RLES,XC - REM
+347,PHOENIXLTD,Consumer Discretionary,Realty,229.93,The Phoenix Mills Limited,XC - RLES,XC - REM
+348,PIDILITIND,Commodities,Chemicals & Petrochemicals,1152.93,Pidilite Industries Limited,XC - MTRL,XC - CHM
+349,POLYMED,Healthcare,Healthcare Equipment & Supplies,92.59,Poly Medicure Limited,XC - HECA,XC - HCS
 350,POLYCAB,Industrials,Industrial Products,459.63,Polycab India Limited,XC - INDS,XC - CAG
 351,POLYPLEX,Industrials,Industrial Products,45.33,Polyplex Corporation Limited,XC - INDS,XC - CAG
 352,POONAWALLA,Financial Services,Finance,228.89,Poonawalla Fincorp Limited,XC - FNCL,XC - NFC
-353,POWERGRID,Utilities,Power,1487.52,Power Grid Corporation of India Limited,XC - UTLT,XC - PGD
-354,PFC,Financial Services,Finance,389.54,Power Finance Corporation Limited,XC - FNCL,XC - NFC
-355,PRAJIND,Industrials,Industrial Manufacturing,64.18,Praj Industries Limited,XC - INDS,XC - CAG
+353,PFC,Financial Services,Finance,389.54,Power Finance Corporation Limited,XC - FNCL,XC - NFC
+354,PRAJIND,Industrials,Industrial Manufacturing,64.18,Praj Industries Limited,XC - INDS,XC - CAG
+355,POWERGRID,Utilities,Power,1487.52,Power Grid Corporation of India Limited,XC - UTLT,XC - PGD
 356,PRESTIGE,Consumer Discretionary,Realty,161.73,Prestige Estates Projects Limited,XC - RLES,XC - REM
 357,PRINCEPIPE,Industrials,Industrial Products,62.38,Prince Pipes And Fittings Limited,XC - INDS,XC - CAG
 358,PRSMJOHNSN,Commodities,Cement & Cement Products,54.39,Prism Johnson Limited,XC - MTRL,XC - CMT
@@ -368,8 +368,8 @@
 366,RHIM,Industrials,Industrial Products,113.27,RHI MAGNESITA INDIA LIMITED,XC - MTRL,XC - MTL
 367,RITES,Industrials,Construction,79.06,RITES Limited,XC - INDS,XC - CNS
 368,RADICO,Fast Moving Consumer Goods,Beverages,151.51,Radico Khaitan Limited,XC - COST,XC - FOP
-369,RVNL,Industrials,Construction,135.63,Rail Vikas Nigam Limited,XC - INDS,XC - CNS
-370,RAIN,Commodities,Chemicals & Petrochemicals,52.99,Rain Industries Limited,XC - MTRL,XC - CHM
+369,RAIN,Commodities,Chemicals & Petrochemicals,52.99,Rain Industries Limited,XC - MTRL,XC - CHM
+370,RVNL,Industrials,Construction,135.63,Rail Vikas Nigam Limited,XC - INDS,XC - CNS
 371,RAINBOW,Healthcare,Healthcare Services,74.45,Rainbow Childrens Medicare Limited,XC - HECA,XC - HCS
 372,RAJESHEXPO,Consumer Discretionary,Consumer Durables,203.52,Rajesh Exports Limited,XC - CODI,XC - RTL
 373,RALLIS,Commodities,Fertilizers & Agrochemicals,39.71,Rallis India Limited,XC - MTRL,XC - FRT
@@ -380,30 +380,30 @@
 378,REDINGTON,Services,Commercial Services & Supplies,134.5,Redington Limited,XC - INTH,XC - ITS
 379,RELAXO,Consumer Discretionary,Consumer Durables,193.49,Relaxo Footwears Limited,XC - CODI,XC - COD
 380,RELIANCE,Energy,Petroleum Products,16017.29,Reliance Industries Limited,XC - ENRG,XC - REF
-381,RBA,Consumer Discretionary,Leisure Services,47.91,Restaurant Brands Asia Limited,XC - COST,XC - FOP
-382,ROSSARI,Commodities,Chemicals & Petrochemicals,37.36,Rossari Biotech Limited,XC - MTRL,XC - CHM
+381,ROSSARI,Commodities,Chemicals & Petrochemicals,37.36,Rossari Biotech Limited,XC - MTRL,XC - CHM
+382,RBA,Consumer Discretionary,Leisure Services,47.91,Restaurant Brands Asia Limited,XC - COST,XC - FOP
 383,ROUTE,Telecommunication,Telecom - Services,84.59,ROUTE MOBILE LIMITED,XC - INTH,XC - INT
 384,SBICARD,Financial Services,Finance,699.22,SBI Cards and Payment Services Limited,XC - FNCL,XC - NFC
-385,SBILIFE,Financial Services,Insurance,1136.34,SBI Life Insurance Company Limited,XC - FNCL,XC - NFC
-386,SIS,Services,Commercial Services & Supplies,52.61,SIS LIMITED,XC - CODI,XC - HSP
+385,SIS,Services,Commercial Services & Supplies,52.61,SIS LIMITED,XC - CODI,XC - HSP
+386,SBILIFE,Financial Services,Insurance,1136.34,SBI Life Insurance Company Limited,XC - FNCL,XC - NFC
 387,SJVN,Utilities,Power,124.38,SJVN Limited,XC - UTLT,XC - PGD
 388,SKFINDIA,Industrials,Industrial Products,220.2,SKF India Limited,XC - CODI,XC - ANC
 389,SRF,Commodities,Chemicals & Petrochemicals,664.79,SRF Limited,XC - MTRL,XC - CHM
 390,SRF,Commodities,Chemicals & Petrochemicals,664.79,SRF Limited,XC - CODI,XC - TXT
-391,MOTHERSON,Consumer Discretionary,Auto Components,558.04,Samvardhana Motherson International Limited,XC - CODI,XC - ANC
-392,SANOFI,Healthcare,Pharmaceuticals & Biotechnology,123.41,Sanofi India Limited,XC - HECA,XC - PHR
+391,SANOFI,Healthcare,Pharmaceuticals & Biotechnology,123.41,Sanofi India Limited,XC - HECA,XC - PHR
+392,MOTHERSON,Consumer Discretionary,Auto Components,558.04,Samvardhana Motherson International Limited,XC - CODI,XC - ANC
 393,SAPPHIRE,Consumer Discretionary,Leisure Services,77.44,Sapphire Foods India Limited,XC - COST,XC - FOP
 394,SCHAEFFLER,Consumer Discretionary,Auto Components,467.91,Schaeffler India Limited,XC - CODI,XC - ANC
-395,SFL,Consumer Discretionary,Consumer Durables,109.69,Sheela Foam Limited,XC - CODI,XC - COD
-396,SHARDACROP,Commodities,Fertilizers & Agrochemicals,43.2,Sharda Cropchem Limited,XC - MTRL,XC - FRT
+395,SHARDACROP,Commodities,Fertilizers & Agrochemicals,43.2,Sharda Cropchem Limited,XC - MTRL,XC - FRT
+396,SFL,Consumer Discretionary,Consumer Durables,109.69,Sheela Foam Limited,XC - CODI,XC - COD
 397,SHILPAMED,Healthcare,Pharmaceuticals & Biotechnology,24.27,Shilpa Medicare Limited,XC - HECA,XC - PHR
 398,SHOPERSTOP,Consumer Discretionary,Retailing,70.33,Shoppers Stop Limited,XC - CODI,XC - RTL
 399,SHREECEM,Commodities,Cement & Cement Products,924.92,SHREE CEMENT LIMITED,XC - MTRL,XC - CMT
 400,RENUKA,Fast Moving Consumer Goods,Agricultural Food & other Products,93.87,Shree Renuka Sugars Limited,XC - COST,XC - SGR
-401,SHYAMMETL,Commodities,Ferrous Metals,72.98,Shyam Metalics and Energy Limited,XC - MTRL,XC - MTL
-402,SIEMENS,Industrials,Electrical Equipment,1159.88,Siemens Limited,XC - INDS,XC - CAG
-403,SOBHA,Consumer Discretionary,Realty,54.62,Sobha Limited,XC - RLES,XC - REM
-404,SHRIRAMFIN,Financial Services,Finance,449.43,Shriram Finance Limited,XC - FNCL,XC - NFC
+401,SHRIRAMFIN,Financial Services,Finance,449.43,Shriram Finance Limited,XC - FNCL,XC - NFC
+402,SHYAMMETL,Commodities,Ferrous Metals,72.98,Shyam Metalics and Energy Limited,XC - MTRL,XC - MTL
+403,SIEMENS,Industrials,Electrical Equipment,1159.88,Siemens Limited,XC - INDS,XC - CAG
+404,SOBHA,Consumer Discretionary,Realty,54.62,Sobha Limited,XC - RLES,XC - REM
 405,SOLARINDS,Commodities,Chemicals & Petrochemicals,349.53,Solar Industries India Limited,XC - MTRL,XC - CHM
 406,SONACOMS,Consumer Discretionary,Auto Components,271.57,Sona BLW Precision Forgings Limited,XC - CODI,XC - ANC
 407,SONATSOFTW,Information Technology,IT - Software,101.95,Sonata Software Limited,XC - INTH,XC - ITS
@@ -411,57 +411,57 @@
 409,SBIN,Financial Services,Banks,4649.72,State Bank of India,XC - FNCL,XC - PSU
 410,SAIL,Commodities,Ferrous Metals,350.68,Steel Authority of India Limited,XC - MTRL,XC - MTL
 411,SWSOLAR,Industrials,Construction,56.97,Sterling and Wilson Renewable Energy Limited,XC - UTLT,XC - PGD
-412,SUDARSCHEM,Commodities,Chemicals & Petrochemicals,25.47,Sudarshan Chemical Industries Limited,XC - MTRL,XC - CHM
-413,SUMICHEM,Commodities,Fertilizers & Agrochemicals,225.84,Sumitomo Chemical India Limited,XC - MTRL,XC - FRT
-414,STLTECH,Telecommunication,Telecom - Services,66.66,Sterlite Technologies Limited,XC - COSE,XC - TEL
+412,STLTECH,Telecommunication,Telecom - Services,66.66,Sterlite Technologies Limited,XC - COSE,XC - TEL
+413,SUDARSCHEM,Commodities,Chemicals & Petrochemicals,25.47,Sudarshan Chemical Industries Limited,XC - MTRL,XC - CHM
+414,SUMICHEM,Commodities,Fertilizers & Agrochemicals,225.84,Sumitomo Chemical India Limited,XC - MTRL,XC - FRT
 415,SPARC,Healthcare,Pharmaceuticals & Biotechnology,61.91,Sun Pharma Advanced Research Company Limited,XC - HECA,XC - PHR
 416,SUNPHARMA,Healthcare,Pharmaceuticals & Biotechnology,2333.35,Sun Pharmaceutical Industries Limited,XC - HECA,XC - PHR
 417,SUNTV,Consumer Discretionary,Entertainment,172.65,Sun TV Network Limited,XC - COSE,XC - MDA
-418,SUNDRMFAST,Consumer Discretionary,Auto Components,208.13,Sundram Fasteners Limited,XC - CODI,XC - ANC
-419,SUNTECK,Consumer Discretionary,Realty,45.43,Sunteck Realty Limited,XC - RLES,XC - REM
-420,SUPRAJIT,Consumer Discretionary,Auto Components,49.45,Suprajit Engineering Limited,XC - CODI,XC - ANC
-421,SUPREMEIND,Industrials,Industrial Products,342.29,Supreme Industries Limited,XC - INDS,XC - CAG
-422,SUVENPHAR,Healthcare,Pharmaceuticals & Biotechnology,121.68,Suven Pharmaceuticals Limited,XC - HECA,XC - PHR
-423,SUZLON,Industrials,Electrical Equipment,82.1,Suzlon Energy Limited,XC - INDS,XC - CAG
-424,SWANENERGY,Consumer Discretionary,Textiles & Apparels,67.69,Swan Energy Limited,XC - CODI,XC - TXT
-425,SYMPHONY,Consumer Discretionary,Consumer Durables,78.0,Symphony Limited,XC - CODI,XC - COD
-426,SYNGENE,Healthcare,Healthcare Services,234.72,Syngene International Limited,XC - HECA,XC - PHR
-427,TCIEXP,Services,Transport Services,59.86,TCI Express Limited,XC - INDS,XC - LGT
-428,TCNSBRANDS,Consumer Discretionary,Textiles & Apparels,28.66,TCNS Clothing Co. Limited,XC - CODI,XC - TXT
-429,TTKPRESTIG,Consumer Discretionary,Consumer Durables,104.77,TTK Prestige Limited,XC - CODI,XC - COD
-430,TV18BRDCST,Consumer Discretionary,Entertainment,53.66,TV18 Broadcast Limited,XC - COSE,XC - MDA
-431,TVSMOTOR,Consumer Discretionary,Automobiles,530.81,TVS Motor Company Limited,XC - CODI,XC - ATO
-432,TANLA,Information Technology,IT - Software,87.75,Tanla Platforms Limited,XC - INTH,XC - ITS
-433,TATACHEM,Commodities,Chemicals & Petrochemicals,247.84,Tata Chemicals Limited,XC - MTRL,XC - CHM
-434,TATACOFFEE,Fast Moving Consumer Goods,Agricultural Food & other Products,38.98,Tata Coffee Limited,XC - COST,XC - FOP
-435,TATACOMM,Telecommunication,Telecom - Services,343.55,Tata Communications Limited,XC - COSE,XC - TEL
+418,SUNDARMFIN,Financial Services,Finance,255.72,Sundaram Finance Limited,XC - FNCL,XC - NFC
+419,SUNDRMFAST,Consumer Discretionary,Auto Components,208.13,Sundram Fasteners Limited,XC - CODI,XC - ANC
+420,SUNTECK,Consumer Discretionary,Realty,45.43,Sunteck Realty Limited,XC - RLES,XC - REM
+421,SUPRAJIT,Consumer Discretionary,Auto Components,49.45,Suprajit Engineering Limited,XC - CODI,XC - ANC
+422,SUPREMEIND,Industrials,Industrial Products,342.29,Supreme Industries Limited,XC - INDS,XC - CAG
+423,SUVENPHAR,Healthcare,Pharmaceuticals & Biotechnology,121.68,Suven Pharmaceuticals Limited,XC - HECA,XC - PHR
+424,SUZLON,Industrials,Electrical Equipment,82.1,Suzlon Energy Limited,XC - INDS,XC - CAG
+425,SWANENERGY,Consumer Discretionary,Textiles & Apparels,67.69,Swan Energy Limited,XC - CODI,XC - TXT
+426,SYMPHONY,Consumer Discretionary,Consumer Durables,78.0,Symphony Limited,XC - CODI,XC - COD
+427,SYNGENE,Healthcare,Healthcare Services,234.72,Syngene International Limited,XC - HECA,XC - PHR
+428,TCIEXP,Services,Transport Services,59.86,TCI Express Limited,XC - INDS,XC - LGT
+429,TCNSBRANDS,Consumer Discretionary,Textiles & Apparels,28.66,TCNS Clothing Co. Limited,XC - CODI,XC - TXT
+430,TTKPRESTIG,Consumer Discretionary,Consumer Durables,104.77,TTK Prestige Limited,XC - CODI,XC - COD
+431,TV18BRDCST,Consumer Discretionary,Entertainment,53.66,TV18 Broadcast Limited,XC - COSE,XC - MDA
+432,TVSMOTOR,Consumer Discretionary,Automobiles,530.81,TVS Motor Company Limited,XC - CODI,XC - ATO
+433,TANLA,Information Technology,IT - Software,87.75,Tanla Platforms Limited,XC - INTH,XC - ITS
+434,TATACHEM,Commodities,Chemicals & Petrochemicals,247.84,Tata Chemicals Limited,XC - MTRL,XC - CHM
+435,TATACOFFEE,Fast Moving Consumer Goods,Agricultural Food & other Products,38.98,Tata Coffee Limited,XC - COST,XC - FOP
 436,TCS,Information Technology,IT - Software,12491.27,Tata Consultancy Services Limited,XC - INTH,XC - ITS
-437,TATACONSUM,Fast Moving Consumer Goods,Agricultural Food & other Products,665.27,TATA CONSUMER PRODUCTS LIMITED,XC - COST,XC - FOP
-438,TATAELXSI,Information Technology,IT - Software,403.83,Tata Elxsi Limited,XC - INTH,XC - ITS
-439,TATAINVEST,Financial Services,Finance,103.5,Tata Investment Corporation Limited,XC - FNCL,XC - NFC
-440,TATAMOTORS,Consumer Discretionary,Automobiles,1438.8,Tata Motors Limited,XC - CODI,XC - ATO
-441,TATAPOWER,Utilities,Power,643.22,Tata Power Company Limited,XC - UTLT,XC - PGD
-442,TATASTEEL,Commodities,Ferrous Metals,1369.39,TATA Steel Limited,XC - MTRL,XC - MTL
-443,TEAMLEASE,Services,Commercial Services & Supplies,43.41,Teamlease Services Limited,XC - INTH,XC - ITS
-444,TECHM,Information Technology,IT - Software,1099.38,Tech Mahindra Limited,XC - INTH,XC - ITS
-445,SUNDARMFIN,Financial Services,Finance,255.72,Sundaram Finance Limited,XC - FNCL,XC - NFC
+437,TATACOMM,Telecommunication,Telecom - Services,343.55,Tata Communications Limited,XC - COSE,XC - TEL
+438,TATACONSUM,Fast Moving Consumer Goods,Agricultural Food & other Products,665.27,TATA CONSUMER PRODUCTS LIMITED,XC - COST,XC - FOP
+439,TATAELXSI,Information Technology,IT - Software,403.83,Tata Elxsi Limited,XC - INTH,XC - ITS
+440,TATAINVEST,Financial Services,Finance,103.5,Tata Investment Corporation Limited,XC - FNCL,XC - NFC
+441,TATAMOTORS,Consumer Discretionary,Automobiles,1438.8,Tata Motors Limited,XC - CODI,XC - ATO
+442,TATAPOWER,Utilities,Power,643.22,Tata Power Company Limited,XC - UTLT,XC - PGD
+443,TTML,Telecommunication,Telecom - Services,115.34,Tata Teleservices (Maharashtra) Limited,XC - COSE,XC - TEL
+444,TATASTEEL,Commodities,Ferrous Metals,1369.39,TATA Steel Limited,XC - MTRL,XC - MTL
+445,TECHM,Information Technology,IT - Software,1099.38,Tech Mahindra Limited,XC - INTH,XC - ITS
 446,TEJASNET,Telecommunication,Telecom - Equipment & Accessories,94.54,Tejas Networks Limited,XC - COSE,XC - TEL
 447,NIACL,Financial Services,Insurance,167.35,The New India Assurance Company Limited,XC - FNCL,XC - NFC
-448,RAMCOCEM,Commodities,Cement & Cement Products,171.13,The Ramco Cements Limited,XC - MTRL,XC - CMT
+448,TEAMLEASE,Services,Commercial Services & Supplies,43.41,Teamlease Services Limited,XC - INTH,XC - ITS
 449,THERMAX,Industrials,Electrical Equipment,253.73,Thermax Limited,XC - INDS,XC - CAG
-450,TIMKEN,Industrials,Industrial Products,224.75,Timken India Limited,XC - CODI,XC - ANC
-451,THYROCARE,Healthcare,Healthcare Services,24.87,Thyrocare Technologies Limited,XC - HECA,XC - HCS
-452,TITAN,Consumer Discretionary,Consumer Durables,2125.8,Titan Company Limited,XC - CODI,XC - COD
-453,TORNTPHARM,Healthcare,Pharmaceuticals & Biotechnology,501.39,Torrent Pharmaceuticals Limited,XC - HECA,XC - PHR
-454,TORNTPOWER,Utilities,Power,241.53,Torrent Power Limited,XC - UTLT,XC - PGD
-455,TCI,Services,Transport Services,50.5,Transport Corporation of India Limited,XC - INDS,XC - LGT
-456,TRIDENT,Consumer Discretionary,Textiles & Apparels,158.48,Trident Limited,XC - CODI,XC - TXT
+450,THYROCARE,Healthcare,Healthcare Services,24.87,Thyrocare Technologies Limited,XC - HECA,XC - HCS
+451,TIMKEN,Industrials,Industrial Products,224.75,Timken India Limited,XC - CODI,XC - ANC
+452,RAMCOCEM,Commodities,Cement & Cement Products,171.13,The Ramco Cements Limited,XC - MTRL,XC - CMT
+453,TITAN,Consumer Discretionary,Consumer Durables,2125.8,Titan Company Limited,XC - CODI,XC - COD
+454,TORNTPHARM,Healthcare,Pharmaceuticals & Biotechnology,501.39,Torrent Pharmaceuticals Limited,XC - HECA,XC - PHR
+455,TORNTPOWER,Utilities,Power,241.53,Torrent Power Limited,XC - UTLT,XC - PGD
+456,TCI,Services,Transport Services,50.5,Transport Corporation of India Limited,XC - INDS,XC - LGT
 457,TRENT,Consumer Discretionary,Retailing,472.16,Trent Limited,XC - CODI,XC - RTL
-458,TTML,Telecommunication,Telecom - Services,115.34,Tata Teleservices (Maharashtra) Limited,XC - COSE,XC - TEL
+458,TRIDENT,Consumer Discretionary,Textiles & Apparels,158.48,Trident Limited,XC - CODI,XC - TXT
 459,TRIVENI,Fast Moving Consumer Goods,Agricultural Food & other Products,65.55,Triveni Engineering & Industries Limited,XC - INDS,XC - CAG
 460,TRITURBINE,Industrials,Electrical Equipment,94.49,Triveni Turbine Limited,XC - INDS,XC - CAG
-461,TIINDIA,Consumer Discretionary,Auto Components,482.23,Tube Investments of India Limited,XC - CODI,XC - ANC
-462,UCOBANK,Financial Services,Banks,304.28,UCO Bank,XC - FNCL,XC - PSU
+461,UCOBANK,Financial Services,Banks,304.28,UCO Bank,XC - FNCL,XC - PSU
+462,TIINDIA,Consumer Discretionary,Auto Components,482.23,Tube Investments of India Limited,XC - CODI,XC - ANC
 463,UFLEX,Industrials,Industrial Products,31.78,UFLEX Limited,XC - INDS,XC - CAG
 464,UNOMINDA,Consumer Discretionary,Auto Components,289.21,UNO Minda Limited,XC - CODI,XC - ANC
 465,UPL,Commodities,Fertilizers & Agrochemicals,559.32,UPL Limited,XC - MTRL,XC - CHM
@@ -470,8 +470,8 @@
 468,UNIONBANK,Financial Services,Banks,464.76,Union Bank of India,XC - FNCL,XC - PSU
 469,UBL,Fast Moving Consumer Goods,Beverages,382.65,United Breweries Limited,XC - COST,XC - FOP
 470,MCDOWELL-N,Fast Moving Consumer Goods,Beverages,539.48,United Spirits Limited,XC - COST,XC - FOP
-471,VMART,Consumer Discretionary,Retailing,48.93,V-Mart Retail Limited,XC - CODI,XC - RTL
-472,VGUARD,Consumer Discretionary,Consumer Durables,104.52,V-Guard Industries Limited,XC - INDS,XC - CAG
+471,VGUARD,Consumer Discretionary,Consumer Durables,104.52,V-Guard Industries Limited,XC - INDS,XC - CAG
+472,VMART,Consumer Discretionary,Retailing,48.93,V-Mart Retail Limited,XC - CODI,XC - RTL
 473,VIPIND,Consumer Discretionary,Consumer Durables,93.65,VIP Industries Limited,XC - CODI,XC - COD
 474,VAIBHAVGBL,Consumer Discretionary,Retailing,53.35,Vaibhav Global Limited,XC - CODI,XC - RTL
 475,VTL,Consumer Discretionary,Textiles & Apparels,92.93,Vardhman Textiles Limited,XC - CODI,XC - TXT
@@ -485,9 +485,9 @@
 483,IDEA,Telecommunication,Telecom - Services,323.29,Vodafone Idea Limited,XC - COSE,XC - TEL
 484,VOLTAS,Consumer Discretionary,Consumer Durables,297.99,Voltas Limited,XC - CODI,XC - COD
 485,WELSPUNIND,Consumer Discretionary,Textiles & Apparels,67.73,Welspun India Limited,XC - CODI,XC - TXT
-486,WELCORP,Industrials,Industrial Products,48.8,Welspun Corp Limited,XC - MTRL,XC - MTL
+486,WESTLIFE,Consumer Discretionary,Leisure Services,104.78,WESTLIFE FOODWORLD LIMITED,XC - CODI,XC - HSP
 487,WHIRLPOOL,Consumer Discretionary,Consumer Durables,161.07,Whirlpool of India Limited,XC - CODI,XC - COD
-488,WESTLIFE,Consumer Discretionary,Leisure Services,104.78,WESTLIFE FOODWORLD LIMITED,XC - CODI,XC - HSP
+488,WELCORP,Industrials,Industrial Products,48.8,Welspun Corp Limited,XC - MTRL,XC - MTL
 489,WIPRO,Information Technology,IT - Software,2161.68,Wipro Limited,XC - INTH,XC - ITS
 490,WOCKPHARMA,Healthcare,Pharmaceuticals & Biotechnology,28.57,Wockhardt Limited,XC - HECA,XC - PHR
 491,YESBANK,Financial Services,Banks,471.57,Yes Bank Limited,XC - FNCL,XC - PVT
