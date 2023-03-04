@@ -19,12 +19,12 @@ ticker_scores = article_data.groupby('Ticker').mean().reset_index()
 #merge dfs
 final_df = pd.merge(ticker_metadata, ticker_scores, on='Ticker', how='inner')
 #change column names
-final_df.columns = ['Symbol','Macro-Sector','Industry', 'Market Cap (Billion Rs)','Company Name','XC-Sector', 'XC-Industry', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']
+final_df.columns = ['Symbol','Macro-Sector','Industry', 'Market Cap (Billion Rs)', 'Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']
 
 #graphing
 print('Generating Plots')
 fig = px.treemap(
-    final_df, path=[px.Constant('Nifty 500'), 'XC-Sector', 'XC-Industry', 'Symbol'], values='Market Cap (Billion Rs)', color='Sentiment Score',
+    final_df, path=[px.Constant('Nifty 500'), 'Macro-Sector', 'Industry', 'Symbol'], values='Market Cap (Billion Rs)', color='Sentiment Score',
     hover_data=['Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score'], color_continuous_scale=['#FF0000', "#000000", '#00FF00'], color_continuous_midpoint=0
     )
 fig.data[0].customdata = final_df[['Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']]

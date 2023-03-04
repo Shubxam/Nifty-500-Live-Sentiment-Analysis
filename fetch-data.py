@@ -70,8 +70,6 @@ def ticker_article_fetch(i, ticker, soup):
         art_title = link.find('span', class_='h6').text
         #separate date and time from datetime object
         date_time_obj = datetime.datetime.strptime(link.find('small').text, '%d %b %Y, %I:%M%p')
-        #if (date_time_obj <= days_limit):
-        #continue
         art_date = date_time_obj.date().strftime('%Y/%m/%d')
         art_time = date_time_obj.time().strftime('%H:%M')
         article_data.append([ticker, art_title, art_date, art_time])
@@ -101,7 +99,7 @@ def ticker_meta_fetch(i, ticker, meta):
         ticker_meta.append([ticker, sector, industry, mCap, companyName])
         return True
     try:
-        mCap = round((meta['priceInfo']['previousClose'] * meta['securityInfo']['issuedSize'])/1000000000, 2)
+        mCap = round((meta['priceInfo']['previousClose'] * meta['securityInfo']['issuedSize'])/1000000000, 2) #Rounding MCap off to Billion
     except KeyError:
         print('{} mCap data is not available'.format(ticker))
         mCap = np.nan
@@ -162,14 +160,14 @@ art_scores_df = pd.merge(articles_df, art_scores_df, left_index=True, right_inde
 art_scores_df.to_csv('./datasets/NIFTY_500_Articles.csv')
 
 # remove null values
-ticker_meta_df = ticker_meta_df.dropna()
+ticker_metadata = ticker_meta_df.dropna()
 
-# import XC-indices file for categorization
-xc_indices = pd.read_csv('./datasets/XC-tickers.csv')
-xc_indices.columns = ['Ticker', 'XC-Sector', 'XC-Industry']
+# # import XC-indices file for categorization
+# xc_indices = pd.read_csv('./datasets/XC-tickers.csv')
+# xc_indices.columns = ['Ticker', 'XC-Sector', 'XC-Industry']
 
-# merge xc-indices and ticker_meta_df
-ticker_metadata = pd.merge(ticker_meta_df, xc_indices, on='Ticker')
+# # merge xc-indices and ticker_meta_df
+# ticker_metadata = pd.merge(ticker_meta_df, xc_indices, on='Ticker')
 
 #export ticker data to csv file
 ticker_metadata.to_csv('./datasets/ticker_metadata.csv')
