@@ -27,7 +27,7 @@ timezone_string = datetime.datetime.now().astimezone().tzname()
 # read must csv files
 articles_data = pd.read_csv('./datasets/NIFTY_500_Articles.csv', index_col=0)
 ticker_metadata = pd.read_csv('./datasets/ticker_metadata.csv', index_col=0)
-xc_indices = pd.read_csv('./datasets/XC-Indices.csv')
+#xc_indices = pd.read_csv('./datasets/XC-Indices.csv')
 
 ## Filter articles by UNIVERSE
 universe = st.session_state['universe_filter']
@@ -71,11 +71,11 @@ universe_filtered_df = filter_article_sent_score[filter_article_sent_score['Tick
 
 #merge dfs
 final_df = pd.merge(ticker_metadata, universe_filtered_df, on='Ticker', how='inner')
-final_df.columns = ['Symbol','Macro-Sector','Industry', 'Market Cap (Billion Rs)','Company Name','XC-Sector', 'XC-Industry', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']
+final_df.columns = ['Symbol','Macro-Sector','Industry', 'Market Cap (Billion Rs)','Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']
 
 # Plotting
 fig = px.treemap(
-    final_df, path=[px.Constant(universe_string), 'XC-Sector', 'XC-Industry', 'Symbol'], values= 'Market Cap (Billion Rs)', color='Sentiment Score',
+    final_df, path=[px.Constant(universe_string), 'Macro-Sector', 'Industry', 'Symbol'], values= 'Market Cap (Billion Rs)', color='Sentiment Score',
     hover_data=['Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score'], color_continuous_scale=['#FF0000', "#000000", '#00FF00'], color_continuous_midpoint=0
     )
 #fig.data[0].customdata = final_df[['Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']]
@@ -101,11 +101,13 @@ st.markdown('This dashboard gives users a almost real-time comprehensive visual 
 
 # Update filters
 
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 with col1:
     date_interval = st.selectbox('Pick the Date Range', ('Past 7 days', 'Past 1 Month', 'Past 2 Months', 'Full'), key='date_filter')
 with col2:
     universe_var = st.selectbox('Select Universe of Stocks', ('NIFTY_50', 'NIFTY_100', 'NIFTY_200', 'NIFTY_500'), key='universe_filter')
+with col3:
+    st.empty()
 
 chart_area = st.empty()
 
@@ -116,12 +118,11 @@ st.markdown('The chart above depicts the real time sentiment of Stocks and Indus
 
 col_1, col_2 = st.columns(2)
 with col_1:
-    st.markdown('The following table could be used as reference to identify sector and industry names.') 
-    st.dataframe(xc_indices)
-
-with col_2:
     st.selectbox('Type the Symbol name to get associated news: ', final_df['Symbol'], key='newsbox')
     st.dataframe(news_df)
+
+with col_2:
+    st.markdown(' ') 
 
 st.markdown('''
 - [github repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis)
