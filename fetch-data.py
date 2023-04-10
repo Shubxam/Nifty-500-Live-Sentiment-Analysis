@@ -28,7 +28,7 @@ nifty_50 = pd.read_csv(nifty_50_ticker_url)
 nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
 # Set universe
-universe = nifty_500
+universe = nifty_50
 
 # Read CSV & create a tickers df
 tickers_df = universe[['Symbol', 'Company Name']]
