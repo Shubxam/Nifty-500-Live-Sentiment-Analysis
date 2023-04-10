@@ -14,16 +14,16 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 
 #NIFTY URLS
-nifty_500_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty500list.csv'
+nifty_500_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty500list.csv'
 nifty_500 = pd.read_csv(nifty_500_ticker_url)
 nifty_500.to_csv('./datasets/NIFTY_500.csv')
-nifty_200_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty200list.csv'
+nifty_200_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty200list.csv'
 nifty_200 = pd.read_csv(nifty_200_ticker_url)
 nifty_200.to_csv('./datasets/NIFTY_200.csv')
-nifty_100_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty100list.csv'
+nifty_100_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty100list.csv'
 nifty_100 = pd.read_csv(nifty_100_ticker_url)
 nifty_100.to_csv('./datasets/NIFTY_100.csv')
-nifty_50_ticker_url = 'https://www1.nseindia.com/content/indices/ind_nifty50list.csv'
+nifty_50_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty50list.csv'
 nifty_50 = pd.read_csv(nifty_50_ticker_url)
 nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
