@@ -1,3 +1,4 @@
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import pandas as pd
 import numpy as np
 import requests
@@ -10,10 +11,9 @@ import time
 # sentiment analysis libraries
 import nltk
 nltk.downloader.download('vader_lexicon')
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 
-#NIFTY URLS
+# NIFTY URLS
 nifty_500_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty500list.csv'
 nifty_500 = pd.read_csv(nifty_500_ticker_url)
 nifty_500.to_csv('./datasets/NIFTY_500.csv')
@@ -28,7 +28,7 @@ nifty_50 = pd.read_csv(nifty_50_ticker_url)
 nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
 # Set universe
-universe = nifty_50
+universe = nifty_500
 
 # Read CSV & create a tickers df
 tickers_df = universe[['Symbol', 'Company Name']]
@@ -38,27 +38,32 @@ tickers_list = tickers_df['Symbol']
 news_url = 'https://ticker.finology.in/company/'
 
 # Header for sending requests
-header={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'}
+header = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'}
 
 # list to store article data
 article_data = []
 
-#list to store meta data
+# list to store meta data
 ticker_meta = []
 
 # list to store tickers for which data is unavailable
 unavailable_tickers = []
 
-#function to fetch news and meta concurrently
+# function to fetch news and meta concurrently
+
+
 def get_url_content(ticker):
-    url= '{}/{}'.format(news_url, ticker)
+    url = '{}/{}'.format(news_url, ticker)
     response = requests.get(url, headers=header)
     soup = BeautifulSoup(response.content, 'lxml')
     meta = nse_eq(ticker)
     # scrape page contents using bs4 library
-    return ticker,soup, meta
+    return ticker, soup, meta
 
-#function to parse news data and create a df
+# function to parse news data and create a df
+
+
 def ticker_article_fetch(i, ticker, soup):
     print('Fetching Article')
     news_links = soup.select('#newsarticles > a')
@@ -68,15 +73,18 @@ def ticker_article_fetch(i, ticker, soup):
     ticker_articles_counter = 0
     for link in news_links:
         art_title = link.find('span', class_='h6').text
-        #separate date and time from datetime object
-        date_time_obj = datetime.datetime.strptime(link.find('small').text, '%d %b %Y, %I:%M%p')
+        # separate date and time from datetime object
+        date_time_obj = datetime.datetime.strptime(
+            link.find('small').text, '%d %b %Y, %I:%M%p')
         art_date = date_time_obj.date().strftime('%Y/%m/%d')
         art_time = date_time_obj.time().strftime('%H:%M')
         article_data.append([ticker, art_title, art_date, art_time])
         ticker_articles_counter += 1
     print('No of articles: {}'.format(ticker_articles_counter))
 
-#function to parse meta data and create a df
+# function to parse meta data and create a df
+
+
 def ticker_meta_fetch(i, ticker, meta):
     print('Fetching meta')
     try:
@@ -99,7 +107,8 @@ def ticker_meta_fetch(i, ticker, meta):
         ticker_meta.append([ticker, sector, industry, mCap, companyName])
         return True
     try:
-        mCap = round((meta['priceInfo']['previousClose'] * meta['securityInfo']['issuedSize'])/1000000000, 2) #Rounding MCap off to Billion
+        mCap = round((meta['priceInfo']['previousClose'] * meta['securityInfo']
+                     ['issuedSize'])/1000000000, 2)  # Rounding MCap off to Billion
     except KeyError:
         print('{} mCap data is not available'.format(ticker))
         mCap = np.nan
@@ -119,8 +128,9 @@ def ticker_meta_fetch(i, ticker, meta):
 start_time = time.time()
 # send multiple concurrent requests using concurrent.futures
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-    results = [executor.submit(get_url_content, ticker) for ticker in tickers_list]
-    for i,future in enumerate(concurrent.futures.as_completed(results)):
+    results = [executor.submit(get_url_content, ticker)
+               for ticker in tickers_list]
+    for i, future in enumerate(concurrent.futures.as_completed(results)):
         ticker, soup, meta = future.result()
         print(i, ticker)
         ticker_article_response = ticker_article_fetch(i, ticker, soup)
@@ -128,7 +138,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
             unavailable_tickers.append(ticker)
             print('skipping meta check for {}'.format(ticker))
             continue
-        ticker_meta_response = ticker_meta_fetch(i,ticker,meta)
+        ticker_meta_response = ticker_meta_fetch(i, ticker, meta)
         if ticker_meta_response:
             unavailable_tickers.append(ticker)
 end_time = time.time()
@@ -139,24 +149,28 @@ print(unavailable_tickers)
 time_taken = end_time - start_time
 print("Time taken to send requests: {:.2f} seconds".format(time_taken))
 
-#create df from article_data
-articles_df = pd.DataFrame(article_data, columns=['Ticker', 'Headline', 'Date', 'Time'])
+# create df from article_data
+articles_df = pd.DataFrame(article_data, columns=[
+                           'Ticker', 'Headline', 'Date', 'Time'])
 
-#create df from metadata
-ticker_meta_df = pd.DataFrame(ticker_meta, columns=['Ticker', 'Sector', 'Industry', 'Market Cap', 'Company Name'])
+# create df from metadata
+ticker_meta_df = pd.DataFrame(ticker_meta, columns=[
+                              'Ticker', 'Sector', 'Industry', 'Market Cap', 'Company Name'])
 
 # Sentiment Analysis
 print('Performing Sentiment Analysis')
 vader = SentimentIntensityAnalyzer()
-# Perform sentiment Analysis on the Headline column of all_news_df 
+# Perform sentiment Analysis on the Headline column of all_news_df
 # It returns a dictionary, transform it into a list
-art_scores_df = pd.DataFrame(articles_df['Headline'].apply(vader.polarity_scores).to_list())
+art_scores_df = pd.DataFrame(
+    articles_df['Headline'].apply(vader.polarity_scores).to_list())
 
 # Merge articles_df with art_scores_df
 # merging on index, hence both indices should be same
-art_scores_df = pd.merge(articles_df, art_scores_df, left_index=True, right_index=True)
+art_scores_df = pd.merge(articles_df, art_scores_df,
+                         left_index=True, right_index=True)
 
-#export article data to csv file
+# export article data to csv file
 art_scores_df.to_csv('./datasets/NIFTY_500_Articles.csv')
 
 # remove null values
@@ -169,5 +183,5 @@ ticker_metadata = ticker_meta_df.dropna()
 # # merge xc-indices and ticker_meta_df
 # ticker_metadata = pd.merge(ticker_meta_df, xc_indices, on='Ticker')
 
-#export ticker data to csv file
+# export ticker data to csv file
 ticker_metadata.to_csv('./datasets/ticker_metadata.csv')
