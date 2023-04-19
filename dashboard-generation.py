@@ -1,14 +1,11 @@
 # Imports
-import pandas as pd
 # import numpy as np
 import datetime
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 import plotly.express as px
-
 import streamlit as st
-
 
 #initialize session state
 if 'date_filter' not in st.session_state:
@@ -83,7 +80,7 @@ fig.data[0].texttemplate = "%{label}<br>%{customdata[4]}"
 fig.update_traces(textposition="middle center")
 fig.update_layout(height=800)
 fig.update_layout(margin = dict(t=30, l=10, r=10, b=10), font_size=20)
-    
+
 
 #stock specific news section
 news_ticker_name = st.session_state.newsbox
@@ -122,7 +119,7 @@ with col_1:
     st.dataframe(news_df)
 
 with col_2:
-    st.markdown(' ') 
+    st.markdown(' ')
 
 st.markdown('''
 - [github repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis)
