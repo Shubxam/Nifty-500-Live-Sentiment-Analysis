@@ -26,7 +26,8 @@ jobs:
         run: |
           cd main
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+#          pip install -r requirements.txt
+          cat requirements.txt | sed -e '/^\s*#.*$/d' -e '/^\s*$/d' | xargs -n 1 pip install
 
       - name: Execute fetch-data python file
         run: |
