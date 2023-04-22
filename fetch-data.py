@@ -1,31 +1,32 @@
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import pandas as pd
-import numpy as np
-import requests
-from bs4 import BeautifulSoup
-import datetime
-from nsepython import *
 import concurrent.futures
+import datetime
 import time
 
 # sentiment analysis libraries
 import nltk
+import numpy as np
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nsepython import *
+
 nltk.downloader.download('vader_lexicon')
 
 
 # NIFTY URLS
-nifty_500_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty500list.csv'
-nifty_500 = pd.read_csv(nifty_500_ticker_url)
-nifty_500.to_csv('./datasets/NIFTY_500.csv')
-nifty_200_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty200list.csv'
-nifty_200 = pd.read_csv(nifty_200_ticker_url)
-nifty_200.to_csv('./datasets/NIFTY_200.csv')
-nifty_100_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty100list.csv'
-nifty_100 = pd.read_csv(nifty_100_ticker_url)
-nifty_100.to_csv('./datasets/NIFTY_100.csv')
-nifty_50_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty50list.csv'
-nifty_50 = pd.read_csv(nifty_50_ticker_url)
-nifty_50.to_csv('./datasets/NIFTY_50.csv')
+#nifty_500_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty500list.csv'
+nifty_500 = pd.read_csv('./datasets/NIFTY_500.csv')
+# nifty_500.to_csv('./datasets/NIFTY_500.csv')
+# nifty_200_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty200list.csv'
+nifty_200 = pd.read_csv('./datasets/NIFTY_200.csv')
+# nifty_200.to_csv('./datasets/NIFTY_200.csv')
+# nifty_100_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty100list.csv'
+nifty_100 = pd.read_csv('./datasets/NIFTY_100.csv')
+# nifty_100.to_csv('./datasets/NIFTY_100.csv')
+# nifty_50_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty50list.csv'
+nifty_50 = pd.read_csv('./datasets/NIFTY_50.csv')
+# nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
 # Set universe
 universe = nifty_500
@@ -39,7 +40,8 @@ news_url = 'https://ticker.finology.in/company/'
 
 # Header for sending requests
 header = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'}
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'
+    }
 
 # list to store article data
 article_data = []

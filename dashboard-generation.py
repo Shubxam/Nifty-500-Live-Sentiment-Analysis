@@ -9,19 +9,19 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 
-#read csv
+# read csv
 article_data = pd.read_csv('./datasets/NIFTY_500_Articles.csv', index_col=0)
 ticker_metadata = pd.read_csv('./datasets/ticker_metadata.csv', index_col=0)
 
-#aggregate article scores by ticker name
+# aggregate article scores by ticker name
 ticker_scores = article_data.groupby('Ticker').mean().reset_index()
 
-#merge dfs
+# merge dfs
 final_df = pd.merge(ticker_metadata, ticker_scores, on='Ticker', how='inner')
-#change column names
+# change column names
 final_df.columns = ['Symbol','Macro-Sector','Industry', 'Market Cap (Billion Rs)', 'Company Name', 'Negative', 'Neutral', 'Positive', 'Sentiment Score']
 
-#graphing
+# graphing
 print('Generating Plots')
 fig = px.treemap(
     final_df, path=[px.Constant('Nifty 500'), 'Macro-Sector', 'Industry', 'Symbol'], values='Market Cap (Billion Rs)', color='Sentiment Score',
@@ -50,3 +50,4 @@ with open('NIFTY_500_live_sentiment.html', 'a') as f:
     description = "This dashboard is updated at 17:30 IST Every Day with sentiment analysis performed on latest scraped news headlines.<br><br>"
     f.write(title + updated + description)
     f.write(fig.to_html(full_html=False, include_plotlyjs='cdn')) # write the fig created above into the html file
+
