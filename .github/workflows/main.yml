@@ -3,11 +3,11 @@ name: Get Sentiment and update GitHub page
 on:
   push:
   schedule:
-    - cron: "30 11 * * *" #runs at 11:30 utc (17:00 ist) everyday 
-    
+    - cron: "30 11 * * *" #runs at 11:30 utc (17:00 ist) everyday
+
 jobs:
   refresh_page:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     steps:
       - name: Access the repo
         uses: actions/checkout@v3
@@ -16,23 +16,23 @@ jobs:
           ref: main
           repository: ${{github.repository}}
           token: ${{ secrets.ST_PUSH }}
-    
+
       - name: Configure Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.11.1' 
-      
+          python-version: '3.11.3'
+
       - name: Install necessary libraries
         run: |
           cd main
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          
+
       - name: Execute fetch-data python file
         run: |
           cd main
           python fetch-data.py
-          
+
       - name: Execute python script to update sentiment page
         run: |
           cd main
@@ -46,21 +46,21 @@ jobs:
           git add .
           git commit -m 'upload csv,html using GH Actions'
           git push --force origin main
-        
+
       - name: Clone repo from your github.io page and commit newly generated sentiment html file
         run: |
-          git clone https://github.com/shubxam/shubxam.github.io.git/ 
+          git clone https://github.com/shubxam/shubxam.github.io.git/
           cp main/NIFTY_500_live_sentiment.html shubxam.github.io/NIFTY_500_live_sentiment.html
           cd shubxam.github.io
-          git add NIFTY_500_live_sentiment.html 
+          git add NIFTY_500_live_sentiment.html
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m 'refresh Nifty 500 sentiment page'        
-        
+          git commit -m 'refresh Nifty 500 sentiment page'
+
       - name: Push updated html to github.io page
         uses: ad-m/github-push-action@master
-        with: 
-          github_token: ${{ secrets.TOKEN }}          
+        with:
+          github_token: ${{ secrets.TOKEN }}
           repository: "shubxam/shubxam.github.io"
-          branch: "master"          
+          branch: "master"
           directory: ./shubxam.github.io
