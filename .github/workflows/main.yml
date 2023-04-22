@@ -28,11 +28,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Execute fetch-data and dashboard-generation python file
+      - name: Execute fetch-data python file
         run: |
           cd main
           python fetch-data.py
-          python dashboard-generation.py
 
       - name: Execute python script to update sentiment page
         run: |
