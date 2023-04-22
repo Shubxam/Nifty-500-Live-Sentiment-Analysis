@@ -34,10 +34,10 @@ jobs:
           python fetch-data.py
           python dashboard-generation.py
 
-#      - name: Execute python script to update sentiment page
-#        run: |
-#          cd main
-#          python dashboard-generation.py
+      - name: Execute python script to update sentiment page
+        run: |
+          cd main
+          python dashboard-generation.py
 
       - name: save csv file
         run: |
