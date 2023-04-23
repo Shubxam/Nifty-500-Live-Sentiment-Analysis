@@ -3,7 +3,7 @@ import datetime
 import time
 
 # sentiment analysis libraries
-import nltk
+# import nltk
 import numpy as np
 import pandas as pd
 import requests
@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nsepython import *
 
-nltk.downloader.download('vader_lexicon')
+# nltk.downloader.download('vader_lexicon')
 
 
 # NIFTY URLS
@@ -162,6 +162,14 @@ ticker_meta_df = pd.DataFrame(ticker_meta, columns=[
 # Sentiment Analysis
 print('Performing Sentiment Analysis')
 vader = SentimentIntensityAnalyzer()
+
+# import custom lexicon dictionary
+lex_fin = pd.read_csv('./datasets/lexicon_dictionary.csv')
+# create a dictionary from df columns
+lex_dict = dict(zip(lex_fin.word, lex_fin.sentiment_score))
+#set custom lexicon dictionary as default to calculate sentiment analysis scores
+vader.lexicon = lex_dict
+
 # Perform sentiment Analysis on the Headline column of all_news_df
 # It returns a dictionary, transform it into a list
 art_scores_df = pd.DataFrame(
