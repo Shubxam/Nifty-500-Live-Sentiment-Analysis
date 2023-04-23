@@ -3,7 +3,7 @@ import datetime
 import time
 
 # sentiment analysis libraries
-# import nltk
+import nltk
 import numpy as np
 import pandas as pd
 import requests
@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nsepython import *
 
-# nltk.downloader.download('vader_lexicon')
+nltk.downloader.download('vader_lexicon')
 
 
 # NIFTY URLS
@@ -29,7 +29,7 @@ nifty_50 = pd.read_csv('./datasets/NIFTY_50.csv')
 # nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
 # Set universe
-universe = nifty_500
+universe = nifty_50
 
 # Read CSV & create a tickers df
 tickers_df = universe[['Symbol', 'Company Name']]
