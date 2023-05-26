@@ -1,10 +1,10 @@
-pandas
-numpy
-bs4
+pandas == 1.5.3
+numpy == 1.24.2
+bs4 == 0.0.1
 nsepython
 streamlit
-nltk
-matplotlib
-plotly
-lxml
-pytz
+nltk == 3.8.1
+matplotlib == 3.7.1
+plotly == 5.14.1
+lxml == 4.9.2
+pytz == 2023.3
