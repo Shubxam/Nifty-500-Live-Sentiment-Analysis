@@ -46,9 +46,14 @@ jobs:
           git add .
           git commit -m 'upload csv,html using GH Actions'
           git push --force origin main
+          pwd
 
       - name: copy file to output folder
-        run: mkdir output && mv NIFTY_500_live_sentiment.html output/
+        run: |
+          pwd
+          cd main
+          mkdir output
+          mv NIFTY_500_live_sentiment.html output/
 
       - name: Push to shubxam.github.io repo
         uses: cpina/github-action-push-to-another-repository@main
