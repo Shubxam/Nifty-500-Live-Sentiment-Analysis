@@ -15,18 +15,22 @@ nltk.downloader.download('vader_lexicon')
 
 
 # NIFTY URLS
-#nifty_500_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty500list.csv'
-nifty_500 = pd.read_csv('./datasets/NIFTY_500.csv')
-# nifty_500.to_csv('./datasets/NIFTY_500.csv')
-# nifty_200_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty200list.csv'
-nifty_200 = pd.read_csv('./datasets/NIFTY_200.csv')
-# nifty_200.to_csv('./datasets/NIFTY_200.csv')
-# nifty_100_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty100list.csv'
-nifty_100 = pd.read_csv('./datasets/NIFTY_100.csv')
-# nifty_100.to_csv('./datasets/NIFTY_100.csv')
-# nifty_50_ticker_url = 'https://www.niftyindices.com/IndexConstituent/ind_nifty50list.csv'
-nifty_50 = pd.read_csv('./datasets/NIFTY_50.csv')
-# nifty_50.to_csv('./datasets/NIFTY_50.csv')
+
+nifty_500_ticker_url = 'https://archives.nseindia.com/content/indices/ind_nifty500list.csv'
+nifty_500 = pd.read_csv(nifty_500_ticker_url)
+nifty_500.to_csv('./datasets/NIFTY_500.csv')
+
+nifty_200_ticker_url = 'https://archives.nseindia.com/content/indices/ind_nifty200list.csv'
+nifty_200 = pd.read_csv(nifty_200_ticker_url)
+nifty_200.to_csv('./datasets/NIFTY_200.csv')
+
+nifty_100_ticker_url = 'https://archives.nseindia.com/content/indices/ind_nifty100list.csv'
+nifty_100 = pd.read_csv(nifty_100_ticker_url)
+nifty_100.to_csv('./datasets/NIFTY_100.csv')
+
+nifty_50_ticker_url = 'https://archives.nseindia.com/content/indices/ind_nifty50list.csv'
+nifty_50 = pd.read_csv(nifty_50_ticker_url)
+nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
 # Set universe
 universe = nifty_500
@@ -37,6 +41,11 @@ tickers_list = tickers_df['Symbol']
 
 # News URL
 news_url = 'https://ticker.finology.in/company/'
+special_symbols = {
+    'L&TFH': 'SCRIP-220350',
+    'M&M' : 'SCRIP-100520',
+    'M&MFIN': 'SCRIP-132720'
+}
 
 # Header for sending requests
 header = {
@@ -52,19 +61,18 @@ ticker_meta = []
 # list to store tickers for which data is unavailable
 unavailable_tickers = []
 
+
 # function to fetch news and meta concurrently
-
-
 def get_url_content(ticker):
-    url = '{}/{}'.format(news_url, ticker)
+    _ticker = special_symbols[ticker] if ticker in special_symbols.keys() else ticker
+    url = '{}/{}'.format(news_url, _ticker)
     response = requests.get(url, headers=header)
     soup = BeautifulSoup(response.content, 'lxml')
     meta = nse_eq(ticker)
-    # scrape page contents using bs4 library
     return ticker, soup, meta
 
-# function to parse news data and create a df
 
+# function to parse news data and create a df
 
 def ticker_article_fetch(i, ticker, soup):
     print('Fetching Article')
@@ -84,8 +92,8 @@ def ticker_article_fetch(i, ticker, soup):
         ticker_articles_counter += 1
     print('No of articles: {}'.format(ticker_articles_counter))
 
-# function to parse meta data and create a df
 
+# function to parse meta data and create a df
 
 def ticker_meta_fetch(i, ticker, meta):
     print('Fetching meta')
