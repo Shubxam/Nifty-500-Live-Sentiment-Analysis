@@ -47,20 +47,17 @@ jobs:
           git commit -m 'upload csv,html using GH Actions'
           git push --force origin main
 
-      - name: Clone repo from your github.io page and commit newly generated sentiment html file
-        run: |
-          git clone https://github.com/shubxam/shubxam.github.io.git/
-          cp main/NIFTY_500_live_sentiment.html shubxam.github.io/NIFTY_500_live_sentiment.html
-          cd shubxam.github.io
-          git add NIFTY_500_live_sentiment.html
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m 'refresh Nifty 500 sentiment page'
+      - name: copy file to output folder
+        run: mkdir output && mv NIFTY_500_live_sentiment.html output/
 
-      - name: Push updated html to github.io page
-        uses: ad-m/github-push-action@master
+      - name: Push to shubxam.github.io repo
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
-          github_token: ${{ secrets.TOKEN }}
-          repository: "shubxam/shubxam.github.io"
-          branch: "master"
-          directory: ./shubxam.github.io
+          source-directory: 'output'
+          destination-github-username: 'shubxam'
+          destination-repository-name: 'shubxam.github.io'
+          user-email: shubxam@gmail.com
+          target-branch: gh-pages
+
