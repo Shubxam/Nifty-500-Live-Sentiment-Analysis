@@ -1,8 +1,0 @@
-name: Install hf-transformers library and fetch models
-
-on:
-  push:
-    branches:
-      - hf-transformers
-
-
