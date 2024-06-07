@@ -1,499 +1,497 @@
 ,Ticker,Sector,Industry,Market Cap,Company Name
-0,ABB,Industrials,Electrical Equipment,1655.58,ABB India Limited
-1,3MINDIA,Diversified,Diversified,373.44,3M India Limited
-2,ACC,Commodities,Cement & Cement Products,450.99,ACC Limited
-3,360ONE,Financial Services,Capital Markets,277.93,360 ONE WAM LIMITED
-4,APLAPOLLO,Industrials,Industrial Products,408.68,APL Apollo Tubes Limited
-5,AUBANK,Financial Services,Banks,497.3,AU Small Finance Bank Limited
-6,AIAENG,Industrials,Industrial Products,345.25,AIA Engineering Limited
-7,AARTIIND,Commodities,Chemicals & Petrochemicals,228.0,Aarti Industries Limited
-8,AAVAS,Financial Services,Finance,122.69,Aavas Financiers Limited
-9,ABBOTINDIA,Healthcare,Pharmaceuticals & Biotechnology,375.7,Abbott India Limited
-10,ADANIENSOL,Utilities,Power,1061.61,Adani Energy Solutions Limited
-11,ACE,Industrials,Agricultural Commercial & Construction Vehicles,160.88,Action Construction Equipment Limited
-12,ADANIENT,Commodities,Metals & Minerals Trading,3551.5,Adani Enterprises Limited
-13,ADANIGREEN,Utilities,Power,2896.96,Adani Green Energy Limited
-14,ADANIPORTS,Services,Transport Infrastructure,2926.12,Adani Ports and Special Economic Zone Limited
-15,ATGL,Energy,Gas,1029.7,Adani Total Gas Limited
-16,ADANIPOWER,Utilities,Power,2802.64,Adani Power Limited
-17,AWL,Fast Moving Consumer Goods,Agricultural Food & other Products,434.35,Adani Wilmar Limited
-18,ABCAPITAL,Financial Services,Finance,560.61,Aditya Birla Capital Limited
-19,ABFRL,Consumer Discretionary,Retailing,309.57,Aditya Birla Fashion and Retail Limited
-20,AEGISCHEM,Energy,Gas,247.61,Aegis Logistics Limited
-21,AFFLE,Information Technology,IT - Services,155.1,Affle (India) Limited
-22,AETHER,Commodities,Chemicals & Petrochemicals,105.12,Aether Industries Limited
-23,APLLTD,Healthcare,Pharmaceuticals & Biotechnology,175.33,Alembic Pharmaceuticals Limited
-24,AJANTPHARM,Healthcare,Pharmaceuticals & Biotechnology,292.91,Ajanta Pharma Limited
-25,ALKEM,Healthcare,Pharmaceuticals & Biotechnology,576.92,Alkem Laboratories Limited
-26,ALKYLAMINE,Commodities,Chemicals & Petrochemicals,98.68,Alkyl Amines Chemicals Limited
-27,ALLCARGO,Services,Transport Services,63.83,Allcargo Logistics Limited
-28,ALOKINDS,Consumer Discretionary,Textiles & Apparels,120.9,Alok Industries Limited
-29,AMBUJACEM,Commodities,Cement & Cement Products,1475.16,Ambuja Cements Limited
-30,AMBER,Consumer Discretionary,Consumer Durables,122.5,Amber Enterprises India Limited
-31,ANGELONE,Financial Services,Capital Markets,211.9,Angel One Limited
-32,ANANDRATHI,Financial Services,Capital Markets,167.04,Anand Rathi Wealth Limited
-33,ANURAS,Commodities,Chemicals & Petrochemicals,85.06,Anupam Rasayan India Limited
-34,APOLLOHOSP,Healthcare,Healthcare Services,853.31,Apollo Hospitals Enterprise Limited
-35,APARINDS,Industrials,Electrical Equipment,305.48,Apar Industries Limited
-36,APOLLOTYRE,Consumer Discretionary,Auto Components,298.59,Apollo Tyres Limited
-37,ASAHIINDIA,Consumer Discretionary,Auto Components,141.1,Asahi India Glass Limited
-38,ASHOKLEY,Industrials,Agricultural Commercial & Construction Vehicles,658.2,Ashok Leyland Limited
-39,ACI,Commodities,Chemicals & Petrochemicals,75.14,Archean Chemical Industries Limited
-40,APTUS,Financial Services,Finance,150.94,Aptus Value Housing Finance India Limited
-41,ASTERDM,Healthcare,Healthcare Services,168.39,Aster DM Healthcare Limited
-42,ASIANPAINT,Consumer Discretionary,Consumer Durables,2840.9,Asian Paints Limited
-43,ASTRAL,Industrials,Industrial Products,568.5,Astral Limited
-44,ASTRAZEN,Healthcare,Pharmaceuticals & Biotechnology,150.31,AstraZeneca Pharma India Limited
-45,AUROPHARMA,Healthcare,Pharmaceuticals & Biotechnology,742.03,Aurobindo Pharma Limited
-46,ATUL,Commodities,Chemicals & Petrochemicals,171.29,Atul Limited
-47,DMART,Consumer Discretionary,Retailing,3164.03,Avenue Supermarts Limited
-48,AVANTIFEED,Fast Moving Consumer Goods,Food Products,71.28,Avanti Feeds Limited
-49,BEML,Industrials,Agricultural Commercial & Construction Vehicles,153.48,BEML Limited
-50,AXISBANK,Financial Services,Banks,3659.11,Axis Bank Limited
-51,BLS,Consumer Discretionary,Leisure Services,124.61,BLS International Services Limited
-52,BSE,Financial Services,Capital Markets,360.46,BSE Limited
-53,BAJFINANCE,Financial Services,Finance,4231.86,Bajaj Finance Limited
-54,BAJAJFINSV,Financial Services,Finance,2421.47,Bajaj Finserv Limited
-55,BAJAJ-AUTO,Consumer Discretionary,Automobiles,2680.75,Bajaj Auto Limited
-56,BAJAJHLDNG,Financial Services,Finance,895.79,Bajaj Holdings & Investment Limited
-57,BALAMINES,Commodities,Chemicals & Petrochemicals,68.34,Balaji Amines Limited
-58,BALRAMCHIN,Fast Moving Consumer Goods,Agricultural Food & other Products,78.85,Balrampur Chini Mills Limited
-59,BALKRISIND,Consumer Discretionary,Auto Components,603.73,Balkrishna Industries Limited
-60,BANDHANBNK,Financial Services,Banks,307.13,Bandhan Bank Limited
-61,MAHABANK,Financial Services,Banks,450.73,Bank of Maharashtra
-62,BANKINDIA,Financial Services,Banks,532.43,Bank of India
-63,BANKBARODA,Financial Services,Banks,1344.55,Bank of Baroda
-64,BERGEPAINT,Consumer Discretionary,Consumer Durables,553.81,Berger Paints (I) Limited
-65,BAYERCROP,Commodities,Fertilizers & Agrochemicals,265.01,Bayer Cropscience Limited
-66,BDL,Industrials,Aerospace & Defense,478.46,Bharat Dynamics Limited
-67,BATAINDIA,Consumer Discretionary,Consumer Durables,183.02,Bata India Limited
-68,BEL,Industrials,Aerospace & Defense,1903.1,Bharat Electronics Limited
-69,BPCL,Energy,Petroleum Products,1260.55,Bharat Petroleum Corporation Limited
-70,BHEL,Industrials,Electrical Equipment,889.14,Bharat Heavy Electricals Limited
-71,BHARATFORG,Consumer Discretionary,Auto Components,699.03,Bharat Forge Limited
-72,BHARTIARTL,Telecommunication,Telecom - Services,7641.2,Bharti Airtel Limited
-73,BIOCON,Healthcare,Pharmaceuticals & Biotechnology,366.48,Biocon Limited
-74,BIKAJI,Fast Moving Consumer Goods,Food Products,159.34,Bikaji Foods International Limited
-75,BIRLACORPN,Commodities,Cement & Cement Products,109.62,Birla Corporation Limited
-76,BSOFT,Information Technology,IT - Software,174.29,BIRLASOFT LIMITED
-77,BLUESTARCO,Consumer Discretionary,Consumer Durables,315.35,Blue Star Limited
-78,BLUEDART,Services,Transport Services,168.58,Blue Dart Express Limited
-79,BBTC,Fast Moving Consumer Goods,Food Products,102.35,Bombay Burmah Trading Corporation Limited
-80,BORORENEW,Industrials,Industrial Products,60.57,BOROSIL RENEWABLES LIMITED
-81,BRIGADE,Consumer Discretionary,Realty,279.53,Brigade Enterprises Limited
-82,MAPMYINDIA,Information Technology,IT - Software,103.37,C.E. Info Systems Limited
-83,BOSCHLTD,Consumer Discretionary,Auto Components,910.38,Bosch Limited
-84,BRITANNIA,Fast Moving Consumer Goods,Food Products,1321.56,Britannia Industries Limited
-85,CCL,Fast Moving Consumer Goods,Agricultural Food & other Products,77.22,CCL Products (India) Limited
-86,CESC,Utilities,Power,180.34,CESC Limited
-87,CGPOWER,Industrials,Electrical Equipment,958.66,CG Power and Industrial Solutions Limited
-88,CIEINDIA,Consumer Discretionary,Auto Components,203.53,CIE Automotive India Limited
-89,CRISIL,Financial Services,Finance,306.19,CRISIL Limited
-90,CSBBANK,Financial Services,Banks,57.74,CSB Bank Limited
-91,CAMPUS,Consumer Discretionary,Consumer Durables,88.37,Campus Activewear Limited
-92,CANFINHOME,Financial Services,Finance,99.23,Can Fin Homes Limited
-93,CANBK,Financial Services,Banks,1044.94,Canara Bank
-94,CAPLIPOINT,Healthcare,Pharmaceuticals & Biotechnology,97.82,Caplin Point Laboratories Limited
-95,CASTROLIND,Energy,Petroleum Products,184.62,Castrol India Limited
-96,CGCL,Financial Services,Finance,132.74,Capri Global Capital Limited
-97,CARBORUNIV,Industrials,Industrial Products,296.47,Carborundum Universal Limited
-98,CEATLTD,Consumer Discretionary,Auto Components,96.74,CEAT Limited
-99,CELLO,Consumer Discretionary,Consumer Durables,175.37,Cello World Limited
-100,CENTRALBK,Financial Services,Banks,536.05,Central Bank of India
-101,CENTURYPLY,Consumer Discretionary,Consumer Durables,144.43,Century Plyboards (India) Limited
-102,CDSL,Financial Services,Capital Markets,205.65,Central Depository Services (India) Limited
-103,CENTURYTEX,Commodities,Paper Forest & Jute Products,205.78,Century Textiles & Industries Limited
-104,CHAMBLFERT,Commodities,Fertilizers & Agrochemicals,156.49,Chambal Fertilizers & Chemicals Limited
-105,CERA,Consumer Discretionary,Consumer Durables,89.94,Cera Sanitaryware Limited
-106,CHALET,Consumer Discretionary,Leisure Services,168.01,Chalet Hotels Limited
-107,CHEMPLASTS,Commodities,Chemicals & Petrochemicals,75.43,Chemplast Sanmar Limited
-108,CHENNPETRO,Energy,Petroleum Products,132.81,Chennai Petroleum Corporation Limited
-109,CHOLAFIN,Financial Services,Finance,1082.41,Cholamandalam Investment and Finance Company Limited
-110,CHOLAHLDNG,Financial Services,Finance,212.4,Cholamandalam Financial Holdings Limited
-111,CIPLA,Healthcare,Pharmaceuticals & Biotechnology,1208.71,Cipla Limited
-112,CUB,Financial Services,Banks,106.99,City Union Bank Limited
-113,CLEAN,Commodities,Chemicals & Petrochemicals,137.99,Clean Science and Technology Limited
-114,COALINDIA,Energy,Consumable Fuels,2838.24,Coal India Limited
-115,COCHINSHIP,Industrials,Industrial Manufacturing,443.17,Cochin Shipyard Limited
-116,COFORGE,Information Technology,IT - Software,342.06,Coforge Limited
-117,COLPAL,Fast Moving Consumer Goods,Personal Products,805.09,Colgate Palmolive (India) Limited
-118,CAMS,Financial Services,Capital Markets,169.32,Computer Age Management Services Limited
-119,CONCORDBIO,Healthcare,Pharmaceuticals & Biotechnology,155.46,Concord Biotech Limited
-120,CONCOR,Services,Transport Services,605.18,Container Corporation of India Limited
-121,COROMANDEL,Commodities,Fertilizers & Agrochemicals,403.33,Coromandel International Limited
-122,CRAFTSMAN,Consumer Discretionary,Auto Components,88.52,Craftsman Automation Limited
-123,CROMPTON,Consumer Discretionary,Consumer Durables,258.71,Crompton Greaves Consumer Electricals Limited
-124,CREDITACC,Financial Services,Finance,223.82,CREDITACCESS GRAMEEN LIMITED
-125,CUMMINSIND,Industrials,Industrial Products,943.62,Cummins India Limited
-126,CYIENT,Information Technology,IT - Services,199.08,Cyient Limited
-127,DCMSHRIRAM,Diversified,Diversified,142.66,DCM Shriram Limited
-128,DLF,Consumer Discretionary,Realty,1970.47,DLF Limited
-129,DOMS,Fast Moving Consumer Goods,Household Products,112.21,DOMS Industries Limited
-130,DABUR,Fast Moving Consumer Goods,Personal Products,1063.83,Dabur India Limited
-131,DALBHARAT,Commodities,Cement & Cement Products,325.42,Dalmia Bharat Limited
-132,DATAPATTNS,Industrials,Aerospace & Defense,138.61,Data Patterns (India) Limited
-133,DEEPAKFERT,Commodities,Chemicals & Petrochemicals,70.23,Deepak Fertilizers And Petrochemicals Corporation Limited
-134,DELHIVERY,Services,Transport Services,279.05,Delhivery Limited
-135,DEEPAKNTR,Commodities,Chemicals & Petrochemicals,303.9,Deepak Nitrite Limited
-136,DEVYANI,Consumer Discretionary,Leisure Services,194.54,Devyani International Limited
-137,DIVISLAB,Healthcare,Pharmaceuticals & Biotechnology,1195.33,Divi's Laboratories Limited
-138,DIXON,Consumer Discretionary,Consumer Durables,566.66,Dixon Technologies (India) Limited
-139,LALPATHLAB,Healthcare,Healthcare Services,231.64,Dr. Lal Path Labs Ltd.
-140,EIDPARRY,Commodities,Fertilizers & Agrochemicals,123.03,EID Parry India Limited
-141,DRREDDY,Healthcare,Pharmaceuticals & Biotechnology,971.57,Dr. Reddy's Laboratories Limited
-142,EPL,Industrials,Industrial Products,57.0,EPL Limited
-143,EIHOTEL,Consumer Discretionary,Leisure Services,263.22,EIH Limited
-144,EASEMYTRIP,Consumer Discretionary,Leisure Services,71.86,Easy Trip Planners Limited
-145,EICHERMOT,Consumer Discretionary,Automobiles,1254.69,Eicher Motors Limited
-146,ELECON,Industrials,Industrial Manufacturing,112.64,Elecon Engineering Company Limited
-147,ELGIEQUIP,Industrials,Industrial Products,186.87,Elgi Equipments Limited
-148,EMAMILTD,Fast Moving Consumer Goods,Personal Products,305.11,Emami Limited
-149,ENDURANCE,Consumer Discretionary,Auto Components,332.65,Endurance Technologies Limited
-150,ENGINERSIN,Industrials,Construction,121.85,Engineers India Limited
-151,EQUITASBNK,Financial Services,Banks,105.78,Equitas Small Finance Bank Limited
-152,ERIS,Healthcare,Pharmaceuticals & Biotechnology,124.8,Eris Lifesciences Limited
-153,ESCORTS,Industrials,Agricultural Commercial & Construction Vehicles,431.93,Escorts Kubota Limited
-154,EXIDEIND,Consumer Discretionary,Auto Components,417.39,Exide Industries Limited
-155,NYKAA,Consumer Discretionary,Retailing,464.31,FSN E-Commerce Ventures Limited
-156,FDC,Healthcare,Pharmaceuticals & Biotechnology,70.53,FDC Limited
-157,FACT,Commodities,Fertilizers & Agrochemicals,424.51,Fertilizers and Chemicals Travancore Limited
-158,FINEORG,Commodities,Chemicals & Petrochemicals,134.64,Fine Organic Industries Limited
-159,FINPIPE,Industrials,Industrial Products,211.58,Finolex Industries Limited
-160,FINCABLES,Industrials,Industrial Products,214.0,Finolex Cables Limited
-161,FSL,Services,Commercial Services & Supplies,129.01,Firstsource Solutions Limited
-162,FEDERALBNK,Financial Services,Banks,405.42,The Federal Bank  Limited
-163,FIVESTAR,Financial Services,Finance,216.52,Five-Star Business Finance Limited
-164,GAIL,Energy,Gas,1283.13,GAIL (India) Limited
-165,GMRINFRA,Services,Transport Infrastructure,493.44,GMR Airports Infrastructure Limited
-166,GMMPFAUDLR,Industrials,Industrial Manufacturing,53.7,GMM Pfaudler Limited
-167,FORTIS,Healthcare,Healthcare Services,334.64,Fortis Healthcare Limited
-168,GRSE,Industrials,Aerospace & Defense,135.19,Garden Reach Shipbuilders & Engineers Limited
-169,GICRE,Financial Services,Insurance,605.53,General Insurance Corporation of India
-170,GLAND,Healthcare,Pharmaceuticals & Biotechnology,301.94,Gland Pharma Limited
-171,GLAXO,Healthcare,Pharmaceuticals & Biotechnology,418.92,GlaxoSmithKline Pharmaceuticals Limited
-172,GILLETTE,Fast Moving Consumer Goods,Personal Products,244.08,Gillette India Limited
-173,GLS,Healthcare,Pharmaceuticals & Biotechnology,102.51,Glenmark Life Sciences Limited
-174,MEDANTA,Healthcare,Healthcare Services,301.37,Global Health Limited
-175,GLENMARK,Healthcare,Pharmaceuticals & Biotechnology,333.98,Glenmark Pharmaceuticals Limited
-176,GPIL,Industrials,Industrial Products,126.16,Godawari Power And Ispat limited
-177,GODFRYPHLP,Fast Moving Consumer Goods,Cigarettes & Tobacco Products,190.36,Godfrey Phillips India Limited
-178,GODREJCP,Fast Moving Consumer Goods,Personal Products,1459.36,Godrej Consumer Products Limited
-179,GODREJIND,Diversified,Diversified,266.84,Godrej Industries Limited
-180,GODREJPROP,Consumer Discretionary,Realty,741.87,Godrej Properties Limited
-181,GRANULES,Healthcare,Pharmaceuticals & Biotechnology,106.8,Granules India Limited
-182,GRASIM,Commodities,Cement & Cement Products,1517.7,Grasim Industries Limited
-183,GESHIP,Services,Transport Services,150.28,The Great Eastern Shipping Company Limited
-184,GRAPHITE,Industrials,Industrial Products,105.34,Graphite India Limited
-185,GRINDWELL,Industrials,Industrial Products,266.35,Grindwell Norton Limited
-186,GAEL,Fast Moving Consumer Goods,Agricultural Food & other Products,62.77,Gujarat Ambuja Exports Limited
-187,FLUOROCHEM,Commodities,Chemicals & Petrochemicals,321.87,Gujarat Fluorochemicals Limited
-188,GUJGASLTD,Energy,Gas,378.75,Gujarat Gas Limited
-189,GNFC,Commodities,Chemicals & Petrochemicals,91.71,Gujarat Narmada Valley Fertilizers and Chemicals Limited
-190,GMDCLTD,Commodities,Minerals & Mining,113.02,Gujarat Mineral Development Corporation Limited
-191,GSPL,Energy,Gas,156.6,Gujarat State Petronet Limited
-192,GSFC,Commodities,Fertilizers & Agrochemicals,77.66,Gujarat State Fertilizers & Chemicals Limited
-193,GPPL,Services,Transport Infrastructure,88.74,Gujarat Pipavav Port Limited
-194,HEG,Industrials,Industrial Products,79.65,HEG Limited
-195,HBLPOWER,Consumer Discretionary,Auto Components,127.37,HBL Power Systems Limited
-196,HCLTECH,Information Technology,IT - Software,3646.35,HCL Technologies Limited
-197,HDFCBANK,Financial Services,Banks,11800.15,HDFC Bank Limited
-198,HDFCAMC,Financial Services,Capital Markets,791.04,HDFC Asset Management Company Limited
-199,HDFCLIFE,Financial Services,Insurance,1187.21,HDFC Life Insurance Company Limited
-200,HFCL,Telecommunication,Telecom - Services,129.98,HFCL Limited
-201,HEROMOTOCO,Consumer Discretionary,Automobiles,1131.31,Hero MotoCorp Limited
-202,HAVELLS,Consumer Discretionary,Consumer Durables,1123.52,Havells India Limited
-203,HAPPSTMNDS,Information Technology,IT - Software,119.93,Happiest Minds Technologies Limited
-204,HAPPYFORGE,Industrials,Industrial Products,103.18,Happy Forgings Limited
-205,HSCL,Commodities,Chemicals & Petrochemicals,159.69,Himadri Speciality Chemical Limited
-206,HINDALCO,Commodities,Non - Ferrous Metals,1562.38,Hindalco Industries Limited
-207,HAL,Industrials,Aerospace & Defense,2919.14,Hindustan Aeronautics Limited
-208,HINDCOPPER,Commodities,Non - Ferrous Metals,310.37,Hindustan Copper Limited
-209,HINDPETRO,Energy,Petroleum Products,716.72,Hindustan Petroleum Corporation Limited
-210,HINDUNILVR,Fast Moving Consumer Goods,Diversified FMCG,6115.4,Hindustan Unilever Limited
-211,HINDZINC,Commodities,Non - Ferrous Metals,2859.91,Hindustan Zinc Limited
-212,POWERINDIA,Industrials,Electrical Equipment,433.94,Hitachi Energy India Limited
-213,HOMEFIRST,Financial Services,Finance,71.89,Home First Finance Company India Limited
-214,HUDCO,Financial Services,Finance,466.54,Housing & Urban Development Corporation Limited
-215,HONASA,Fast Moving Consumer Goods,Personal Products,149.12,Honasa Consumer Limited
-216,HONAUT,Industrials,Industrial Manufacturing,448.04,Honeywell Automation India Limited
-217,ICICIBANK,Financial Services,Banks,7796.57,ICICI Bank Limited
-218,ICICIGI,Financial Services,Insurance,803.83,ICICI Lombard General Insurance Company Limited
-219,IDBI,Financial Services,Banks,872.56,IDBI Bank Limited
-220,ISEC,Financial Services,Capital Markets,229.5,ICICI Securities Limited
-221,ICICIPRULI,Financial Services,Insurance,810.96,ICICI Prudential Life Insurance Company Limited
-222,IDFCFIRSTB,Financial Services,Banks,546.72,IDFC First Bank Limited
-223,IDFC,Financial Services,Finance,182.96,IDFC Limited
-224,IIFL,Financial Services,Finance,170.62,IIFL Finance Limited
-225,IRCON,Industrials,Construction,224.08,Ircon International Limited
-226,IRB,Industrials,Construction,406.42,IRB Infrastructure Developers Limited
-227,ITC,Fast Moving Consumer Goods,Diversified FMCG,5372.18,ITC Limited
-228,ITI,Telecommunication,Telecom - Equipment & Accessories,264.77,ITI Limited
-229,INDIACEM,Commodities,Cement & Cement Products,60.83,The India Cements Limited
-230,INDIAMART,Consumer Discretionary,Retailing,149.32,Indiamart Intermesh Limited
-231,IBULHSGFIN,Financial Services,Finance,75.2,Indiabulls Housing Finance Limited
-232,INDIANB,Financial Services,Banks,706.55,Indian Bank
-233,IEX,Financial Services,Capital Markets,139.95,Indian Energy Exchange Limited
-234,IOC,Energy,Petroleum Products,2248.81,Indian Oil Corporation Limited
-235,INDHOTEL,Consumer Discretionary,Leisure Services,815.48,The Indian Hotels Company Limited
-236,IOB,Financial Services,Banks,1211.64,Indian Overseas Bank
-237,IRCTC,Consumer Discretionary,Leisure Services,735.12,Indian Railway Catering And Tourism Corporation Limited
-238,IRFC,Financial Services,Finance,2175.25,Indian Railway Finance Corporation Limited
-239,INDIGOPNTS,Consumer Discretionary,Consumer Durables,64.37,Indigo Paints Limited
-240,IGL,Energy,Gas,312.66,Indraprastha Gas Limited
-241,INDUSTOWER,Telecommunication,Telecom - Services,896.61,Indus Towers Limited
-242,NAUKRI,Consumer Discretionary,Retailing,775.73,Info Edge (India) Limited
-243,INDUSINDBK,Financial Services,Banks,1168.49,IndusInd Bank Limited
-244,INFY,Information Technology,IT - Software,5937.63,Infosys Limited
-245,INOXWIND,Industrials,Electrical Equipment,182.27,Inox Wind Limited
-246,INTELLECT,Information Technology,IT - Software,123.48,Intellect Design Arena Limited
-247,IPCALAB,Healthcare,Pharmaceuticals & Biotechnology,298.44,IPCA Laboratories Limited
-248,JBCHEPHARM,Healthcare,Pharmaceuticals & Biotechnology,276.34,JB Chemicals & Pharmaceuticals Limited
-249,INDIGO,Services,Transport Services,1678.43,InterGlobe Aviation Limited
-250,JKCEMENT,Commodities,Cement & Cement Products,302.8,JK Cement Limited
-251,JBMA,Consumer Discretionary,Auto Components,234.06,JBM Auto Limited
-252,JKPAPER,Commodities,Paper Forest & Jute Products,65.23,JK Paper Limited
-253,JKLAKSHMI,Commodities,Cement & Cement Products,92.91,JK Lakshmi Cement Limited
-254,JMFINANCIL,Financial Services,Finance,73.34,JM Financial Limited
-255,JSWENERGY,Utilities,Power,1063.6,JSW Energy Limited
-256,JSWSTEEL,Commodities,Ferrous Metals,2148.09,JSW Steel Limited
-257,JAIBALAJI,Commodities,Ferrous Metals,149.67,Jai Balaji Industries Limited
-258,JSWINFRA,Services,Transport Infrastructure,569.73,JSW Infrastructure Limited
-259,JINDALSAW,Industrials,Industrial Products,162.56,Jindal Saw Limited
-260,JSL,Commodities,Ferrous Metals,639.15,Jindal Stainless Limited
-261,JIOFIN,Financial Services,Finance,2195.7,Jio Financial Services Limited
-262,JINDALSTEL,Commodities,Ferrous Metals,1026.46,Jindal Steel & Power Limited
-263,JUBLFOOD,Consumer Discretionary,Leisure Services,350.11,Jubilant Foodworks Limited
-264,JUBLINGREA,Commodities,Chemicals & Petrochemicals,77.21,Jubilant Ingrevia Limited
-265,JUBLPHARMA,Healthcare,Pharmaceuticals & Biotechnology,109.9,Jubilant Pharmova Limited
-266,JUSTDIAL,Consumer Discretionary,Retailing,78.14,Just Dial Limited
-267,JWL,Industrials,Industrial Manufacturing,223.46,Jupiter Wagons Limited
-268,JYOTHYLAB,Fast Moving Consumer Goods,Household Products,164.14,Jyothy Labs Limited
-269,KPRMILL,Consumer Discretionary,Textiles & Apparels,278.7,K.P.R. Mill Limited
-270,KEI,Industrials,Industrial Products,369.01,KEI Industries Limited
-271,KPITTECH,Information Technology,IT - Software,395.51,KPIT Technologies Limited
-272,KNRCON,Industrials,Construction,95.41,KNR Constructions Limited
-273,KRBL,Fast Moving Consumer Goods,Agricultural Food & other Products,61.64,KRBL Limited
-274,KPIL,Industrials,Construction,179.43,Kalpataru Projects International Limited
-275,KSB,Industrials,Industrial Products,154.76,Ksb Limited
-276,KAJARIACER,Consumer Discretionary,Consumer Durables,188.24,Kajaria Ceramics Limited
-277,KALYANKJIL,Consumer Discretionary,Consumer Durables,414.65,Kalyan Jewellers India Limited
-278,KANSAINER,Consumer Discretionary,Consumer Durables,220.61,Kansai Nerolac Paints Limited
-279,KARURVYSYA,Financial Services,Banks,156.08,Karur Vysya Bank Limited
-280,KAYNES,Industrials,Industrial Manufacturing,185.39,Kaynes Technology India Limited
-281,KEC,Industrials,Construction,185.08,KEC International Limited
-282,KOTAKBANK,Financial Services,Banks,3415.46,Kotak Mahindra Bank Limited
-283,KFINTECH,Financial Services,Capital Markets,118.76,Kfin Technologies Limited
-284,KIMS,Healthcare,Healthcare Services,151.82,Krishna Institute of Medical Sciences Limited
-285,LTF,Financial Services,Finance,390.53,L&T Finance Limited
-286,LTTS,Information Technology,IT - Services,488.99,L&T Technology Services Limited
-287,LICHSGFIN,Financial Services,Finance,342.3,LIC Housing Finance Limited
-288,LTIM,Information Technology,IT - Software,1388.67,LTIMindtree Limited
-289,LT,Industrials,Construction,4686.54,Larsen & Toubro Limited
-290,LATENTVIEW,Information Technology,IT - Software,97.33,Latent View Analytics Limited
-291,LAURUSLABS,Healthcare,Pharmaceuticals & Biotechnology,229.68,Laurus Labs Limited
-292,LEMONTREE,Consumer Discretionary,Leisure Services,110.99,Lemon Tree Hotels Limited
-293,LXCHEM,Commodities,Chemicals & Petrochemicals,64.54,Laxmi Organic Industries Limited
-294,LINDEINDIA,Commodities,Chemicals & Petrochemicals,691.91,Linde India Limited
-295,LICI,Financial Services,Insurance,5954.35,Life Insurance Corporation Of India
-296,LLOYDSME,Commodities,Ferrous Metals,327.86,Lloyds Metals And Energy Limited
-297,LUPIN,Healthcare,Pharmaceuticals & Biotechnology,743.3,Lupin Limited
-298,MRF,Consumer Discretionary,Auto Components,542.7,MRF Limited
-299,MMTC,Services,Commercial Services & Supplies,101.4,MMTC Limited
-300,MTARTECH,Industrials,Aerospace & Defense,51.07,Mtar Technologies Limited
-301,LODHA,Consumer Discretionary,Realty,1289.96,Macrotech Developers Limited
-302,MGL,Energy,Gas,129.86,Mahanagar Gas Limited
-303,M&MFIN,Financial Services,Finance,338.91,Mahindra & Mahindra Financial Services Limited
-304,MAHSEAMLES,Industrials,Industrial Products,83.57,Maharashtra Seamless Limited
-305,M&M,Consumer Discretionary,Automobiles,3408.45,Mahindra & Mahindra Limited
-306,MANAPPURAM,Financial Services,Finance,142.62,Manappuram Finance Limited
-307,MAHLIFE,Consumer Discretionary,Realty,85.94,Mahindra Lifespace Developers Limited
-308,MHRIL,Consumer Discretionary,Leisure Services,79.89,Mahindra Holidays & Resorts India Limited
-309,MRPL,Energy,Petroleum Products,348.77,Mangalore Refinery and Petrochemicals Limited
-310,MANKIND,Healthcare,Pharmaceuticals & Biotechnology,863.69,Mankind Pharma Limited
-311,MARICO,Fast Moving Consumer Goods,Agricultural Food & other Products,835.48,Marico Limited
-312,MASTEK,Information Technology,IT - Software,75.49,Mastek Limited
-313,MARUTI,Consumer Discretionary,Automobiles,3930.85,Maruti Suzuki India Limited
-314,MAXHEALTH,Healthcare,Healthcare Services,799.15,Max Healthcare Institute Limited
-315,MFSL,Financial Services,Insurance,319.66,Max Financial Services Limited
-316,MAZDOCK,Industrials,Industrial Manufacturing,564.37,Mazagon Dock Shipbuilders Limited
-317,MEDPLUS,Consumer Discretionary,Retailing,83.34,Medplus Health Services Limited
-318,METROBRAND,Consumer Discretionary,Consumer Durables,311.19,Metro Brands Limited
-319,METROPOLIS,Healthcare,Healthcare Services,101.7,Metropolis Healthcare Limited
-320,MSUMI,Consumer Discretionary,Auto Components,283.61,Motherson Sumi Wiring India Limited
-321,MINDACORP,Consumer Discretionary,Auto Components,100.39,Minda Corporation Limited
-322,MOTILALOFS,Financial Services,Capital Markets,334.8,Motilal Oswal Financial Services Limited
-323,MPHASIS,Information Technology,IT - Software,446.52,MphasiS Limited
-324,MCX,Financial Services,Capital Markets,178.87,Multi Commodity Exchange of India Limited
-325,NBCC,Industrials,Construction,234.09,NBCC (India) Limited
-326,NATCOPHARM,Healthcare,Pharmaceuticals & Biotechnology,181.83,Natco Pharma Limited
-327,MUTHOOTFIN,Financial Services,Finance,701.49,Muthoot Finance Limited
-328,NCC,Industrials,Construction,181.92,NCC Limited
-329,NLCINDIA,Utilities,Power,281.28,NLC India Limited
-330,NMDC,Commodities,Minerals & Mining,717.41,NMDC Limited
-331,NHPC,Utilities,Power,977.88,NHPC Limited
-332,NSLNISP,Commodities,Ferrous Metals,167.92,NMDC Steel Limited
-333,NTPC,Utilities,Power,3306.56,NTPC Limited
-334,NH,Healthcare,Healthcare Services,242.11,Narayana Hrudayalaya Ltd.
-335,NATIONALUM,Commodities,Non - Ferrous Metals,323.52,National Aluminium Company Limited
-336,NAVINFLUOR,Commodities,Chemicals & Petrochemicals,163.6,Navin Fluorine International Limited
-337,NESTLEIND,Fast Moving Consumer Goods,Food Products,2419.89,Nestle India Limited
-338,NETWORK18,Consumer Discretionary,Entertainment,79.67,Network18 Media & Investments Limited
-339,NAM-INDIA,Financial Services,Capital Markets,344.59,Nippon Life India Asset Management Limited
-340,NUVAMA,Financial Services,Capital Markets,164.94,Nuvama Wealth Management Limited
-341,NUVOCO,Commodities,Cement & Cement Products,114.33,Nuvoco Vistas Corporation Limited
-342,OBEROIRLTY,Consumer Discretionary,Realty,670.83,Oberoi Realty Limited
-343,ONGC,Energy,Oil,3113.62,Oil & Natural Gas Corporation Limited
-344,OIL,Energy,Oil,629.5,Oil India Limited
-345,OLECTRA,Consumer Discretionary,Automobiles,134.38,Olectra Greentech Limited
-346,PAYTM,Financial Services,Financial Technology (Fintech),216.07,One 97 Communications Limited
-347,OFSS,Information Technology,IT - Software,670.18,Oracle Financial Services Software Limited
-348,POLICYBZR,Financial Services,Financial Technology (Fintech),583.56,PB Fintech Limited
-349,PCBL,Commodities,Chemicals & Petrochemicals,84.44,PCBL LIMITED
-350,PIIND,Commodities,Fertilizers & Agrochemicals,556.21,PI Industries Limited
-351,PNBHOUSING,Financial Services,Finance,185.21,PNB Housing Finance Limited
-352,PNCINFRA,Industrials,Construction,120.68,PNC Infratech Limited
-353,PVRINOX,Consumer Discretionary,Entertainment,129.62,PVR INOX Limited
-354,PETRONET,Energy,Gas,431.63,Petronet LNG Limited
-355,PATANJALI,Fast Moving Consumer Goods,Agricultural Food & other Products,486.32,Patanjali Foods Limited
-356,PAGEIND,Consumer Discretionary,Textiles & Apparels,429.97,Page Industries Limited
-357,PERSISTENT,Information Technology,IT - Software,549.49,Persistent Systems Limited
-358,PIDILITIND,Commodities,Chemicals & Petrochemicals,1610.36,Pidilite Industries Limited
-359,PHOENIXLTD,Consumer Discretionary,Realty,575.38,The Phoenix Mills Limited
-360,PPLPHARMA,Healthcare,Pharmaceuticals & Biotechnology,193.43,Piramal Pharma Limited
-361,PEL,Financial Services,Finance,177.37,Piramal Enterprises Limited
-362,POLYMED,Healthcare,Healthcare Equipment & Supplies,170.44,Poly Medicure Limited
-363,POLYCAB,Industrials,Industrial Products,1019.98,Polycab India Limited
-364,POONAWALLA,Financial Services,Finance,337.02,Poonawalla Fincorp Limited
-365,PFC,Financial Services,Finance,1475.64,Power Finance Corporation Limited
-366,POWERGRID,Utilities,Power,2779.02,Power Grid Corporation of India Limited
-367,PRESTIGE,Consumer Discretionary,Realty,658.66,Prestige Estates Projects Limited
-368,PRAJIND,Industrials,Industrial Manufacturing,95.11,Praj Industries Limited
-369,PRINCEPIPE,Industrials,Industrial Products,66.13,Prince Pipes And Fittings Limited
-370,PRSMJOHNSN,Commodities,Cement & Cement Products,77.84,Prism Johnson Limited
-371,PGHH,Fast Moving Consumer Goods,Personal Products,535.63,Procter & Gamble Hygiene and Health Care Limited
-372,QUESS,Services,Commercial Services & Supplies,81.46,Quess Corp Limited
-373,PNB,Financial Services,Banks,1341.69,Punjab National Bank
-374,RRKABEL,Industrials,Industrial Products,183.93,R R Kabel Limited
-375,RBLBANK,Financial Services,Banks,148.03,RBL Bank Limited
-376,RECLTD,Financial Services,Finance,1209.97,REC Limited
-377,RHIM,Industrials,Industrial Products,135.32,RHI MAGNESITA INDIA LIMITED
-378,RITES,Industrials,Construction,145.97,RITES Limited
-379,RVNL,Industrials,Construction,736.64,Rail Vikas Nigam Limited
-380,RADICO,Fast Moving Consumer Goods,Beverages,228.67,Radico Khaitan Limited
-381,RAILTEL,Telecommunication,Telecom - Services,114.17,Railtel Corporation Of India Limited
-382,RAINBOW,Healthcare,Healthcare Services,130.14,Rainbow Childrens Medicare Limited
-383,RKFORGE,Consumer Discretionary,Auto Components,120.46,Ramkrishna Forgings Limited
-384,RAJESHEXPO,Consumer Discretionary,Consumer Durables,81.99,Rajesh Exports Limited
-385,RATNAMANI,Industrials,Industrial Products,238.6,Ratnamani Metals & Tubes Limited
-386,RCF,Commodities,Fertilizers & Agrochemicals,80.33,Rashtriya Chemicals and Fertilizers Limited
-387,REDINGTON,Services,Commercial Services & Supplies,163.39,Redington Limited
-388,RAYMOND,Consumer Discretionary,Textiles & Apparels,143.92,Raymond Limited
-389,RELIANCE,Energy,Petroleum Products,19224.72,Reliance Industries Limited
-390,RTNINDIA,Consumer Discretionary,Retailing,95.45,RattanIndia Enterprises Limited
-391,RBA,Consumer Discretionary,Leisure Services,50.53,Restaurant Brands Asia Limited
-392,ROUTE,Telecommunication,Telecom - Services,89.23,ROUTE MOBILE LIMITED
-393,SBICARD,Financial Services,Finance,665.39,SBI Cards and Payment Services Limited
-394,SBILIFE,Financial Services,Insurance,1392.21,SBI Life Insurance Company Limited
-395,SJVN,Utilities,Power,496.14,SJVN Limited
-396,SKFINDIA,Industrials,Industrial Products,300.55,SKF India Limited
-397,SAFARI,Consumer Discretionary,Consumer Durables,96.08,Safari Industries (India) Limited
-398,SRF,Commodities,Chemicals & Petrochemicals,680.31,SRF Limited
-399,MOTHERSON,Consumer Discretionary,Auto Components,1030.35,Samvardhana Motherson International Limited
-400,SAREGAMA,Consumer Discretionary,Entertainment,96.67,Saregama India Limited
-401,SAPPHIRE,Consumer Discretionary,Leisure Services,92.69,Sapphire Foods India Limited
-402,SCHAEFFLER,Consumer Discretionary,Auto Components,647.79,Schaeffler India Limited
-403,SANOFI,Healthcare,Pharmaceuticals & Biotechnology,210.53,Sanofi India Limited
-404,SCHNEIDER,Industrials,Electrical Equipment,166.39,Schneider Electric Infrastructure Limited
-405,SHRIRAMFIN,Financial Services,Finance,897.34,Shriram Finance Limited
-406,SHREECEM,Commodities,Cement & Cement Products,919.38,SHREE CEMENT LIMITED
-407,RENUKA,Fast Moving Consumer Goods,Agricultural Food & other Products,84.5,Shree Renuka Sugars Limited
-408,SIEMENS,Industrials,Electrical Equipment,2324.82,Siemens Limited
-409,SHYAMMETL,Industrials,Industrial Products,158.39,Shyam Metalics and Energy Limited
-410,SIGNATURE,Consumer Discretionary,Realty,156.94,Signatureglobal (India) Limited
-411,SOBHA,Consumer Discretionary,Realty,172.85,Sobha Limited
-412,SOLARINDS,Commodities,Chemicals & Petrochemicals,811.04,Solar Industries India Limited
-413,SONACOMS,Consumer Discretionary,Auto Components,387.89,Sona BLW Precision Forgings Limited
-414,SONATSOFTW,Information Technology,IT - Software,143.96,Sonata Software Limited
-415,STARHEALTH,Financial Services,Insurance,292.24,Star Health and Allied Insurance Company Limited
-416,SBIN,Financial Services,Banks,7048.21,State Bank of India
-417,STLTECH,Telecommunication,Telecom - Equipment & Accessories,58.73,Sterlite Technologies Limited
-418,SWSOLAR,Industrials,Construction,155.13,Sterling and Wilson Renewable Energy Limited
-419,SAIL,Commodities,Ferrous Metals,601.2,Steel Authority of India Limited
-420,SPARC,Healthcare,Pharmaceuticals & Biotechnology,68.14,Sun Pharma Advanced Research Company Limited
-421,SUMICHEM,Commodities,Fertilizers & Agrochemicals,244.13,Sumitomo Chemical India Limited
-422,SUNTV,Consumer Discretionary,Entertainment,294.87,Sun TV Network Limited
-423,SUNTECK,Consumer Discretionary,Realty,67.46,Sunteck Realty Limited
-424,SUNPHARMA,Healthcare,Pharmaceuticals & Biotechnology,3568.53,Sun Pharmaceutical Industries Limited
-425,SUNDRMFAST,Consumer Discretionary,Auto Components,256.85,Sundram Fasteners Limited
-426,SUNDARMFIN,Financial Services,Finance,495.01,Sundaram Finance Limited
-427,SUPREMEIND,Industrials,Industrial Products,702.09,Supreme Industries Limited
-428,SUVENPHAR,Healthcare,Pharmaceuticals & Biotechnology,160.49,Suven Pharmaceuticals Limited
-429,SUZLON,Industrials,Electrical Equipment,659.11,Suzlon Energy Limited
-430,SWANENERGY,Diversified,Diversified,171.59,Swan Energy Limited
-431,SYNGENE,Healthcare,Healthcare Services,270.34,Syngene International Limited
-432,SYRMA,Industrials,Industrial Manufacturing,77.81,Syrma SGS Technology Limited
-433,TVSMOTOR,Consumer Discretionary,Automobiles,1117.31,TVS Motor Company Limited
-434,TV18BRDCST,Consumer Discretionary,Entertainment,69.6,TV18 Broadcast Limited
-435,TVSSCS,Services,Transport Services,72.81,TVS Supply Chain Solutions Limited
-436,TMB,Financial Services,Banks,73.32,Tamilnad Mercantile Bank Limited
-437,TANLA,Information Technology,IT - Software,116.62,Tanla Platforms Limited
-438,TATACHEM,Commodities,Chemicals & Petrochemicals,265.74,Tata Chemicals Limited
-439,TATACOMM,Telecommunication,Telecom - Services,498.27,Tata Communications Limited
-440,TCS,Information Technology,IT - Software,13554.98,Tata Consultancy Services Limited
-441,TATACONSUM,Fast Moving Consumer Goods,Agricultural Food & other Products,1088.52,TATA CONSUMER PRODUCTS LIMITED
-442,TATAMTRDVR,Consumer Discretionary,Automobiles,315.65,Tata Motors Limited
-443,TATAINVEST,Financial Services,Finance,314.82,Tata Investment Corporation Limited
-444,TATAELXSI,Information Technology,IT - Software,428.39,Tata Elxsi Limited
-445,TATAMOTORS,Consumer Discretionary,Automobiles,3091.13,Tata Motors Limited
-446,TATAPOWER,Utilities,Power,1350.99,Tata Power Company Limited
-447,TATATECH,Information Technology,IT - Services,417.76,Tata Technologies Limited
-448,TATASTEEL,Commodities,Ferrous Metals,2112.21,TATA Steel Limited
-449,TTML,Telecommunication,Telecom - Services,139.78,Tata Teleservices (Maharashtra) Limited
-450,TEJASNET,Telecommunication,Telecom - Equipment & Accessories,192.34,Tejas Networks Limited
-451,TECHM,Information Technology,IT - Software,1238.17,Tech Mahindra Limited
-452,NIACL,Financial Services,Insurance,345.01,The New India Assurance Company Limited
-453,RAMCOCEM,Commodities,Cement & Cement Products,179.95,The Ramco Cements Limited
-454,THERMAX,Industrials,Electrical Equipment,611.36,Thermax Limited
-455,TIMKEN,Industrials,Industrial Products,292.18,Timken India Limited
-456,TITAN,Consumer Discretionary,Consumer Durables,2945.36,Titan Company Limited
-457,TORNTPHARM,Healthcare,Pharmaceuticals & Biotechnology,941.01,Torrent Pharmaceuticals Limited
-458,TITAGARH,Industrials,Industrial Manufacturing,150.85,TITAGARH RAIL SYSTEMS LIMITED
-459,TORNTPOWER,Utilities,Power,691.8,Torrent Power Limited
-460,TRIDENT,Consumer Discretionary,Textiles & Apparels,186.51,Trident Limited
-461,TRENT,Consumer Discretionary,Retailing,1743.24,Trent Limited
-462,TRITURBINE,Industrials,Electrical Equipment,178.6,Triveni Turbine Limited
-463,TRIVENI,Fast Moving Consumer Goods,Agricultural Food & other Products,71.71,Triveni Engineering & Industries Limited
-464,TIINDIA,Consumer Discretionary,Auto Components,718.46,Tube Investments of India Limited
-465,UNOMINDA,Consumer Discretionary,Auto Components,494.46,UNO Minda Limited
-466,UPL,Commodities,Fertilizers & Agrochemicals,396.66,UPL Limited
-467,UTIAMC,Financial Services,Capital Markets,118.02,UTI Asset Management Company Limited
-468,UCOBANK,Financial Services,Banks,651.0,UCO Bank
-469,ULTRACEMCO,Commodities,Cement & Cement Products,2897.97,UltraTech Cement Limited
-470,UNIONBANK,Financial Services,Banks,1075.96,Union Bank of India
-471,UBL,Fast Moving Consumer Goods,Beverages,533.21,United Breweries Limited
-472,UJJIVANSFB,Financial Services,Banks,91.57,Ujjivan Small Finance Bank Limited
-473,MCDOWELL-N,Fast Moving Consumer Goods,Beverages,944.47,United Spirits Limited
-474,USHAMART,Industrials,Industrial Products,103.66,Usha Martin Limited
-475,VIPIND,Consumer Discretionary,Consumer Durables,69.74,VIP Industries Limited
-476,VGUARD,Consumer Discretionary,Consumer Durables,164.58,V-Guard Industries Limited
-477,VTL,Consumer Discretionary,Textiles & Apparels,134.39,Vardhman Textiles Limited
-478,VAIBHAVGBL,Consumer Discretionary,Consumer Durables,48.79,Vaibhav Global Limited
-479,VBL,Fast Moving Consumer Goods,Beverages,1941.34,Varun Beverages Limited
-480,VARROC,Consumer Discretionary,Auto Components,88.71,Varroc Engineering Limited
-481,VEDL,Commodities,Diversified Metals,1638.17,Vedanta Limited
-482,MANYAVAR,Consumer Discretionary,Retailing,257.07,Vedant Fashions Limited
-483,VIJAYA,Healthcare,Healthcare Services,87.2,Vijaya Diagnostic Centre Limited
-484,IDEA,Telecommunication,Telecom - Services,987.28,Vodafone Idea Limited
-485,VOLTAS,Consumer Discretionary,Consumer Durables,482.99,Voltas Limited
-486,WHIRLPOOL,Consumer Discretionary,Consumer Durables,195.01,Whirlpool of India Limited
-487,WELSPUNLIV,Consumer Discretionary,Textiles & Apparels,126.34,Welspun Living Limited
-488,WELCORP,Industrials,Industrial Products,128.9,Welspun Corp Limited
-489,WESTLIFE,Consumer Discretionary,Leisure Services,122.99,WESTLIFE FOODWORLD LIMITED
-490,WIPRO,Information Technology,IT - Software,2360.74,Wipro Limited
-491,YESBANK,Financial Services,Banks,709.62,Yes Bank Limited
-492,ZEEL,Consumer Discretionary,Entertainment,140.52,Zee Entertainment Enterprises Limited
-493,ZFCVINDIA,Consumer Discretionary,Auto Components,318.72,ZF Commercial Vehicle Control Systems India Limited
-494,ZENSARTECH,Information Technology,IT - Software,137.37,Zensar Technologies Limited
-495,ZOMATO,Consumer Discretionary,Retailing,1622.4,Zomato Limited
-496,ZYDUSLIFE,Healthcare,Pharmaceuticals & Biotechnology,1055.19,Zydus Lifesciences Limited
-497,ECLERX,Services,Commercial Services & Supplies,104.38,eClerx Services Limited
+0,ABB,Industrials,Electrical Equipment,1692.62,ABB India Limited
+1,3MINDIA,Diversified,Diversified,382.85,3M India Limited
+2,360ONE,Financial Services,Capital Markets,286.01,360 ONE WAM LIMITED
+3,ACC,Commodities,Cement & Cement Products,460.75,ACC Limited
+4,APLAPOLLO,Industrials,Industrial Products,436.3,APL Apollo Tubes Limited
+5,AUBANK,Financial Services,Banks,490.75,AU Small Finance Bank Limited
+6,AIAENG,Industrials,Industrial Products,346.15,AIA Engineering Limited
+7,AARTIIND,Commodities,Chemicals & Petrochemicals,231.33,Aarti Industries Limited
+8,AAVAS,Financial Services,Finance,129.18,Aavas Financiers Limited
+9,ABBOTINDIA,Healthcare,Pharmaceuticals & Biotechnology,369.22,Abbott India Limited
+10,ACE,Industrials,Agricultural Commercial & Construction Vehicles,166.85,Action Construction Equipment Limited
+11,ADANIENSOL,Utilities,Power,1116.66,Adani Energy Solutions Limited
+12,ADANIENT,Commodities,Metals & Minerals Trading,3631.64,Adani Enterprises Limited
+13,ADANIPORTS,Services,Transport Infrastructure,2922.56,Adani Ports and Special Economic Zone Limited
+14,ADANIGREEN,Utilities,Power,2954.54,Adani Green Energy Limited
+15,ATGL,Energy,Gas,1066.32,Adani Total Gas Limited
+16,AWL,Fast Moving Consumer Goods,Agricultural Food & other Products,446.37,Adani Wilmar Limited
+17,ADANIPOWER,Utilities,Power,2890.2,Adani Power Limited
+18,ABFRL,Consumer Discretionary,Retailing,327.03,Aditya Birla Fashion and Retail Limited
+19,ABCAPITAL,Financial Services,Finance,594.42,Aditya Birla Capital Limited
+20,AFFLE,Information Technology,IT - Services,162.07,Affle (India) Limited
+21,AETHER,Commodities,Chemicals & Petrochemicals,106.05,Aether Industries Limited
+23,AJANTPHARM,Healthcare,Pharmaceuticals & Biotechnology,289.82,Ajanta Pharma Limited
+24,ALKYLAMINE,Commodities,Chemicals & Petrochemicals,100.8,Alkyl Amines Chemicals Limited
+25,APLLTD,Healthcare,Pharmaceuticals & Biotechnology,175.57,Alembic Pharmaceuticals Limited
+26,ALLCARGO,Services,Transport Services,64.86,Allcargo Logistics Limited
+27,ALKEM,Healthcare,Pharmaceuticals & Biotechnology,580.44,Alkem Laboratories Limited
+28,AMBER,Consumer Discretionary,Consumer Durables,125.26,Amber Enterprises India Limited
+29,ALOKINDS,Consumer Discretionary,Textiles & Apparels,126.86,Alok Industries Limited
+30,ANGELONE,Financial Services,Capital Markets,226.49,Angel One Limited
+31,ANANDRATHI,Financial Services,Capital Markets,167.16,Anand Rathi Wealth Limited
+32,AMBUJACEM,Commodities,Cement & Cement Products,1502.63,Ambuja Cements Limited
+33,ANURAS,Commodities,Chemicals & Petrochemicals,84.72,Anupam Rasayan India Limited
+34,APARINDS,Industrials,Electrical Equipment,308.15,Apar Industries Limited
+35,APOLLOHOSP,Healthcare,Healthcare Services,857.24,Apollo Hospitals Enterprise Limited
+36,APOLLOTYRE,Consumer Discretionary,Auto Components,299.13,Apollo Tyres Limited
+37,APTUS,Financial Services,Finance,155.53,Aptus Value Housing Finance India Limited
+38,ACI,Commodities,Chemicals & Petrochemicals,74.96,Archean Chemical Industries Limited
+39,ASHOKLEY,Industrials,Agricultural Commercial & Construction Vehicles,662.75,Ashok Leyland Limited
+40,ASIANPAINT,Consumer Discretionary,Consumer Durables,2786.28,Asian Paints Limited
+41,ASAHIINDIA,Consumer Discretionary,Auto Components,144.02,Asahi India Glass Limited
+42,ASTRAZEN,Healthcare,Pharmaceuticals & Biotechnology,155.13,AstraZeneca Pharma India Limited
+43,ASTERDM,Healthcare,Healthcare Services,178.48,Aster DM Healthcare Limited
+44,ASTRAL,Industrials,Industrial Products,577.36,Astral Limited
+45,AVANTIFEED,Fast Moving Consumer Goods,Food Products,77.03,Avanti Feeds Limited
+46,AUROPHARMA,Healthcare,Pharmaceuticals & Biotechnology,733.18,Aurobindo Pharma Limited
+47,ATUL,Commodities,Chemicals & Petrochemicals,171.21,Atul Limited
+48,BEML,Industrials,Agricultural Commercial & Construction Vehicles,165.24,BEML Limited
+49,DMART,Consumer Discretionary,Retailing,3050.02,Avenue Supermarts Limited
+50,BLS,Consumer Discretionary,Leisure Services,127.8,BLS International Services Limited
+51,AXISBANK,Financial Services,Banks,3617.25,Axis Bank Limited
+52,BSE,Financial Services,Capital Markets,365.67,BSE Limited
+53,BAJAJ-AUTO,Consumer Discretionary,Automobiles,2708.45,Bajaj Auto Limited
+54,BAJFINANCE,Financial Services,Finance,4287.04,Bajaj Finance Limited
+55,BAJAJFINSV,Financial Services,Finance,2435.43,Bajaj Finserv Limited
+56,BAJAJHLDNG,Financial Services,Finance,904.85,Bajaj Holdings & Investment Limited
+57,BALAMINES,Commodities,Chemicals & Petrochemicals,68.84,Balaji Amines Limited
+58,BALKRISIND,Consumer Discretionary,Auto Components,600.93,Balkrishna Industries Limited
+59,BALRAMCHIN,Fast Moving Consumer Goods,Agricultural Food & other Products,77.95,Balrampur Chini Mills Limited
+60,BANKBARODA,Financial Services,Banks,1390.58,Bank of Baroda
+61,BANKINDIA,Financial Services,Banks,536.53,Bank of India
+62,BANDHANBNK,Financial Services,Banks,308.58,Bandhan Bank Limited
+63,MAHABANK,Financial Services,Banks,467.02,Bank of Maharashtra
+64,BATAINDIA,Consumer Discretionary,Consumer Durables,187.26,Bata India Limited
+65,BERGEPAINT,Consumer Discretionary,Consumer Durables,556.26,Berger Paints (I) Limited
+66,BAYERCROP,Commodities,Fertilizers & Agrochemicals,276.93,Bayer Cropscience Limited
+67,BHEL,Industrials,Electrical Equipment,967.84,Bharat Heavy Electricals Limited
+68,BHARATFORG,Consumer Discretionary,Auto Components,724.94,Bharat Forge Limited
+69,BEL,Industrials,Aerospace & Defense,2000.32,Bharat Electronics Limited
+70,BIKAJI,Fast Moving Consumer Goods,Food Products,162.22,Bikaji Foods International Limited
+71,BPCL,Energy,Petroleum Products,1267.17,Bharat Petroleum Corporation Limited
+72,BDL,Industrials,Aerospace & Defense,501.75,Bharat Dynamics Limited
+73,BIOCON,Healthcare,Pharmaceuticals & Biotechnology,399.5,Biocon Limited
+74,BSOFT,Information Technology,IT - Software,178.55,BIRLASOFT LIMITED
+75,BHARTIARTL,Telecommunication,Telecom - Services,7790.41,Bharti Airtel Limited
+76,BLUEDART,Services,Transport Services,172.4,Blue Dart Express Limited
+77,BLUESTARCO,Consumer Discretionary,Consumer Durables,313.6,Blue Star Limited
+78,BIRLACORPN,Commodities,Cement & Cement Products,110.74,Birla Corporation Limited
+79,BBTC,Fast Moving Consumer Goods,Food Products,106.29,Bombay Burmah Trading Corporation Limited
+80,BRIGADE,Consumer Discretionary,Realty,304.53,Brigade Enterprises Limited
+81,BORORENEW,Industrials,Industrial Products,62.12,BOROSIL RENEWABLES LIMITED
+82,BOSCHLTD,Consumer Discretionary,Auto Components,904.03,Bosch Limited
+83,BRITANNIA,Fast Moving Consumer Goods,Food Products,1310.43,Britannia Industries Limited
+84,MAPMYINDIA,Information Technology,IT - Software,106.03,C.E. Info Systems Limited
+85,CESC,Utilities,Power,188.69,CESC Limited
+86,CCL,Fast Moving Consumer Goods,Agricultural Food & other Products,76.8,CCL Products (India) Limited
+87,CGPOWER,Industrials,Electrical Equipment,1002.26,CG Power and Industrial Solutions Limited
+88,CIEINDIA,Consumer Discretionary,Auto Components,206.52,CIE Automotive India Limited
+89,CRISIL,Financial Services,Finance,296.16,CRISIL Limited
+90,CSBBANK,Financial Services,Banks,59.09,CSB Bank Limited
+91,CANFINHOME,Financial Services,Finance,101.72,Can Fin Homes Limited
+92,CAMPUS,Consumer Discretionary,Consumer Durables,87.9,Campus Activewear Limited
+93,CANBK,Financial Services,Banks,1070.34,Canara Bank
+94,CAPLIPOINT,Healthcare,Pharmaceuticals & Biotechnology,98.99,Caplin Point Laboratories Limited
+95,CGCL,Financial Services,Finance,132.74,Capri Global Capital Limited
+96,CARBORUNIV,Industrials,Industrial Products,300.0,Carborundum Universal Limited
+97,CASTROLIND,Energy,Petroleum Products,186.0,Castrol India Limited
+98,CENTRALBK,Financial Services,Banks,556.45,Central Bank of India
+99,CEATLTD,Consumer Discretionary,Auto Components,98.73,CEAT Limited
+100,CDSL,Financial Services,Capital Markets,212.57,Central Depository Services (India) Limited
+101,CELLO,Consumer Discretionary,Consumer Durables,176.12,Cello World Limited
+102,CENTURYPLY,Consumer Discretionary,Consumer Durables,149.06,Century Plyboards (India) Limited
+103,CENTURYTEX,Commodities,Paper Forest & Jute Products,235.2,Century Textiles & Industries Limited
+104,CERA,Consumer Discretionary,Consumer Durables,93.04,Cera Sanitaryware Limited
+105,CHALET,Consumer Discretionary,Leisure Services,169.78,Chalet Hotels Limited
+106,CHEMPLASTS,Commodities,Chemicals & Petrochemicals,76.59,Chemplast Sanmar Limited
+107,CHENNPETRO,Energy,Petroleum Products,139.87,Chennai Petroleum Corporation Limited
+108,CHAMBLFERT,Commodities,Fertilizers & Agrochemicals,161.2,Chambal Fertilizers & Chemicals Limited
+109,CHOLAHLDNG,Financial Services,Finance,217.58,Cholamandalam Financial Holdings Limited
+110,CHOLAFIN,Financial Services,Finance,1122.06,Cholamandalam Investment and Finance Company Limited
+111,CUB,Financial Services,Banks,107.77,City Union Bank Limited
+112,CIPLA,Healthcare,Pharmaceuticals & Biotechnology,1192.6,Cipla Limited
+113,CLEAN,Commodities,Chemicals & Petrochemicals,138.39,Clean Science and Technology Limited
+114,COALINDIA,Energy,Consumable Fuels,2914.66,Coal India Limited
+115,COCHINSHIP,Industrials,Industrial Manufacturing,487.49,Cochin Shipyard Limited
+116,COFORGE,Information Technology,IT - Software,347.63,Coforge Limited
+117,COLPAL,Fast Moving Consumer Goods,Personal Products,802.87,Colgate Palmolive (India) Limited
+118,CAMS,Financial Services,Capital Markets,166.03,Computer Age Management Services Limited
+119,CONCORDBIO,Healthcare,Pharmaceuticals & Biotechnology,153.47,Concord Biotech Limited
+120,COROMANDEL,Commodities,Fertilizers & Agrochemicals,408.51,Coromandel International Limited
+121,CONCOR,Services,Transport Services,641.43,Container Corporation of India Limited
+122,CREDITACC,Financial Services,Finance,239.12,CREDITACCESS GRAMEEN LIMITED
+123,CRAFTSMAN,Consumer Discretionary,Auto Components,90.83,Craftsman Automation Limited
+124,CUMMINSIND,Industrials,Industrial Products,971.67,Cummins India Limited
+125,CROMPTON,Consumer Discretionary,Consumer Durables,257.23,Crompton Greaves Consumer Electricals Limited
+126,CYIENT,Information Technology,IT - Services,199.96,Cyient Limited
+127,DLF,Consumer Discretionary,Realty,2052.41,DLF Limited
+128,DOMS,Fast Moving Consumer Goods,Household Products,117.0,DOMS Industries Limited
+129,DCMSHRIRAM,Diversified,Diversified,145.88,DCM Shriram Limited
+130,DABUR,Fast Moving Consumer Goods,Personal Products,1058.42,Dabur India Limited
+131,DATAPATTNS,Industrials,Aerospace & Defense,146.56,Data Patterns (India) Limited
+132,DEEPAKFERT,Commodities,Chemicals & Petrochemicals,72.59,Deepak Fertilizers And Petrochemicals Corporation Limited
+133,DALBHARAT,Commodities,Cement & Cement Products,331.23,Dalmia Bharat Limited
+134,DEEPAKNTR,Commodities,Chemicals & Petrochemicals,310.76,Deepak Nitrite Limited
+135,DELHIVERY,Services,Transport Services,281.89,Delhivery Limited
+136,DIVISLAB,Healthcare,Pharmaceuticals & Biotechnology,1181.04,Divi's Laboratories Limited
+137,DEVYANI,Consumer Discretionary,Leisure Services,206.06,Devyani International Limited
+138,DIXON,Consumer Discretionary,Consumer Durables,584.11,Dixon Technologies (India) Limited
+139,EIDPARRY,Commodities,Fertilizers & Agrochemicals,125.7,EID Parry India Limited
+140,LALPATHLAB,Healthcare,Healthcare Services,229.96,Dr. Lal Path Labs Ltd.
+141,DRREDDY,Healthcare,Pharmaceuticals & Biotechnology,982.75,Dr. Reddy's Laboratories Limited
+142,EPL,Industrials,Industrial Products,57.43,EPL Limited
+143,EIHOTEL,Consumer Discretionary,Leisure Services,261.71,EIH Limited
+144,EASEMYTRIP,Consumer Discretionary,Leisure Services,73.19,Easy Trip Planners Limited
+145,EICHERMOT,Consumer Discretionary,Automobiles,1293.26,Eicher Motors Limited
+146,ELECON,Industrials,Industrial Manufacturing,117.39,Elecon Engineering Company Limited
+147,EMAMILTD,Fast Moving Consumer Goods,Personal Products,308.82,Emami Limited
+148,ELGIEQUIP,Industrials,Industrial Products,193.28,Elgi Equipments Limited
+149,ENGINERSIN,Industrials,Construction,128.57,Engineers India Limited
+150,ENDURANCE,Consumer Discretionary,Auto Components,340.29,Endurance Technologies Limited
+151,ERIS,Healthcare,Pharmaceuticals & Biotechnology,133.03,Eris Lifesciences Limited
+152,EQUITASBNK,Financial Services,Banks,109.81,Equitas Small Finance Bank Limited
+153,EXIDEIND,Consumer Discretionary,Auto Components,448.67,Exide Industries Limited
+154,NYKAA,Consumer Discretionary,Retailing,484.02,FSN E-Commerce Ventures Limited
+155,ESCORTS,Industrials,Agricultural Commercial & Construction Vehicles,443.21,Escorts Kubota Limited
+156,FDC,Healthcare,Pharmaceuticals & Biotechnology,70.9,FDC Limited
+157,FEDERALBNK,Financial Services,Banks,401.76,The Federal Bank  Limited
+158,FACT,Commodities,Fertilizers & Agrochemicals,450.01,Fertilizers and Chemicals Travancore Limited
+159,FINEORG,Commodities,Chemicals & Petrochemicals,136.65,Fine Organic Industries Limited
+160,FINCABLES,Industrials,Industrial Products,232.36,Finolex Cables Limited
+161,FSL,Services,Commercial Services & Supplies,132.04,Firstsource Solutions Limited
+162,FIVESTAR,Financial Services,Finance,225.85,Five-Star Business Finance Limited
+163,FINPIPE,Industrials,Industrial Products,211.92,Finolex Industries Limited
+164,FORTIS,Healthcare,Healthcare Services,336.94,Fortis Healthcare Limited
+165,GMRINFRA,Services,Transport Infrastructure,508.83,GMR Airports Infrastructure Limited
+166,GAIL,Energy,Gas,1366.96,GAIL (India) Limited
+167,GRSE,Industrials,Aerospace & Defense,148.71,Garden Reach Shipbuilders & Engineers Limited
+168,GMMPFAUDLR,Industrials,Industrial Manufacturing,56.09,GMM Pfaudler Limited
+169,GICRE,Financial Services,Insurance,632.72,General Insurance Corporation of India
+170,GILLETTE,Fast Moving Consumer Goods,Personal Products,243.95,Gillette India Limited
+171,GLAND,Healthcare,Pharmaceuticals & Biotechnology,301.96,Gland Pharma Limited
+172,GLAXO,Healthcare,Pharmaceuticals & Biotechnology,417.57,GlaxoSmithKline Pharmaceuticals Limited
+173,GLS,Healthcare,Pharmaceuticals & Biotechnology,104.79,Glenmark Life Sciences Limited
+174,GLENMARK,Healthcare,Pharmaceuticals & Biotechnology,341.41,Glenmark Pharmaceuticals Limited
+175,GPIL,Industrials,Industrial Products,126.82,Godawari Power And Ispat limited
+176,MEDANTA,Healthcare,Healthcare Services,320.09,Global Health Limited
+177,GODFRYPHLP,Fast Moving Consumer Goods,Cigarettes & Tobacco Products,196.54,Godfrey Phillips India Limited
+178,GODREJCP,Fast Moving Consumer Goods,Personal Products,1434.15,Godrej Consumer Products Limited
+179,GODREJPROP,Consumer Discretionary,Realty,777.52,Godrej Properties Limited
+180,GODREJIND,Diversified,Diversified,270.83,Godrej Industries Limited
+181,GRANULES,Healthcare,Pharmaceuticals & Biotechnology,113.5,Granules India Limited
+182,GRASIM,Commodities,Cement & Cement Products,1537.38,Grasim Industries Limited
+183,GRAPHITE,Industrials,Industrial Products,110.38,Graphite India Limited
+184,GESHIP,Services,Transport Services,152.74,The Great Eastern Shipping Company Limited
+185,GRINDWELL,Industrials,Industrial Products,281.02,Grindwell Norton Limited
+186,GAEL,Fast Moving Consumer Goods,Agricultural Food & other Products,64.49,Gujarat Ambuja Exports Limited
+187,GUJGASLTD,Energy,Gas,393.14,Gujarat Gas Limited
+188,FLUOROCHEM,Commodities,Chemicals & Petrochemicals,319.32,Gujarat Fluorochemicals Limited
+189,GMDCLTD,Commodities,Minerals & Mining,118.17,Gujarat Mineral Development Corporation Limited
+190,GNFC,Commodities,Chemicals & Petrochemicals,93.68,Gujarat Narmada Valley Fertilizers and Chemicals Limited
+191,GPPL,Services,Transport Infrastructure,91.39,Gujarat Pipavav Port Limited
+192,GSFC,Commodities,Fertilizers & Agrochemicals,82.82,Gujarat State Fertilizers & Chemicals Limited
+193,GSPL,Energy,Gas,156.88,Gujarat State Petronet Limited
+194,HBLPOWER,Consumer Discretionary,Auto Components,132.54,HBL Power Systems Limited
+195,HEG,Industrials,Industrial Products,82.54,HEG Limited
+196,HDFCAMC,Financial Services,Capital Markets,802.81,HDFC Asset Management Company Limited
+197,HDFCLIFE,Financial Services,Insurance,1194.31,HDFC Life Insurance Company Limited
+198,HDFCBANK,Financial Services,Banks,11860.22,HDFC Bank Limited
+199,HCLTECH,Information Technology,IT - Software,3792.35,HCL Technologies Limited
+200,HAPPSTMNDS,Information Technology,IT - Software,124.95,Happiest Minds Technologies Limited
+201,HAVELLS,Consumer Discretionary,Consumer Durables,1152.91,Havells India Limited
+202,HAPPYFORGE,Industrials,Industrial Products,110.44,Happy Forgings Limited
+203,HEROMOTOCO,Consumer Discretionary,Automobiles,1106.47,Hero MotoCorp Limited
+204,HFCL,Telecommunication,Telecom - Services,135.83,HFCL Limited
+205,HSCL,Commodities,Chemicals & Petrochemicals,166.29,Himadri Speciality Chemical Limited
+206,HINDALCO,Commodities,Non - Ferrous Metals,1522.49,Hindalco Industries Limited
+207,HAL,Industrials,Aerospace & Defense,3120.91,Hindustan Aeronautics Limited
+208,HINDCOPPER,Commodities,Non - Ferrous Metals,326.18,Hindustan Copper Limited
+209,HINDUNILVR,Fast Moving Consumer Goods,Diversified FMCG,5990.52,Hindustan Unilever Limited
+210,HINDPETRO,Energy,Petroleum Products,731.33,Hindustan Petroleum Corporation Limited
+211,HINDZINC,Commodities,Non - Ferrous Metals,2906.17,Hindustan Zinc Limited
+212,POWERINDIA,Industrials,Electrical Equipment,442.79,Hitachi Energy India Limited
+213,HUDCO,Financial Services,Finance,499.77,Housing & Urban Development Corporation Limited
+214,HONASA,Fast Moving Consumer Goods,Personal Products,142.54,Honasa Consumer Limited
+215,HOMEFIRST,Financial Services,Finance,76.82,Home First Finance Company India Limited
+216,HONAUT,Industrials,Industrial Manufacturing,460.03,Honeywell Automation India Limited
+217,ICICIBANK,Financial Services,Banks,7808.88,ICICI Bank Limited
+218,ICICIPRULI,Financial Services,Insurance,812.41,ICICI Prudential Life Insurance Company Limited
+219,ISEC,Financial Services,Capital Markets,231.03,ICICI Securities Limited
+220,IDBI,Financial Services,Banks,899.44,IDBI Bank Limited
+221,ICICIGI,Financial Services,Insurance,811.05,ICICI Lombard General Insurance Company Limited
+222,IDFC,Financial Services,Finance,182.88,IDFC Limited
+223,IIFL,Financial Services,Finance,175.62,IIFL Finance Limited
+224,IRB,Industrials,Construction,423.94,IRB Infrastructure Developers Limited
+225,IRCON,Industrials,Construction,234.19,Ircon International Limited
+226,IDFCFIRSTB,Financial Services,Banks,546.72,IDFC First Bank Limited
+227,ITI,Telecommunication,Telecom - Equipment & Accessories,281.97,ITI Limited
+228,ITC,Fast Moving Consumer Goods,Diversified FMCG,5435.85,ITC Limited
+229,INDIAMART,Consumer Discretionary,Retailing,152.74,Indiamart Intermesh Limited
+230,INDIACEM,Commodities,Cement & Cement Products,64.15,The India Cements Limited
+231,IBULHSGFIN,Financial Services,Finance,77.98,Indiabulls Housing Finance Limited
+232,INDIANB,Financial Services,Banks,730.8,Indian Bank
+233,IEX,Financial Services,Capital Markets,144.94,Indian Energy Exchange Limited
+234,INDHOTEL,Consumer Discretionary,Leisure Services,830.57,The Indian Hotels Company Limited
+235,IOC,Energy,Petroleum Products,2310.23,Indian Oil Corporation Limited
+236,IRFC,Financial Services,Finance,2261.5,Indian Railway Finance Corporation Limited
+237,IOB,Financial Services,Banks,1259.85,Indian Overseas Bank
+238,INDIGOPNTS,Consumer Discretionary,Consumer Durables,65.0,Indigo Paints Limited
+239,IRCTC,Consumer Discretionary,Leisure Services,778.64,Indian Railway Catering And Tourism Corporation Limited
+240,IGL,Energy,Gas,322.42,Indraprastha Gas Limited
+241,INDUSINDBK,Financial Services,Banks,1153.04,IndusInd Bank Limited
+242,INDUSTOWER,Telecommunication,Telecom - Services,914.53,Indus Towers Limited
+243,NAUKRI,Consumer Discretionary,Retailing,792.5,Info Edge (India) Limited
+244,INFY,Information Technology,IT - Software,6112.63,Infosys Limited
+245,INOXWIND,Industrials,Electrical Equipment,190.88,Inox Wind Limited
+246,INTELLECT,Information Technology,IT - Software,125.49,Intellect Design Arena Limited
+247,INDIGO,Services,Transport Services,1660.1,InterGlobe Aviation Limited
+248,JBCHEPHARM,Healthcare,Pharmaceuticals & Biotechnology,274.88,JB Chemicals & Pharmaceuticals Limited
+249,IPCALAB,Healthcare,Pharmaceuticals & Biotechnology,294.74,IPCA Laboratories Limited
+250,JKCEMENT,Commodities,Cement & Cement Products,310.08,JK Cement Limited
+251,JBMA,Consumer Discretionary,Auto Components,253.95,JBM Auto Limited
+252,JKLAKSHMI,Commodities,Cement & Cement Products,92.57,JK Lakshmi Cement Limited
+253,JMFINANCIL,Financial Services,Finance,74.82,JM Financial Limited
+254,JSWINFRA,Services,Transport Infrastructure,599.13,JSW Infrastructure Limited
+255,JKPAPER,Commodities,Paper Forest & Jute Products,67.3,JK Paper Limited
+256,JSWSTEEL,Commodities,Ferrous Metals,2171.81,JSW Steel Limited
+257,JSWENERGY,Utilities,Power,1092.53,JSW Energy Limited
+258,JAIBALAJI,Commodities,Ferrous Metals,150.46,Jai Balaji Industries Limited
+259,JINDALSAW,Industrials,Industrial Products,168.09,Jindal Saw Limited
+260,JSL,Commodities,Ferrous Metals,654.18,Jindal Stainless Limited
+261,JIOFIN,Financial Services,Finance,2219.84,Jio Financial Services Limited
+262,JUBLFOOD,Consumer Discretionary,Leisure Services,344.31,Jubilant Foodworks Limited
+263,JUBLINGREA,Commodities,Chemicals & Petrochemicals,80.25,Jubilant Ingrevia Limited
+264,JUBLPHARMA,Healthcare,Pharmaceuticals & Biotechnology,114.76,Jubilant Pharmova Limited
+265,JINDALSTEL,Commodities,Ferrous Metals,1050.23,Jindal Steel & Power Limited
+266,JWL,Industrials,Industrial Manufacturing,237.98,Jupiter Wagons Limited
+267,JYOTHYLAB,Fast Moving Consumer Goods,Household Products,164.62,Jyothy Labs Limited
+268,JUSTDIAL,Consumer Discretionary,Retailing,81.43,Just Dial Limited
+269,KEI,Industrials,Industrial Products,373.23,KEI Industries Limited
+270,KPRMILL,Consumer Discretionary,Textiles & Apparels,280.94,K.P.R. Mill Limited
+271,KSB,Industrials,Industrial Products,157.16,Ksb Limited
+272,KNRCON,Industrials,Construction,106.49,KNR Constructions Limited
+273,KRBL,Fast Moving Consumer Goods,Agricultural Food & other Products,63.32,KRBL Limited
+274,KPITTECH,Information Technology,IT - Software,404.72,KPIT Technologies Limited
+275,KALYANKJIL,Consumer Discretionary,Consumer Durables,411.66,Kalyan Jewellers India Limited
+276,KAJARIACER,Consumer Discretionary,Consumer Durables,192.69,Kajaria Ceramics Limited
+277,KPIL,Industrials,Construction,192.22,Kalpataru Projects International Limited
+278,KANSAINER,Consumer Discretionary,Consumer Durables,221.09,Kansai Nerolac Paints Limited
+279,KEC,Industrials,Construction,198.18,KEC International Limited
+280,KFINTECH,Financial Services,Capital Markets,118.78,Kfin Technologies Limited
+281,KARURVYSYA,Financial Services,Banks,159.5,Karur Vysya Bank Limited
+282,KAYNES,Industrials,Industrial Manufacturing,199.66,Kaynes Technology India Limited
+283,LTF,Financial Services,Finance,396.01,L&T Finance Limited
+284,KIMS,Healthcare,Healthcare Services,150.79,Krishna Institute of Medical Sciences Limited
+285,KOTAKBANK,Financial Services,Banks,3448.46,Kotak Mahindra Bank Limited
+286,LTTS,Information Technology,IT - Services,495.21,L&T Technology Services Limited
+287,LICHSGFIN,Financial Services,Finance,358.12,LIC Housing Finance Limited
+288,LTIM,Information Technology,IT - Software,1421.66,LTIMindtree Limited
+289,LT,Industrials,Construction,4787.65,Larsen & Toubro Limited
+290,LATENTVIEW,Information Technology,IT - Software,102.2,Latent View Analytics Limited
+291,LAURUSLABS,Healthcare,Pharmaceuticals & Biotechnology,231.16,Laurus Labs Limited
+292,LEMONTREE,Consumer Discretionary,Leisure Services,110.64,Lemon Tree Hotels Limited
+293,LXCHEM,Commodities,Chemicals & Petrochemicals,66.03,Laxmi Organic Industries Limited
+294,LICI,Financial Services,Insurance,6203.56,Life Insurance Corporation Of India
+295,LINDEINDIA,Commodities,Chemicals & Petrochemicals,740.74,Linde India Limited
+296,LLOYDSME,Commodities,Ferrous Metals,353.98,Lloyds Metals And Energy Limited
+297,MRF,Consumer Discretionary,Auto Components,534.94,MRF Limited
+298,LUPIN,Healthcare,Pharmaceuticals & Biotechnology,732.7,Lupin Limited
+299,MMTC,Services,Commercial Services & Supplies,101.85,MMTC Limited
+300,MTARTECH,Industrials,Aerospace & Defense,52.31,Mtar Technologies Limited
+301,LODHA,Consumer Discretionary,Realty,1381.87,Macrotech Developers Limited
+302,MAHSEAMLES,Industrials,Industrial Products,85.2,Maharashtra Seamless Limited
+303,MGL,Energy,Gas,134.36,Mahanagar Gas Limited
+304,M&MFIN,Financial Services,Finance,343.66,Mahindra & Mahindra Financial Services Limited
+305,MHRIL,Consumer Discretionary,Leisure Services,80.5,Mahindra Holidays & Resorts India Limited
+306,MAHLIFE,Consumer Discretionary,Realty,89.61,Mahindra Lifespace Developers Limited
+307,M&M,Consumer Discretionary,Automobiles,3357.34,Mahindra & Mahindra Limited
+308,MANAPPURAM,Financial Services,Finance,150.45,Manappuram Finance Limited
+309,MRPL,Energy,Petroleum Products,353.59,Mangalore Refinery and Petrochemicals Limited
+310,MANKIND,Healthcare,Pharmaceuticals & Biotechnology,863.89,Mankind Pharma Limited
+311,MARICO,Fast Moving Consumer Goods,Agricultural Food & other Products,825.59,Marico Limited
+312,MFSL,Financial Services,Insurance,319.99,Max Financial Services Limited
+313,MARUTI,Consumer Discretionary,Automobiles,3984.58,Maruti Suzuki India Limited
+314,MAXHEALTH,Healthcare,Healthcare Services,806.78,Max Healthcare Institute Limited
+315,MASTEK,Information Technology,IT - Software,79.57,Mastek Limited
+316,MAZDOCK,Industrials,Industrial Manufacturing,637.47,Mazagon Dock Shipbuilders Limited
+317,METROPOLIS,Healthcare,Healthcare Services,103.92,Metropolis Healthcare Limited
+318,MEDPLUS,Consumer Discretionary,Retailing,84.14,Medplus Health Services Limited
+319,METROBRAND,Consumer Discretionary,Consumer Durables,316.18,Metro Brands Limited
+320,MSUMI,Consumer Discretionary,Auto Components,296.88,Motherson Sumi Wiring India Limited
+321,MINDACORP,Consumer Discretionary,Auto Components,109.37,Minda Corporation Limited
+322,MOTILALOFS,Financial Services,Capital Markets,342.44,Motilal Oswal Financial Services Limited
+323,MPHASIS,Information Technology,IT - Software,460.55,MphasiS Limited
+324,NBCC,Industrials,Construction,250.29,NBCC (India) Limited
+325,MUTHOOTFIN,Financial Services,Finance,703.86,Muthoot Finance Limited
+326,MCX,Financial Services,Capital Markets,177.72,Multi Commodity Exchange of India Limited
+327,NATCOPHARM,Healthcare,Pharmaceuticals & Biotechnology,185.15,Natco Pharma Limited
+328,NCC,Industrials,Construction,196.2,NCC Limited
+329,NLCINDIA,Utilities,Power,300.14,NLC India Limited
+330,NHPC,Utilities,Power,1030.62,NHPC Limited
+331,NMDC,Commodities,Minerals & Mining,739.1,NMDC Limited
+332,NSLNISP,Commodities,Ferrous Metals,174.52,NMDC Steel Limited
+333,NTPC,Utilities,Power,3391.41,NTPC Limited
+334,NH,Healthcare,Healthcare Services,254.11,Narayana Hrudayalaya Ltd.
+335,NATIONALUM,Commodities,Non - Ferrous Metals,331.7,National Aluminium Company Limited
+336,NAVINFLUOR,Commodities,Chemicals & Petrochemicals,164.52,Navin Fluorine International Limited
+337,NETWORK18,Consumer Discretionary,Entertainment,83.6,Network18 Media & Investments Limited
+338,NUVAMA,Financial Services,Capital Markets,173.43,Nuvama Wealth Management Limited
+339,NAM-INDIA,Financial Services,Capital Markets,387.54,Nippon Life India Asset Management Limited
+340,NESTLEIND,Fast Moving Consumer Goods,Food Products,2382.82,Nestle India Limited
+341,OBEROIRLTY,Consumer Discretionary,Realty,692.39,Oberoi Realty Limited
+342,ONGC,Energy,Oil,3174.0,Oil & Natural Gas Corporation Limited
+343,NUVOCO,Commodities,Cement & Cement Products,118.27,Nuvoco Vistas Corporation Limited
+344,OIL,Energy,Oil,661.92,Oil India Limited
+345,PAYTM,Financial Services,Financial Technology (Fintech),220.4,One 97 Communications Limited
+346,OFSS,Information Technology,IT - Software,708.58,Oracle Financial Services Software Limited
+347,OLECTRA,Consumer Discretionary,Automobiles,139.04,Olectra Greentech Limited
+348,PCBL,Commodities,Chemicals & Petrochemicals,87.27,PCBL LIMITED
+349,POLICYBZR,Financial Services,Financial Technology (Fintech),581.76,PB Fintech Limited
+350,PNBHOUSING,Financial Services,Finance,192.04,PNB Housing Finance Limited
+351,PIIND,Commodities,Fertilizers & Agrochemicals,554.01,PI Industries Limited
+352,PNCINFRA,Industrials,Construction,135.7,PNC Infratech Limited
+353,PVRINOX,Consumer Discretionary,Entertainment,131.25,PVR INOX Limited
+354,PATANJALI,Fast Moving Consumer Goods,Agricultural Food & other Products,493.94,Patanjali Foods Limited
+355,PAGEIND,Consumer Discretionary,Textiles & Apparels,432.7,Page Industries Limited
+356,PERSISTENT,Information Technology,IT - Software,569.11,Persistent Systems Limited
+357,PETRONET,Energy,Gas,453.6,Petronet LNG Limited
+358,PHOENIXLTD,Consumer Discretionary,Realty,573.23,The Phoenix Mills Limited
+359,PEL,Financial Services,Finance,181.34,Piramal Enterprises Limited
+360,POLYMED,Healthcare,Healthcare Equipment & Supplies,174.96,Poly Medicure Limited
+361,PPLPHARMA,Healthcare,Pharmaceuticals & Biotechnology,196.34,Piramal Pharma Limited
+362,PIDILITIND,Commodities,Chemicals & Petrochemicals,1571.2,Pidilite Industries Limited
+363,POLYCAB,Industrials,Industrial Products,1030.55,Polycab India Limited
+364,PFC,Financial Services,Finance,1558.64,Power Finance Corporation Limited
+365,POWERGRID,Utilities,Power,2794.37,Power Grid Corporation of India Limited
+366,POONAWALLA,Financial Services,Finance,349.92,Poonawalla Fincorp Limited
+367,PRAJIND,Industrials,Industrial Manufacturing,98.4,Praj Industries Limited
+368,PRESTIGE,Consumer Discretionary,Realty,705.26,Prestige Estates Projects Limited
+369,PRINCEPIPE,Industrials,Industrial Products,67.87,Prince Pipes And Fittings Limited
+370,PGHH,Fast Moving Consumer Goods,Personal Products,538.01,Procter & Gamble Hygiene and Health Care Limited
+371,PRSMJOHNSN,Commodities,Cement & Cement Products,79.63,Prism Johnson Limited
+372,QUESS,Services,Commercial Services & Supplies,86.83,Quess Corp Limited
+373,PNB,Financial Services,Banks,1364.26,Punjab National Bank
+374,RHIM,Industrials,Industrial Products,139.03,RHI MAGNESITA INDIA LIMITED
+375,RECLTD,Financial Services,Finance,1290.54,REC Limited
+376,RRKABEL,Industrials,Industrial Products,189.51,R R Kabel Limited
+377,RBLBANK,Financial Services,Banks,147.72,RBL Bank Limited
+378,RITES,Industrials,Construction,155.45,RITES Limited
+379,RVNL,Industrials,Construction,768.64,Rail Vikas Nigam Limited
+380,RADICO,Fast Moving Consumer Goods,Beverages,226.69,Radico Khaitan Limited
+381,RAILTEL,Telecommunication,Telecom - Services,121.3,Railtel Corporation Of India Limited
+382,RAINBOW,Healthcare,Healthcare Services,132.9,Rainbow Childrens Medicare Limited
+383,RAJESHEXPO,Consumer Discretionary,Consumer Durables,79.84,Rajesh Exports Limited
+384,RKFORGE,Consumer Discretionary,Auto Components,126.2,Ramkrishna Forgings Limited
+385,RCF,Commodities,Fertilizers & Agrochemicals,82.95,Rashtriya Chemicals and Fertilizers Limited
+386,RTNINDIA,Consumer Discretionary,Retailing,107.68,RattanIndia Enterprises Limited
+387,RATNAMANI,Industrials,Industrial Products,238.89,Ratnamani Metals & Tubes Limited
+388,RAYMOND,Consumer Discretionary,Textiles & Apparels,152.83,Raymond Limited
+389,RBA,Consumer Discretionary,Leisure Services,53.24,Restaurant Brands Asia Limited
+390,REDINGTON,Services,Commercial Services & Supplies,160.46,Redington Limited
+391,RELIANCE,Energy,Petroleum Products,19371.53,Reliance Industries Limited
+392,ROUTE,Telecommunication,Telecom - Services,92.71,ROUTE MOBILE LIMITED
+393,SBICARD,Financial Services,Finance,669.24,SBI Cards and Payment Services Limited
+394,SBILIFE,Financial Services,Insurance,1445.04,SBI Life Insurance Company Limited
+395,SJVN,Utilities,Power,515.59,SJVN Limited
+396,SKFINDIA,Industrials,Industrial Products,301.11,SKF India Limited
+397,SRF,Commodities,Chemicals & Petrochemicals,680.75,SRF Limited
+398,SAFARI,Consumer Discretionary,Consumer Durables,97.65,Safari Industries (India) Limited
+399,MOTHERSON,Consumer Discretionary,Auto Components,1033.07,Samvardhana Motherson International Limited
+400,SAPPHIRE,Consumer Discretionary,Leisure Services,92.92,Sapphire Foods India Limited
+401,SAREGAMA,Consumer Discretionary,Entertainment,102.45,Saregama India Limited
+402,SANOFI,Healthcare,Pharmaceuticals & Biotechnology,209.73,Sanofi India Limited
+403,SCHAEFFLER,Consumer Discretionary,Auto Components,667.57,Schaeffler India Limited
+404,SHREECEM,Commodities,Cement & Cement Products,924.98,SHREE CEMENT LIMITED
+405,RENUKA,Fast Moving Consumer Goods,Agricultural Food & other Products,86.74,Shree Renuka Sugars Limited
+406,SCHNEIDER,Industrials,Electrical Equipment,169.67,Schneider Electric Infrastructure Limited
+407,SHYAMMETL,Industrials,Industrial Products,168.9,Shyam Metalics and Energy Limited
+408,SHRIRAMFIN,Financial Services,Finance,930.17,Shriram Finance Limited
+409,SIEMENS,Industrials,Electrical Equipment,2419.46,Siemens Limited
+410,SIGNATURE,Consumer Discretionary,Realty,173.12,Signatureglobal (India) Limited
+411,SONACOMS,Consumer Discretionary,Auto Components,385.3,Sona BLW Precision Forgings Limited
+412,SOLARINDS,Commodities,Chemicals & Petrochemicals,826.33,Solar Industries India Limited
+413,SOBHA,Consumer Discretionary,Realty,184.93,Sobha Limited
+414,SONATSOFTW,Information Technology,IT - Software,152.1,Sonata Software Limited
+415,SBIN,Financial Services,Banks,7290.96,State Bank of India
+416,SAIL,Commodities,Ferrous Metals,606.77,Steel Authority of India Limited
+417,STARHEALTH,Financial Services,Insurance,292.24,Star Health and Allied Insurance Company Limited
+418,SWSOLAR,Industrials,Construction,162.7,Sterling and Wilson Renewable Energy Limited
+419,STLTECH,Telecommunication,Telecom - Equipment & Accessories,59.39,Sterlite Technologies Limited
+420,SUMICHEM,Commodities,Fertilizers & Agrochemicals,239.39,Sumitomo Chemical India Limited
+421,SPARC,Healthcare,Pharmaceuticals & Biotechnology,71.34,Sun Pharma Advanced Research Company Limited
+422,SUNDARMFIN,Financial Services,Finance,497.72,Sundaram Finance Limited
+423,SUNPHARMA,Healthcare,Pharmaceuticals & Biotechnology,3533.5,Sun Pharmaceutical Industries Limited
+424,SUNTV,Consumer Discretionary,Entertainment,283.33,Sun TV Network Limited
+425,SUNTECK,Consumer Discretionary,Realty,68.15,Sunteck Realty Limited
+426,SUPREMEIND,Industrials,Industrial Products,727.8,Supreme Industries Limited
+427,SUNDRMFAST,Consumer Discretionary,Auto Components,261.83,Sundram Fasteners Limited
+428,SUVENPHAR,Healthcare,Pharmaceuticals & Biotechnology,161.79,Suven Pharmaceuticals Limited
+429,SYNGENE,Healthcare,Healthcare Services,275.8,Syngene International Limited
+430,SUZLON,Industrials,Electrical Equipment,677.47,Suzlon Energy Limited
+431,SWANENERGY,Diversified,Diversified,179.85,Swan Energy Limited
+432,SYRMA,Industrials,Industrial Manufacturing,80.36,Syrma SGS Technology Limited
+433,TMB,Financial Services,Banks,74.7,Tamilnad Mercantile Bank Limited
+434,TV18BRDCST,Consumer Discretionary,Entertainment,72.69,TV18 Broadcast Limited
+435,TVSSCS,Services,Transport Services,74.66,TVS Supply Chain Solutions Limited
+436,TVSMOTOR,Consumer Discretionary,Automobiles,1139.35,TVS Motor Company Limited
+437,TATACHEM,Commodities,Chemicals & Petrochemicals,270.9,Tata Chemicals Limited
+438,TANLA,Information Technology,IT - Software,120.74,Tanla Platforms Limited
+439,TATACOMM,Telecommunication,Telecom - Services,510.46,Tata Communications Limited
+440,TCS,Information Technology,IT - Software,13858.72,Tata Consultancy Services Limited
+441,TATAELXSI,Information Technology,IT - Software,431.71,Tata Elxsi Limited
+442,TATACONSUM,Fast Moving Consumer Goods,Agricultural Food & other Products,1086.14,TATA CONSUMER PRODUCTS LIMITED
+443,TATAMTRDVR,Consumer Discretionary,Automobiles,318.4,Tata Motors Limited
+444,TATAINVEST,Financial Services,Finance,324.48,Tata Investment Corporation Limited
+445,TATAPOWER,Utilities,Power,1378.95,Tata Power Company Limited
+446,TATAMOTORS,Consumer Discretionary,Automobiles,3118.72,Tata Motors Limited
+447,TATATECH,Information Technology,IT - Services,425.4,Tata Technologies Limited
+448,TATASTEEL,Commodities,Ferrous Metals,2147.79,TATA Steel Limited
+449,TECHM,Information Technology,IT - Software,1287.57,Tech Mahindra Limited
+450,TTML,Telecommunication,Telecom - Services,145.35,Tata Teleservices (Maharashtra) Limited
+451,RAMCOCEM,Commodities,Cement & Cement Products,185.89,The Ramco Cements Limited
+452,THERMAX,Industrials,Electrical Equipment,627.02,Thermax Limited
+453,TEJASNET,Telecommunication,Telecom - Equipment & Accessories,198.27,Tejas Networks Limited
+454,NIACL,Financial Services,Insurance,357.86,The New India Assurance Company Limited
+455,TIMKEN,Industrials,Industrial Products,310.63,Timken India Limited
+456,TORNTPHARM,Healthcare,Pharmaceuticals & Biotechnology,941.56,Torrent Pharmaceuticals Limited
+457,TITAGARH,Industrials,Industrial Manufacturing,157.26,TITAGARH RAIL SYSTEMS LIMITED
+458,TITAN,Consumer Discretionary,Consumer Durables,2948.91,Titan Company Limited
+459,TORNTPOWER,Utilities,Power,702.64,Torrent Power Limited
+460,TRIDENT,Consumer Discretionary,Textiles & Apparels,187.02,Trident Limited
+461,TRIVENI,Fast Moving Consumer Goods,Agricultural Food & other Products,69.16,Triveni Engineering & Industries Limited
+462,TRITURBINE,Industrials,Electrical Equipment,178.9,Triveni Turbine Limited
+463,TRENT,Consumer Discretionary,Retailing,1734.23,Trent Limited
+464,TIINDIA,Consumer Discretionary,Auto Components,746.84,Tube Investments of India Limited
+465,UCOBANK,Financial Services,Banks,671.92,UCO Bank
+466,UTIAMC,Financial Services,Capital Markets,122.09,UTI Asset Management Company Limited
+467,UNOMINDA,Consumer Discretionary,Auto Components,559.44,UNO Minda Limited
+468,UJJIVANSFB,Financial Services,Banks,92.44,Ujjivan Small Finance Bank Limited
+469,UPL,Commodities,Fertilizers & Agrochemicals,403.38,UPL Limited
+470,ULTRACEMCO,Commodities,Cement & Cement Products,2902.84,UltraTech Cement Limited
+471,UBL,Fast Moving Consumer Goods,Beverages,538.22,United Breweries Limited
+472,UNIONBANK,Financial Services,Banks,1103.44,Union Bank of India
+473,USHAMART,Industrials,Industrial Products,108.87,Usha Martin Limited
+474,VIPIND,Consumer Discretionary,Consumer Durables,68.84,VIP Industries Limited
+475,VGUARD,Consumer Discretionary,Consumer Durables,172.45,V-Guard Industries Limited
+477,VAIBHAVGBL,Consumer Discretionary,Consumer Durables,51.21,Vaibhav Global Limited
+478,VBL,Fast Moving Consumer Goods,Beverages,1948.36,Varun Beverages Limited
+479,VTL,Consumer Discretionary,Textiles & Apparels,136.42,Vardhman Textiles Limited
+480,VARROC,Consumer Discretionary,Auto Components,89.36,Varroc Engineering Limited
+481,VIJAYA,Healthcare,Healthcare Services,83.6,Vijaya Diagnostic Centre Limited
+482,MANYAVAR,Consumer Discretionary,Retailing,255.36,Vedant Fashions Limited
+483,IDEA,Telecommunication,Telecom - Services,1018.18,Vodafone Idea Limited
+484,VEDL,Commodities,Diversified Metals,1672.37,Vedanta Limited
+485,VOLTAS,Consumer Discretionary,Consumer Durables,479.63,Voltas Limited
+486,WELCORP,Industrials,Industrial Products,133.25,Welspun Corp Limited
+487,WELSPUNLIV,Consumer Discretionary,Textiles & Apparels,130.9,Welspun Living Limited
+488,WESTLIFE,Consumer Discretionary,Leisure Services,126.49,WESTLIFE FOODWORLD LIMITED
+489,WIPRO,Information Technology,IT - Software,2410.41,Wipro Limited
+490,ZFCVINDIA,Consumer Discretionary,Auto Components,322.19,ZF Commercial Vehicle Control Systems India Limited
+491,YESBANK,Financial Services,Banks,717.45,Yes Bank Limited
+492,WHIRLPOOL,Consumer Discretionary,Consumer Durables,195.81,Whirlpool of India Limited
+493,ZENSARTECH,Information Technology,IT - Software,151.36,Zensar Technologies Limited
+494,ZYDUSLIFE,Healthcare,Pharmaceuticals & Biotechnology,1051.51,Zydus Lifesciences Limited
+495,ZOMATO,Consumer Discretionary,Retailing,1621.08,Zomato Limited
+496,ZEEL,Consumer Discretionary,Entertainment,147.49,Zee Entertainment Enterprises Limited
+497,ECLERX,Services,Commercial Services & Supplies,108.89,eClerx Services Limited
