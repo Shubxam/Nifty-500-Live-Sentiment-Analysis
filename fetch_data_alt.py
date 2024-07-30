@@ -2,6 +2,7 @@
 
 
 import multiprocessing as mp
+from typing import Any, Literal
 import numpy as np
 import pandas as pd
 import requests
@@ -32,26 +33,45 @@ class StockDataFetcher:
         self.token = os.getenv("hf_api_key")
         self.sentiment_model = InferenceApi("ProsusAI/finbert", token=self.token)
 
-    def fetch_tickers(self):
-        tickers_url_dict = {
+    def fetch_tickers(self) -> None:
+        """
+        Fetches the tickers for the specified Nifty index.
+
+        Returns:
+            pandas.DataFrame: A DataFrame containing the tickers and company names.
+        """
+
+        # Dictionary to store the URLs for the different Nifty indices
+        tickers_url_dict: dict = {
             "nifty_500": "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
             "nifty_200": "https://archives.nseindia.com/content/indices/ind_nifty200list.csv",
             "nifty_100": "https://archives.nseindia.com/content/indices/ind_nifty100list.csv",
             "nifty_50": "https://archives.nseindia.com/content/indices/ind_nifty50list.csv",
         }
-        logging.info(f"Downloading {self.universe} Tickers")
-        tickers_url = tickers_url_dict[self.universe]
-        universe_tickers = pd.read_csv(tickers_url)
-        universe_tickers.to_csv(f"./datasets/{self.universe}.csv")
-        return universe_tickers[["Symbol", "Company Name"]]
 
-    def get_url_content(self, ticker):
-        _ticker = ticker + ":NSE"
+        logging.info(f"Downloading Tickers List for {tickers_url_dict.keys()}")
+
+        for index_name in tickers_url_dict.keys():
+            try:
+                ticker_list_url = tickers_url_dict[index_name]
+                ticker_list_df = pd.read_csv(ticker_list_url)
+                ticker_list_df.to_csv(f"./datasets/{index_name}.csv")
+            except Exception as e:
+                logging.warning(f"Error fetching tickers for {index_name}: {e}")
+
+    def get_url_content(
+        self, ticker: str
+    ) -> tuple[None, None, None] | tuple[str, BeautifulSoup, dict]:
+        _ticker: str = ticker + ":NSE"
         url = f"{self.news_url}/{_ticker}"
         logging.debug(f"Fetching data for {ticker} from {url}")
-        response = requests.get(url, headers=self.header)
-        soup = BeautifulSoup(response.content, "lxml")
-        meta = nse.nse_eq(ticker)
+        try:
+            response: requests.Response = requests.get(url, headers=self.header)
+            soup: BeautifulSoup = BeautifulSoup(response.content, "lxml")
+        except Exception as e:
+            logging.warning(f"Error fetching data for {ticker}: {e}")
+            return None, None, None
+        meta: dict = nse.nse_eq(ticker)
         return ticker, soup, meta
 
     def parse_relative_date(self, date_string):
@@ -77,32 +97,38 @@ class StockDataFetcher:
         else:
             return None
 
-    def ticker_article_fetch(self, ticker, soup):
+    def ticker_article_fetch(
+        self, ticker, soup
+    ) -> tuple[list, Literal[True]] | tuple[list, Literal[False]]:
         article_data = []
-        news_articles = soup.select("div.z4rs2b")
+        news_articles: list = soup.select("div.z4rs2b")
+
         if not news_articles:
             logging.warning(f"No news found for {ticker}")
             return article_data, True
+
         ticker_articles_counter = 0
+
         for link in news_articles:
-            art_title = link.select_one("div.Yfwt5").text.strip().replace("\n", "")
-            date_posted_str = link.select_one("div.Adak").text
-            date_posted = self.parse_relative_date(date_posted_str).strftime(
+            art_title: str = link.select_one("div.Yfwt5").text.strip().replace("\n", "")
+            date_posted_str: str = link.select_one("div.Adak").text
+            date_posted: str = self.parse_relative_date(date_posted_str).strftime(
                 "%Y-%m-%d %H:%M:%S"
             )
-            source = link.select_one("div.sfyJob").text
-            article_link = link.select_one("a").get("href")
+            source: str = link.select_one("div.sfyJob").text
+            article_link: str = link.select_one("a").get("href")
 
             article_data.append([ticker, art_title, date_posted, source, article_link])
             ticker_articles_counter += 1
+
         logging.debug(f"No of articles: {ticker_articles_counter} for {ticker}")
         return article_data, False
 
-    def ticker_meta_fetch(self, ticker, meta):
+    def ticker_meta_fetch(self, ticker: str, meta: dict) -> list:
         try:
-            sector = meta["industryInfo"]["macro"]
-            industry = meta["industryInfo"]["industry"]
-            mCap = round(
+            sector: str = meta["industryInfo"]["macro"]
+            industry: str = meta["industryInfo"]["industry"]
+            mCap: float = round(
                 (
                     meta["priceInfo"]["previousClose"]
                     * meta["securityInfo"]["issuedSize"]
@@ -110,13 +136,13 @@ class StockDataFetcher:
                 / 1e9,
                 2,
             )
-            companyName = meta["info"]["companyName"]
+            companyName: str = meta["info"]["companyName"]
         except KeyError as e:
             logging.warning(f"Error fetching metadata for {ticker}: {e}")
             sector = industry = mCap = companyName = np.nan
         return [ticker, sector, industry, mCap, companyName]
 
-    def process_ticker(self, ticker):
+    def process_ticker(self, ticker: str) -> dict[str, Any]:
         try:
             ticker, soup, meta = self.get_url_content(ticker)
             article_data, no_news = self.ticker_article_fetch(ticker, soup)
@@ -166,10 +192,15 @@ class StockDataFetcher:
         df.loc[:, "compound"] = df.loc[:, "positive"] - df.loc[:, "negative"]
         return df
 
-    def run(self):
-        tickers_df = self.fetch_tickers()
+    def run(self) -> None:
+
+        # Fetch the tickers
+        self.fetch_tickers()
+        tickers_df = pd.read_csv(f"./datasets/{self.universe}.csv")
         tickers_list = list(tickers_df["Symbol"])
 
+        # Fetch the news data for the tickers concurrently
+        logging.info("Fetching News Data for the tickers")
         with mp.Pool(processes=mp.cpu_count()) as pool:
             ticker_data = list(
                 tqdm(
