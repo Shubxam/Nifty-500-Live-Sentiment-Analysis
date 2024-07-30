@@ -41,6 +41,10 @@ class StockDataFetcher:
             pandas.DataFrame: A DataFrame containing the tickers and company names.
         """
 
+        # check if a directory datasets exists in root folder if not then create it
+        if not os.path.exists("./datasets"):
+            os.makedirs("./datasets")
+
         # Dictionary to store the URLs for the different Nifty indices
         tickers_url_dict: dict = {
             "nifty_500": "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
