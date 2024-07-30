@@ -17,6 +17,9 @@ logging.basicConfig(
 from huggingface_hub.inference_api import InferenceApi
 import os
 
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+
 
 class StockDataFetcher:
 
@@ -26,15 +29,8 @@ class StockDataFetcher:
         self.header = {
             "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0"
         }
-        self.special_symbols = {
-            "L&TFH": "SCRIP-220350",
-            "M&M": "SCRIP-100520",
-            "M&MFIN": "SCRIP-132720",
-        }
-
-        token = os.getenv("hf_api_key")
-
-        self.sentiment_model = InferenceApi("ProsusAI/finbert", token=token)
+        self.token = os.getenv("hf_api_key")
+        self.sentiment_model = InferenceApi("ProsusAI/finbert", token=self.token)
 
     def fetch_tickers(self):
         tickers_url_dict = {
@@ -52,28 +48,54 @@ class StockDataFetcher:
     def get_url_content(self, ticker):
         _ticker = ticker + ":NSE"
         url = f"{self.news_url}/{_ticker}"
-        logging.info(f"Fetching data for {ticker} from {url}")
+        logging.debug(f"Fetching data for {ticker} from {url}")
         response = requests.get(url, headers=self.header)
         soup = BeautifulSoup(response.content, "lxml")
         meta = nse.nse_eq(ticker)
         return ticker, soup, meta
 
+    def parse_relative_date(self, date_string):
+        now = datetime.now()
+        parts = date_string.split()
+
+        if len(parts) != 2 and len(parts) != 3:
+            return None
+
+        value = int(parts[0]) if parts[0] != "a" else 1
+        unit = parts[1]
+
+        if unit.startswith("minute"):
+            return now - timedelta(minutes=value)
+        elif unit.startswith("hour"):
+            return now - timedelta(hours=value)
+        elif unit.startswith("day"):
+            return now - timedelta(days=value)
+        elif unit.startswith("week"):
+            return now - timedelta(weeks=value)
+        elif unit.startswith("month"):
+            return now - relativedelta(months=value)
+        else:
+            return None
+
     def ticker_article_fetch(self, ticker, soup):
         article_data = []
         news_articles = soup.select("div.z4rs2b")
         if not news_articles:
-            logging.info(f"No news found for {ticker}")
+            logging.warning(f"No news found for {ticker}")
             return article_data, True
         ticker_articles_counter = 0
         for link in news_articles:
             art_title = link.select_one("div.Yfwt5").text.strip().replace("\n", "")
-            date_posted = link.select_one("div.Adak").text
+            date_posted_str = link.select_one("div.Adak").text
+            date_posted = self.parse_relative_date(date_posted_str).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
             source = link.select_one("div.sfyJob").text
             article_link = link.select_one("a").get("href")
 
             article_data.append([ticker, art_title, date_posted, source, article_link])
             ticker_articles_counter += 1
-        logging.info(f"No of articles: {ticker_articles_counter} for {ticker}")
+        logging.debug(f"No of articles: {ticker_articles_counter} for {ticker}")
         return article_data, False
 
     def ticker_meta_fetch(self, ticker, meta):
@@ -99,7 +121,7 @@ class StockDataFetcher:
             ticker, soup, meta = self.get_url_content(ticker)
             article_data, no_news = self.ticker_article_fetch(ticker, soup)
             if no_news:
-                print(f"Skipping meta check for {ticker}")
+                logging.info(f"Skipping meta check for {ticker}")
                 return {
                     "ticker": ticker,
                     "article_data": [],
@@ -122,16 +144,19 @@ class StockDataFetcher:
                 "unavailable": True,
             }
 
-    def perform_sentiment_analysis(self, headline: list[str]):
-        results: list[list[dict[str:float]]] = self.sentiment_model(headline)
+    def perform_sentiment_analysis(self, headline: list[str]) -> pd.DataFrame:
+
+        results: list = self.sentiment_model(headline)
 
         # Initialize an empty list to hold the flattened data
         flattened_data: list = []
 
-        # Loop through each entry in the data
-        for entry in results:
-            # Create a dictionary for each entry with labels as keys and scores as values
-            score_dict = {item["label"]: item["score"] for item in entry}
+        for list_item in results:
+            score_dict = dict()
+            for dict_item in list_item:
+                sentiment = dict_item["label"]
+                sentiment_score = dict_item["score"]
+                score_dict[sentiment] = sentiment_score
             flattened_data.append(score_dict)
 
         # Create the DataFrame
