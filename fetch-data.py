@@ -247,5 +247,5 @@ class StockDataFetcher:
 
 
 if __name__ == "__main__":
-    fetcher = StockDataFetcher(universe="nifty_50")
+    fetcher = StockDataFetcher(universe="nifty_500")
     fetcher.run()
