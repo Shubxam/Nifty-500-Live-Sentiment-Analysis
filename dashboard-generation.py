@@ -2,12 +2,17 @@
 import pandas as pd
 import datetime
 import pytz
-
+import duckdb
 import plotly.express as px
 
 # read csv
-article_data = pd.read_csv("./datasets/NIFTY_500_Articles.csv", index_col=0)
-ticker_metadata = pd.read_csv("./datasets/ticker_metadata.csv", index_col=0)
+# article_data = pd.read_csv("./datasets/NIFTY_500_Articles.csv", index_col=0)
+# ticker_metadata = pd.read_csv("./datasets/ticker_metadata.csv", index_col=0)
+
+# duckdb connection
+conn = duckdb.connect(database="./datasets/ticker_data.db")
+article_data = conn.execute("SELECT * FROM article_data").fetchdf()
+ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
 
 # aggregate article scores by ticker name
 ticker_scores = (
@@ -23,7 +28,7 @@ final_df = pd.merge(ticker_metadata, ticker_scores, on="Ticker", how="inner")
 
 final_df.rename(
     columns={
-        "Market Cap": "Market Cap (Billion Rs)",
+        "marketCap": "Market Cap (Billion Rs)",
         "compound": "Sentiment Score",
         "neutral": "Neutral",
         "positive": "Positive",
@@ -36,15 +41,15 @@ final_df.rename(
 print("Generating Plots")
 fig = px.treemap(
     final_df,
-    path=[px.Constant("Nifty 500"), "Sector", "Industry", "Ticker"],
+    path=[px.Constant("Nifty 500"), "sector", "industry", "ticker"],
     values="Market Cap (Billion Rs)",
     color="Sentiment Score",
-    hover_data=["Company Name", "Negative", "Neutral", "Positive", "Sentiment Score"],
+    hover_data=["companyName", "Negative", "Neutral", "Positive", "Sentiment Score"],
     color_continuous_scale=["#FF0000", "#000000", "#00FF00"],
     color_continuous_midpoint=0,
 )
 fig.data[0].customdata = final_df[
-    ["Company Name", "Negative", "Neutral", "Positive", "Sentiment Score"]
+    ["companyName", "Negative", "Neutral", "Positive", "Sentiment Score"]
 ]
 fig.data[0].texttemplate = "%{label}<br>%{customdata[4]}"
 fig.update_traces(textposition="middle center")
