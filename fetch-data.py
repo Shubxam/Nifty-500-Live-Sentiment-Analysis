@@ -247,10 +247,10 @@ class StockDataFetcher:
             article_data,
             columns=["ticker", "headline", "date_posted", "source", "article_link"],
         )
-        ticker_meta_df = pd.DataFrame(
-            ticker_meta,
-            columns=["ticker", "sector", "industry", "marketCap", "companyName"],
-        )
+        # ticker_meta_df = pd.DataFrame(
+        #     ticker_meta,
+        #     columns=["ticker", "sector", "industry", "marketCap", "companyName"],
+        # )
 
         logging.info("Performing Sentiment Analysis")
 
@@ -304,7 +304,7 @@ class StockDataFetcher:
 
             # insert ticker metadata into the table, this table will be replaced on every run.
             logging.info(
-                f"Inserting Ticker Metadata for {len(ticker_meta_df)} tickers into the database."
+                f"Inserting Ticker Metadata for {len(ticker_meta)} tickers into the database."
             )
             conn.executemany(
                 "INSERT into ticker_meta VALUES (?, ?, ?, ?, ?)", ticker_meta
