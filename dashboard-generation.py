@@ -75,7 +75,7 @@ ticker_scores = (
     filterd_articles.loc[
         :, ["ticker", "positive_sentiment", "negative_sentiment", "compound_sentiment"]
     ]
-    .groupby("Ticker")
+    .groupby("ticker")
     .mean()
     .reset_index()
 )
@@ -90,8 +90,8 @@ final_df = pd.merge(
 
 final_df.rename(
     columns={
-        "marketCap": "Market Cap (Billion Rs)",
-        "compound_score": "Sentiment Score",
+        "mCap": "Market Cap (Billion Rs)",
+        "compound_sentiment": "Sentiment Score",
     },
     inplace=True,
 )
@@ -132,7 +132,7 @@ news_df = filterd_articles[filterd_articles["ticker"] == news_ticker_name][
         "compound_sentiment",
     ]
 ].reset_index(drop=True)
-news_df.rename(columns={"compound": "Sentiment Score"}, inplace=True)
+news_df.rename(columns={"compound_sentiment": "Sentiment Score"}, inplace=True)
 
 
 # Streamlit App
@@ -177,7 +177,7 @@ col_1, col_2 = st.columns(2)
 with col_1:
     st.selectbox(
         "Type the Symbol name to get associated news: ",
-        final_df["Ticker"],
+        final_df["ticker"],
         key="newsbox",
     )
     st.dataframe(
