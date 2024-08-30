@@ -2,7 +2,7 @@
 
 
 import multiprocessing as mp
-from typing import Any, Literal
+from typing import Any, Literal, Dict
 import numpy as np
 import pandas as pd
 import requests
@@ -10,10 +10,12 @@ from tqdm import tqdm
 from bs4 import BeautifulSoup
 import nsepython as nse
 import logging
+import duckdb
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
+
 
 from huggingface_hub.inference_api import InferenceApi
 import os
@@ -31,7 +33,10 @@ class StockDataFetcher:
             "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0"
         }
         self.token = os.getenv("hf_api_key")
-        self.sentiment_model = InferenceApi("ProsusAI/finbert", token=self.token)
+        self.sentiment_model = InferenceApi(
+            "mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis",
+            token=self.token,
+        )
 
     def fetch_tickers(self) -> None:
         """
@@ -53,7 +58,7 @@ class StockDataFetcher:
             "nifty_50": "https://archives.nseindia.com/content/indices/ind_nifty50list.csv",
         }
 
-        logging.info(f"Downloading Tickers List for {tickers_url_dict.keys()}")
+        logging.info(f"Downloading Tickers List for {list(tickers_url_dict.keys())}")
 
         for index_name in tickers_url_dict.keys():
             try:
@@ -176,17 +181,21 @@ class StockDataFetcher:
 
     def perform_sentiment_analysis(self, headline: list[str]) -> pd.DataFrame:
 
-        results: list = self.sentiment_model(headline)
+        results: list[str] = self.sentiment_model(headline)
 
         # Initialize an empty list to hold the flattened data
-        flattened_data: list = []
+        # we will transform a list of list of dictionaries into a list of dictionaries
+        flattened_data: list[Dict[str:float]] = []
 
-        for list_item in results:
-            score_dict = dict()
+        for list_item in tqdm(results, desc="Processing Sentiment Analysis"):
+            score_dict: Dict[str:float] = dict()
             for dict_item in list_item:
-                sentiment = dict_item["label"]
-                sentiment_score = dict_item["score"]
-                score_dict[sentiment] = sentiment_score
+                try:
+                    sentiment = dict_item["label"]
+                    sentiment_score = dict_item["score"]
+                    score_dict[sentiment] = sentiment_score
+                except Exception as e:
+                    logging.warning(f"Error processing sentiment: {e}")
             flattened_data.append(score_dict)
 
         # Create the DataFrame
@@ -227,23 +236,40 @@ class StockDataFetcher:
         logging.info(f"No news data available for: {unavailable_tickers}")
 
         articles_df = pd.DataFrame(
-            article_data, columns=["Ticker", "Headline", "Date", "Source", "Link"]
+            article_data,
+            columns=["ticker", "headline", "date_posted", "source", "article_link"],
         )
         ticker_meta_df = pd.DataFrame(
             ticker_meta,
-            columns=["Ticker", "Sector", "Industry", "Market Cap", "Company Name"],
+            columns=["ticker", "sector", "industry", "marketCap", "companyName"],
         )
 
         logging.info("Performing Sentiment Analysis")
         scores_df = self.perform_sentiment_analysis(
-            articles_df.Headline.astype(str).to_list()
+            articles_df.headline.astype(str).to_list()
         )
         articles_df = pd.merge(
             articles_df, scores_df, left_index=True, right_index=True
         )
 
-        articles_df.to_csv("./datasets/NIFTY_500_Articles.csv")
-        ticker_meta_df.dropna().to_csv("./datasets/ticker_metadata.csv")
+        with duckdb.connect("./datasets/ticker_data.db") as conn:
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS article_data (ticker TEXT, headline TEXT, date_posted TEXT, source TEXT, article_link TEXT, negative_sentiment FLOAT, positive_sentiment FLOAT, neutral_sentiment FLOAT, compound_sentiment FLOAT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)"
+            )
+            conn.execute("INSERT INTO article_data SELECT * FROM articles_df")
+
+            # create a new table for storing ticker metadata
+            conn.execute(
+                "CREATE or REPLACE TABLE ticker_meta (ticker TEXT, sector TEXT, industry TEXT, mCap REAL, companyName TEXT)"
+            )
+
+            # insert ticker metadata into the table, this table will be replaced on every run.
+            conn.executemany(
+                "INSERT into ticker_meta VALUES (?, ?, ?, ?, ?)", ticker_meta
+            )
+
+        # articles_df.to_csv("./datasets/NIFTY_500_Articles.csv")
+        # ticker_meta_df.dropna().to_csv("./datasets/ticker_metadata.csv")
 
 
 if __name__ == "__main__":
