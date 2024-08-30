@@ -448,57 +448,56 @@
 446,Tata Consumer Products Ltd.,Fast Moving Consumer Goods,TATACONSUM,EQ,INE192A01025
 447,Tata Elxsi Ltd.,Information Technology,TATAELXSI,EQ,INE670A01012
 448,Tata Investment Corporation Ltd.,Financial Services,TATAINVEST,EQ,INE672A01018
-449,Tata Motors Ltd DVR,Automobile and Auto Components,TATAMTRDVR,EQ,IN9155A01020
-450,Tata Motors Ltd.,Automobile and Auto Components,TATAMOTORS,EQ,INE155A01022
-451,Tata Power Co. Ltd.,Power,TATAPOWER,EQ,INE245A01021
-452,Tata Steel Ltd.,Metals & Mining,TATASTEEL,EQ,INE081A01020
-453,Tata Technologies Ltd.,Information Technology,TATATECH,EQ,INE142M01025
-454,Tata Teleservices (Maharashtra) Ltd.,Telecommunication,TTML,EQ,INE517B01013
-455,Tech Mahindra Ltd.,Information Technology,TECHM,EQ,INE669C01036
-456,Tejas Networks Ltd.,Telecommunication,TEJASNET,EQ,INE010J01012
-457,The New India Assurance Company Ltd.,Financial Services,NIACL,EQ,INE470Y01017
-458,The Ramco Cements Ltd.,Construction Materials,RAMCOCEM,EQ,INE331A01037
-459,Thermax Ltd.,Capital Goods,THERMAX,EQ,INE152A01029
-460,Timken India Ltd.,Capital Goods,TIMKEN,EQ,INE325A01013
-461,Titagarh Rail Systems Ltd.,Capital Goods,TITAGARH,EQ,INE615H01020
-462,Titan Company Ltd.,Consumer Durables,TITAN,EQ,INE280A01028
-463,Torrent Pharmaceuticals Ltd.,Healthcare,TORNTPHARM,EQ,INE685A01028
-464,Torrent Power Ltd.,Power,TORNTPOWER,EQ,INE813H01021
-465,Trent Ltd.,Consumer Services,TRENT,EQ,INE849A01020
-466,Trident Ltd.,Textiles,TRIDENT,EQ,INE064C01022
-467,Triveni Engineering & Industries Ltd.,Fast Moving Consumer Goods,TRIVENI,EQ,INE256C01024
-468,Triveni Turbine Ltd.,Capital Goods,TRITURBINE,EQ,INE152M01016
-469,Tube Investments of India Ltd.,Automobile and Auto Components,TIINDIA,EQ,INE974X01010
-470,UCO Bank,Financial Services,UCOBANK,EQ,INE691A01018
-471,UNO Minda Ltd.,Automobile and Auto Components,UNOMINDA,EQ,INE405E01023
-472,UPL Ltd.,Chemicals,UPL,EQ,INE628A01036
-473,UTI Asset Management Company Ltd.,Financial Services,UTIAMC,EQ,INE094J01016
-474,Ujjivan Small Finance Bank Ltd.,Financial Services,UJJIVANSFB,EQ,INE551W01018
-475,UltraTech Cement Ltd.,Construction Materials,ULTRACEMCO,EQ,INE481G01011
-476,Union Bank of India,Financial Services,UNIONBANK,EQ,INE692A01016
-477,United Breweries Ltd.,Fast Moving Consumer Goods,UBL,EQ,INE686F01025
-478,United Spirits Ltd.,Fast Moving Consumer Goods,UNITDSPR,EQ,INE854D01024
-479,Usha Martin Ltd.,Capital Goods,USHAMART,EQ,INE228A01035
-480,V-Guard Industries Ltd.,Consumer Durables,VGUARD,EQ,INE951I01027
-481,V.I.P. Industries Ltd.,Consumer Durables,VIPIND,EQ,INE054A01027
-482,Vaibhav Global Ltd.,Consumer Durables,VAIBHAVGBL,EQ,INE884A01027
-483,Vardhman Textiles Ltd.,Textiles,VTL,EQ,INE825A01020
-484,Varroc Engineering Ltd.,Automobile and Auto Components,VARROC,EQ,INE665L01035
-485,Varun Beverages Ltd.,Fast Moving Consumer Goods,VBL,EQ,INE200M01021
-486,Vedant Fashions Ltd.,Consumer Services,MANYAVAR,EQ,INE825V01034
-487,Vedanta Ltd.,Metals & Mining,VEDL,EQ,INE205A01025
-488,Vijaya Diagnostic Centre Ltd.,Healthcare,VIJAYA,EQ,INE043W01024
-489,Vodafone Idea Ltd.,Telecommunication,IDEA,EQ,INE669E01016
-490,Voltas Ltd.,Consumer Durables,VOLTAS,EQ,INE226A01021
-491,Welspun Corp Ltd.,Capital Goods,WELCORP,EQ,INE191B01025
-492,Welspun Living Ltd.,Textiles,WELSPUNLIV,EQ,INE192B01031
-493,Westlife Foodworld Ltd.,Consumer Services,WESTLIFE,EQ,INE274F01020
-494,Whirlpool of India Ltd.,Consumer Durables,WHIRLPOOL,EQ,INE716A01013
-495,Wipro Ltd.,Information Technology,WIPRO,EQ,INE075A01022
-496,Yes Bank Ltd.,Financial Services,YESBANK,EQ,INE528G01035
-497,ZF Commercial Vehicle Control Systems India Ltd.,Automobile and Auto Components,ZFCVINDIA,EQ,INE342J01019
-498,Zee Entertainment Enterprises Ltd.,Media Entertainment & Publication,ZEEL,EQ,INE256A01028
-499,Zensar Technolgies Ltd.,Information Technology,ZENSARTECH,EQ,INE520A01027
-500,Zomato Ltd.,Consumer Services,ZOMATO,EQ,INE758T01015
-501,Zydus Lifesciences Ltd.,Healthcare,ZYDUSLIFE,EQ,INE010B01027
-502,eClerx Services Ltd.,Services,ECLERX,EQ,INE738I01010
+449,Tata Motors Ltd.,Automobile and Auto Components,TATAMOTORS,EQ,INE155A01022
+450,Tata Power Co. Ltd.,Power,TATAPOWER,EQ,INE245A01021
+451,Tata Steel Ltd.,Metals & Mining,TATASTEEL,EQ,INE081A01020
+452,Tata Technologies Ltd.,Information Technology,TATATECH,EQ,INE142M01025
+453,Tata Teleservices (Maharashtra) Ltd.,Telecommunication,TTML,EQ,INE517B01013
+454,Tech Mahindra Ltd.,Information Technology,TECHM,EQ,INE669C01036
+455,Tejas Networks Ltd.,Telecommunication,TEJASNET,EQ,INE010J01012
+456,The New India Assurance Company Ltd.,Financial Services,NIACL,EQ,INE470Y01017
+457,The Ramco Cements Ltd.,Construction Materials,RAMCOCEM,EQ,INE331A01037
+458,Thermax Ltd.,Capital Goods,THERMAX,EQ,INE152A01029
+459,Timken India Ltd.,Capital Goods,TIMKEN,EQ,INE325A01013
+460,Titagarh Rail Systems Ltd.,Capital Goods,TITAGARH,EQ,INE615H01020
+461,Titan Company Ltd.,Consumer Durables,TITAN,EQ,INE280A01028
+462,Torrent Pharmaceuticals Ltd.,Healthcare,TORNTPHARM,EQ,INE685A01028
+463,Torrent Power Ltd.,Power,TORNTPOWER,EQ,INE813H01021
+464,Trent Ltd.,Consumer Services,TRENT,EQ,INE849A01020
+465,Trident Ltd.,Textiles,TRIDENT,EQ,INE064C01022
+466,Triveni Engineering & Industries Ltd.,Fast Moving Consumer Goods,TRIVENI,EQ,INE256C01024
+467,Triveni Turbine Ltd.,Capital Goods,TRITURBINE,EQ,INE152M01016
+468,Tube Investments of India Ltd.,Automobile and Auto Components,TIINDIA,EQ,INE974X01010
+469,UCO Bank,Financial Services,UCOBANK,EQ,INE691A01018
+470,UNO Minda Ltd.,Automobile and Auto Components,UNOMINDA,EQ,INE405E01023
+471,UPL Ltd.,Chemicals,UPL,EQ,INE628A01036
+472,UTI Asset Management Company Ltd.,Financial Services,UTIAMC,EQ,INE094J01016
+473,Ujjivan Small Finance Bank Ltd.,Financial Services,UJJIVANSFB,EQ,INE551W01018
+474,UltraTech Cement Ltd.,Construction Materials,ULTRACEMCO,EQ,INE481G01011
+475,Union Bank of India,Financial Services,UNIONBANK,EQ,INE692A01016
+476,United Breweries Ltd.,Fast Moving Consumer Goods,UBL,EQ,INE686F01025
+477,United Spirits Ltd.,Fast Moving Consumer Goods,UNITDSPR,EQ,INE854D01024
+478,Usha Martin Ltd.,Capital Goods,USHAMART,EQ,INE228A01035
+479,V-Guard Industries Ltd.,Consumer Durables,VGUARD,EQ,INE951I01027
+480,V.I.P. Industries Ltd.,Consumer Durables,VIPIND,EQ,INE054A01027
+481,Vaibhav Global Ltd.,Consumer Durables,VAIBHAVGBL,EQ,INE884A01027
+482,Vardhman Textiles Ltd.,Textiles,VTL,EQ,INE825A01020
+483,Varroc Engineering Ltd.,Automobile and Auto Components,VARROC,EQ,INE665L01035
+484,Varun Beverages Ltd.,Fast Moving Consumer Goods,VBL,EQ,INE200M01021
+485,Vedant Fashions Ltd.,Consumer Services,MANYAVAR,EQ,INE825V01034
+486,Vedanta Ltd.,Metals & Mining,VEDL,EQ,INE205A01025
+487,Vijaya Diagnostic Centre Ltd.,Healthcare,VIJAYA,EQ,INE043W01024
+488,Vodafone Idea Ltd.,Telecommunication,IDEA,EQ,INE669E01016
+489,Voltas Ltd.,Consumer Durables,VOLTAS,EQ,INE226A01021
+490,Welspun Corp Ltd.,Capital Goods,WELCORP,EQ,INE191B01025
+491,Welspun Living Ltd.,Textiles,WELSPUNLIV,EQ,INE192B01031
+492,Westlife Foodworld Ltd.,Consumer Services,WESTLIFE,EQ,INE274F01020
+493,Whirlpool of India Ltd.,Consumer Durables,WHIRLPOOL,EQ,INE716A01013
+494,Wipro Ltd.,Information Technology,WIPRO,EQ,INE075A01022
+495,Yes Bank Ltd.,Financial Services,YESBANK,EQ,INE528G01035
+496,ZF Commercial Vehicle Control Systems India Ltd.,Automobile and Auto Components,ZFCVINDIA,EQ,INE342J01019
+497,Zee Entertainment Enterprises Ltd.,Media Entertainment & Publication,ZEEL,EQ,INE256A01028
+498,Zensar Technolgies Ltd.,Information Technology,ZENSARTECH,EQ,INE520A01027
+499,Zomato Ltd.,Consumer Services,ZOMATO,EQ,INE758T01015
+500,Zydus Lifesciences Ltd.,Healthcare,ZYDUSLIFE,EQ,INE010B01027
+501,eClerx Services Ltd.,Services,ECLERX,EQ,INE738I01010
