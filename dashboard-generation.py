@@ -16,23 +16,32 @@ ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
 
 # aggregate article scores by ticker name
 ticker_scores = (
-    article_data.loc[:, ["Ticker", "neutral", "positive", "negative", "compound"]]
-    .groupby("Ticker")
+    article_data.loc[
+        :,
+        [
+            "ticker",
+            "neutral_sentiment",
+            "positive_sentiment",
+            "negative_sentiment",
+            "compound_sentiment",
+        ],
+    ]
+    .groupby("ticker")
     .mean()
     .reset_index()
 )
 
 # merge dfs
-final_df = pd.merge(ticker_metadata, ticker_scores, on="Ticker", how="inner")
+final_df = pd.merge(ticker_metadata, ticker_scores, on="ticker", how="inner")
 
 
 final_df.rename(
     columns={
-        "marketCap": "Market Cap (Billion Rs)",
-        "compound": "Sentiment Score",
-        "neutral": "Neutral",
-        "positive": "Positive",
-        "negative": "Negative",
+        "mCap": "Market Cap (Billion Rs)",
+        "compound_sentiment": "Sentiment Score",
+        "neutral_sentiment": "Neutral",
+        "positive_sentiment": "Positive",
+        "negative_sentiment": "Negative",
     },
     inplace=True,
 )
