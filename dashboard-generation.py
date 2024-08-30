@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+import duckdb
 
 # initialize session state
 if "date_filter" not in st.session_state:
@@ -19,8 +20,13 @@ datetime_now = now.strftime("%d/%m/%Y %H:%M:%S")
 timezone_string = datetime.datetime.now().astimezone().tzname()
 
 # read csv files
-articles_data = pd.read_csv("./datasets/NIFTY_500_Articles.csv", index_col=0)
-ticker_metadata = pd.read_csv("./datasets/ticker_metadata.csv", index_col=0)
+# articles_data = pd.read_csv("./datasets/NIFTY_500_Articles.csv", index_col=0)
+# ticker_metadata = pd.read_csv("./datasets/ticker_metadata.csv", index_col=0)
+
+# read duckdb file
+conn = duckdb.connect("./datasets/ticker_data.db")
+articles_data = conn.execute("SELECT * FROM article_data").fetchdf()
+ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
 
 ## Filter articles by UNIVERSE
 universe = st.session_state["universe_filter"]
