@@ -25,7 +25,9 @@ timezone_string = datetime.datetime.now().astimezone().tzname()
 
 # read duckdb file
 conn = duckdb.connect("./datasets/ticker_data.db")
-articles_data = conn.execute("SELECT * FROM article_data").fetchdf()
+articles_data = conn.execute(
+    "SELECT * FROM article_data where compound_sentiment is not null"
+).fetchdf()
 ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
 
 ## Filter articles by UNIVERSE
@@ -65,37 +67,47 @@ cutoff_date = pd.to_datetime(
 
 # filter articles based on date filter
 filterd_articles = articles_data.loc[
-    articles_data.Date.astype("datetime64[ns]") > cutoff_date
+    articles_data.date_posted.astype("datetime64[ns]") > cutoff_date
 ]
 
 # calculate mean sentiment score for each ticker
 ticker_scores = (
-    filterd_articles.loc[:, ["Ticker", "positive", "negative", "compound"]]
+    filterd_articles.loc[
+        :, ["ticker", "positive_sentiment", "negative_sentiment", "compound_sentiment"]
+    ]
     .groupby("Ticker")
     .mean()
     .reset_index()
 )
 
 # filter companies based on universe
-filtered_tickers = ticker_scores.loc[ticker_scores.Ticker.isin(universe_tickers)]
+filtered_tickers = ticker_scores.loc[ticker_scores.ticker.isin(universe_tickers)]
 
 # merge dfs
 final_df = pd.merge(
-    left=ticker_metadata, right=filtered_tickers, on="Ticker", how="inner"
+    left=ticker_metadata, right=filtered_tickers, on="ticker", how="inner"
 )
 
 final_df.rename(
-    columns={"Market Cap": "Market Cap (Billion Rs)", "compound": "Sentiment Score"},
+    columns={
+        "marketCap": "Market Cap (Billion Rs)",
+        "compound_score": "Sentiment Score",
+    },
     inplace=True,
 )
 
 # Plotting
 fig = px.treemap(
     final_df,
-    path=[px.Constant(universe_string), "Sector", "Industry", "Ticker"],
+    path=[px.Constant(universe_string), "sector", "industry", "ticker"],
     values="Market Cap (Billion Rs)",
     color="Sentiment Score",
-    hover_data=["Company Name", "negative", "positive", "Sentiment Score"],
+    hover_data=[
+        "companyName",
+        "negative_sentiment",
+        "positive_sentiment",
+        "Sentiment Score",
+    ],
     color_continuous_scale=["#FF0000", "#000000", "#00FF00"],
     color_continuous_midpoint=0,
 )
@@ -110,8 +122,15 @@ fig.update_layout(margin=dict(t=30, l=10, r=10, b=10), font_size=20)
 
 # stock specific news section
 news_ticker_name = st.session_state.newsbox
-news_df = filterd_articles[filterd_articles["Ticker"] == news_ticker_name][
-    ["Ticker", "Headline", "Date", "Source", "Link", "compound"]
+news_df = filterd_articles[filterd_articles["ticker"] == news_ticker_name][
+    [
+        "ticker",
+        "headline",
+        "date_posted",
+        "source",
+        "article_link",
+        "compound_sentiment",
+    ]
 ].reset_index(drop=True)
 news_df.rename(columns={"compound": "Sentiment Score"}, inplace=True)
 
@@ -162,7 +181,9 @@ with col_1:
         key="newsbox",
     )
     st.dataframe(
-        news_df.loc[:, ["Sentiment Score", "Headline", "Date", "Source", "Link"]]
+        news_df.loc[
+            :, ["Sentiment Score", "headline", "date_posted", "source", "article_link"]
+        ]
     )
 
 with col_2:
