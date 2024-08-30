@@ -1,5 +1,5 @@
 # during multiprocessing, the individual processes do not share memory, hence we return the data from each process and store it in a list and not in a class variable.
-
+# add articles to database and compute sentiment scores for all articles without sentiment scores
 
 import multiprocessing as mp
 from typing import Any, Literal, Dict
@@ -183,19 +183,27 @@ class StockDataFetcher:
 
         results: list[str] = self.sentiment_model(headline)
 
+        if len(results) == 1:
+            logging.warning("No sentiment scores available")
+            logging.warning(f"results: {results}")
+            return pd.DataFrame()
+
+        logging.debug(
+            f"Articles for which Sentiment Score is available: {len(results)}"
+        )
+
         # Initialize an empty list to hold the flattened data
         # we will transform a list of list of dictionaries into a list of dictionaries
         flattened_data: list[Dict[str:float]] = []
 
         for list_item in tqdm(results, desc="Processing Sentiment Analysis"):
+            logging.debug(f"List Item: {list_item}")
             score_dict: Dict[str:float] = dict()
             for dict_item in list_item:
-                try:
-                    sentiment = dict_item["label"]
-                    sentiment_score = dict_item["score"]
-                    score_dict[sentiment] = sentiment_score
-                except Exception as e:
-                    logging.warning(f"Error processing sentiment: {e}")
+                logging.debug(f"Dict Item: {dict_item}")
+                sentiment = dict_item["label"]
+                sentiment_score = dict_item["score"]
+                score_dict[sentiment] = sentiment_score
             flattened_data.append(score_dict)
 
         # Create the DataFrame
@@ -245,18 +253,49 @@ class StockDataFetcher:
         )
 
         logging.info("Performing Sentiment Analysis")
+
         scores_df = self.perform_sentiment_analysis(
             articles_df.headline.astype(str).to_list()
         )
-        articles_df = pd.merge(
-            articles_df, scores_df, left_index=True, right_index=True
-        )
+
+        if not scores_df.empty:
+            # if sentiment scores are available, merge the scores with the articles_df and write to database
+            articles_df = pd.merge(
+                articles_df, scores_df, left_index=True, right_index=True
+            )
 
         with duckdb.connect("./datasets/ticker_data.db") as conn:
             conn.execute(
-                "CREATE TABLE IF NOT EXISTS article_data (ticker TEXT, headline TEXT, date_posted TEXT, source TEXT, article_link TEXT, negative_sentiment FLOAT, positive_sentiment FLOAT, neutral_sentiment FLOAT, compound_sentiment FLOAT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)"
+                """CREATE TABLE IF NOT EXISTS article_data (
+                            ticker TEXT,
+                            headline TEXT,
+                            date_posted TEXT,
+                            source TEXT,
+                            article_link TEXT,
+                            negative_sentiment FLOAT DEFAULT NULL,
+                            positive_sentiment FLOAT DEFAULT NULL,
+                            neutral_sentiment FLOAT DEFAULT NULL,
+                            compound_sentiment FLOAT DEFAULT NULL,
+                            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                        )"""
             )
-            conn.execute("INSERT INTO article_data SELECT * FROM articles_df")
+
+            if not scores_df.empty:
+                # insert all data into the table
+                logging.info(
+                    f"Inserting Sentiment Scores for {len(articles_df)} news articles into the database."
+                )
+                conn.execute(
+                    "INSERT INTO article_data SELECT *, CURRENT_TIMESTAMP FROM articles_df"
+                )
+            else:
+                # insert only article data without sentiment scores
+                logging.info(
+                    f"Inserting Article Data for {len(articles_df)} news articles into the database. No Sentiment Scores available."
+                )
+                conn.execute(
+                    "INSERT INTO article_data (ticker, headline, date_posted, source, article_link, created_at) SELECT *, CURRENT_TIMESTAMP FROM articles_df"
+                )
 
             # create a new table for storing ticker metadata
             conn.execute(
@@ -264,6 +303,9 @@ class StockDataFetcher:
             )
 
             # insert ticker metadata into the table, this table will be replaced on every run.
+            logging.info(
+                f"Inserting Ticker Metadata for {len(ticker_meta_df)} tickers into the database."
+            )
             conn.executemany(
                 "INSERT into ticker_meta VALUES (?, ?, ?, ?, ?)", ticker_meta
             )
