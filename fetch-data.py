@@ -1,6 +1,7 @@
 # during multiprocessing, the individual processes do not share memory, hence we return the data from each process and store it in a list and not in a class variable.
 # add articles to database and compute sentiment scores for all articles without sentiment scores
 
+import os
 import multiprocessing as mp
 from typing import Any, Literal, Dict
 import numpy as np
@@ -11,17 +12,14 @@ from bs4 import BeautifulSoup
 import nsepython as nse
 import logging
 import duckdb
+from huggingface_hub.inference_api import InferenceApi
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-
-
-from huggingface_hub.inference_api import InferenceApi
-import os
-
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
 
 
 class StockDataFetcher:
@@ -40,10 +38,7 @@ class StockDataFetcher:
 
     def fetch_tickers(self) -> None:
         """
-        Fetches the tickers for the specified Nifty index.
-
-        Returns:
-            pandas.DataFrame: A DataFrame containing the tickers and company names.
+        Fetches the tickers for the specified Nifty index and saves as csv in .datasets directory.
         """
 
         # check if a directory datasets exists in root folder if not then create it
@@ -71,6 +66,18 @@ class StockDataFetcher:
     def get_url_content(
         self, ticker: str
     ) -> tuple[None, None, None] | tuple[str, BeautifulSoup, dict]:
+        """fetch the news articles for a ticker symbol using request library and parse using bs4. also fetches metadata for a ticker using nse_eq library
+
+        Parameters
+        ----------
+        ticker : str
+            ticker symbol for the stock
+
+        Returns
+        -------
+        tuple[None, None, None] | tuple[str, BeautifulSoup, dict]
+            if news data is found then returns a tuple of ticker, bs4 object and ticker metadata else tuple of none objects.
+        """
         _ticker: str = ticker + ":NSE"
         url = f"{self.news_url}/{_ticker}"
         logging.debug(f"Fetching data for {ticker} from {url}")
@@ -81,9 +88,22 @@ class StockDataFetcher:
             logging.warning(f"Error fetching data for {ticker}: {e}")
             return None, None, None
         meta: dict = nse.nse_eq(ticker)
+        
         return ticker, soup, meta
 
     def parse_relative_date(self, date_string):
+        """google news contains date info in relative format. This method parses the relative date and turns into absolute dates.
+
+        Parameters
+        ----------
+        date_string : str
+            article date in relative terms
+
+        Returns
+        -------
+        datetime
+            datetime object
+        """        
         now = datetime.now()
         parts = date_string.split()
 
@@ -107,8 +127,26 @@ class StockDataFetcher:
             return None
 
     def ticker_article_fetch(
-        self, ticker, soup
+        self, ticker: str, soup: BeautifulSoup
     ) -> tuple[list, Literal[True]] | tuple[list, Literal[False]]:
+        """parse bs4 object to get article metadata for each ticker
+        - title
+        - date_posted
+        - source name
+        - article link
+
+        Parameters
+        ----------
+        ticker : str
+            ticker symbol
+        soup : BeautifulSoup
+            bs4 object containing links
+
+        Returns
+        -------
+        tuple[list, Literal[True]] | tuple[list, Literal[False]]
+            tuple containing list of article meta and bool value indicating whether news articles were found.
+        """        
         article_data = []
         news_articles: list = soup.select("div.z4rs2b")
 
@@ -133,7 +171,21 @@ class StockDataFetcher:
         logging.debug(f"No of articles: {ticker_articles_counter} for {ticker}")
         return article_data, False
 
-    def ticker_meta_fetch(self, ticker: str, meta: dict) -> list:
+    def ticker_meta_fetch(self, ticker: str, meta: dict) -> list[str]:
+        """parse ticker metadata obtained from nse_eq library
+
+        Parameters
+        ----------
+        ticker : str
+            ticker symbol
+        meta : dict
+            dictionary containing ticker meta
+
+        Returns
+        -------
+        list
+            list containing ticker metadata
+        """        
         try:
             sector: str = meta["industryInfo"]["macro"]
             industry: str = meta["industryInfo"]["industry"]
@@ -152,6 +204,18 @@ class StockDataFetcher:
         return [ticker, sector, industry, mCap, companyName]
 
     def process_ticker(self, ticker: str) -> dict[str, Any]:
+        """fetch and parse ticker specific news articles and metadata
+
+        Parameters
+        ----------
+        ticker : str
+            ticker symbol
+
+        Returns
+        -------
+        dict[str, Any]
+            dictionary containing ticker news and meta
+        """
         try:
             ticker, soup, meta = self.get_url_content(ticker)
             article_data, no_news = self.ticker_article_fetch(ticker, soup)
@@ -180,9 +244,23 @@ class StockDataFetcher:
             }
 
     def perform_sentiment_analysis(self, headline: list[str]) -> pd.DataFrame:
+        """Perform Sentiment Analysis using HF Inference API. Create a dataframe from the results.
 
+        Parameters
+        ----------
+        headline : list[str]
+            list of article headlines
+
+        Returns
+        -------
+        pd.DataFrame
+            returns sentiment scores in a df with positive negative and compound columns.
+        """
+
+        # perform sentiment analysis using the model saved in self.sentiment_model
         results: list[str] = self.sentiment_model(headline)
 
+        # will encounter when HF rate limit is hit.
         if len(results) == 1:
             logging.warning("No sentiment scores available")
             logging.warning(f"results: {results}")
@@ -229,6 +307,7 @@ class StockDataFetcher:
                     total=len(tickers_list),
                 )
             )
+
 
         article_data = []
         ticker_meta = []
