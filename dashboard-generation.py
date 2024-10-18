@@ -23,12 +23,6 @@ timezone_string = datetime.datetime.now().astimezone().tzname()
 # articles_data = pd.read_csv("./datasets/NIFTY_500_Articles.csv", index_col=0)
 # ticker_metadata = pd.read_csv("./datasets/ticker_metadata.csv", index_col=0)
 
-# read duckdb file
-conn = duckdb.connect("./datasets/ticker_data.db")
-articles_data = conn.execute(
-    "SELECT * FROM article_data where compound_sentiment is not null"
-).fetchdf()
-ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
 
 ## Filter articles by UNIVERSE
 universe = st.session_state["universe_filter"]
@@ -43,10 +37,20 @@ if universe == "nifty_200":
 if universe == "nifty_500":
     universe_string = "NIFTY 500"
 
+# read duckdb file
 
-universe_tickers = pd.read_csv("./datasets/{}.csv".format(universe), index_col=0)[
-    "Symbol"
-]
+with duckdb.connect("./datasets/ticker_data.db") as conn:
+    articles_data = conn.execute(
+        "SELECT * FROM article_data where compound_sentiment is not null"
+    ).fetchdf()
+    ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
+    universe_tickers = conn.execute(
+        "SELECT ticker FROM indices_constituents where {}=True".format(universe)
+    ).fetchdf()["ticker"]
+
+# universe_tickers = pd.read_csv("./datasets/{}.csv".format(universe), index_col=0)[
+#     "Symbol"
+# ]
 
 ## Filter Articles by date
 date_interval_st = st.session_state["date_filter"]
