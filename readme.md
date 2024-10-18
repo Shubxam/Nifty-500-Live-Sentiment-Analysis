@@ -1,6 +1,6 @@
 # Nifty 500 Live Sentiment Analysis Dashboard
 
-![app-img](./app.png)
+![app-img](./res/app.png)
 
 A live Sentiment Analysis Dashboard which shows the sentiment of the chosen index and its constituent sectors and stocks computed using news articles headlines.
 
