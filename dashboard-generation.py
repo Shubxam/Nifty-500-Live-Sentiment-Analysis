@@ -10,9 +10,9 @@ import plotly.express as px
 # ticker_metadata = pd.read_csv("./datasets/ticker_metadata.csv", index_col=0)
 
 # duckdb connection
-conn = duckdb.connect(database="./datasets/ticker_data.db")
-article_data = conn.execute("SELECT * FROM article_data").fetchdf()
-ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
+with duckdb.connect(database="./datasets/ticker_data.db") as conn:
+    article_data = conn.execute("SELECT * FROM article_data").fetchdf()
+    ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
 
 # aggregate article scores by ticker name
 ticker_scores = (
