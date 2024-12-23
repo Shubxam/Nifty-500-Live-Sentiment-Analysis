@@ -1,24 +1,24 @@
 # during multiprocessing, the individual processes do not share memory, hence we return the data from each process and store it in a list and not in a class variable.
 # add articles to database and compute sentiment scores for all articles without sentiment scores
 
-import os
+import logging
 import multiprocessing as mp
-from typing import Any, Literal, Dict
+import os
+from datetime import datetime, timedelta
+from typing import Any, Dict, Literal
+
+import duckdb
+import nsepython as nse
 import numpy as np
 import pandas as pd
 import requests
-from tqdm import tqdm
 from bs4 import BeautifulSoup
-import nsepython as nse
-import logging
-import duckdb
-from huggingface_hub.inference_api import InferenceApi
-from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-
+from huggingface_hub.inference_api import InferenceApi
+from tqdm import tqdm
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 
@@ -35,6 +35,7 @@ class StockDataFetcher:
             "mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis",
             token=self.token,
         )
+        self.parallel_process = True
 
     def fetch_tickers(self) -> None:
         """
@@ -216,32 +217,32 @@ class StockDataFetcher:
         dict[str, Any]
             dictionary containing ticker news and meta
         """
-        try:
-            ticker, soup, meta = self.get_url_content(ticker)
-            article_data, no_news = self.ticker_article_fetch(ticker, soup)
-            if no_news:
-                logging.info(f"Skipping meta check for {ticker}")
-                return {
-                    "ticker": ticker,
-                    "article_data": [],
-                    "ticker_meta": None,
-                    "unavailable": True,
-                }
-            ticker_meta = self.ticker_meta_fetch(ticker, meta)
-            return {
-                "ticker": ticker,
-                "article_data": article_data,
-                "ticker_meta": ticker_meta,
-                "unavailable": False,
-            }
-        except Exception as e:
-            logging.warning(f"Error processing {ticker}: {e}")
+        # try:
+        ticker, soup, meta = self.get_url_content(ticker)
+        article_data, no_news = self.ticker_article_fetch(ticker, soup)
+        if no_news:
+            logging.info(f"Skipping meta check for {ticker}")
             return {
                 "ticker": ticker,
                 "article_data": [],
                 "ticker_meta": None,
                 "unavailable": True,
             }
+        ticker_meta = self.ticker_meta_fetch(ticker, meta)
+        return {
+            "ticker": ticker,
+            "article_data": article_data,
+            "ticker_meta": ticker_meta,
+            "unavailable": False,
+        }
+        # except Exception as e:
+            # logging.warning(f"Error processing {ticker}: {e}")
+            # return {
+            #     "ticker": ticker,
+            #     "article_data": [],
+            #     "ticker_meta": None,
+            #     "unavailable": True,
+            # }
 
     def perform_sentiment_analysis(self, headline: list[str]) -> pd.DataFrame:
         """Perform Sentiment Analysis using HF Inference API. Create a dataframe from the results.
@@ -300,13 +301,19 @@ class StockDataFetcher:
 
         # Fetch the news data for the tickers concurrently
         logging.info("Fetching News Data for the tickers")
-        with mp.Pool(processes=mp.cpu_count()) as pool:
-            ticker_data = list(
-                tqdm(
-                    pool.imap(self.process_ticker, tickers_list),
-                    total=len(tickers_list),
+        
+        if not self.parallel_process:
+            ticker_data = []
+            for ticker in tickers_list:
+                ticker_data.append(self.process_ticker(ticker))
+        else:
+            with mp.Pool(processes=mp.cpu_count()) as pool:
+                ticker_data = list(
+                    tqdm(
+                        pool.imap(self.process_ticker, tickers_list),
+                        total=len(tickers_list),
+                    )
                 )
-            )
 
 
         article_data = []
