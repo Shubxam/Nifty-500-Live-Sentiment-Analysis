@@ -23,7 +23,6 @@ logging.basicConfig(
 
 
 class StockDataFetcher:
-
     def __init__(self, universe) -> None:
         self.universe = universe
         self.news_url = "https://www.google.com/finance/quote"
@@ -89,7 +88,7 @@ class StockDataFetcher:
             logging.warning(f"Error fetching data for {ticker}: {e}")
             return None, None, None
         meta: dict = nse.nse_eq(ticker)
-        
+
         return ticker, soup, meta
 
     def parse_relative_date(self, date_string):
@@ -104,7 +103,7 @@ class StockDataFetcher:
         -------
         datetime
             datetime object
-        """        
+        """
         now = datetime.now()
         parts = date_string.split()
 
@@ -147,7 +146,7 @@ class StockDataFetcher:
         -------
         tuple[list, Literal[True]] | tuple[list, Literal[False]]
             tuple containing list of article meta and bool value indicating whether news articles were found.
-        """        
+        """
         article_data = []
         news_articles: list = soup.select("div.z4rs2b")
 
@@ -186,7 +185,7 @@ class StockDataFetcher:
         -------
         list
             list containing ticker metadata
-        """        
+        """
         try:
             sector: str = meta["industryInfo"]["macro"]
             industry: str = meta["industryInfo"]["industry"]
@@ -293,7 +292,6 @@ class StockDataFetcher:
         return df
 
     def run(self) -> None:
-
         # Fetch the tickers
         self.fetch_tickers()
         tickers_df = pd.read_csv(f"./datasets/{self.universe}.csv")
@@ -301,7 +299,7 @@ class StockDataFetcher:
 
         # Fetch the news data for the tickers concurrently
         logging.info("Fetching News Data for the tickers")
-        
+
         if not self.parallel_process:
             ticker_data = []
             for ticker in tickers_list:
@@ -314,7 +312,6 @@ class StockDataFetcher:
                         total=len(tickers_list),
                     )
                 )
-
 
         article_data = []
         ticker_meta = []
