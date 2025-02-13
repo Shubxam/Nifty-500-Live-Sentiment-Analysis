@@ -2,3 +2,11 @@
 .env
 .python-version
 .vscode/*
+guidelines.md
+.pytest_cache/*
+__pycache__/*
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+.vscode/*
