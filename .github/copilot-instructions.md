@@ -27,8 +27,11 @@
     *   **Iterative Development (Key for Speed and Accuracy):** Implement features in small, testable increments. Don't try to build everything at once.  Focus on getting a basic version working quickly, then iterate and improve based on feedback and testing.
     *   **Comprehensive Comments and Documentation:**
         *   Write clear and concise comments explaining the *purpose* of code blocks, functions, and complex logic.
+        *   Write the purpose of each file/module at the top
         *   For *important decisions or complex logic*, add comments *directly in the code* to explain the reasoning (for future reference, including your own).
         *   Document public APIs and significant internal logic.
+        *   follow google style docstrings for documentation.
+        *   After each code update, make sure to update the module/file documentation.
     *   **Robust Error Handling:** Implement comprehensive error handling to gracefully handle unexpected inputs or situations.  Use `try-except` blocks in Python to catch and handle potential exceptions.
     *   **Vectorized Operations (Performance and Readability):**
         *   Utilize libraries like NumPy and Pandas for vectorized operations on data to improve performance.
@@ -70,10 +73,9 @@
 *   **Programming Languages:** Python
 *   **Frameworks:** Streamlit
 *   **Version Control System:** Git (Branching strategy: Follow project-specific strategy if one exists; otherwise, use feature branches. Consult `ARCHITECTURE.md`.)
-*   **Package Management:** `uv pip` (Use virtual environments for each project).
+*   **Package Management:** `uv pip install` instead of `pip install` (Use virtual environments for each project).
 *   **Development Environment:**
     *   **IDE:** VSCode is the primary IDE.
-    *   **Python Environment:** Use `uv pip` for package management. Ensure virtual environments are used for each project.
 *   **CI/CD:** Utilize GitHub Actions to schedule periodic service runs.
 
 **V. Streamlit-Specific Guidelines:**
