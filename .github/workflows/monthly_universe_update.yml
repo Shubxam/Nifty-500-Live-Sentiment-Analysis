@@ -1,0 +1,30 @@
+name: Monthly Universe Update
+
+on:
+  schedule:
+    # Runs at 00:00 UTC on the first day of every month
+    - cron: '0 0 1 * *'
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  update-universes:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        
+    - name: Install dependencies
+      run: |
+        uv pip install --system -r requirements.txt
+        
+    - name: Run universe update
+      run: python -c "from services.universe_updater import UniverseUpdater; UniverseUpdater().update_all_universes()"

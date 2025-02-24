@@ -29,6 +29,3 @@ DATA_SOURCES = ["google_finance", "yahoo_finance", "ticker_finology"]
 UPDATE_INTERVAL = "17:30"  # IST
 TIMEZONE = "Asia/Kolkata"
 CACHE_DURATION = 3600  # 1 hour in seconds
-
-# Update Settings
-UNIVERSE_UPDATE_INTERVAL = "09:15"  # IST - Update at market open
