@@ -26,6 +26,7 @@
     *   **Modular Approach:** Break down complex tasks into smaller, manageable modules or functions.  Avoid monolithic functions that are difficult to understand and test.
     *   **Iterative Development (Key for Speed and Accuracy):** Implement features in small, testable increments. Don't try to build everything at once.  Focus on getting a basic version working quickly, then iterate and improve based on feedback and testing.
     *   **Comprehensive Comments and Documentation:**
+        *   Objective for each file must be clearly defined in [Project Architecture](../architecture.md). For each file you create, first create its entry in [Project Architecture](../architecture.md) and take the user's confirmation if the objective is correct and based on that objective, make the code changes. For updating consult the [Project Architecture](../architecture.md) and then update keeping objectives in check.
         *   Write clear and concise comments explaining the *purpose* of code blocks, functions, and complex logic.
         *   Write the purpose of each file/module at the top
         *   For *important decisions or complex logic*, add comments *directly in the code* to explain the reasoning (for future reference, including your own).
