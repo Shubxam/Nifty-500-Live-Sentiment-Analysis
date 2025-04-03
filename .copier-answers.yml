@@ -1,0 +1,9 @@
+# Changes here will be overwritten by Copier. Do not edit manually.
+_commit: v0.2.4
+_src_path: gh:jlevy/simple-modern-uv
+package_author_email: shubxam@gmail.com
+package_author_name: shubham soni
+package_description: real time sentiment analysis of nifty-500 stocks
+package_github_org: shubxam
+package_module: src
+package_name: Nifty-500-Live-Sentiment-Analysis
