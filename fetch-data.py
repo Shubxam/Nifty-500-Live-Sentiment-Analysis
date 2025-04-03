@@ -8,7 +8,8 @@ from datetime import datetime, timedelta
 from typing import Any, Dict, Literal
 
 import duckdb
-import nsepython as nse
+# import nsepython as nse
+from nse import NSE
 import numpy as np
 import pandas as pd
 import requests
@@ -18,7 +19,7 @@ from huggingface_hub.inference_api import InferenceApi
 from tqdm import tqdm
 
 logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 
@@ -65,7 +66,7 @@ class StockDataFetcher:
 
     def get_url_content(
         self, ticker: str
-    ) -> tuple[None, None, None] | tuple[str, BeautifulSoup, dict]:
+    ) -> tuple[None, None, None] | tuple[str, BeautifulSoup, Dict]:
         """fetch the news articles for a ticker symbol using request library and parse using bs4. also fetches metadata for a ticker using nse_eq library
 
         Parameters
@@ -80,14 +81,16 @@ class StockDataFetcher:
         """
         _ticker: str = ticker + ":NSE"
         url = f"{self.news_url}/{_ticker}"
-        logging.debug(f"Fetching data for {ticker} from {url}")
+        logging.info(f"Fetching data for {ticker} from {url}")
         try:
             response: requests.Response = requests.get(url, headers=self.header)
             soup: BeautifulSoup = BeautifulSoup(response.content, "lxml")
         except Exception as e:
             logging.warning(f"Error fetching data for {ticker}: {e}")
             return None, None, None
-        meta: dict = nse.nse_eq(ticker)
+        with NSE("./") as nse:
+            logging.info(f"Fetching metadata for {ticker}")
+            meta: dict = nse.quote(ticker)
 
         return ticker, soup, meta
 
@@ -123,6 +126,12 @@ class StockDataFetcher:
             return now - timedelta(weeks=value)
         elif unit.startswith("month"):
             return now - relativedelta(months=value)
+        elif unit.startswith("year"):
+            return now - relativedelta(years=value)
+        elif unit.startswith("yesterday"):
+            return now - timedelta(days=1)
+        elif unit.startswith("today"):
+            return now
         else:
             return None
 
@@ -147,8 +156,12 @@ class StockDataFetcher:
         tuple[list, Literal[True]] | tuple[list, Literal[False]]
             tuple containing list of article meta and bool value indicating whether news articles were found.
         """
+        logging.info(f"Fetching articles for {ticker}")
         article_data = []
         news_articles: list = soup.select("div.z4rs2b")
+
+        logging.info(f"Number of articles found: {len(news_articles)}")
+        logging.debug(f"Articles: {news_articles}")
 
         if not news_articles:
             logging.warning(f"No news found for {ticker}")
@@ -158,10 +171,12 @@ class StockDataFetcher:
 
         for link in news_articles:
             art_title: str = link.select_one("div.Yfwt5").text.strip().replace("\n", "")
+            logging.debug(f"Article Title: {art_title}")
             date_posted_str: str = link.select_one("div.Adak").text
+            logging.debug(f"Date Posted: {date_posted_str}")
             date_posted: str = self.parse_relative_date(date_posted_str).strftime(
                 "%Y-%m-%d %H:%M:%S"
-            )
+            ) if date_posted_str else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             source: str = link.select_one("div.sfyJob").text
             article_link: str = link.select_one("a").get("href")
 
@@ -217,6 +232,7 @@ class StockDataFetcher:
             dictionary containing ticker news and meta
         """
         # try:
+        logging.info(f"Processing {ticker}")
         ticker, soup, meta = self.get_url_content(ticker)
         article_data, no_news = self.ticker_article_fetch(ticker, soup)
         if no_news:
@@ -399,4 +415,6 @@ class StockDataFetcher:
 
 if __name__ == "__main__":
     fetcher = StockDataFetcher(universe="nifty_50")
+    # ticker = "ASIANPAINT"
+    # fetcher.process_ticker(ticker)
     fetcher.run()
