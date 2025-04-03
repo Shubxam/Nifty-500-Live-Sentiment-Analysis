@@ -8,7 +8,6 @@ from datetime import datetime, timedelta
 from typing import Any, Dict, Literal
 
 import duckdb
-# import nsepython as nse
 from nse import NSE
 import numpy as np
 import pandas as pd
@@ -415,6 +414,4 @@ class StockDataFetcher:
 
 if __name__ == "__main__":
     fetcher = StockDataFetcher(universe="nifty_50")
-    # ticker = "ASIANPAINT"
-    # fetcher.process_ticker(ticker)
     fetcher.run()
