@@ -72,7 +72,7 @@ dt_string = now.astimezone(ist_timezone).strftime("%d/%m/%Y %H:%M:%S")
 
 # Generate HTML File with Updated Time and Treemap
 print("Writing HTML")
-with open("NIFTY_500_live_sentiment.html", "a") as f:
+with open("../NIFTY_500_live_sentiment.html", "a") as f:
     f.truncate(0)  # clear file if something is already written on it
     title = "<h1>NIFTY 500 Stock Sentiment Dashboard</h1>"
     updated = "<h2>Last updated: " + dt_string + " (Timezone: IST" + ")</h2>"
