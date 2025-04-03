@@ -30,12 +30,12 @@ jobs:
       - name: Execute fetch-data python file
         run: |
           cd main
-          python fetch-data.py
+          python ./src/fetch-data.py
 
       - name: Execute python script to update sentiment page
         run: |
           cd main
-          python dashboard-generation.py
+          python ./src/dashboard-generation.py
 
       - name: save csv file
         run: |
