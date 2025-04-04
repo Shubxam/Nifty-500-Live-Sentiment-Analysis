@@ -11,7 +11,6 @@ import duckdb
 from nse import NSE
 import numpy as np
 import pandas as pd
-# import requests
 import httpx
 from bs4 import BeautifulSoup
 from dateutil.relativedelta import relativedelta
@@ -83,7 +82,7 @@ class StockDataFetcher:
         url = f"{self.news_url}/{_ticker}"
         logging.info(f"Fetching data for {ticker} from {url}")
         try:
-            response = httpx.get(url, headers=self.header)
+            response = httpx.get(url, headers=self.header, timeout=10.0)
             soup: BeautifulSoup = BeautifulSoup(response.text, "lxml")
         except Exception as e:
             logging.warning(f"Error fetching data for {ticker}: {e}")
