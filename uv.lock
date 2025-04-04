@@ -801,7 +801,6 @@ dependencies = [
     { name = "pandas" },
     { name = "plotly" },
     { name = "pytz" },
-    { name = "requests" },
     { name = "tqdm" },
 ]
 
@@ -828,7 +827,6 @@ requires-dist = [
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "plotly", specifier = ">=6.0.1" },
     { name = "pytz", specifier = ">=2025.2" },
-    { name = "requests", specifier = ">=2.32.3" },
     { name = "tqdm", specifier = ">=4.67.1" },
 ]
 
