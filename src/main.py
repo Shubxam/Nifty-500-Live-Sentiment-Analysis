@@ -11,7 +11,8 @@ import duckdb
 from nse import NSE
 import numpy as np
 import pandas as pd
-import requests
+# import requests
+import httpx
 from bs4 import BeautifulSoup
 from dateutil.relativedelta import relativedelta
 from huggingface_hub.inference_api import InferenceApi
@@ -82,8 +83,8 @@ class StockDataFetcher:
         url = f"{self.news_url}/{_ticker}"
         logging.info(f"Fetching data for {ticker} from {url}")
         try:
-            response: requests.Response = requests.get(url, headers=self.header)
-            soup: BeautifulSoup = BeautifulSoup(response.content, "lxml")
+            response = httpx.get(url, headers=self.header)
+            soup: BeautifulSoup = BeautifulSoup(response.text, "lxml")
         except Exception as e:
             logging.warning(f"Error fetching data for {ticker}: {e}")
             return None, None, None
