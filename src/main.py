@@ -83,6 +83,7 @@ class StockDataFetcher:
         logging.info(f"Fetching data for {ticker} from {url}")
         try:
             response = httpx.get(url, headers=self.header, timeout=10.0)
+            response.raise_for_status()  # Raise an exception for HTTP errors
             soup: BeautifulSoup = BeautifulSoup(response.text, "lxml")
         except Exception as e:
             logging.warning(f"Error fetching data for {ticker}: {e}")
