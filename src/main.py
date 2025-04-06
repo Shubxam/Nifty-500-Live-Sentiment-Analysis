@@ -1,39 +1,30 @@
 # during multiprocessing, the individual processes do not share memory, hence we return the data from each process and store it in a list and not in a class variable.
 # add articles to database and compute sentiment scores for all articles without sentiment scores
 
-import logging
+from bs4.element import ResultSet, Tag
+from loguru import logger
 import multiprocessing as mp
 import os
-from datetime import datetime, timedelta
-from typing import Any, Dict, Literal
+from datetime import datetime
+from typing import Literal, final
+import sys
 
 import duckdb
-from nse import NSE
-import numpy as np
 import pandas as pd
-import httpx
 from bs4 import BeautifulSoup
-from dateutil.relativedelta import relativedelta
-from huggingface_hub.inference_api import InferenceApi
 from tqdm import tqdm
+import utils as utils
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+# remove default logger, else will get duplicate logs
+logger.remove()
+fmt:str = "<white>{time:HH:mm:ss!UTC}({elapsed})</white> - <level> {level} - {message} </level>"
+logger.add(sys.stderr, colorize=True, level="INFO", format=fmt, enqueue=True)
 
-
+@final
 class StockDataFetcher:
-    def __init__(self, universe) -> None:
+    def __init__(self, universe: str) -> None:
         self.universe = universe
-        self.news_url = "https://www.google.com/finance/quote"
-        self.header = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0"
-        }
-        self.token = os.getenv("hf_api_key")
-        self.sentiment_model = InferenceApi(
-            "mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis",
-            token=self.token,
-        )
+        self.news_url = "https://www.google.com/finance/quote"        
         self.parallel_process = True
 
     def fetch_tickers(self) -> None:
@@ -46,98 +37,25 @@ class StockDataFetcher:
             os.makedirs("./datasets")
 
         # Dictionary to store the URLs for the different Nifty indices
-        tickers_url_dict: dict = {
+        tickers_url_dict: dict[str, str] = {
             "nifty_500": "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
             "nifty_200": "https://archives.nseindia.com/content/indices/ind_nifty200list.csv",
             "nifty_100": "https://archives.nseindia.com/content/indices/ind_nifty100list.csv",
             "nifty_50": "https://archives.nseindia.com/content/indices/ind_nifty50list.csv",
         }
 
-        logging.info(f"Downloading Tickers List for {list(tickers_url_dict.keys())}")
+        logger.info(f"Downloading Tickers List for {tickers_url_dict[self.universe]}")
 
-        for index_name in tickers_url_dict.keys():
-            try:
-                ticker_list_url = tickers_url_dict[index_name]
-                ticker_list_df = pd.read_csv(ticker_list_url)
-                ticker_list_df.to_csv(f"./datasets/{index_name}.csv")
-            except Exception as e:
-                logging.warning(f"Error fetching tickers for {index_name}: {e}")
-
-    def get_url_content(
-        self, ticker: str
-    ) -> tuple[None, None, None] | tuple[str, BeautifulSoup, Dict]:
-        """fetch the news articles for a ticker symbol using request library and parse using bs4. also fetches metadata for a ticker using nse_eq library
-
-        Parameters
-        ----------
-        ticker : str
-            ticker symbol for the stock
-
-        Returns
-        -------
-        tuple[None, None, None] | tuple[str, BeautifulSoup, dict]
-            if news data is found then returns a tuple of ticker, bs4 object and ticker metadata else tuple of none objects.
-        """
-        _ticker: str = ticker + ":NSE"
-        url = f"{self.news_url}/{_ticker}"
-        logging.info(f"Fetching data for {ticker} from {url}")
+        ticker_list_url = tickers_url_dict[self.universe]
         try:
-            response = httpx.get(url, headers=self.header, timeout=10.0)
-            response.raise_for_status()  # Raise an exception for HTTP errors
-            soup: BeautifulSoup = BeautifulSoup(response.text, "lxml")
+            ticker_list_df: pd.DataFrame = pd.read_csv(ticker_list_url)
+            ticker_list_df.to_csv(f"./datasets/{self.universe}.csv")
         except Exception as e:
-            logging.warning(f"Error fetching data for {ticker}: {e}")
-            return None, None, None
-        with NSE("./") as nse:
-            logging.info(f"Fetching metadata for {ticker}")
-            meta: dict = nse.quote(ticker)
+            logger.warning(f"Error fetching tickers for {self.universe}: {e}")
 
-        return ticker, soup, meta
-
-    def parse_relative_date(self, date_string):
-        """google news contains date info in relative format. This method parses the relative date and turns into absolute dates.
-
-        Parameters
-        ----------
-        date_string : str
-            article date in relative terms
-
-        Returns
-        -------
-        datetime
-            datetime object
-        """
-        now = datetime.now()
-        parts = date_string.split()
-
-        if len(parts) != 2 and len(parts) != 3:
-            return None
-
-        value = int(parts[0]) if parts[0] != "a" else 1
-        unit = parts[1]
-
-        if unit.startswith("minute"):
-            return now - timedelta(minutes=value)
-        elif unit.startswith("hour"):
-            return now - timedelta(hours=value)
-        elif unit.startswith("day"):
-            return now - timedelta(days=value)
-        elif unit.startswith("week"):
-            return now - timedelta(weeks=value)
-        elif unit.startswith("month"):
-            return now - relativedelta(months=value)
-        elif unit.startswith("year"):
-            return now - relativedelta(years=value)
-        elif unit.startswith("yesterday"):
-            return now - timedelta(days=1)
-        elif unit.startswith("today"):
-            return now
-        else:
-            return None
-
-    def ticker_article_fetch(
-        self, ticker: str, soup: BeautifulSoup
-    ) -> tuple[list, Literal[True]] | tuple[list, Literal[False]]:
+    def parse_articles_from_html(
+        self, ticker: str, soup: str
+    ) -> tuple[list[list[str]], Literal[True] | Literal[False]]:
         """parse bs4 object to get article metadata for each ticker
         - title
         - date_posted
@@ -148,77 +66,44 @@ class StockDataFetcher:
         ----------
         ticker : str
             ticker symbol
-        soup : BeautifulSoup
-            bs4 object containing links
+        soup : str
+            HTML content containing links
 
         Returns
         -------
         tuple[list, Literal[True]] | tuple[list, Literal[False]]
             tuple containing list of article meta and bool value indicating whether news articles were found.
         """
-        logging.info(f"Fetching articles for {ticker}")
-        article_data = []
-        news_articles: list = soup.select("div.z4rs2b")
+        logger.debug(f"Fetching articles for {ticker}")
+        article_data: list[list[str]] = []
+        soup_obj: BeautifulSoup = BeautifulSoup(soup, 'html.parser')
+        news_articles: ResultSet[Tag] = soup_obj.select("div.z4rs2b")
 
-        logging.info(f"Number of articles found: {len(news_articles)}")
-        logging.debug(f"Articles: {news_articles}")
+        logger.debug(f"Number of news-articles found: {len(news_articles)}")
 
         if not news_articles:
-            logging.warning(f"No news found for {ticker}")
+            logger.warning(f"No news found for {ticker}")
             return article_data, True
 
         ticker_articles_counter = 0
 
         for link in news_articles:
             art_title: str = link.select_one("div.Yfwt5").text.strip().replace("\n", "")
-            logging.debug(f"Article Title: {art_title}")
             date_posted_str: str = link.select_one("div.Adak").text
-            logging.debug(f"Date Posted: {date_posted_str}")
-            date_posted: str = self.parse_relative_date(date_posted_str).strftime(
+            date_posted: datetime | None = utils.parse_relative_date(date_posted_str)
+            date_posted_str_formatted: str = date_posted.strftime(
                 "%Y-%m-%d %H:%M:%S"
-            ) if date_posted_str else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            ) if date_posted is not None else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             source: str = link.select_one("div.sfyJob").text
             article_link: str = link.select_one("a").get("href")
 
-            article_data.append([ticker, art_title, date_posted, source, article_link])
+            article_data.append([ticker, art_title, date_posted_str_formatted, source, article_link])
             ticker_articles_counter += 1
 
-        logging.debug(f"No of articles: {ticker_articles_counter} for {ticker}")
+        logger.debug(f"{ticker_articles_counter} articles processed for {ticker}")
         return article_data, False
 
-    def ticker_meta_fetch(self, ticker: str, meta: dict) -> list[str]:
-        """parse ticker metadata obtained from nse_eq library
-
-        Parameters
-        ----------
-        ticker : str
-            ticker symbol
-        meta : dict
-            dictionary containing ticker meta
-
-        Returns
-        -------
-        list
-            list containing ticker metadata
-        """
-        try:
-            sector: str = meta["industryInfo"]["macro"]
-            industry: str = meta["industryInfo"]["industry"]
-            mCap: float = round(
-                (
-                    meta["priceInfo"]["previousClose"]
-                    * meta["securityInfo"]["issuedSize"]
-                )
-                / 1e9,
-                2,
-            )
-            companyName: str = meta["info"]["companyName"]
-        except KeyError as e:
-            logging.warning(f"Error fetching metadata for {ticker}: {e}")
-            sector = industry = mCap = companyName = np.nan
-        return [ticker, sector, industry, mCap, companyName]
-
-    def process_ticker(self, ticker: str) -> dict[str, Any]:
+    def process_ticker(self, ticker: str) -> dict[str, str | list[list[str]] | list[str | float | None] | bool | None]:
         """fetch and parse ticker specific news articles and metadata
 
         Parameters
@@ -228,93 +113,53 @@ class StockDataFetcher:
 
         Returns
         -------
-        dict[str, Any]
+        dict[str, str | list[str] | None]
             dictionary containing ticker news and meta
         """
-        # try:
-        logging.info(f"Processing {ticker}")
-        ticker, soup, meta = self.get_url_content(ticker)
-        article_data, no_news = self.ticker_article_fetch(ticker, soup)
-        if no_news:
-            logging.info(f"Skipping meta check for {ticker}")
+        
+        logger.info(f"Processing {ticker}")
+
+        url: str = f"{self.news_url}/{ticker+':NSE'}"
+        logger.debug(f"Fetching web page for {ticker} from {url}")
+        content: str = utils.get_webpage_content(url)
+        if len(content) == 0:
+            logger.warning(f"No content found for {ticker}. Skipping!")
             return {
                 "ticker": ticker,
                 "article_data": [],
                 "ticker_meta": None,
                 "unavailable": True,
             }
-        ticker_meta = self.ticker_meta_fetch(ticker, meta)
+            
+        # parse the content using bs4
+        article_data, no_news = self.parse_articles_from_html(ticker, content)
+        if no_news:
+            logger.warning(f"No news articles found for {ticker}. Skipping meta check!")
+            return {
+                "ticker": ticker,
+                "article_data": [],
+                "ticker_meta": None,
+                "unavailable": True,
+            }
+
+        ticker_meta: list[str | float | None] = utils.fetch_metadata(ticker)
+        
+
         return {
             "ticker": ticker,
             "article_data": article_data,
             "ticker_meta": ticker_meta,
             "unavailable": False,
         }
-        # except Exception as e:
-            # logging.warning(f"Error processing {ticker}: {e}")
-            # return {
-            #     "ticker": ticker,
-            #     "article_data": [],
-            #     "ticker_meta": None,
-            #     "unavailable": True,
-            # }
-
-    def perform_sentiment_analysis(self, headline: list[str]) -> pd.DataFrame:
-        """Perform Sentiment Analysis using HF Inference API. Create a dataframe from the results.
-
-        Parameters
-        ----------
-        headline : list[str]
-            list of article headlines
-
-        Returns
-        -------
-        pd.DataFrame
-            returns sentiment scores in a df with positive negative and compound columns.
-        """
-
-        # perform sentiment analysis using the model saved in self.sentiment_model
-        results: list[str] = self.sentiment_model(headline)
-
-        # will encounter when HF rate limit is hit.
-        if len(results) == 1:
-            logging.warning("No sentiment scores available")
-            logging.warning(f"results: {results}")
-            return pd.DataFrame()
-
-        logging.debug(
-            f"Articles for which Sentiment Score is available: {len(results)}"
-        )
-
-        # Initialize an empty list to hold the flattened data
-        # we will transform a list of list of dictionaries into a list of dictionaries
-        flattened_data: list[Dict[str:float]] = []
-
-        for list_item in tqdm(results, desc="Processing Sentiment Analysis"):
-            logging.debug(f"List Item: {list_item}")
-            score_dict: Dict[str:float] = dict()
-            for dict_item in list_item:
-                logging.debug(f"Dict Item: {dict_item}")
-                sentiment = dict_item["label"]
-                sentiment_score = dict_item["score"]
-                score_dict[sentiment] = sentiment_score
-            flattened_data.append(score_dict)
-
-        # Create the DataFrame
-        df = pd.DataFrame(flattened_data)
-
-        # Calculate the compound score
-        df.loc[:, "compound"] = df.loc[:, "positive"] - df.loc[:, "negative"]
-        return df
 
     def run(self) -> None:
         # Fetch the tickers
         self.fetch_tickers()
-        tickers_df = pd.read_csv(f"./datasets/{self.universe}.csv")
-        tickers_list = list(tickers_df["Symbol"])
+        tickers_df: pd.DataFrame = pd.read_csv(f"./datasets/{self.universe}.csv")
+        tickers_list: list[str] = list(tickers_df["Symbol"])
 
         # Fetch the news data for the tickers concurrently
-        logging.info("Fetching News Data for the tickers")
+        logger.info("Start Processing Tickers")
 
         if not self.parallel_process:
             ticker_data = []
@@ -329,9 +174,14 @@ class StockDataFetcher:
                     )
                 )
 
-        article_data = []
-        ticker_meta = []
-        unavailable_tickers = []
+        article_data: list[list[str]] = []
+        ticker_meta: list[list[str | float | None]] = []
+        unavailable_tickers: list[str] = []
+
+        # check if article data is available for atleast one ticker
+        if not any(result["article_data"] for result in ticker_data):
+            logger.warning("No news articles found for any ticker. Exiting!")
+            return
 
         for result in ticker_data:
             if result["unavailable"]:
@@ -340,27 +190,23 @@ class StockDataFetcher:
                 article_data.extend(result["article_data"])
                 ticker_meta.append(result["ticker_meta"])
 
-        logging.info(f"No news data available for: {unavailable_tickers}")
+        logger.info(f"No news data available for: {unavailable_tickers}")
 
         articles_df = pd.DataFrame(
             article_data,
             columns=["ticker", "headline", "date_posted", "source", "article_link"],
         )
-        # ticker_meta_df = pd.DataFrame(
-        #     ticker_meta,
-        #     columns=["ticker", "sector", "industry", "marketCap", "companyName"],
-        # )
 
-        logging.info("Performing Sentiment Analysis")
+        logger.info("Performing Sentiment Analysis")
 
-        scores_df = self.perform_sentiment_analysis(
+        sentiment_scores_df = utils.analyse_sentiment(
             articles_df.headline.astype(str).to_list()
         )
 
-        if not scores_df.empty:
+        if not sentiment_scores_df.empty:
             # if sentiment scores are available, merge the scores with the articles_df and write to database
             articles_df = pd.merge(
-                articles_df, scores_df, left_index=True, right_index=True
+                articles_df, sentiment_scores_df, left_index=True, right_index=True
             )
 
         with duckdb.connect("./datasets/ticker_data.db") as conn:
@@ -379,9 +225,9 @@ class StockDataFetcher:
                         )"""
             )
 
-            if not scores_df.empty:
+            if not sentiment_scores_df.empty:
                 # insert all data into the table
-                logging.info(
+                logger.info(
                     f"Inserting Sentiment Scores for {len(articles_df)} news articles into the database."
                 )
                 conn.execute(
@@ -389,7 +235,7 @@ class StockDataFetcher:
                 )
             else:
                 # insert only article data without sentiment scores
-                logging.info(
+                logger.info(
                     f"Inserting Article Data for {len(articles_df)} news articles into the database. No Sentiment Scores available."
                 )
                 conn.execute(
@@ -402,16 +248,12 @@ class StockDataFetcher:
             )
 
             # insert ticker metadata into the table, this table will be replaced on every run.
-            logging.info(
+            logger.info(
                 f"Inserting Ticker Metadata for {len(ticker_meta)} tickers into the database."
             )
             conn.executemany(
                 "INSERT into ticker_meta VALUES (?, ?, ?, ?, ?)", ticker_meta
             )
-
-        # articles_df.to_csv("./datasets/NIFTY_500_Articles.csv")
-        # ticker_meta_df.dropna().to_csv("./datasets/ticker_metadata.csv")
-
 
 if __name__ == "__main__":
     fetcher = StockDataFetcher(universe="nifty_50")
