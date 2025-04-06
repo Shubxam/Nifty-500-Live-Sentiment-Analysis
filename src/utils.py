@@ -136,7 +136,7 @@ def analyse_sentiment(headlines: list[str]):
     hf_client = InferenceClient(model=SENTIMENT_MODEL_NAME, token=hf_api_key)
     # perform sentiment analysis using the model saved in hf_client
     try:
-        results = hf_client.text_classification(headlines)
+        results = hf_client.text_classification(headlines) # type: ignore[reportArgumentType]
     except InferenceTimeoutError as e:
         logger.warning(f"Timeout error: {e}")
         return pd.DataFrame()

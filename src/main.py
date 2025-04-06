@@ -128,7 +128,7 @@ class StockDataFetcher:
                 "%Y-%m-%d %H:%M:%S"
             ) if date_posted is not None else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             source: str = link.select_one("div.sfyJob").text
-            article_link: str = link.select_one("a").get("href")
+            article_link: str = link.select_one("a").get("href") # type: ignore[reportAssignmentType]
 
             # Append the extracted data for the article.
             article_data.append([ticker, art_title, date_posted_str_formatted, source, article_link])

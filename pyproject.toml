@@ -129,6 +129,8 @@ reportUnknownVariableType = false
 # Reports function arguments whose type cannot be fully determined.
 # Opinion: Set to `false` to reduce noise, similar to `reportUnknownVariableType`.
 reportUnknownArgumentType = false
+reportUnknownMemberType = false
+reportOptionalMemberAccess = false
 
 [tool.codespell]
 # ignore-words-list = "foo,bar"
