@@ -13,15 +13,21 @@ jobs:
     steps:          
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           ref: streamlit
+          path: dest
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: src
       
-      - name: copy
+      - name: copy db file
         shell: bash
         run: |
-          git checkout main -- ./datasets/ticker_data.db
+          cp src/datasets/* dest/datasets/ 
           
       - name: commit files
+        working-directory: dest
         shell: bash
         run: |
           git config user.name "Deploy from CI"
