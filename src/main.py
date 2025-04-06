@@ -54,7 +54,7 @@ class StockDataFetcher:
             logger.warning(f"Error fetching tickers for {self.universe}: {e}")
 
     def parse_articles_from_html(
-        self, ticker: str, soup: str
+        self, ticker: str, html_content: str
     ) -> tuple[list[list[str]], Literal[True] | Literal[False]]:
         """parse bs4 object to get article metadata for each ticker
         - title
@@ -76,7 +76,7 @@ class StockDataFetcher:
         """
         logger.debug(f"Fetching articles for {ticker}")
         article_data: list[list[str]] = []
-        soup_obj: BeautifulSoup = BeautifulSoup(soup, 'html.parser')
+        soup_obj: BeautifulSoup = BeautifulSoup(html_content, 'html.parser')
         news_articles: ResultSet[Tag] = soup_obj.select("div.z4rs2b")
 
         logger.debug(f"Number of news-articles found: {len(news_articles)}")
