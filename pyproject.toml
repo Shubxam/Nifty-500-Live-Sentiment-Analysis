@@ -11,7 +11,7 @@ description = "real time sentiment analysis of nifty-500 stocks"
 authors = [
     { name="shubham soni", email="shubxam@gmail.com" },
 ]
-readme = "README.md"
+readme = ""
 license = "MIT"
 requires-python = ">=3.11,<4.0"
 dynamic = ["version"]
@@ -68,8 +68,8 @@ dev = [
 ]
 
 [project.scripts]
-# Add script entry points here.
-Nifty-500-Live-Sentiment-Analysis = "src:main"
+# Script entry point
+Nifty-500-Live-Sentiment-Analysis = "src.main:run"
 
 
 # ---- Build system ----
@@ -94,7 +94,7 @@ bump = "true"
 
 [tool.hatch.build.targets.wheel]
 # The source location for the package.
-packages = ["src/"]
+packages = ["src"]
 
 
 # ---- Settings ----
