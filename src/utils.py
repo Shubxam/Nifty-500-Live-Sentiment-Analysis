@@ -27,10 +27,10 @@ def get_webpage_content(url: str) -> str:
         return response.text
 
     except httpx.HTTPStatusError as e:
-        print(f"Error {e.response.status_code}")
+        logger.warning(f"Error {e.response.status_code}")
         return ""
     except Exception as e:
-        print(f"Error: {e}")
+        logger.warning(f"Error: {e}")
         return ""
 
 def fetch_metadata(ticker: str):
