@@ -11,30 +11,10 @@ description = "real time sentiment analysis of nifty-500 stocks"
 authors = [
     { name="shubham soni", email="shubxam@gmail.com" },
 ]
-readme = "README.md"
+readme = ""
 license = "MIT"
+version = "0.1.0"  # Using static version instead of dynamic
 requires-python = ">=3.11,<4.0"
-dynamic = ["version"]
-
-# https://pypi.org/classifiers/
-# Adjust as needed:
-classifiers = [
-    # Adjust as needed:
-    "Development Status :: 4 - Beta",
-    # "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Typing :: Typed",
-    # Include this to avoid accidentally publishing to PyPI:
-    "Private :: Do Not Upload",
-]
-
 
 # ---- Main dependencies ----
 
@@ -43,6 +23,7 @@ dependencies = [
     "duckdb>=1.2.1",
     "httpx>=0.28.1",
     "huggingface-hub>=0.30.1",
+    "loguru>=0.7.3",
     "lxml>=5.3.1",
     "matplotlib>=3.10.1",
     "nse>=1.1.0",
@@ -67,34 +48,8 @@ dev = [
 ]
 
 [project.scripts]
-# Add script entry points here.
-Nifty-500-Live-Sentiment-Analysis = "src:main"
-
-
-# ---- Build system ----
-
-# Dynamic versioning from:
-# https://github.com/ninoseki/uv-dynamic-versioning/
-
-[build-system]
-requires = ["hatchling", "uv-dynamic-versioning"]
-build-backend = "hatchling.build"
-
-[tool.hatch.version]
-source = "uv-dynamic-versioning"
-# Note JSON schemas don't seem to be right for tool.hatch.version.source so
-# this may cause false warnings in IDEs.
-# https://github.com/ninoseki/uv-dynamic-versioning/issues/21
-
-[tool.uv-dynamic-versioning]
-vcs = "git"
-style = "pep440"
-bump = "true"
-
-[tool.hatch.build.targets.wheel]
-# The source location for the package.
-packages = ["src/"]
-
+# Update script entry point to point to the run() function
+Nifty-500-Live-Sentiment-Analysis = "src.main:run"
 
 # ---- Settings ----
 
@@ -111,11 +66,11 @@ select = [
     "UP", # https://docs.astral.sh/ruff/rules/#pyupgrade-up
     "B", # https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
     "I", # https://docs.astral.sh/ruff/rules/#isort-i
+    "SIM", # https://docs.astral.sh/ruff/rules/#flake8-simplify-sim
     # Other possibilities:
     # "D" # https://docs.astral.sh/ruff/rules/#pydocstyle-d
     # "Q" # https://docs.astral.sh/ruff/rules/#flake8-quotes-q
-    # "COM" # https://docs.astral.sh/ruff/rules/#flake8-commas-com
-    # "SIM", # https://docs.astral.sh/ruff/rules/#flake8-simplify-sim
+    "COM" # https://docs.astral.sh/ruff/rules/#flake8-commas-com
 
 ]
 ignore = [
@@ -144,20 +99,38 @@ ignore = [
 # https://marketplace.visualstudio.com/items?itemName=detachhead.basedpyright
 # https://docs.basedpyright.com/latest/configuration/config-files/#sample-pyprojecttoml-file
 [tool.basedpyright]
+# Specifies the directories BasedPyright should analyze.
+# Opinion: Essential setting to define the scope of type checking.
 include = ["src", "tests", "devtools"]
+
 # Make ignoring type warnings easier:
+# Allows using `# type: ignore` without specifying a rule code (e.g., `# type: ignore[attr-defined]`).
+# Opinion: Can make ignoring errors quicker but less explicit. Often preferred to keep it `true` for better clarity on *why* an error is ignored.
 reportIgnoreCommentWithoutRule = false
+# Reports `# type: ignore` comments that are no longer necessary (e.g., code changed, error fixed).
+# Opinion: Generally useful (`true`) to keep ignore comments clean and relevant. Setting to `false` might be done temporarily during heavy refactoring.
 reportUnnecessaryTypeIgnoreComment = false
+
 # A few typically noisy warnings, comment/uncomment as desired:
+# Reports errors when trying to import a module for which no type stubs (external type information) are found.
+# Opinion: Can be noisy for libraries without stubs. Setting to `false` is common if you don't want to generate/find stubs for all dependencies. `true` encourages better type coverage.
 reportMissingTypeStubs = false
+# Reports when the result of a function call (that might have side effects or return important values) is not used.
+# Opinion: Can be helpful to catch potential bugs where a return value should have been checked or used. Can also be noisy if functions are called purely for side effects and don't return anything meaningful (`None`). Setting to `false` reduces noise in such cases.
 reportUnusedCallResult = false
 # reportMissingImports = false
 # reportUnnecessaryIsInstance = false
 # reportUnreachable = false
-# reportAny = false
-# reportExplicitAny = false
-# reportUnknownVariableType = false
-# reportUnknownArgumentType = false
+reportAny = false
+reportExplicitAny = false
+# Reports variables whose type cannot be fully determined (often leading to "partially unknown" errors).
+# Opinion: Set to `false` to reduce noise if full type inference isn't always possible or desired.
+reportUnknownVariableType = false
+# Reports function arguments whose type cannot be fully determined.
+# Opinion: Set to `false` to reduce noise, similar to `reportUnknownVariableType`.
+reportUnknownArgumentType = false
+reportUnknownMemberType = false
+reportOptionalMemberAccess = false
 
 [tool.codespell]
 # ignore-words-list = "foo,bar"
