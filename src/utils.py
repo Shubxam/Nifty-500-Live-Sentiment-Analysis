@@ -38,25 +38,27 @@ def fetch_metadata(ticker: str):
     Fetches metadata for a given ticker.
 
     Args:
-        ticker (str): The ticker symbol.
+        ticker (str): The stock ticker symbol.
 
     Returns:
-        dict: Metadata for the ticker.
+        list: A list containing metadata fields: [ticker, sector, industry, market_cap (in billions), company_name].
+              Returns None for fields if data is unavailable.
     """
-    # meta call
+    # Fetch quote data from NSE
     logger.debug(f"Fetching metadata for {ticker}")
     with NSE("./") as nse:
         meta: dict[str, Any] = nse.quote(ticker)
 
-    # extract fields
+    # Extract metadata fields
     try:
         sector: str | None = meta["industryInfo"]["macro"]
         industry: str | None = meta["industryInfo"]["industry"]
         previousClose: float = meta["priceInfo"]["previousClose"]
         issuedSize: int = meta["securityInfo"]["issuedSize"]
+        # Calculate market capitalization in billions
         mCap: float | None = round(previousClose * issuedSize / 1e9, 2)
         companyName: str | None = meta["info"]["companyName"]
-        
+
     except KeyError as e:
         logger.warning(f"KeyError: {e} for ticker {ticker}")
         sector = industry = mCap = companyName = None
