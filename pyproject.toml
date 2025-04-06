@@ -71,15 +71,6 @@ dev = [
 # Update script entry point to point to the run() function
 Nifty-500-Live-Sentiment-Analysis = "src.main:run"
 
-
-# ---- Build system ----
-
-# Use a simpler build system
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-
 # ---- Settings ----
 
 [tool.ruff]
