@@ -5,44 +5,40 @@ on:
     - cron: "30 11 * * *" #runs at 11:30 utc (17:00 ist) everyday
 
 jobs:
-  refresh_page:
+  fetch-data-update-dashboard:
     runs-on: ubuntu-latest
+
+    env: # shared across this job
+      python_version: "3.13"
+    
+    permissions:
+      contents: write # required to push changes to the repo
+
     steps:
-      - name: Access the repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: install latest uv version
+        uses: astral-sh/setup-uv@v5
         with:
-          path: main
-          ref: main
-          repository: ${{github.repository}}
-          token: ${{ secrets.ST_PUSH }}
+          version: "0.6.12"
+          enable-cache: true
+          cache-dependency-glob: "**/pyproject.toml"
+          python-version: ${{ env.python_version }}
+          
+      - name: Install necessary libraries using uv
+        run: uv sync
 
-      - name: Configure Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11.3'
-
-      - name: Install necessary libraries
-        run: |
-          cd main
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Execute fetch-data python file
-        run: |
-          cd main
-          python ./src/fetch-data.py
+      - name: Execute main python file
+        run: uv run ./src/main.py
 
       - name: Execute python script to update sentiment page
-        run: |
-          cd main
-          python ./src/dashboard-generation.py
+        run: uv run ./src/dashboard-generation.py
 
       - name: save csv file
         run: |
-          cd main
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.name "github-actions[bot]"
           git add .
           git commit -m 'upload csv,html using GH Actions'
-          git push --force origin main
+          git push
 
