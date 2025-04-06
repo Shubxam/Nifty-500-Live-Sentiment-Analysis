@@ -3,18 +3,19 @@
 # This script fetches stock news articles, adds them to a database,
 # and computes sentiment scores for articles that don't have them yet.
 
-from bs4.element import ResultSet, Tag
-from loguru import logger
 import multiprocessing as mp
 import os
-from datetime import datetime
-from typing import Literal, final
 import sys
+from datetime import datetime
+from typing import final
 
 import duckdb
 import pandas as pd
 from bs4 import BeautifulSoup
+from bs4.element import ResultSet, Tag
+from loguru import logger
 from tqdm import tqdm
+
 import utils as utils
 
 # Remove the default logger to prevent duplicate log entries.

@@ -1,13 +1,15 @@
-import httpx
-from huggingface_hub import InferenceTimeoutError
-import pandas as pd
-from nse import NSE
-from loguru import logger
-from typing import Any
 from datetime import datetime, timedelta
+from typing import Any
+
+import httpx
+import pandas as pd
 from dateutil.relativedelta import relativedelta
-from config import SENTIMENT_MODEL_NAME
+from huggingface_hub import InferenceTimeoutError
+from loguru import logger
+from nse import NSE
 from tqdm import tqdm
+
+from config import SENTIMENT_MODEL_NAME
 
 # META_FIELDS = [None] #todo
 
@@ -120,8 +122,9 @@ def analyse_sentiment(headlines: list[str]):
     pd.DataFrame
         returns sentiment scores in a df with positive negative and compound columns.
     """
-    from huggingface_hub import InferenceClient
     import os
+
+    from huggingface_hub import InferenceClient
     
     # Check if the 'hf_api_key' environment variable is set
     hf_api_key = os.getenv("hf_api_key")

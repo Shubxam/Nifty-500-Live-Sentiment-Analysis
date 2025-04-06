@@ -1,9 +1,10 @@
 # Imports
-import pandas as pd
 import datetime
-import pytz
+
 import duckdb
+import pandas as pd
 import plotly.express as px
+import pytz
 
 # read csv
 # article_data = pd.read_csv("./datasets/NIFTY_500_Articles.csv", index_col=0)
