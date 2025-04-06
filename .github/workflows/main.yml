@@ -11,6 +11,7 @@ jobs:
 
     env: # shared across this job
       python_version: "3.13"
+      HF_API_KEY: ${{ secrets.HF_API_KEY }}
     
     permissions:
       contents: write # required to push changes to the repo
