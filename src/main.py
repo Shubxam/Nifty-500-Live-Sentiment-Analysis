@@ -34,7 +34,7 @@ class StockDataFetcher:
         news_url (str): The base URL for fetching news from Google Finance.
         parallel_process (bool): Flag to enable/disable multiprocessing.
     """
-    def __init__(self, universe: str) -> None:
+    def __init__(self, universe: str = "nifty_50") -> None:
         """
         Initializes the StockDataFetcher.
 
