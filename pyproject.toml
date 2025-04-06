@@ -13,8 +13,8 @@ authors = [
 ]
 readme = ""
 license = "MIT"
+version = "0.1.0"  # Using static version instead of dynamic
 requires-python = ">=3.11,<4.0"
-dynamic = ["version"]
 
 # https://pypi.org/classifiers/
 # Adjust as needed:
@@ -68,33 +68,16 @@ dev = [
 ]
 
 [project.scripts]
-# Script entry point
+# Update script entry point to point to the run() function
 Nifty-500-Live-Sentiment-Analysis = "src.main:run"
 
 
 # ---- Build system ----
 
-# Dynamic versioning from:
-# https://github.com/ninoseki/uv-dynamic-versioning/
-
+# Use a simpler build system
 [build-system]
-requires = ["hatchling", "uv-dynamic-versioning"]
-build-backend = "hatchling.build"
-
-[tool.hatch.version]
-source = "uv-dynamic-versioning"
-# Note JSON schemas don't seem to be right for tool.hatch.version.source so
-# this may cause false warnings in IDEs.
-# https://github.com/ninoseki/uv-dynamic-versioning/issues/21
-
-[tool.uv-dynamic-versioning]
-vcs = "git"
-style = "pep440"
-bump = "true"
-
-[tool.hatch.build.targets.wheel]
-# The source location for the package.
-packages = ["src"]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 
 # ---- Settings ----
