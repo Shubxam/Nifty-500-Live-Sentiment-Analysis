@@ -121,9 +121,14 @@ def analyse_sentiment(headlines: list[str]):
     from huggingface_hub import InferenceClient
     import os
     
+    # Check if the 'hf_api_key' environment variable is set
+    hf_api_key = os.getenv("hf_api_key")
+    if not hf_api_key:
+        logger.error("Environment variable 'hf_api_key' is not set. Cannot initialize InferenceClient.")
+        return pd.DataFrame()
+    
     # initialize the hf client
-    hf_client = InferenceClient(model=SENTIMENT_MODEL_NAME, token=os.getenv("hf_api_key"))
-
+    hf_client = InferenceClient(model=SENTIMENT_MODEL_NAME, token=hf_api_key)
     # perform sentiment analysis using the model saved in hf_client
     try:
         results = hf_client.text_classification(headlines)
