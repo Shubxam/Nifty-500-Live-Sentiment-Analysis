@@ -163,3 +163,10 @@ class DatabaseManager:
         """Retrieve all ticker metadata from the database."""
         with self.get_connection() as conn:
             return conn.execute("SELECT * FROM ticker_meta").fetchdf()
+
+
+if __name__ == "__main__":
+    # Example usage
+    db_manager = DatabaseManager()
+    articles_df = db_manager.get_articles()
+    logger.info(f"Retrieved {articles_df.shape[0]} articles from the database.")
