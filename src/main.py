@@ -7,7 +7,7 @@ import multiprocessing as mp
 import os
 import sys
 from datetime import datetime
-from typing import final
+from typing import Any, final
 
 import duckdb
 import pandas as pd
@@ -137,7 +137,7 @@ class StockDataFetcher:
         logger.debug(f"{ticker_articles_counter} articles processed for {ticker}")
         return article_data, False
 
-    def process_ticker(self, ticker: str) -> dict[str, str | list[list[str]] | list[str | float | None] | bool | None]:
+    def process_ticker(self, ticker: str) -> dict[str, str | list[list[str]] | list[str | float] | bool | None]:
         """
         Fetches news page HTML, parses articles, and retrieves metadata for a single ticker.
 
@@ -179,7 +179,9 @@ class StockDataFetcher:
             }
 
         # Fetch additional metadata for the ticker (e.g., sector, industry).
-        ticker_meta: list[str | float | None] = utils.fetch_metadata(ticker)
+        ticker_meta: list[str | float] | None = utils.fetch_metadata(ticker)
+        if ticker_meta is None:
+            logger.warning(f"Metadata not found for ticker {ticker}.")
 
 
         return {
@@ -202,7 +204,7 @@ class StockDataFetcher:
         # Fetch and process news data for all tickers.
         logger.info(f"Start Processing {len(tickers_list)} Tickers for {self.universe}")
 
-        ticker_data: list[dict] # Type hint for the list of results
+        ticker_data: list[dict[str, Any]] # Type hint for the list of results
 
         if not self.parallel_process:
             # Process tickers sequentially.
@@ -224,7 +226,7 @@ class StockDataFetcher:
 
         # Aggregate results from processing.
         article_data: list[list[str]] = []
-        ticker_meta: list[list[str | float | None]] = []
+        ticker_meta: list[list[str | float]] = []
         unavailable_tickers: list[str] = []
 
         # Check if any ticker yielded article data.
