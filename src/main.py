@@ -7,9 +7,8 @@ import multiprocessing as mp
 import os
 import sys
 from datetime import datetime
-from typing import final
+from typing import Any, final
 
-import duckdb
 import pandas as pd
 from bs4 import BeautifulSoup
 from bs4.element import ResultSet, Tag
@@ -17,6 +16,7 @@ from loguru import logger
 from tqdm import tqdm
 
 import utils as utils
+from database import DatabaseManager
 
 # Remove the default logger to prevent duplicate log entries.
 logger.remove()
@@ -137,7 +137,7 @@ class StockDataFetcher:
         logger.debug(f"{ticker_articles_counter} articles processed for {ticker}")
         return article_data, False
 
-    def process_ticker(self, ticker: str) -> dict[str, str | list[list[str]] | list[str | float | None] | bool | None]:
+    def process_ticker(self, ticker: str) -> dict[str, str | list[list[str]] | list[str | float] | bool | None]:
         """
         Fetches news page HTML, parses articles, and retrieves metadata for a single ticker.
 
@@ -179,7 +179,9 @@ class StockDataFetcher:
             }
 
         # Fetch additional metadata for the ticker (e.g., sector, industry).
-        ticker_meta: list[str | float | None] = utils.fetch_metadata(ticker)
+        ticker_meta: list[str | float] | None = utils.fetch_metadata(ticker)
+        if ticker_meta is None:
+            logger.warning(f"Metadata not found for ticker {ticker}.")
 
 
         return {
@@ -202,7 +204,7 @@ class StockDataFetcher:
         # Fetch and process news data for all tickers.
         logger.info(f"Start Processing {len(tickers_list)} Tickers for {self.universe}")
 
-        ticker_data: list[dict] # Type hint for the list of results
+        ticker_data: list[dict[str, Any]] # Type hint for the list of results
 
         if not self.parallel_process:
             # Process tickers sequentially.
@@ -224,7 +226,7 @@ class StockDataFetcher:
 
         # Aggregate results from processing.
         article_data: list[list[str]] = []
-        ticker_meta: list[list[str | float | None]] = []
+        ticker_meta: list[list[str | float]] = []
         unavailable_tickers: list[str] = []
 
         # Check if any ticker yielded article data.
@@ -269,51 +271,18 @@ class StockDataFetcher:
                 articles_df, sentiment_scores_df, left_index=True, right_index=True
             )
 
-        with duckdb.connect("./datasets/ticker_data.db") as conn:
-            conn.execute(
-                """CREATE TABLE IF NOT EXISTS article_data (
-                            ticker TEXT,
-                            headline TEXT,
-                            date_posted TEXT,
-                            source TEXT,
-                            article_link TEXT,
-                            negative_sentiment FLOAT DEFAULT NULL,
-                            positive_sentiment FLOAT DEFAULT NULL,
-                            neutral_sentiment FLOAT DEFAULT NULL,
-                            compound_sentiment FLOAT DEFAULT NULL,
-                            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                        )"""
-            )
-
-            if not sentiment_scores_df.empty:
-                # insert all data into the table
-                logger.info(
-                    f"Inserting Sentiment Scores for {len(articles_df)} news articles into the database."
-                )
-                conn.execute(
-                    "INSERT INTO article_data SELECT *, CURRENT_TIMESTAMP FROM articles_df"
-                )
-            else:
-                # insert only article data without sentiment scores
-                logger.info(
-                    f"Inserting Article Data for {len(articles_df)} news articles into the database. No Sentiment Scores available."
-                )
-                conn.execute(
-                    "INSERT INTO article_data (ticker, headline, date_posted, source, article_link, created_at) SELECT *, CURRENT_TIMESTAMP FROM articles_df"
-                )
-
-            # create a new table for storing ticker metadata
-            conn.execute(
-                "CREATE or REPLACE TABLE ticker_meta (ticker TEXT, sector TEXT, industry TEXT, mCap REAL, companyName TEXT)"
-            )
-
-            # insert ticker metadata into the table, this table will be replaced on every run.
-            logger.info(
-                f"Inserting Ticker Metadata for {len(ticker_meta)} tickers into the database."
-            )
-            conn.executemany(
-                "INSERT into ticker_meta VALUES (?, ?, ?, ?, ?)", ticker_meta
-            )
+        # Use DatabaseManager to handle database operations
+        db_manager = DatabaseManager("./datasets/ticker_data.db")
+        
+        if not sentiment_scores_df.empty:
+            # Insert articles with sentiment scores
+            db_manager.insert_articles(articles_df, has_sentiment=True)
+        else:
+            # Insert articles without sentiment scores
+            db_manager.insert_articles(articles_df, has_sentiment=False)
+        
+        # Insert ticker metadata
+        db_manager.insert_ticker_metadata(ticker_meta)
 
 
 if __name__ == "__main__":

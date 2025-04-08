@@ -53,17 +53,17 @@ def fetch_metadata(ticker: str):
 
     # Extract metadata fields
     try:
-        sector: str | None = meta["industryInfo"]["macro"]
-        industry: str | None = meta["industryInfo"]["industry"]
+        sector: str = meta["industryInfo"]["macro"]
+        industry: str = meta["industryInfo"]["industry"]
         previousClose: float = meta["priceInfo"]["previousClose"]
         issuedSize: int = meta["securityInfo"]["issuedSize"]
         # Calculate market capitalization in billions
-        mCap: float | None = round(previousClose * issuedSize / 1e9, 2)
-        companyName: str | None = meta["info"]["companyName"]
+        mCap: float = round(previousClose * issuedSize / 1e9, 2)
+        companyName: str = meta["info"]["companyName"]
 
     except KeyError as e:
         logger.warning(f"KeyError: {e} for ticker {ticker}")
-        sector = industry = mCap = companyName = None
+        return None
 
     return [ticker, sector, industry, mCap, companyName]
 
