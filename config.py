@@ -1,8 +1,8 @@
 from pathlib import Path
-from typing import Literal
+from typing import Literal, TypeAlias
 
 # Database
-DB_PATH = Path("./datasets/ticker_data.db")
+DB_PATH: Path = Path("./datasets/ticker_data.db")
 BATCH_SIZE = 100  # For batch processing
 
 # Database Tables
@@ -22,8 +22,8 @@ API_TIMEOUT = 30  # seconds
 MAX_RETRIES = 3
 
 # Data Sources
-UNIVERSE_OPTIONS = Literal["nifty_50", "nifty_100", "nifty_200", "nifty_500"]
-DATA_SOURCES = ["google_finance", "yahoo_finance", "ticker_finology"]
+UNIVERSE_OPTIONS: TypeAlias = Literal["nifty_50", "nifty_100", "nifty_200", "nifty_500"]
+DATA_SOURCES: list[str] = ["google_finance", "yahoo_finance", "ticker_finology"]
 
 # Dashboard Settings
 UPDATE_INTERVAL = "17:30"  # IST

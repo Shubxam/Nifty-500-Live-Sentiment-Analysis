@@ -3,7 +3,7 @@ This module provides a DatabaseManager class that encapsulates the database oper
 for the Nifty-500 Live Sentiment Analysis project. The class utilizes DuckDB for database
 management and Pandas for DataFrame manipulation, ensuring that the database is properly
 set up with the necessary schema and indexes. It also provides methods to insert articles,
-update sentiment scores, and retrieve articles or dashboard data.
+update sentiment scores, and retrieve articles for dashboard data.
 Classes:
     DatabaseManager:
         A singleton class responsible for managing the database connections and operations.
@@ -47,19 +47,22 @@ from config import DB_PATH
 
 class DatabaseManager:
     _instance = None
-    
-    def __new__(cls, db_path):
+    _db_path = None
+
+    def __new__(cls, db_path=DB_PATH):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._instance.db_path = db_path
+            cls._db_path = db_path
+        elif db_path != cls._db_path:
+            logging.warning(f"Attempting to create DatabaseManager with different path {db_path}, but using existing instance with path {cls._db_path}")
         return cls._instance
-    
-    def __init__(self, db_path):
+
+    def __init__(self, db_path=DB_PATH):
         if not hasattr(self, 'initialized'):
-            self.connection_pool = []
+            self.db_path = self._db_path
             self._setup_database()
             self.initialized = True
-    
+
     def _setup_database(self) -> None:
         """Initialize database with proper schema and indexes"""
         with self.get_connection() as conn:
@@ -78,12 +81,12 @@ class DatabaseManager:
                     compound_sentiment FLOAT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
-                
+
                 CREATE INDEX IF NOT EXISTS idx_ticker ON article_data(ticker);
                 CREATE INDEX IF NOT EXISTS idx_date_posted ON article_data(date_posted);
                 CREATE INDEX IF NOT EXISTS idx_sentiment ON article_data(compound_sentiment);
             """)
-            
+
             conn.execute("""
                 CREATE TABLE IF NOT EXISTS ticker_meta (
                     ticker TEXT PRIMARY KEY,
@@ -92,11 +95,11 @@ class DatabaseManager:
                     marketCap FLOAT,
                     companyName TEXT
                 );
-                
+
                 CREATE INDEX IF NOT EXISTS idx_sector ON ticker_meta(sector);
                 CREATE INDEX IF NOT EXISTS idx_industry ON ticker_meta(industry);
             """)
-    
+
     @contextmanager
     def get_connection(self) -> Generator[duckdb.DuckDBPyConnection, None, None]:
         """Get a database connection from the pool"""
@@ -105,7 +108,7 @@ class DatabaseManager:
             yield conn
         finally:
             conn.close()
-    
+
     def execute(self, query: str, params: Optional[tuple] = None) -> None:
         """Execute a SQL query with optional parameters"""
         try:
@@ -117,51 +120,61 @@ class DatabaseManager:
         except Exception as e:
             logging.error(f"Failed to execute query: {str(e)}")
             raise
-    
+
     def insert_articles(self, articles_df: pd.DataFrame) -> None:
         """Insert article data with proper error handling"""
         try:
             with self.get_connection() as conn:
-                conn.execute(
-                    "INSERT INTO article_data (ticker, headline, date_posted, source, article_link) SELECT * FROM articles_df"
-                )
+                # Register DataFrame temporarily with DuckDB
+                conn.register('articles_df', articles_df)
+                conn.execute("""
+                    INSERT INTO article_data
+                        (ticker, headline, date_posted, source, article_link)
+                    SELECT ticker, headline, date_posted, source, article_link
+                    FROM articles_df
+                """)
+                conn.unregister('articles_df')  # Cleanup after use
             logging.info(f"Successfully inserted {len(articles_df)} articles")
         except Exception as e:
             logging.error(f"Failed to insert articles: {str(e)}")
             raise
-    
+
     def update_sentiment_scores(self, scores_df: pd.DataFrame) -> None:
         """Update sentiment scores for articles"""
         try:
             with self.get_connection() as conn:
+                # Register DataFrame temporarily with DuckDB
+                conn.register('scores_df', scores_df)
                 conn.execute("""
                     UPDATE article_data
-                    SET 
-                        negative_sentiment = scores_df.negative,
-                        positive_sentiment = scores_df.positive,
-                        neutral_sentiment = scores_df.neutral,
-                        compound_sentiment = scores_df.compound
-                    FROM scores_df
-                    WHERE article_data.id = scores_df.id
+                    SET
+                        negative_sentiment = s.negative,
+                        positive_sentiment = s.positive,
+                        neutral_sentiment = s.neutral,
+                        compound_sentiment = s.compound
+                    FROM scores_df s
+                    WHERE article_data.id = s.id
                 """)
+                conn.unregister('scores_df')  # Cleanup after use
             logging.info(f"Successfully updated sentiment scores for {len(scores_df)} articles")
         except Exception as e:
             logging.error(f"Failed to update sentiment scores: {str(e)}")
             raise
-    
+
     def get_articles_without_sentiment(self, batch_size: int = 100) -> Optional[pd.DataFrame]:
         """Get articles that need sentiment analysis"""
         with self.get_connection() as conn:
-            return conn.execute(f"""
-                SELECT id, headline 
-                FROM article_data 
-                WHERE compound_sentiment IS NULL 
-                LIMIT {batch_size}
-            """).fetchdf()
-    
+            return conn.execute(
+                f"SELECT id, headline FROM article_data WHERE compound_sentiment IS NULL LIMIT {batch_size}"
+            ).fetchdf()
+
     def get_dashboard_data(self) -> tuple[pd.DataFrame, pd.DataFrame]:
         """Get data needed for dashboard generation"""
-        with self.get_connection() as conn:
-            article_data = conn.execute("SELECT * FROM article_data").fetchdf()
-            ticker_meta = conn.execute("SELECT * FROM ticker_meta").fetchdf()
-            return article_data, ticker_meta
+        try:
+            with self.get_connection() as conn:
+                article_data = conn.execute("SELECT * FROM article_data").fetchdf()
+                ticker_meta = conn.execute("SELECT * FROM ticker_meta").fetchdf()
+                return article_data, ticker_meta
+        except Exception as e:
+            logging.error(f"Failed to fetch dashboard data: {str(e)}")
+            raise

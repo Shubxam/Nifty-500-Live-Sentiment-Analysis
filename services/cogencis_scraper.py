@@ -1,8 +1,6 @@
-import time
 import random
 import logging
 import asyncio
-import json
 from playwright.async_api import async_playwright
 
 class NewsScraper:
@@ -292,12 +290,19 @@ if __name__ == "__main__":
             
             print("Successfully fetched the target page!")
             print(f"Content length: {len(content)} bytes")
-            # get all the items with a.stock-title selector
-            items = await scraper.page.query_selector_all("a.stock-title")
-            for item in items:
-                text = await item.inner_text()
-                href = await item.get_attribute('href')
-                print(f"Text: {text}, Link: {href}")
+
+            # return page content to be parsed with beautifulsoup
+            return content
+
+
+
+            # # get all the items with a.stock-title selector
+            # items = await scraper.page.query_selector_all("a.stock-title")
+            
+            # for item in items:
+            #     text = await item.inner_text()
+            #     href = await item.get_attribute('href')
+            #     print(f"Text: {text}, Link: {href}")
             
             
         except Exception as e:

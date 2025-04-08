@@ -1,109 +1,79 @@
 import pytest
-import datetime
-from unittest.mock import MagicMock, patch
-import requests
-
+import pandas as pd
+from io import StringIO
+from unittest.mock import patch
 from services.universe_updater import UniverseUpdater
-
-@pytest.fixture
-def mock_response():
-    mock = MagicMock()
-    mock.status_code = 200
-    return mock
 
 @pytest.fixture
 def universe_updater():
     return UniverseUpdater()
 
-def test_setup_database(universe_updater):
-    with patch.object(universe_updater.db_manager, 'execute') as mock_execute:
-        universe_updater._setup_database()
-        
-        # Verify the table creation SQL was executed
-        mock_execute.assert_any_call(
-            """
-                CREATE TABLE IF NOT EXISTS universe_constituents (
-                    ticker TEXT,
-                    universe TEXT,
-                    weight FLOAT,
-                    entry_date DATE,
-                    last_updated TIMESTAMP,
-                    PRIMARY KEY (ticker, universe)
-                )
-            """
-        )
+@pytest.fixture
+def sample_csv_data():
+    return """Company Name,Industry,Symbol,ISIN Code,Series,Security Code
+TCS,IT,TCS,INE467B01029,EQ,532540
+HDFC Bank,FINANCIAL SERVICES,HDFCBANK,INE040A01034,EQ,500180"""
 
-def test_get_nse_cookies(universe_updater, mock_response):
-    with patch('requests.get', return_value=mock_response) as mock_get:
-        mock_response.cookies = {'mock_cookie': 'value'}
-        
-        universe_updater._get_nse_cookies()
-        
-        assert universe_updater.nse_cookie == {'mock_cookie': 'value'}
-        mock_get.assert_called_with(
-            "https://www.nseindia.com/market-data/live-market-indices",
-            headers=universe_updater.headers
-        )
-
-def test_fetch_universe_constituents(universe_updater, mock_response):
-    mock_date = datetime.datetime(2025, 2, 12, 15, 36, 10)
-    with patch('requests.get', return_value=mock_response) as mock_get, \
-         patch('datetime.datetime') as mock_datetime:
-        # Configure datetime mock
-        mock_datetime.now.return_value = mock_date
-        
-        # Mock NSE API response
-        mock_response.json.return_value = {
-            'data': [
-                {'symbol': 'SBIN', 'isinCode': 'INE062A01020', 'weightage': '3.5'},
-                {'symbol': 'HDFC', 'isinCode': 'INE001A01036', 'weightage': '4.2'}
-            ]
-        }
-        
-        constituents = universe_updater._fetch_universe_constituents('nifty_50')
-        
-        assert len(constituents) == 2
-        assert constituents[0]['ticker'] == 'INE062A01020'  # ISIN code
-        assert constituents[0]['universe'] == 'nifty_50'
-        assert constituents[0]['weight'] == 3.5
-        assert constituents[0]['entry_date'] == '2025-02-12'
-        assert constituents[0]['last_updated'] == '2025-02-12 15:36:10'
-
-def test_update_universe_table(universe_updater):
-    test_constituents = [
-        {
-            'ticker': 'INE062A01020',
-            'universe': 'nifty_50',
-            'weight': 3.5,
-            'entry_date': '2025-02-12',
-            'last_updated': '2025-02-12 15:36:10'
-        }
-    ]
+def test_fetch_universe_constituents(universe_updater, sample_csv_data):
+    # Mock pandas read_csv to return our sample data
+    mock_df = pd.read_csv(StringIO(sample_csv_data))
     
-    with patch.object(universe_updater.db_manager, 'execute') as mock_execute:
-        universe_updater._update_universe_table(test_constituents)
+    with patch('pandas.read_csv', return_value=mock_df):
+        df = universe_updater._fetch_universe_constituents('nifty_50')
         
-        # Verify temp table creation and data insertion
-        assert mock_execute.called
-        calls = mock_execute.call_args_list
-        assert any('CREATE TEMP TABLE' in str(call) for call in calls)
-        assert any('MERGE INTO' in str(call) for call in calls)
+        # Verify DataFrame structure and content
+        assert not df.empty
+        assert len(df) == 2
+        assert all(col in df.columns for col in universe_updater.required_columns)
+        assert 'universe' in df.columns
+        assert df['universe'].iloc[0] == 'nifty_50'
+        assert df['Symbol'].iloc[0] == 'TCS'
+        assert df['ISIN Code'].iloc[0] == 'INE467B01029'
 
-def test_error_handling(universe_updater):
-    with patch('requests.get', side_effect=requests.RequestException("API Error")) as mock_get:
-        constituents = universe_updater._fetch_universe_constituents('nifty_50')
-        assert constituents == []  # Should return empty list on error
-        mock_get.assert_called()
+def test_fetch_universe_constituents_error_handling(universe_updater):
+    with patch('pandas.read_csv', side_effect=Exception("Network error")):
+        df = universe_updater._fetch_universe_constituents('nifty_50')
+        assert df.empty
 
-def test_update_all_universes(universe_updater):
-    with patch.object(universe_updater, '_setup_database') as mock_setup, \
-         patch.object(universe_updater, '_fetch_universe_constituents') as mock_fetch, \
-         patch.object(universe_updater, '_update_universe_table') as mock_update:
+def test_fetch_universe_constituents_invalid_universe(universe_updater):
+    df = universe_updater._fetch_universe_constituents('invalid_universe')
+    assert df.empty
+
+def test_update_all_universes(universe_updater, sample_csv_data):
+    # Mock pandas read_csv to return our sample data for all universes
+    mock_df = pd.read_csv(StringIO(sample_csv_data))
+    
+    with patch('pandas.read_csv', return_value=mock_df):
+        universe_data = universe_updater.update_all_universes()
         
-        mock_fetch.return_value = [{'ticker': 'INE062A01020', 'universe': 'nifty_50'}]
+        # Verify we got data for all universes
+        assert len(universe_data) == 4  # All 4 universes should be present
         
-        universe_updater.update_all_universes()
+        # Check each universe's data
+        for universe, df in universe_data.items():
+            assert not df.empty
+            assert len(df) == 2  # Our sample data has 2 rows
+            assert all(col in df.columns for col in universe_updater.required_columns)
+            assert 'universe' in df.columns
+            assert df['universe'].iloc[0] == universe
+
+def test_update_all_universes_partial_failure(universe_updater, sample_csv_data):
+    mock_df = pd.read_csv(StringIO(sample_csv_data))
+    
+    def mock_read_csv(url):
+        # Simulate failure for nifty_100 only
+        if 'nifty100list' in url:
+            raise Exception("Network error")
+        return mock_df
+    
+    with patch('pandas.read_csv', side_effect=mock_read_csv):
+        universe_data = universe_updater.update_all_universes()
         
-        assert mock_setup.called
-        assert mock_fetch.call_count == 4  # Called for all universes
-        assert mock_update.called
+        # Should still have data for other universes
+        assert len(universe_data) == 3  # One universe failed
+        assert 'nifty_100' not in universe_data  # Failed universe
+        
+        # Check remaining universes have valid data
+        for universe, df in universe_data.items():
+            assert not df.empty
+            assert all(col in df.columns for col in universe_updater.required_columns)
