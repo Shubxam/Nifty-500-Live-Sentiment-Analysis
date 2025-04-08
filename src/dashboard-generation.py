@@ -1,19 +1,18 @@
 # Imports
 import datetime
 
-import duckdb
 import pandas as pd
 import plotly.express as px
 import pytz
 
-# read csv
-# article_data = pd.read_csv("./datasets/NIFTY_500_Articles.csv", index_col=0)
-# ticker_metadata = pd.read_csv("./datasets/ticker_metadata.csv", index_col=0)
+from database import DatabaseManager
 
-# duckdb connection
-with duckdb.connect(database="./datasets/ticker_data.db") as conn:
-    article_data = conn.execute("SELECT * FROM article_data").fetchdf()
-    ticker_metadata = conn.execute("SELECT * FROM ticker_meta").fetchdf()
+# Initialize database manager
+db_manager = DatabaseManager("./datasets/ticker_data.db")
+
+# Get data from database
+article_data = db_manager.get_articles()
+ticker_metadata = db_manager.get_ticker_metadata()
 
 # aggregate article scores by ticker name
 ticker_scores = (

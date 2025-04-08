@@ -9,7 +9,6 @@ import sys
 from datetime import datetime
 from typing import Any, final
 
-import duckdb
 import pandas as pd
 from bs4 import BeautifulSoup
 from bs4.element import ResultSet, Tag
@@ -17,6 +16,7 @@ from loguru import logger
 from tqdm import tqdm
 
 import utils as utils
+from database import DatabaseManager
 
 # Remove the default logger to prevent duplicate log entries.
 logger.remove()
@@ -271,51 +271,18 @@ class StockDataFetcher:
                 articles_df, sentiment_scores_df, left_index=True, right_index=True
             )
 
-        with duckdb.connect("./datasets/ticker_data.db") as conn:
-            conn.execute(
-                """CREATE TABLE IF NOT EXISTS article_data (
-                            ticker TEXT,
-                            headline TEXT,
-                            date_posted TEXT,
-                            source TEXT,
-                            article_link TEXT,
-                            negative_sentiment FLOAT DEFAULT NULL,
-                            positive_sentiment FLOAT DEFAULT NULL,
-                            neutral_sentiment FLOAT DEFAULT NULL,
-                            compound_sentiment FLOAT DEFAULT NULL,
-                            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                        )"""
-            )
-
-            if not sentiment_scores_df.empty:
-                # insert all data into the table
-                logger.info(
-                    f"Inserting Sentiment Scores for {len(articles_df)} news articles into the database."
-                )
-                conn.execute(
-                    "INSERT INTO article_data SELECT *, CURRENT_TIMESTAMP FROM articles_df"
-                )
-            else:
-                # insert only article data without sentiment scores
-                logger.info(
-                    f"Inserting Article Data for {len(articles_df)} news articles into the database. No Sentiment Scores available."
-                )
-                conn.execute(
-                    "INSERT INTO article_data (ticker, headline, date_posted, source, article_link, created_at) SELECT *, CURRENT_TIMESTAMP FROM articles_df"
-                )
-
-            # create a new table for storing ticker metadata
-            conn.execute(
-                "CREATE or REPLACE TABLE ticker_meta (ticker TEXT, sector TEXT, industry TEXT, mCap REAL, companyName TEXT)"
-            )
-
-            # insert ticker metadata into the table, this table will be replaced on every run.
-            logger.info(
-                f"Inserting Ticker Metadata for {len(ticker_meta)} tickers into the database."
-            )
-            conn.executemany(
-                "INSERT into ticker_meta VALUES (?, ?, ?, ?, ?)", ticker_meta
-            )
+        # Use DatabaseManager to handle database operations
+        db_manager = DatabaseManager("./datasets/ticker_data.db")
+        
+        if not sentiment_scores_df.empty:
+            # Insert articles with sentiment scores
+            db_manager.insert_articles(articles_df, has_sentiment=True)
+        else:
+            # Insert articles without sentiment scores
+            db_manager.insert_articles(articles_df, has_sentiment=False)
+        
+        # Insert ticker metadata
+        db_manager.insert_ticker_metadata(ticker_meta)
 
 
 if __name__ == "__main__":
