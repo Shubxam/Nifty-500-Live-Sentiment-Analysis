@@ -51,7 +51,7 @@ class DatabaseManager:
     A class to handle database operations.
     """
 
-    def __init__(self, db_path: str = "./datasets/ticker_data.db"):
+    def __init__(self, db_path: str = "../datasets/ticker_data.db"):
         """Initialize the database manager with the database path."""
         self.db_path = db_path
         self._initialize_db()
