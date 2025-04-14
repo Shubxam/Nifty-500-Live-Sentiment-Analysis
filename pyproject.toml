@@ -45,6 +45,10 @@ dev = [
     "basedpyright>=1.28.2",
     "funlog>=0.2.0",
     "ipykernel>=6.29.5",
+    "transformers>=4.51.3",
+    "torch>=2.6.0",
+    "iprogress>=0.4",
+    "ipywidgets>=8.1.6",
 ]
 
 [project.scripts]
