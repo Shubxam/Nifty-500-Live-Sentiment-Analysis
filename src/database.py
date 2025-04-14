@@ -174,8 +174,6 @@ class DatabaseManager:
             n: Number of articles to return
             latest: If True, returns the n latest articles; if False, returns the n oldest
             has_sentiment: If False, returns only articles without sentiment scores
-            source: Filter by source (ArticleSource.ALL for all sources)
-            ticker: Filter by ticker (TickerFilter.ALL for all tickers)
             after_date: Filter for articles after this date in 'yyyy-MM-dd' format (None for no date filtering)
         
         Returns:
