@@ -132,6 +132,10 @@ __pypackages__/
 celerybeat-schedule
 celerybeat.pid
 
+# github-copilot
+agent_project_log.md
+*/copilot-instructions.md
+
 # SageMath parsed files
 *.sage.py
 
