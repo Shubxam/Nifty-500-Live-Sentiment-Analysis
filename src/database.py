@@ -160,10 +160,51 @@ class DatabaseManager:
                     meta
                 )
 
-    def get_articles(self) -> pd.DataFrame:
-        """Retrieve all articles from the database."""
+    def get_articles(
+        self, 
+        n: int = 20, 
+        latest: bool = True, 
+        has_sentiment: bool = True, 
+        after_date: str | None = None
+    ) -> pd.DataFrame:
+        """
+        Retrieve articles from the database with filtering options.
+        
+        Args:
+            n: Number of articles to return
+            latest: If True, returns the n latest articles; if False, returns the n oldest
+            has_sentiment: If False, returns only articles without sentiment scores
+            source: Filter by source (ArticleSource.ALL for all sources)
+            ticker: Filter by ticker (TickerFilter.ALL for all tickers)
+            after_date: Filter for articles after this date in 'yyyy-MM-dd' format (None for no date filtering)
+        
+        Returns:
+            DataFrame containing the filtered articles
+        """
         with self.get_connection() as conn:
-            return conn.execute("SELECT * FROM article_data").fetchdf()
+            query_parts = ["SELECT * FROM article_data WHERE 1=1"]
+            params = []
+            
+            # Apply sentiment filter
+            if not has_sentiment:
+                query_parts.append("AND compound_sentiment IS NULL")
+                
+            # Apply date filter
+            if after_date is not None:
+                query_parts.append("AND date_posted >= ?")
+                params.append(after_date)
+                
+            # Apply ordering
+            order_direction: Literal['DESC', 'ASC'] = "DESC" if latest else "ASC"
+            query_parts.append(f"ORDER BY date_posted {order_direction}")
+            
+            # Apply limit
+            query_parts.append("LIMIT ?")
+            params.append(n)
+            
+            # Build and execute query
+            query = " ".join(query_parts)
+            return conn.execute(query, params).fetchdf()
 
     def get_ticker_metadata(self) -> pd.DataFrame:
         """Retrieve all ticker metadata from the database."""
@@ -174,5 +215,5 @@ class DatabaseManager:
 if __name__ == "__main__":
     # Example usage
     db_manager = DatabaseManager()
-    articles_df = db_manager.get_articles()
+    articles_df = db_manager.get_articles(has_sentiment=False, n=100)
     logger.info(f"Retrieved {articles_df.shape[0]} articles from the database.")
