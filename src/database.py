@@ -1,9 +1,10 @@
 # implement duckdb cursor to write to same db with multiple threads
 
-from typing import final
+from typing import Literal, final
 import duckdb
 import pandas as pd
 from loguru import logger
+import os
 
 
 class DatabaseConnection:
@@ -51,9 +52,14 @@ class DatabaseManager:
     A class to handle database operations.
     """
 
-    def __init__(self, db_path: str = "../datasets/ticker_data.db"):
+    def __init__(self, db_path: str | None = None):
         """Initialize the database manager with the database path."""
-        self.db_path = db_path
+        if db_path is None:
+            # Construct path relative to this file's directory
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            self.db_path = os.path.join(script_dir, "..", "datasets", "ticker_data.db")
+        else:
+            self.db_path = db_path
         self._initialize_db()
 
     def get_connection(self) -> DatabaseConnection:
