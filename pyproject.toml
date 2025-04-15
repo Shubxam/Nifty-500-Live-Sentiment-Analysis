@@ -57,6 +57,16 @@ Nifty-500-Live-Sentiment-Analysis = "src.main:run"
 
 # ---- Settings ----
 
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu" },
+]
+
 [tool.ruff]
 # Set as desired, typically 88 (black standard) or 100 (wide).
 line-length = 100
