@@ -6,8 +6,6 @@ on:
 jobs:
   run-sentiment-test:
     runs-on: ubuntu-latest
-    env:
-        python_version: "3.13"
 
     steps:
     - name: Checkout repository
@@ -17,9 +15,8 @@ jobs:
       uses: astral-sh/setup-uv@v5
       with:
         version: "latest"
-        enable-cache: true
-        cache-dependency-glob: "**/pyproject.toml"
-        python-version: ${{ env.python_version }}`
+        # enable-cache: true
+        # cache-dependency-glob: "**/pyproject.toml"
 
     - name: Install dependencies
       run: uv sync
