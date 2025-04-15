@@ -16,7 +16,7 @@ jobs:
     - name: install latest uv version
       uses: astral-sh/setup-uv@v5
       with:
-        version: "0.6.12"
+        version: "latest"
         enable-cache: true
         cache-dependency-glob: "**/pyproject.toml"
         python-version: ${{ env.python_version }}`

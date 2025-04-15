@@ -931,7 +931,9 @@ dependencies = [
     { name = "pandas" },
     { name = "plotly" },
     { name = "pytz" },
+    { name = "torch" },
     { name = "tqdm" },
+    { name = "transformers" },
 ]
 
 [package.dev-dependencies]
@@ -945,8 +947,6 @@ dev = [
     { name = "pytest" },
     { name = "rich" },
     { name = "ruff" },
-    { name = "torch" },
-    { name = "transformers" },
 ]
 
 [package.metadata]
@@ -962,7 +962,9 @@ requires-dist = [
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "plotly", specifier = ">=6.0.1" },
     { name = "pytz", specifier = ">=2025.2" },
+    { name = "torch", specifier = ">=2.6.0" },
     { name = "tqdm", specifier = ">=4.67.1" },
+    { name = "transformers", specifier = ">=4.51.3" },
 ]
 
 [package.metadata.requires-dev]
@@ -976,8 +978,6 @@ dev = [
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "rich", specifier = ">=13.9.4" },
     { name = "ruff", specifier = ">=0.11.0" },
-    { name = "torch", specifier = ">=2.6.0" },
-    { name = "transformers", specifier = ">=4.51.3" },
 ]
 
 [[package]]
