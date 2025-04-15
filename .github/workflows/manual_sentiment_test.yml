@@ -22,7 +22,7 @@ jobs:
         python-version: ${{ env.python_version }}`
 
     - name: Install dependencies
-      run: uv sync --all-extras --dev
+      run: uv sync
 
     - name: Run sentiment analysis test script
       run: uv run ./src/sentiment_analysis_test.py
