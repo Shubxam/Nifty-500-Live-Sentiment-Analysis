@@ -4,12 +4,11 @@ from typing import Any
 import httpx
 import pandas as pd
 from dateutil.relativedelta import relativedelta
-from huggingface_hub import InferenceTimeoutError
 from loguru import logger
 from nse import NSE
 from tqdm import tqdm
 
-from config import SENTIMENT_MODEL_NAME
+from config import SENTIMENT_MODEL_NAME, BATCH_SIZE
 
 # META_FIELDS = [None] #todo
 
@@ -110,7 +109,7 @@ def parse_relative_date(date_string: str) -> datetime | None:
 
 def analyse_sentiment(headlines: list[str]):
     """
-    Perform Sentiment Analysis using HF Inference API. Create a dataframe from the results.
+    Perform Sentiment Analysis using finBERT model. Create a dataframe from the results.
 
     Parameters
     ----------
@@ -121,34 +120,35 @@ def analyse_sentiment(headlines: list[str]):
     -------
     pd.DataFrame
         returns sentiment scores in a df with positive negative and compound columns.
-    """
-    import os
+    """      
+        
 
-    from huggingface_hub import InferenceClient
-    
-    # Check if the 'hf_api_key' environment variable is set
-    hf_api_key = os.getenv("HF_API_KEY")
-    if not hf_api_key:
-        logger.error("Environment variable 'HF_API_KEY' is not set. Cannot initialize InferenceClient.")
-        return pd.DataFrame()
-    
-    # initialize the hf client
-    hf_client = InferenceClient(model=SENTIMENT_MODEL_NAME, token=hf_api_key)
-    # perform sentiment analysis using the model saved in hf_client
+    from transformers.models.bert import BertTokenizer, BertForSequenceClassification
+    from transformers.pipelines import pipeline
+
+
+    finbert_1: BertForSequenceClassification = BertForSequenceClassification.from_pretrained(
+        pretrained_model_name_or_path=SENTIMENT_MODEL_NAME,
+        num_labels=3,
+        use_safetensors=True  # Use safe tensors
+        
+    )
+
+    tokenizer_1 = BertTokenizer.from_pretrained(
+        pretrained_model_name_or_path=SENTIMENT_MODEL_NAME
+    )
+
+    # set top_k=1 to get the most likely label or top_k=None to get all labels
+    # device=-1 means CPU
+    nlp_1 = pipeline("sentiment-analysis", model=finbert_1, tokenizer=tokenizer_1, device=-1, top_k=None, framework="pt")
+
     try:
-        results = hf_client.text_classification(headlines) # type: ignore[reportArgumentType]
-    except InferenceTimeoutError as e:
-        logger.warning(f"Timeout error: {e}")
-        return pd.DataFrame()
+        results: list[list[dict[str, str|float]]] = nlp_1(headlines, batch_size=BATCH_SIZE)
     except Exception as e:
         logger.warning(f"Error: {e}")
         return pd.DataFrame()
-    # Check if the results are empty or contain only one result
-    # If the API returns only one result, it might be due to rate limiting.
-    # In this case, we return an empty DataFrame to avoid processing incomplete data.
 
     # Check if the results are empty or contain only one result
-    # This is a workaround for the HF API rate limit issue.
     if len(results) != len(headlines):
         logger.warning(
             f"Sentiment analysis returned {len(results)} results for {len(headlines)} headlines."
@@ -163,12 +163,11 @@ def analyse_sentiment(headlines: list[str]):
     # we will transform a list of list of dictionaries into a list of dictionaries
     flattened_data: list[dict[str,float]] = []
 
-    for sentiment_object in tqdm(results, desc="Processing Sentiment Scores"):
-        logger.debug(f"List Item: {sentiment_object}")
-        
-        sentiment: str = sentiment_object["label"]
-        sentiment_score: float = sentiment_object["score"]
-        flattened_data.append({sentiment: sentiment_score})
+    for news_item_sentiment_list in tqdm(iterable=results, desc="Processing Sentiment"):
+        news_item_sentiment_dict = {}
+        for individual_label_dict in news_item_sentiment_list:
+            news_item_sentiment_dict[individual_label_dict['label']] = individual_label_dict['score']
+        flattened_data.append(news_item_sentiment_dict)
 
     # Create the DataFrame
     df = pd.DataFrame(flattened_data)
@@ -176,7 +175,9 @@ def analyse_sentiment(headlines: list[str]):
     logger.debug(f"DataFrame: {df}")
 
     # Calculate the compound score
-    df.loc[:, "compound"] = df.loc[:, "positive"] - df.loc[:, "negative"]
+    df.loc[:, "compound"] = df.loc[:, "Positive"].where(df["Positive"] > df["Negative"], -df["Negative"]).astype(float).round(4)
+    df.loc[:, "compound"] = df.loc[:, "compound"].fillna(0)
+    df.loc[:, "compound"] = df.loc[:, "compound"].clip(lower=-1, upper=1)
     return df
             
 
