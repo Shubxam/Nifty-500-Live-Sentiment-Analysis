@@ -27,8 +27,7 @@ def main():
 
     # nlp_1_res = nlp_1(headlines, batch_size=512) # Remove or comment out the original single run
 
-    batch_sizes = [16, 32, 64, 128, 256, 512]
-    batch_sizes.reverse()
+    batch_sizes = [None, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
 
     results = {}
 
