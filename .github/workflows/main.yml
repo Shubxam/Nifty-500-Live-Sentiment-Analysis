@@ -28,13 +28,13 @@ jobs:
           python-version: ${{ env.python_version }}
           
       - name: Install necessary libraries using uv
-        run: uv sync
+        run: make install
 
       - name: Execute main python file
-        run: uv run ./src/main.py
+        run: make run
 
       - name: Execute python script to update sentiment page
-        run: uv run ./src/dashboard-generation.py
+        run: make dashboard
 
       - name: save csv file
         run: |

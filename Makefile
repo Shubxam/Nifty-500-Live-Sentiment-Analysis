@@ -3,11 +3,20 @@
 
 .DEFAULT_GOAL := default
 
-.PHONY: default install lint test upgrade build clean
+.PHONY: default run dashboard install install-dev lint test upgrade clean
 
 default: install lint test
 
+run:
+	uv run ./src/main.py
+
+dashboard:
+	uv run ./src/dashboard-generation.py
+
 install:
+	uv sync
+
+install-dev:
 	uv sync --all-extras --dev
 
 lint:
@@ -18,9 +27,6 @@ test:
 
 upgrade:
 	uv sync --upgrade
-
-build:
-	uv build
 
 clean:
 	-rm -rf dist/
