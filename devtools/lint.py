@@ -5,7 +5,7 @@ from rich import print as rprint
 
 # Update as needed.
 SRC_PATHS = ["src", "tests", "devtools"]
-DOC_PATHS = ["README.md"]
+DOC_PATHS = ["README.md", "development.md", "publishing.md", "CODE_OF_CONDUCT.md"]
 
 
 def main():
