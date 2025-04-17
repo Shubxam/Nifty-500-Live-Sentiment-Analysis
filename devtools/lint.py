@@ -6,13 +6,14 @@ from rich import print as rprint
 # Update as needed.
 SRC_PATHS = ["src", "tests", "devtools"]
 DOC_PATHS = ["README.md", "development.md", "publishing.md", "CODE_OF_CONDUCT.md"]
+IGNORE_WORDS = ["IST"]
 
 
 def main():
     rprint()
 
     errcount = 0
-    errcount += run(["codespell", "-L IST", "--write-changes", *SRC_PATHS, *DOC_PATHS])
+    errcount += run(["codespell", "-L", *IGNORE_WORDS, "--write-changes", *SRC_PATHS, *DOC_PATHS])
     errcount += run(["ruff", "check", "--fix", *SRC_PATHS])
     errcount += run(["ruff", "format", *SRC_PATHS])
     # errcount += run(["basedpyright", *SRC_PATHS]) # todo: update
