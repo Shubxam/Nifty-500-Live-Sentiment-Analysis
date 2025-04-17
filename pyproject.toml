@@ -146,7 +146,7 @@ reportUnknownMemberType = false
 reportOptionalMemberAccess = false
 
 [tool.codespell]
-# ignore-words-list = "foo,bar"
+ignore-words-list = "foo,bar,IST"
 # skip = "foo.py,bar.py"
 
 [tool.pytest.ini_options]
