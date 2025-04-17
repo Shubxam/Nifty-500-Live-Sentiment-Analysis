@@ -1,10 +1,11 @@
-import pandas as pd
-import pytest
+import atexit
 import os
 import shutil
 import sys
-import atexit
 import tempfile
+
+import pandas as pd
+import pytest
 
 # This adds the 'src' directory to the Python path.
 src_rel_path = "../src"
@@ -21,10 +22,14 @@ from database import DatabaseManager
 tempdir_path = tempfile.mkdtemp()
 print(f"Temporary directory created at: {tempdir_path}")
 
+
 def cleanup_dir():
-        print(f"Cleaning up temporary directory: {tempdir_path}")
-        shutil.rmtree(tempdir_path)
+    print(f"Cleaning up temporary directory: {tempdir_path}")
+    shutil.rmtree(tempdir_path)
+
+
 atexit.register(cleanup_dir)
+
 
 # Fixture to create a temporary database for testing
 @pytest.fixture(scope="module")
@@ -33,7 +38,6 @@ def db_manager():
     test_db_path = f"{tempdir_path}/test.db"  # Use in-memory database
     manager = DatabaseManager(db_path=test_db_path)
     yield manager
-
 
 
 # Test data
