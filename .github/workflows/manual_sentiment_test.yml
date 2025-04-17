@@ -19,7 +19,7 @@ jobs:
         # cache-dependency-glob: "**/pyproject.toml"
 
     - name: Install dependencies
-      run: uv sync
+      run: make install
 
     - name: Run sentiment analysis test script
       run: uv run ./src/sentiment_analysis_test.py
