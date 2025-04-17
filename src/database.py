@@ -1,3 +1,15 @@
+"""
+Provides classes for managing and interacting with the DuckDB database
+containing stock ticker news articles and metadata.
+
+This module includes:
+- DatabaseConnection: A context manager for handling DuckDB connections.
+- DatabaseManager: A class for initializing the database schema, inserting
+  article data and ticker metadata, and retrieving data.
+
+It uses DuckDB for storage and Pandas DataFrames for data manipulation.
+"""
+
 # implement duckdb cursor to write to same db with multiple threads
 
 import os
