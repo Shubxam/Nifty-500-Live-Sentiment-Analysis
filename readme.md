@@ -21,18 +21,26 @@ Here is the link to [Companion Article](https://xumitcapital.medium.com/sentimen
 
 ## Installation
 
+
+
 ```bash
 # Clone the repository
 git clone https://github.com/shubxam/Nifty-500-Live-Sentiment-Analysis.git
 cd Nifty-500-Live-Sentiment-Analysis
 
+# make sure you have UV installed.
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
 # Install dependencies
-uv sync --all-extras --dev
+make install-dev
 ```
 
 ## Usage
 
 ```bash
 # Run the application
-python -m src.main
+make run
+
+# generate the dashboard
+make dashboard
 ```
