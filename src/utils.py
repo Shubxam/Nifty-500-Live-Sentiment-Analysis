@@ -8,9 +8,10 @@ from loguru import logger
 from nse import NSE
 from tqdm import tqdm
 
-from config import SENTIMENT_MODEL_NAME, BATCH_SIZE
+from config import BATCH_SIZE, SENTIMENT_MODEL_NAME
 
 # META_FIELDS = [None] #todo
+
 
 def get_webpage_content(url: str) -> str:
     """
@@ -33,6 +34,7 @@ def get_webpage_content(url: str) -> str:
     except Exception as e:
         logger.warning(f"Error: {e}")
         return ""
+
 
 def fetch_metadata(ticker: str):
     """
@@ -66,46 +68,48 @@ def fetch_metadata(ticker: str):
 
     return [ticker, sector, industry, mCap, companyName]
 
+
 def parse_relative_date(date_string: str) -> datetime | None:
-        """google news contains date info in relative format. This method parses the relative date and turns into absolute dates.
+    """google news contains date info in relative format. This method parses the relative date and turns into absolute dates.
 
-        Parameters
-        ----------
-        date_string : str
-            article date in relative terms
+    Parameters
+    ----------
+    date_string : str
+        article date in relative terms
 
-        Returns
-        -------
-        datetime
-            datetime object
-        """
-        now: datetime = datetime.now()
-        parts: list[str] = date_string.split()
+    Returns
+    -------
+    datetime
+        datetime object
+    """
+    now: datetime = datetime.now()
+    parts: list[str] = date_string.split()
 
-        if len(parts) != 2 and len(parts) != 3:
-            return None
+    if len(parts) != 2 and len(parts) != 3:
+        return None
 
-        value: int = int(parts[0]) if parts[0] != "a" else 1
-        unit: str = parts[1]
+    value: int = int(parts[0]) if parts[0] != "a" else 1
+    unit: str = parts[1]
 
-        if unit.startswith("minute"):
-            return now - timedelta(minutes=value)
-        elif unit.startswith("hour"):
-            return now - timedelta(hours=value)
-        elif unit.startswith("day"):
-            return now - timedelta(days=value)
-        elif unit.startswith("week"):
-            return now - timedelta(weeks=value)
-        elif unit.startswith("month"):
-            return now - relativedelta(months=value)
-        elif unit.startswith("year"):
-            return now - relativedelta(years=value)
-        elif unit.startswith("yesterday"):
-            return now - timedelta(days=1)
-        elif unit.startswith("today"):
-            return now
-        else:
-            return None
+    if unit.startswith("minute"):
+        return now - timedelta(minutes=value)
+    elif unit.startswith("hour"):
+        return now - timedelta(hours=value)
+    elif unit.startswith("day"):
+        return now - timedelta(days=value)
+    elif unit.startswith("week"):
+        return now - timedelta(weeks=value)
+    elif unit.startswith("month"):
+        return now - relativedelta(months=value)
+    elif unit.startswith("year"):
+        return now - relativedelta(years=value)
+    elif unit.startswith("yesterday"):
+        return now - timedelta(days=1)
+    elif unit.startswith("today"):
+        return now
+    else:
+        return None
+
 
 def analyse_sentiment(headlines: list[str]):
     """
@@ -120,30 +124,32 @@ def analyse_sentiment(headlines: list[str]):
     -------
     pd.DataFrame
         returns sentiment scores in a df with positive negative and compound columns.
-    """      
-        
+    """
 
-    from transformers.models.bert import BertTokenizer, BertForSequenceClassification
+    from transformers.models.bert import BertForSequenceClassification, BertTokenizer
     from transformers.pipelines import pipeline
-
 
     finbert_1: BertForSequenceClassification = BertForSequenceClassification.from_pretrained(
         pretrained_model_name_or_path=SENTIMENT_MODEL_NAME,
         num_labels=3,
-        use_safetensors=True  # Use safe tensors
-        
+        use_safetensors=True,  # Use safe tensors
     )
 
-    tokenizer_1 = BertTokenizer.from_pretrained(
-        pretrained_model_name_or_path=SENTIMENT_MODEL_NAME
-    )
+    tokenizer_1 = BertTokenizer.from_pretrained(pretrained_model_name_or_path=SENTIMENT_MODEL_NAME)
 
     # set top_k=1 to get the most likely label or top_k=None to get all labels
     # device=-1 means CPU
-    nlp_1 = pipeline("sentiment-analysis", model=finbert_1, tokenizer=tokenizer_1, device=-1, top_k=None, framework="pt")
+    nlp_1 = pipeline(
+        "sentiment-analysis",
+        model=finbert_1,
+        tokenizer=tokenizer_1,
+        device=-1,
+        top_k=None,
+        framework="pt",
+    )
 
     try:
-        results: list[list[dict[str, str|float]]] = nlp_1(headlines, batch_size=BATCH_SIZE)
+        results: list[list[dict[str, str | float]]] = nlp_1(headlines, batch_size=BATCH_SIZE)
     except Exception as e:
         logger.warning(f"Error: {e}")
         return pd.DataFrame()
@@ -155,18 +161,18 @@ def analyse_sentiment(headlines: list[str]):
         )
         return pd.DataFrame()
 
-    logger.debug(
-        f"Articles for which Sentiment Score is available: {len(results)}"
-    )
+    logger.debug(f"Articles for which Sentiment Score is available: {len(results)}")
 
     # Initialize an empty list to hold the flattened data
     # we will transform a list of list of dictionaries into a list of dictionaries
-    flattened_data: list[dict[str,float]] = []
+    flattened_data: list[dict[str, float]] = []
 
     for news_item_sentiment_list in tqdm(iterable=results, desc="Processing Sentiment"):
         news_item_sentiment_dict = {}
         for individual_label_dict in news_item_sentiment_list:
-            news_item_sentiment_dict[individual_label_dict['label']] = individual_label_dict['score']
+            news_item_sentiment_dict[individual_label_dict["label"]] = individual_label_dict[
+                "score"
+            ]
         flattened_data.append(news_item_sentiment_dict)
 
     # Create the DataFrame
@@ -175,11 +181,16 @@ def analyse_sentiment(headlines: list[str]):
     logger.debug(f"DataFrame: {df}")
 
     # Calculate the compound score
-    df.loc[:, "compound"] = df.loc[:, "Positive"].where(df["Positive"] > df["Negative"], -df["Negative"]).astype(float).round(4)
+    df.loc[:, "compound"] = (
+        df.loc[:, "Positive"]
+        .where(df["Positive"] > df["Negative"], -df["Negative"])
+        .astype(float)
+        .round(4)
+    )
     df.loc[:, "compound"] = df.loc[:, "compound"].fillna(0)
     df.loc[:, "compound"] = df.loc[:, "compound"].clip(lower=-1, upper=1)
     return df
-            
+
 
 if __name__ == "__main__":
     # Example usage
@@ -187,7 +198,11 @@ if __name__ == "__main__":
     # content = get_webpage_content(url)
     # print(content)
 
-    test_headlines = ["ADANIENT Publishes news about quarterly results", "Equity markets are down", "Market volatility increases"]
+    test_headlines = [
+        "ADANIENT Publishes news about quarterly results",
+        "Equity markets are down",
+        "Market volatility increases",
+    ]
     sentiment_results = analyse_sentiment(test_headlines)
     logger.debug(f"Sentiment Results: {sentiment_results}")
 

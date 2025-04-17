@@ -25,6 +25,7 @@ fmt: str = "<white>{time:HH:mm:ss!UTC}({elapsed})</white> - <level> {level} - {m
 # Add a new logger configuration.
 logger.add(sys.stderr, colorize=True, level="INFO", format=fmt, enqueue=True)
 
+
 @final
 class StockDataFetcher:
     """
@@ -35,6 +36,7 @@ class StockDataFetcher:
         news_url (str): The base URL for fetching news from Google Finance.
         parallel_process (bool): Flag to enable/disable multiprocessing.
     """
+
     def __init__(self, universe: str = "nifty_50") -> None:
         """
         Initializes the StockDataFetcher.
@@ -44,7 +46,7 @@ class StockDataFetcher:
         """
         self.universe = universe
         self.news_url = "https://www.google.com/finance/quote"
-        self.parallel_process = True # Set to False to disable multiprocessing for debugging.
+        self.parallel_process = True  # Set to False to disable multiprocessing for debugging.
 
     def fetch_tickers(self) -> None:
         """
@@ -65,17 +67,21 @@ class StockDataFetcher:
             "nifty_50": "https://archives.nseindia.com/content/indices/ind_nifty50list.csv",
         }
 
-        logger.info(f"Downloading Tickers List for {self.universe} from {tickers_url_dict.get(self.universe, 'N/A')}")
+        logger.info(
+            f"Downloading Tickers List for {self.universe} from {tickers_url_dict.get(self.universe, 'N/A')}"
+        )
 
         ticker_list_url = tickers_url_dict.get(self.universe)
         if not ticker_list_url:
             logger.error(f"Invalid universe specified: {self.universe}")
-            return # Exit if the universe is not found in the dictionary
+            return  # Exit if the universe is not found in the dictionary
 
         try:
             ticker_list_df: pd.DataFrame = pd.read_csv(ticker_list_url)
             # Save the fetched tickers to a CSV file.
-            ticker_list_df.to_csv(f"./datasets/{self.universe}.csv", index=False) # Avoid saving pandas index
+            ticker_list_df.to_csv(
+                f"./datasets/{self.universe}.csv", index=False
+            )  # Avoid saving pandas index
             logger.info(f"Successfully saved tickers to ./datasets/{self.universe}.csv")
         except Exception as e:
             logger.warning(f"Error fetching tickers for {self.universe}: {e}")
@@ -104,7 +110,7 @@ class StockDataFetcher:
         """
         logger.debug(f"Parsing articles for {ticker}")
         article_data: list[list[str]] = []
-        soup_obj: BeautifulSoup = BeautifulSoup(html_content, 'html.parser')
+        soup_obj: BeautifulSoup = BeautifulSoup(html_content, "html.parser")
 
         # Select all news article container divs.
         news_articles: ResultSet[Tag] = soup_obj.select("div.z4rs2b")
@@ -124,20 +130,26 @@ class StockDataFetcher:
             # Parse the relative date string (e.g., "2 hours ago") into a datetime object.
             date_posted: datetime | None = utils.parse_relative_date(date_posted_str)
             # Format the datetime object or use current time if parsing fails.
-            date_posted_str_formatted: str = date_posted.strftime(
-                "%Y-%m-%d %H:%M:%S"
-            ) if date_posted is not None else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            date_posted_str_formatted: str = (
+                date_posted.strftime("%Y-%m-%d %H:%M:%S")
+                if date_posted is not None
+                else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            )
             source: str = link.select_one("div.sfyJob").text
-            article_link: str = link.select_one("a").get("href") # type: ignore[reportAssignmentType]
+            article_link: str = link.select_one("a").get("href")  # type: ignore[reportAssignmentType]
 
             # Append the extracted data for the article.
-            article_data.append([ticker, art_title, date_posted_str_formatted, source, article_link])
+            article_data.append(
+                [ticker, art_title, date_posted_str_formatted, source, article_link]
+            )
             ticker_articles_counter += 1
 
         logger.debug(f"{ticker_articles_counter} articles processed for {ticker}")
         return article_data, False
 
-    def process_ticker(self, ticker: str) -> dict[str, str | list[list[str]] | list[str | float] | bool | None]:
+    def process_ticker(
+        self, ticker: str
+    ) -> dict[str, str | list[list[str]] | list[str | float] | bool | None]:
         """
         Fetches news page HTML, parses articles, and retrieves metadata for a single ticker.
 
@@ -154,11 +166,11 @@ class StockDataFetcher:
 
         logger.info(f"Processing {ticker}")
 
-        url: str = f"{self.news_url}/{ticker+':NSE'}"
+        url: str = f"{self.news_url}/{ticker + ':NSE'}"
         logger.debug(f"Fetching web page for {ticker} from {url}")
         # Get the HTML content of the page.
         content: str = utils.get_webpage_content(url)
-        if not content: # Check if content fetching failed
+        if not content:  # Check if content fetching failed
             logger.warning(f"No content retrieved for {ticker} from {url}. Skipping!")
             return {
                 "ticker": ticker,
@@ -173,7 +185,7 @@ class StockDataFetcher:
             logger.warning(f"No news articles found for {ticker}. Skipping metadata fetch.")
             return {
                 "ticker": ticker,
-                "article_data": [], # Return empty list as no articles were found
+                "article_data": [],  # Return empty list as no articles were found
                 "ticker_meta": None,
                 "unavailable": True,
             }
@@ -182,7 +194,6 @@ class StockDataFetcher:
         ticker_meta: list[str | float] | None = utils.fetch_metadata(ticker)
         if ticker_meta is None:
             logger.warning(f"Metadata not found for ticker {ticker}.")
-
 
         return {
             "ticker": ticker,
@@ -197,14 +208,16 @@ class StockDataFetcher:
         try:
             tickers_df: pd.DataFrame = pd.read_csv(f"./datasets/{self.universe}.csv")
         except FileNotFoundError:
-            logger.error(f"Ticker file ./datasets/{self.universe}.csv not found. Run fetch_tickers first or check path.")
+            logger.error(
+                f"Ticker file ./datasets/{self.universe}.csv not found. Run fetch_tickers first or check path."
+            )
             return
         tickers_list: list[str] = list(tickers_df["Symbol"])
 
         # Fetch and process news data for all tickers.
         logger.info(f"Start Processing {len(tickers_list)} Tickers for {self.universe}")
 
-        ticker_data: list[dict[str, Any]] # Type hint for the list of results
+        ticker_data: list[dict[str, Any]]  # Type hint for the list of results
 
         if not self.parallel_process:
             # Process tickers sequentially.
@@ -220,7 +233,7 @@ class StockDataFetcher:
                     tqdm(
                         pool.imap(self.process_ticker, tickers_list),
                         total=len(tickers_list),
-                        desc="Processing Tickers (Parallel)"
+                        desc="Processing Tickers (Parallel)",
                     )
                 )
 
@@ -230,7 +243,9 @@ class StockDataFetcher:
         unavailable_tickers: list[str] = []
 
         # Check if any ticker yielded article data.
-        if not any(result.get("article_data") for result in ticker_data if not result.get("unavailable")):
+        if not any(
+            result.get("article_data") for result in ticker_data if not result.get("unavailable")
+        ):
             logger.warning("No news articles found for any ticker after processing. Exiting!")
             return
 
@@ -245,13 +260,14 @@ class StockDataFetcher:
                 if result.get("ticker_meta"):
                     ticker_meta.append(result["ticker_meta"])
 
-
         if unavailable_tickers:
             logger.info(f"Data unavailable or no news found for: {', '.join(unavailable_tickers)}")
 
         # Create DataFrame for articles if data exists.
         if not article_data:
-            logger.warning("No article data collected. Skipping sentiment analysis and database insertion.")
+            logger.warning(
+                "No article data collected. Skipping sentiment analysis and database insertion."
+            )
             return
 
         articles_df = pd.DataFrame(
@@ -261,9 +277,7 @@ class StockDataFetcher:
 
         logger.info("Performing Sentiment Analysis on collected headlines.")
         # Perform sentiment analysis on the headlines.
-        sentiment_scores_df = utils.analyse_sentiment(
-            articles_df["headline"].astype(str).to_list()
-        )
+        sentiment_scores_df = utils.analyse_sentiment(articles_df["headline"].astype(str).to_list())
 
         if not sentiment_scores_df.empty:
             logger.info("Merging sentiment scores with article data.")
@@ -273,14 +287,14 @@ class StockDataFetcher:
 
         # Use DatabaseManager to handle database operations
         db_manager = DatabaseManager("./datasets/ticker_data.db")
-        
+
         if not sentiment_scores_df.empty:
             # Insert articles with sentiment scores
             db_manager.insert_articles(articles_df, has_sentiment=True)
         else:
             # Insert articles without sentiment scores
             db_manager.insert_articles(articles_df, has_sentiment=False)
-        
+
         # Insert ticker metadata
         db_manager.insert_ticker_metadata(ticker_meta)
 

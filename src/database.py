@@ -1,10 +1,12 @@
 # implement duckdb cursor to write to same db with multiple threads
 
+import os
+from types import TracebackType
 from typing import Literal, final
+
 import duckdb
 import pandas as pd
 from loguru import logger
-import os
 
 
 class DatabaseConnection:
@@ -12,31 +14,36 @@ class DatabaseConnection:
     A context manager for DuckDB database connections.
     Allows for simplified database access with automatic resource cleanup.
     """
-    
+
     def __init__(self, db_path: str) -> None:
         """
         Initialize the database connection context manager.
-        
+
         Args:
             db_path: Path to the DuckDB database file
         """
         self.db_path: str = db_path
         self.conn: duckdb.DuckDBPyConnection | None = None
-    
+
     def __enter__(self):
         """
         Enter the context manager, establishing a connection to the database.
-        
+
         Returns:
             The DuckDB connection object
         """
         self.conn = duckdb.connect(self.db_path)
         return self.conn
-    
-    def __exit__(self, exc_type, exc_val, exc_tb):
+
+    def __exit__(
+        self,
+        exc_type: BaseException | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None:
         """
         Exit the context manager, closing the database connection.
-        
+
         Args:
             exc_type: Exception type if an exception was raised
             exc_val: Exception value if an exception was raised
@@ -65,10 +72,10 @@ class DatabaseManager:
     def get_connection(self) -> DatabaseConnection:
         """
         Get a database connection context manager.
-        
+
         Returns:
             A DatabaseConnection context manager
-        
+
         Example:
             ```python
             db_manager = DatabaseManager()
@@ -97,7 +104,7 @@ class DatabaseManager:
                     PRIMARY KEY (ticker, headline, date_posted)
                 )"""
             )
-            
+
             # Create ticker metadata table with ticker as primary key
             conn.execute(
                 """CREATE TABLE IF NOT EXISTS ticker_meta (
@@ -112,7 +119,7 @@ class DatabaseManager:
     def insert_articles(self, articles_df: pd.DataFrame, has_sentiment: bool = False) -> None:
         """
         Insert articles into the database with conflict resolution to avoid duplicates.
-        
+
         Args:
             articles_df: DataFrame with article data
             has_sentiment: Whether the DataFrame includes sentiment columns
@@ -144,7 +151,7 @@ class DatabaseManager:
     def insert_ticker_metadata(self, ticker_meta: list[list[str | float | None]]) -> None:
         """
         Insert or replace ticker metadata.
-        
+
         Args:
             ticker_meta: List of ticker metadata [ticker, sector, industry, mCap, companyName]
         """
@@ -156,50 +163,50 @@ class DatabaseManager:
                     """
                     INSERT OR REPLACE INTO ticker_meta 
                     VALUES (?, ?, ?, ?, ?)
-                    """, 
-                    meta
+                    """,
+                    meta,
                 )
 
     def get_articles(
-        self, 
-        n: int = 20, 
-        latest: bool = True, 
-        has_sentiment: bool = True, 
-        after_date: str | None = None
+        self,
+        n: int = 20,
+        latest: bool = True,
+        has_sentiment: bool = True,
+        after_date: str | None = None,
     ) -> pd.DataFrame:
         """
         Retrieve articles from the database with filtering options.
-        
+
         Args:
             n: Number of articles to return
             latest: If True, returns the n latest articles; if False, returns the n oldest
             has_sentiment: If False, returns only articles without sentiment scores
             after_date: Filter for articles after this date in 'yyyy-MM-dd' format (None for no date filtering)
-        
+
         Returns:
             DataFrame containing the filtered articles
         """
         with self.get_connection() as conn:
             query_parts = ["SELECT * FROM article_data WHERE 1=1"]
             params = []
-            
+
             # Apply sentiment filter
             if not has_sentiment:
                 query_parts.append("AND compound_sentiment IS NULL")
-                
+
             # Apply date filter
             if after_date is not None:
                 query_parts.append("AND date_posted >= ?")
                 params.append(after_date)
-                
+
             # Apply ordering
-            order_direction: Literal['DESC', 'ASC'] = "DESC" if latest else "ASC"
+            order_direction: Literal["DESC", "ASC"] = "DESC" if latest else "ASC"
             query_parts.append(f"ORDER BY date_posted {order_direction}")
-            
+
             # Apply limit
             query_parts.append("LIMIT ?")
             params.append(n)
-            
+
             # Build and execute query
             query = " ".join(query_parts)
             return conn.execute(query, params).fetchdf()
