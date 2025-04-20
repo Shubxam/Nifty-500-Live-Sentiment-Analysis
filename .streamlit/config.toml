@@ -1,0 +1,15 @@
+[theme]
+base = "dark"
+primaryColor = "#7792E3" # A nice shade of blue
+backgroundColor = "#0E1117" # Standard dark background
+secondaryBackgroundColor = "#262730" # Slightly lighter dark for widgets
+textColor = "#FAFAFA" # White/light grey text
+font = "sans-serif"
+baseRadius = "medium" # Rounded corners
+showWidgetBorder = false
+showSidebarBorder = false
+
+[theme.sidebar]
+# Inherits most settings from [theme]
+# You can override specific settings here if needed
+# e.g., backgroundColor = "#1E1E1E"
