@@ -14,5 +14,6 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ipykernel>=6.29.5",
+    "pandas-stubs>=2.2.3.250308",
     "watchdog>=6.0.0",
 ]
