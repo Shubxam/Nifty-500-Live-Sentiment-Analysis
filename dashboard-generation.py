@@ -1,13 +1,22 @@
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
+from streamlit import cache_data
 from whenever import Instant
 from database import DatabaseManager
 from config import UNIVERSE_NAMES_DICT, DatePickerOptions, IndexType
 from utils import get_relative_date
 
+# Constants
+TREEMAP_COLOR_SCALE = ["#FF0000", "#000000", "#00FF00"] # Define color scale as constant
+
+st.set_page_config(
+        page_title=f"Nifty Indices Sentiment Analyzer", layout="wide"
+    )
+
 # initialize session state
-# sesstion state variables persist across reruns
+# session state variables persist across reruns
 if "date_filter" not in st.session_state:
     st.session_state["date_filter"] = "Past 1 Month"
 if "universe_filter" not in st.session_state:
@@ -15,155 +24,188 @@ if "universe_filter" not in st.session_state:
 if "newsbox" not in st.session_state:
     st.session_state["newsbox"] = "SBIN"
 
-# Get current date, time and timezone to print to the App
-now = Instant.now().to_tz("Asia/Kolkata")
-datetime_now = now.py_datetime().strftime("%d/%m/%Y %H:%M:%S")
-timezone_string = now.tz
 
-# Filter articles by UNIVERSE
-universe: IndexType = st.session_state["universe_filter"]
-
-# universe string will be used at places where we need to show the universe name (without underscores)
-universe_string: str = UNIVERSE_NAMES_DICT[universe]
-
-# Get the date filter from session state and convert it to a date string  
-date_filter: DatePickerOptions = st.session_state["date_filter"]
-cut_off_date: str = get_relative_date(date_filter)
-
-# Get the data from database
-dbm: DatabaseManager = DatabaseManager()
-articles_data: pd.DataFrame = dbm.get_articles(has_sentiment=True, index=universe, after_date=cut_off_date)
-ticker_metadata = dbm.get_ticker_metadata(index=universe)
-universe_tickers = dbm.get_index_constituents(index=universe)
-
-# calculate mean sentiment scores
-ticker_aggregate_sentiment = (
-    articles_data.loc[
-        :, ["ticker", "positive_sentiment", "negative_sentiment", "compound_sentiment"]
-    ]
-    .groupby("ticker")
-    .mean()
-    .reset_index()
-)
-
-# merge dfs
-final_df = pd.merge(
-    left=ticker_metadata, right=ticker_aggregate_sentiment, on="ticker", how="inner"
-)
-
-final_df.rename(
-    columns={
-        "mCap": "Market Cap (Billion Rs)",
-        "compound_sentiment": "Sentiment Score",
-    },
-    inplace=True,
-)
-
-print(final_df.columns)
-print(final_df.head())
-
-# Plotting
-fig = px.treemap(
-    final_df,
-    path=[px.Constant(universe_string), "sector", "industry", "ticker"],
-    values="Market Cap (Billion Rs)",
-    color="Sentiment Score",
-    hover_data=[
-        "companyName",
-        "negative_sentiment",
-        "positive_sentiment",
-        "Sentiment Score",
-    ],
-    color_continuous_scale=["#FF0000", "#000000", "#00FF00"],
-    color_continuous_midpoint=0,
-)
-
-fig.data[0].texttemplate = "%{label}<br>%{customdata[3]}"
-fig.update_traces(textposition="middle center")
-fig.update_layout(height=800)
-fig.update_layout(margin=dict(t=30, l=10, r=10, b=10), font_size=20)
+@cache_data # Cache data loading
+def load_data(universe: IndexType, cut_off_date: str) -> tuple[pd.DataFrame, pd.DataFrame]: # Corrected return type hint
+    """Loads data from the database."""
+    dbm = DatabaseManager()
+    articles_data = dbm.get_articles(has_sentiment=True, index=universe, after_date=cut_off_date)
+    ticker_metadata = dbm.get_ticker_metadata(index=universe)
+    return articles_data, ticker_metadata
 
 
-###################### Streamlit App ######################
+@cache_data # Cache data processing
+def calculate_sentiment(articles_data: pd.DataFrame, ticker_metadata: pd.DataFrame) -> pd.DataFrame:
+    """Calculates aggregate sentiment scores and merges data."""
+    if articles_data.empty or ticker_metadata.empty:
+        return pd.DataFrame() # Return empty df if no data
 
-# stock specific news section
-news_ticker_name = st.session_state.newsbox
-news_df = articles_data[articles_data["ticker"] == news_ticker_name][
-    [
-        "ticker",
-        "headline",
-        "date_posted",
-        "source",
-        "article_link",
-        "compound_sentiment",
-    ]
-].reset_index(drop=True)
-news_df.rename(columns={"compound_sentiment": "Sentiment Score"}, inplace=True)
+    ticker_aggregate_sentiment: pd.DataFrame = ( # Add type hint
+        articles_data.loc[
+            :, ["ticker", "positive_sentiment", "negative_sentiment", "compound_sentiment"]
+        ]
+        .groupby("ticker")
+        .mean()
+        .reset_index()
+    )
+
+    # merge dfs
+    final_df: pd.DataFrame = pd.merge( # Add type hint
+        left=ticker_metadata, right=ticker_aggregate_sentiment, on="ticker", how="inner"
+    )
+
+    final_df.rename(
+        columns={
+            "mCap": "Market Cap (Billion Rs)",
+            "compound_sentiment": "Sentiment Score",
+        },
+        inplace=True,
+    )
+    return final_df
 
 
-# Streamlit App
-st.set_page_config(
-    page_title="{} Sentiment Analyzer".format(universe_string), layout="wide"
-)
-st.header("{} stocks Sentiment Analyzer".format(universe_string))
-# st.subheader()
+@cache_data # Cache plot creation
+def create_treemap(df: pd.DataFrame, universe_string: str) -> go.Figure | None: # Use | None
+    """Creates the Plotly treemap figure."""
+    if df.empty:
+        return None # Return None if no data to plot
 
-st.markdown(
-    "This dashboard gives users a almost real-time comprehensive visual overview on the sentiments regarding various NIFTY indices."
-)
+    fig: go.Figure = px.treemap( # Add type hint
+        df,
+        path=[px.Constant(universe_string), "sector", "industry", "ticker"],
+        values="Market Cap (Billion Rs)",
+        color="Sentiment Score",
+        hover_data=[
+            "companyName",
+            "negative_sentiment",
+            "positive_sentiment",
+            "Sentiment Score",
+        ],
+        color_continuous_scale=TREEMAP_COLOR_SCALE, # Use constant
+        color_continuous_midpoint=0,
+    )
 
-st.markdown(
-    "The chart shows the latest sentiment of Stocks and Industries in the Nifty 500 Universe."
-)
+    fig.data[0].texttemplate = "%{label}<br>%{customdata[3]:.2f}" # Format sentiment score
+    fig = fig.update_traces(textposition="middle center") # Reassign result
+    fig = fig.update_layout(height=800) # Reassign result
+    fig = fig.update_layout(margin=dict(t=30, l=10, r=10, b=10), font_size=20) # Reassign result
+    return fig
 
-# Update filters
-col1, col2, col3 = st.columns(3)
-with col1:
-    date_interval = st.selectbox(
+
+def display_news(articles_data: pd.DataFrame, ticker: str):
+    """Filters and displays news for a selected ticker."""
+    if articles_data.empty:
+        st.warning("No articles data available to display news.")
+        return
+
+    # Filter news for the selected ticker
+    news_df_filtered = articles_data[articles_data["ticker"] == ticker]
+
+    if news_df_filtered.empty:
+        st.info(f"No news found for ticker {ticker}.")
+        return
+
+    news_df: pd.DataFrame = news_df_filtered[ # Add type hint
+        [
+            "ticker",
+            "headline",
+            "date_posted",
+            "source",
+            "article_link",
+            "compound_sentiment",
+        ]
+    ].reset_index(drop=True)
+    news_df.rename(columns={"compound_sentiment": "Sentiment Score"}, inplace=True)
+
+    st.dataframe(
+        news_df.loc[
+            :, ["Sentiment Score", "headline", "date_posted", "source", "article_link"]
+        ],
+        column_config={ # Add column configuration for better display
+            "Sentiment Score": st.column_config.NumberColumn(format="%.2f"),
+            "article_link": st.column_config.LinkColumn("Link"),
+        },
+        hide_index=True
+    )
+
+
+def main():
+    """Main function to run the Streamlit app."""
+    # Get current date, time and timezone to print to the App
+    now = Instant.now().to_tz("Asia/Kolkata")
+    datetime_now = now.py_datetime().strftime("%d/%m/%Y %H:%M:%S")
+
+    # --- Sidebar / Filters ---
+    st.sidebar.header("Filters")
+    st.sidebar.selectbox(
         "Pick the Date Range",
         DatePickerOptions.__args__,
         key="date_filter",
     )
-with col2:
-    universe_var = st.selectbox(
+    st.sidebar.selectbox(
         "Select Universe of Stocks",
         IndexType.__args__,
         key="universe_filter",
     )
-with col3:
-    st.empty()
 
-chart_area = st.empty()
+    # --- Data Loading and Processing ---
+    universe: IndexType = st.session_state["universe_filter"]
+    universe_string: str = UNIVERSE_NAMES_DICT[universe]
+    date_filter: DatePickerOptions = st.session_state["date_filter"]
+    cut_off_date: str = get_relative_date(date_filter)
 
-chart_area.plotly_chart(fig, height=800, use_container_width=True)
+    # Load data using cached function
+    articles_data, ticker_metadata = load_data(universe, cut_off_date) # Removed universe_tickers assignment
 
+    # Calculate sentiment using cached function
+    final_df: pd.DataFrame = calculate_sentiment(articles_data, ticker_metadata) # Add type hint
 
+    # --- App Layout ---
+    st.header(f"{universe_string} stocks Sentiment Analyzer")
 
-col_1, col_2 = st.columns(2)
-with col_1:
-    st.selectbox(
-        "Type the Symbol name to get associated news: ",
-        final_df["ticker"],
-        key="newsbox",
+    st.markdown(
+        f"This dashboard gives users an almost real-time comprehensive visual overview on the sentiments of various NIFTY indices. \\It analyses the ticker specific news from the **{date_filter}** from the internet."
     )
 
-with col_2:
-    st.markdown(" ")
+    # --- Treemap Chart ---
+    if not final_df.empty:
+        fig = create_treemap(final_df, universe_string)
+        if fig:
+            st.plotly_chart(fig, height=800, use_container_width=True)
+        else:
+            st.warning("Could not generate treemap.")
+    else:
+        st.warning(f"No data available for the selected filters ({universe_string}, {date_filter}). Please try different filters.")
 
-st.dataframe(
-        news_df.loc[
-            :, ["Sentiment Score", "headline", "date_posted", "source", "article_link"]
-        ],
-        hide_index=True
-    )
 
-st.markdown(
+    # --- Stock Specific News Section ---
+    st.subheader("Stock Specific News")
+    if not final_df.empty:
+        selected_ticker: str | None = st.selectbox( # Use | None
+            "Type or select the Symbol name to get associated news:",
+            options=sorted(list(final_df["ticker"].unique())), # Cast unique to list for sorting
+            key="newsbox",
+        )
+        if selected_ticker:
+            display_news(articles_data, selected_ticker)
+        else:
+            st.info("Select a ticker to view news.")
+    else:
+         st.info("Select filters with data to enable news section.")
+
+
+    # --- Footer ---
+    st.markdown("---") # Add a separator
+    st.markdown(
+        """
+    - [GitHub Repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis)
+    - [Companion Article](https://xumitcapital.medium.com/sentiment-analysis-dashboard-using-python-d40506e2709d)
     """
-- [github repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis)
-- [Companion Article](https://xumitcapital.medium.com/sentiment-analysis-dashboard-using-python-d40506e2709d)
-"""
-)
-st.markdown("This is a treemap generated using python, plotly and streamlit.")
-st.info(
-    """This dashboard is updated everyday at 17:30 IST with sentiment analysis performed on latest scraped news headlines from the internet."""
-)
+    )
+    st.info(
+        f"""This dashboard is updated everyday at 17:30 IST. Last Refreshed: {datetime_now} ({now.tz})"""
+    )
+
+
+if __name__ == "__main__":
+    main()
