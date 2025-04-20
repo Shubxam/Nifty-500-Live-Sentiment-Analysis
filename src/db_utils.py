@@ -60,15 +60,15 @@ def query_duplicates(return_df: bool = False) -> pd.DataFrame | None:
 
 
 def deduplicate_db() -> None:
-    duplicates: pd.DataFrame | None = query_duplicates(return_df=True)
+    duplicates_count: int = query_duplicates(return_df=True).shape[0]
 
-    if duplicates is None:
+    if duplicates_count == 0:
         logger.info("No duplicates found to delete.")
         return
 
     with db_connection as conn:
         conn.execute(delete_duplicates_cmd)
-        logger.info(f"Deleted {duplicates.shape[0]} duplicate rows from database.")
+        logger.success(f"Deleted {duplicates_count} duplicate rows from database.")
 
 
 if __name__ == "__main__":
