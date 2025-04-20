@@ -13,7 +13,7 @@ from config import BATCH_SIZE, SENTIMENT_MODEL_NAME, HEADER
 # META_FIELDS = [None] #todo
 
 
-def get_webpage_content(url: str) -> str:
+def get_webpage_content(url: str, custom_header:bool = True) -> str:
     """
     Fetches the content of a webpage given its URL.
 
@@ -24,15 +24,15 @@ def get_webpage_content(url: str) -> str:
         str: The content of the webpage.
     """
     try:
-        response = httpx.get(url, headers=HEADER)
+        response = httpx.get(url, headers=HEADER, follow_redirects=True) if custom_header else httpx.get(url, follow_redirects=True)
         response.raise_for_status()  # Raise an error for bad responses
         return response.text
 
     except httpx.HTTPStatusError as e:
-        logger.warning(f"Error {e.response.status_code}")
+        logger.warning(f"Error {e.response.status_code} for URL: {url}")
         return ""
     except Exception as e:
-        logger.warning(f"Error: {e}")
+        logger.warning(f"Error fetching {url}: {e}")
         return ""
 
 
