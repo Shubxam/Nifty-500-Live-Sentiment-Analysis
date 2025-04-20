@@ -1,4 +1,4 @@
-from config import DatePickerOptions
+from .config import DatePickerOptions
 from whenever import (
     Instant,
     days,

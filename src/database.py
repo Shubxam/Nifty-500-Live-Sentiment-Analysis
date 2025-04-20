@@ -7,7 +7,7 @@ import sys
 from loguru import logger
 from typing import final
 from contextlib import contextmanager
-from config import IndexType
+from .config import IndexType
 import pandas as pd
 
 # remove default logger and add a new one
@@ -23,10 +23,10 @@ class DatabaseManager():
             logger.debug("Database path not provided.")
             # Construct path relative to this file's directory
             script_dir = os.path.dirname(os.path.abspath(__file__))
-            db_path = os.path.join(script_dir, "datasets", "ticker_data.db")
+            db_path = os.path.join(script_dir, "..", "datasets", "ticker_data.db")
 
             logger.debug(f"Database path set to: {db_path}")
-            self.db_path = os.path.join(script_dir, "datasets", "ticker_data.db")
+            self.db_path = db_path
         else:
             self.db_path = db_path
         self.conn: db.DuckDBPyConnection | None = None
