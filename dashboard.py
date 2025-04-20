@@ -4,9 +4,9 @@ import plotly.graph_objects as go
 import streamlit as st
 from streamlit import cache_data
 from whenever import Instant
-from database import DatabaseManager
-from config import UNIVERSE_NAMES_DICT, DatePickerOptions, IndexType, TREEMAP_COLOR_SCALE
-from utils import get_relative_date
+from src.database import DatabaseManager
+from src.config import UNIVERSE_NAMES_DICT, DatePickerOptions, IndexType, TREEMAP_COLOR_SCALE
+from src.utils import get_relative_date
 
 st.set_page_config(
         page_title=f"Nifty Indices Sentiment Analyzer", layout="wide"
