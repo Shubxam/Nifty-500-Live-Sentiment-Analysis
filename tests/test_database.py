@@ -90,6 +90,16 @@ def test_insert_articles_no_sentiment(db_manager):
         assert "AAPL" in df["ticker"].values
         assert df["negative_sentiment"].isnull().all()  # Check sentiment columns are NULL
 
+def test_insert_duplicate_articles(db_manager):
+    """Test inserting duplicate articles."""
+    # Insert the same articles twice
+    db_manager.insert_articles(mock_articles_no_sentiment, has_sentiment=False)
+    db_manager.insert_articles(mock_articles_no_sentiment, has_sentiment=False)
+
+    with db_manager.get_connection() as conn:
+        df = conn.execute("SELECT * FROM article_data").fetchdf()
+        assert len(df) == 2  # Should still be 2 due to primary key constraint
+        assert df["ticker"].nunique() == 2  # Ensure unique tickers
 
 def test_insert_articles_with_sentiment(db_manager):
     """Test inserting articles with sentiment scores."""
