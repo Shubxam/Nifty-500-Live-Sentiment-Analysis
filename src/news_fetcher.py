@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import final, override
 
 from utils import get_webpage_content, parse_date
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from loguru import logger
 
 class NewsSource(ABC):
@@ -33,14 +33,27 @@ class GoogleFinanceSource(NewsSource):
             soup = BeautifulSoup(response, 'html.parser')
             article_elements = soup.select(self.article_selector)
 
-            for article in article_elements:  # Limit to 10 most recent articles
+            for article in article_elements:
                 try:
-                    headline: str = article.select_one(self.headline_selector).text.strip().replace("\n", "")
-                    relative_date_str: str = article.select_one(self.date_selector).text
-                    source: str = article.select_one(self.source_selector).text
-                    article_link: str = article.select_one(self.link_selector).get("href")
+                    headline_tag: Tag | None = article.select_one(self.headline_selector)
+                    date_tag: Tag | None = article.select_one(self.date_selector)
+                    source_tag: Tag | None = article.select_one(self.source_selector)
+                    link_tag: Tag | None = article.select_one(self.link_selector)
 
-                    # Convert relative date to actual date
+                    if not all([headline_tag, date_tag, source_tag, link_tag]):
+                        logger.warning(f"Missing elements in Google Finance article for {ticker}")
+                        continue
+
+                    headline: str = headline_tag.text.strip().replace("\\n", "")
+                    relative_date_str: str = date_tag.text
+                    source: str = source_tag.text
+                    article_link_raw = link_tag.get("href")
+                    article_link: str = str(article_link_raw) if article_link_raw else ""
+
+                    if not article_link:
+                         logger.warning(f"Missing article link in Google Finance article for {ticker}")
+                         continue
+
                     date_posted: str | None = parse_date(relative_date_str)
 
                     self.articles.append({
@@ -48,7 +61,7 @@ class GoogleFinanceSource(NewsSource):
                         'headline': headline,
                         'date_posted': date_posted,
                         'article_link': article_link,
-                        'source': source  # Changed from news_source to source
+                        'source': source
                     })
                 except Exception as e:
                     logger.warning(f"Error parsing Google Finance article for {ticker}: {str(e)}")
@@ -67,7 +80,7 @@ class YahooFinanceSource(NewsSource):
         self.headline_selector: str = "a h3"
         self.footer_selector: str = "div.publishing.yf-1weyqlp"
         self.link_selector: str = "a"
-        
+
     @override
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
@@ -82,25 +95,35 @@ class YahooFinanceSource(NewsSource):
 
             for article in article_elements:
                 try:
-                    article_link: str = article.select_one(self.link_selector).get("href")
+                    link_tag: Tag | None = article.select_one(self.link_selector)
+                    headline_tag: Tag | None = article.select_one(self.headline_selector)
+                    footer_tag: Tag | None = article.select_one(self.footer_selector)
+
+                    if not link_tag or not headline_tag: # Footer is optional
+                        logger.warning(f"Missing link or headline in Yahoo Finance article for {ticker}")
+                        continue
+
+                    article_link_raw = link_tag.get("href")
+                    article_link: str = str(article_link_raw) if article_link_raw else ""
+                    if not article_link:
+                        logger.warning(f"Missing article link in Yahoo Finance article for {ticker}")
+                        continue
+
                     # Make sure we have a full URL
                     if not article_link.startswith('http'):
                         article_link = 'https://finance.yahoo.com' + article_link
 
-                    headline = article.select_one(self.headline_selector).text.strip()
+                    headline: str = headline_tag.text.strip()
 
                     # Get publisher and date from the footer
-                    footer = article.select_one(self.footer_selector)
-                    if footer:
-                        footer_text = footer.text.strip()
+                    source = 'Yahoo Finance' # Default source
+                    time_str = ''
+                    if footer_tag:
+                        footer_text = footer_tag.text.strip()
                         parts = footer_text.split("•")
                         source = parts[0].strip() if len(parts) > 0 else 'Yahoo Finance'
                         time_str = parts[1].strip() if len(parts) > 1 else ''
-                    else:
-                        source = 'Yahoo Finance'
-                        time_str = ''
 
-                    # Convert relative time to date
                     date_posted: str = parse_date(time_str)
 
                     data_dict = {
@@ -127,7 +150,7 @@ class FinologySource(NewsSource):
         self.article_selector: str = "div#newsarticles a#btnDetails.newslink"
         self.headline_selector: str = "span"
         self.date_selector: str = "small"
-    
+
     @override
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
@@ -142,17 +165,23 @@ class FinologySource(NewsSource):
 
             for article in article_elements:
                 try:
-                    headline = article.select_one(self.headline_selector).text.strip()
-                    date_str = article.select_one(self.date_selector).text.strip()
+                    headline_tag: Tag | None = article.select_one(self.headline_selector)
+                    date_tag: Tag | None = article.select_one(self.date_selector)
 
-                    # Convert Finology date format to YYYY-MM-DD
+                    if not headline_tag or not date_tag:
+                        logger.warning(f"Missing elements in Finology article for {ticker}")
+                        continue
+
+                    headline: str = headline_tag.text.strip()
+                    date_str: str = date_tag.text.strip()
+
                     date_posted = parse_date(date_str, relative=False, format="%d %b, %I:%M %p")
 
                     self.articles.append({
                         'ticker': ticker,
                         'headline': headline,
                         'date_posted': date_posted,
-                        'article_link': url,
+                        'article_link': url, # Finology links point back to the main page
                         'news_source': 'Finology'
                     })
                 except Exception as e:
@@ -176,16 +205,19 @@ class TickerNewsObject():
     def collect_news(self) -> list[dict[str, str]]:
         for source_name, source_obj in self.news_sources.items():
             logger.info(f"Fetching articles from {source_name} for {self.ticker}")
-            articles: list[dict[str, str]] = source_obj.get_articles(self.ticker)
-            if articles:
-                self.articles.extend(articles)
+            # Pass the shared client to the source object
+            fetched_articles: list[dict[str, str]] = source_obj.get_articles(self.ticker)
+            logger.info(f"Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}")
+            if fetched_articles:
+                self.articles.extend(fetched_articles)
+        logger.info(f"Collected {len(self.articles)} articles in total for {self.ticker}")
         return self.articles
 
 
 if __name__ == "__main__":
-    
-    ticker = "DIXON"
-    
+
+    ticker = "SBIN"
+
     ticker_news = TickerNewsObject(ticker)
     articles = ticker_news.collect_news()
     logger.info(f"Collected {len(articles)} articles for {ticker}")
