@@ -18,3 +18,5 @@ DatePickerOptions = Literal[
     "Past 2 Months",
     "Full",
 ]
+
+TREEMAP_COLOR_SCALE = ["#FF0000", "#000000", "#00FF00"]

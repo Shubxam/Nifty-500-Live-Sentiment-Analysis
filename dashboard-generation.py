@@ -5,11 +5,8 @@ import streamlit as st
 from streamlit import cache_data
 from whenever import Instant
 from database import DatabaseManager
-from config import UNIVERSE_NAMES_DICT, DatePickerOptions, IndexType
+from config import UNIVERSE_NAMES_DICT, DatePickerOptions, IndexType, TREEMAP_COLOR_SCALE
 from utils import get_relative_date
-
-# Constants
-TREEMAP_COLOR_SCALE = ["#FF0000", "#000000", "#00FF00"] # Define color scale as constant
 
 st.set_page_config(
         page_title=f"Nifty Indices Sentiment Analyzer", layout="wide"
@@ -26,7 +23,7 @@ if "newsbox" not in st.session_state:
 
 
 @cache_data # Cache data loading
-def load_data(universe: IndexType, cut_off_date: str) -> tuple[pd.DataFrame, pd.DataFrame]: # Corrected return type hint
+def load_data(universe: IndexType, cut_off_date: str) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Loads data from the database."""
     dbm = DatabaseManager()
     articles_data = dbm.get_articles(has_sentiment=True, index=universe, after_date=cut_off_date)
@@ -38,9 +35,9 @@ def load_data(universe: IndexType, cut_off_date: str) -> tuple[pd.DataFrame, pd.
 def calculate_sentiment(articles_data: pd.DataFrame, ticker_metadata: pd.DataFrame) -> pd.DataFrame:
     """Calculates aggregate sentiment scores and merges data."""
     if articles_data.empty or ticker_metadata.empty:
-        return pd.DataFrame() # Return empty df if no data
+        return pd.DataFrame()
 
-    ticker_aggregate_sentiment: pd.DataFrame = ( # Add type hint
+    ticker_aggregate_sentiment: pd.DataFrame = (
         articles_data.loc[
             :, ["ticker", "positive_sentiment", "negative_sentiment", "compound_sentiment"]
         ]
@@ -50,7 +47,7 @@ def calculate_sentiment(articles_data: pd.DataFrame, ticker_metadata: pd.DataFra
     )
 
     # merge dfs
-    final_df: pd.DataFrame = pd.merge( # Add type hint
+    final_df: pd.DataFrame = pd.merge(
         left=ticker_metadata, right=ticker_aggregate_sentiment, on="ticker", how="inner"
     )
 
@@ -65,12 +62,12 @@ def calculate_sentiment(articles_data: pd.DataFrame, ticker_metadata: pd.DataFra
 
 
 @cache_data # Cache plot creation
-def create_treemap(df: pd.DataFrame, universe_string: str) -> go.Figure | None: # Use | None
+def create_treemap(df: pd.DataFrame, universe_string: str) -> go.Figure | None:
     """Creates the Plotly treemap figure."""
     if df.empty:
-        return None # Return None if no data to plot
+        return None
 
-    fig: go.Figure = px.treemap( # Add type hint
+    fig: go.Figure = px.treemap(
         df,
         path=[px.Constant(universe_string), "sector", "industry", "ticker"],
         values="Market Cap (Billion Rs)",
@@ -81,14 +78,14 @@ def create_treemap(df: pd.DataFrame, universe_string: str) -> go.Figure | None: 
             "positive_sentiment",
             "Sentiment Score",
         ],
-        color_continuous_scale=TREEMAP_COLOR_SCALE, # Use constant
+        color_continuous_scale=TREEMAP_COLOR_SCALE,
         color_continuous_midpoint=0,
     )
 
-    fig.data[0].texttemplate = "%{label}<br>%{customdata[3]:.2f}" # Format sentiment score
-    fig = fig.update_traces(textposition="middle center") # Reassign result
-    fig = fig.update_layout(height=800) # Reassign result
-    fig = fig.update_layout(margin=dict(t=30, l=10, r=10, b=10), font_size=20) # Reassign result
+    fig.data[0].texttemplate = "%{label}<br>%{customdata[3]:.2f}"
+    fig = fig.update_traces(textposition="middle center")
+    fig = fig.update_layout(height=800)
+    fig = fig.update_layout(margin=dict(t=30, l=10, r=10, b=10), font_size=20)
     return fig
 
 
@@ -105,7 +102,7 @@ def display_news(articles_data: pd.DataFrame, ticker: str):
         st.info(f"No news found for ticker {ticker}.")
         return
 
-    news_df: pd.DataFrame = news_df_filtered[ # Add type hint
+    news_df: pd.DataFrame = news_df_filtered[
         [
             "ticker",
             "headline",
@@ -121,7 +118,7 @@ def display_news(articles_data: pd.DataFrame, ticker: str):
         news_df.loc[
             :, ["Sentiment Score", "headline", "date_posted", "source", "article_link"]
         ],
-        column_config={ # Add column configuration for better display
+        column_config={
             "Sentiment Score": st.column_config.NumberColumn(format="%.2f"),
             "article_link": st.column_config.LinkColumn("Link"),
         },
@@ -155,10 +152,10 @@ def main():
     cut_off_date: str = get_relative_date(date_filter)
 
     # Load data using cached function
-    articles_data, ticker_metadata = load_data(universe, cut_off_date) # Removed universe_tickers assignment
+    articles_data, ticker_metadata = load_data(universe, cut_off_date)
 
     # Calculate sentiment using cached function
-    final_df: pd.DataFrame = calculate_sentiment(articles_data, ticker_metadata) # Add type hint
+    final_df: pd.DataFrame = calculate_sentiment(articles_data, ticker_metadata)
 
     # --- App Layout ---
     st.header(f"{universe_string} stocks Sentiment Analyzer")
@@ -181,9 +178,9 @@ def main():
     # --- Stock Specific News Section ---
     st.subheader("Stock Specific News")
     if not final_df.empty:
-        selected_ticker: str | None = st.selectbox( # Use | None
+        selected_ticker: str | None = st.selectbox(
             "Type or select the Symbol name to get associated news:",
-            options=sorted(list(final_df["ticker"].unique())), # Cast unique to list for sorting
+            options=sorted(list(final_df["ticker"].unique())),
             key="newsbox",
         )
         if selected_ticker:
