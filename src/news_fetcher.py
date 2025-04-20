@@ -132,7 +132,6 @@ class FinologySource(NewsSource):
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
             url = f"{self.base_url}/{ticker}"
-            logger.debug(f"Fetching Finology articles for {ticker} from {url}")
             response = get_webpage_content(url, custom_header=False)
             if not response:
                 logger.warning(f"No response from Finology for {ticker}")
@@ -145,7 +144,6 @@ class FinologySource(NewsSource):
                 try:
                     headline = article.select_one(self.headline_selector).text.strip()
                     date_str = article.select_one(self.date_selector).text.strip()
-                    logger.debug(f"Date string: {date_str}")
 
                     # Convert Finology date format to YYYY-MM-DD
                     date_posted = parse_date(date_str, relative=False, format="%d %b, %I:%M %p")
@@ -165,21 +163,29 @@ class FinologySource(NewsSource):
             logger.error(f"Error fetching from Finology for {ticker}: {str(e)}")
         return self.articles
 
-if __name__ == "__main__":
-    # Example usage
-    ticker = "DIXON"
-    # google_finance_source = GoogleFinanceSource()
-    # articles = google_finance_source.get_articles(ticker)
-    # for article in articles:
-    #     print(article)
-    # # Example usage for Yahoo Finance
-    # yahoo_finance_source = YahooFinanceSource()
-    # articles = yahoo_finance_source.get_articles(ticker)
-    # for article in articles:
-    #     print(article)
+class TickerNewsObject():
+    def __init__(self, ticker: str) -> None:
+        self.ticker: str = ticker
+        self.news_sources: dict[str, NewsSource] = {
+            "GoogleFinance": GoogleFinanceSource(),
+            "YahooFinance": YahooFinanceSource(),
+            "Finology": FinologySource()
+        }
+        self.articles: list[dict[str, str]] = []
 
-    # Example usage for Finology
-    finology_source = FinologySource()
-    articles = finology_source.get_articles(ticker)
-    for article in articles:
-        print(article)
+    def collect_news(self) -> list[dict[str, str]]:
+        for source_name, source_obj in self.news_sources.items():
+            logger.info(f"Fetching articles from {source_name} for {self.ticker}")
+            articles: list[dict[str, str]] = source_obj.get_articles(self.ticker)
+            if articles:
+                self.articles.extend(articles)
+        return self.articles
+
+
+if __name__ == "__main__":
+    
+    ticker = "DIXON"
+    
+    ticker_news = TickerNewsObject(ticker)
+    articles = ticker_news.collect_news()
+    logger.info(f"Collected {len(articles)} articles for {ticker}")
