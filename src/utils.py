@@ -69,13 +69,15 @@ def fetch_metadata(ticker: str):
     return [ticker, sector, industry, mCap, companyName]
 
 
-def parse_relative_date(date_string: str) -> str:
+def parse_date(date_string: str, relative: bool = True, format: str|None = None) -> str:
     """google news contains date info in relative format. This method parses the relative date and turns into absolute dates.
 
     Parameters
     ----------
     date_string : str
         article date in relative terms
+    relative : bool
+        indicates if the date_string is in relative format
 
     Returns
     -------
@@ -83,35 +85,47 @@ def parse_relative_date(date_string: str) -> str:
         datetime object
     """
     now: datetime = datetime.now()
-    parts: list[str] = date_string.split()
-    
-    datetime_object: datetime
+    if relative:
+        parts: list[str] = date_string.split()
+        
+        datetime_object: datetime
 
-    if len(parts) != 2 and len(parts) != 3:
-        return ""
+        if len(parts) != 2 and len(parts) != 3:
+            return ""
 
-    value: int = int(parts[0]) if parts[0] not in ["a", "last"] else 1
-    unit: str = parts[1]
+        value: int = int(parts[0]) if parts[0] not in ["a", "last"] else 1
+        unit: str = parts[1]
 
-    if unit.startswith("minute"):
-        datetime_object = now - timedelta(minutes=value)
-    elif unit.startswith("hour"):
-        datetime_object = now - timedelta(hours=value)
-    elif unit.startswith("day"):
-        datetime_object = now - timedelta(days=value)
-    elif unit.startswith("week"):
-        datetime_object = now - timedelta(weeks=value)
-    elif unit.startswith("month"):
-        datetime_object = now - relativedelta(months=value)
-    elif unit.startswith("year"):
-        datetime_object = now - relativedelta(years=value)
-    elif unit.startswith("yesterday"):
-        datetime_object = now - timedelta(days=1)
-    elif unit.startswith("today"):
-        datetime_object = now
+        if unit.startswith("minute"):
+            datetime_object = now - timedelta(minutes=value)
+        elif unit.startswith("hour"):
+            datetime_object = now - timedelta(hours=value)
+        elif unit.startswith("day"):
+            datetime_object = now - timedelta(days=value)
+        elif unit.startswith("week"):
+            datetime_object = now - timedelta(weeks=value)
+        elif unit.startswith("month"):
+            datetime_object = now - relativedelta(months=value)
+        elif unit.startswith("year"):
+            datetime_object = now - relativedelta(years=value)
+        elif unit.startswith("yesterday"):
+            datetime_object = now - timedelta(days=1)
+        elif unit.startswith("today"):
+            datetime_object = now
+        else:
+            logger.warning(f"Unknown date format: {date_string}")
+            return ""
     else:
-        logger.warning(f"Unknown date format: {date_string}")
-        return ""
+        if not format:
+            logger.error("Format string is required for absolute date parsing.")
+            return ""
+        try:
+            datetime_object = datetime.strptime(date_string, format).replace(year=2025)
+            datetime_object = datetime_object if datetime_object < now else datetime_object.replace(year=datetime_object.year - 1)
+                            
+        except Exception as e:
+            logger.warning(f"Error parsing date '{date_string}': {e}")
+            return ""
 
     # Format the datetime object to a string
     datetime_format: str = "%Y-%m-%d %H:%M:%S"
