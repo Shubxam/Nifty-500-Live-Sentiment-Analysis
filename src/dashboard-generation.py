@@ -4,7 +4,7 @@ import datetime
 import pandas as pd
 import plotly.express as px
 import pytz
-
+from whenever import Instant
 from database import DatabaseManager
 
 # Initialize database manager
@@ -66,16 +66,15 @@ fig.update_layout(margin=dict(t=30, l=10, r=10, b=10), font_size=20)
 
 
 # Get current date, time and timezone to print to the html page
-now = datetime.datetime.now()
-ist_timezone = pytz.timezone("Asia/Kolkata")
-dt_string = now.astimezone(ist_timezone).strftime("%d/%m/%Y %H:%M:%S")
+now = Instant.now().to_tz("Asia/Kolkata")
+datetime_now = now.py_datetime().strftime("%d/%m/%Y %H:%M:%S")
 
 # Generate HTML File with Updated Time and Treemap
 print("Writing HTML")
 with open("../NIFTY_500_live_sentiment.html", "a") as f:
     f.truncate(0)  # clear file if something is already written on it
     title = "<h1>NIFTY 500 Stock Sentiment Dashboard</h1>"
-    updated = "<h2>Last updated: " + dt_string + " (Timezone: IST" + ")</h2>"
+    updated = f"<h2>Last updated: {datetime_now} (Timezone: {now.tz})</h2>"
     description = "This dashboard is updated at 17:30 IST Every Day with sentiment analysis performed on latest scraped news headlines.<br><br>"
     f.write(title + updated + description)
     f.write(
