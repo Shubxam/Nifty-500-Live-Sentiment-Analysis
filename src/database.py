@@ -113,7 +113,7 @@ class DatabaseManager:
                     neutral_sentiment FLOAT DEFAULT NULL,
                     compound_sentiment FLOAT DEFAULT NULL,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    PRIMARY KEY (ticker, headline, date_posted)
+                    PRIMARY KEY (ticker, headline)
                 )"""
             )
 
@@ -141,7 +141,7 @@ class DatabaseManager:
                 logger.info(
                     f"Inserting articles with sentiment scores for {len(articles_df)} news articles"
                 )
-                # Using UPSERT pattern (INSERT OR REPLACE)
+                # todo: Using UPSERT pattern (INSERT OR REPLACE)
                 conn.execute(
                     """
                     INSERT OR REPLACE INTO article_data 
