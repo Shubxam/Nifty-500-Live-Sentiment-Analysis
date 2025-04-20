@@ -8,7 +8,7 @@ from loguru import logger
 from nse import NSE
 from tqdm import tqdm
 
-from config import BATCH_SIZE, SENTIMENT_MODEL_NAME
+from config import BATCH_SIZE, SENTIMENT_MODEL_NAME, HEADER
 
 # META_FIELDS = [None] #todo
 
@@ -24,7 +24,7 @@ def get_webpage_content(url: str) -> str:
         str: The content of the webpage.
     """
     try:
-        response = httpx.get(url)
+        response = httpx.get(url, headers=HEADER)
         response.raise_for_status()  # Raise an error for bad responses
         return response.text
 
@@ -69,7 +69,7 @@ def fetch_metadata(ticker: str):
     return [ticker, sector, industry, mCap, companyName]
 
 
-def parse_relative_date(date_string: str) -> datetime | None:
+def parse_relative_date(date_string: str) -> str:
     """google news contains date info in relative format. This method parses the relative date and turns into absolute dates.
 
     Parameters
@@ -84,31 +84,39 @@ def parse_relative_date(date_string: str) -> datetime | None:
     """
     now: datetime = datetime.now()
     parts: list[str] = date_string.split()
+    
+    datetime_object: datetime
 
     if len(parts) != 2 and len(parts) != 3:
-        return None
+        return ""
 
-    value: int = int(parts[0]) if parts[0] != "a" else 1
+    value: int = int(parts[0]) if parts[0] not in ["a", "last"] else 1
     unit: str = parts[1]
 
     if unit.startswith("minute"):
-        return now - timedelta(minutes=value)
+        datetime_object = now - timedelta(minutes=value)
     elif unit.startswith("hour"):
-        return now - timedelta(hours=value)
+        datetime_object = now - timedelta(hours=value)
     elif unit.startswith("day"):
-        return now - timedelta(days=value)
+        datetime_object = now - timedelta(days=value)
     elif unit.startswith("week"):
-        return now - timedelta(weeks=value)
+        datetime_object = now - timedelta(weeks=value)
     elif unit.startswith("month"):
-        return now - relativedelta(months=value)
+        datetime_object = now - relativedelta(months=value)
     elif unit.startswith("year"):
-        return now - relativedelta(years=value)
+        datetime_object = now - relativedelta(years=value)
     elif unit.startswith("yesterday"):
-        return now - timedelta(days=1)
+        datetime_object = now - timedelta(days=1)
     elif unit.startswith("today"):
-        return now
+        datetime_object = now
     else:
-        return None
+        logger.warning(f"Unknown date format: {date_string}")
+        return ""
+
+    # Format the datetime object to a string
+    datetime_format: str = "%Y-%m-%d %H:%M:%S"
+    formatted_date: str = datetime_object.strftime(datetime_format)
+    return formatted_date
 
 
 def analyse_sentiment(headlines: list[str]):
