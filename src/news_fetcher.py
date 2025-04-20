@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import final, override
-from utils import get_webpage_content, parse_relative_date
+
+from utils import get_webpage_content, parse_date
 from bs4 import BeautifulSoup
 from loguru import logger
 
@@ -49,7 +50,7 @@ class GoogleFinanceSource(NewsSource):
                     article_link: str = article.select_one(self.link_selector).get("href")
 
                     # Convert relative date to actual date
-                    date_posted: str | None = parse_relative_date(relative_date_str)
+                    date_posted: str | None = parse_date(relative_date_str)
 
                     self.articles.append({
                         'ticker': ticker,
@@ -110,7 +111,7 @@ class YahooFinanceSource(NewsSource):
                         time_str = ''
 
                     # Convert relative time to date
-                    date_posted: str = parse_relative_date(time_str)
+                    date_posted: str = parse_date(time_str)
 
                     data_dict = {
                         'ticker': ticker,
