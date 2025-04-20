@@ -7,6 +7,7 @@ from config import UNIVERSE_NAMES_DICT, DatePickerOptions, IndexType
 from utils import get_relative_date
 
 # initialize session state
+# sesstion state variables persist across reruns
 if "date_filter" not in st.session_state:
     st.session_state["date_filter"] = "Past 1 Month"
 if "universe_filter" not in st.session_state:
