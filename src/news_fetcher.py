@@ -81,7 +81,6 @@ class YahooFinanceSource(NewsSource):
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
             url = f"{self.base_url}/{ticker}.NS/news/"
-            logger.info(f"Fetching Yahoo Finance articles for {ticker} from {url}")
             response = get_webpage_content(url)
             if not response:
                 logger.warning(f"No response from Yahoo Finance for {ticker}")
@@ -129,15 +128,67 @@ class YahooFinanceSource(NewsSource):
             logger.error(f"Error fetching from Yahoo Finance for {ticker}: {str(e)}")
         return self.articles
 
+@final
+class FinologySource(NewsSource):
+    def __init__(self):
+        self.base_url = "https://ticker.finology.in/company"
+        self.articles: list[dict[str, str]] = []
+        self.article_selector: str = "div#newsarticles a#btnDetails.newslink"
+        self.headline_selector: str = "span"
+        self.date_selector: str = "small"
+    
+    @override
+    def get_articles(self, ticker: str) -> list[dict[str, str]]:
+        try:
+            url = f"{self.base_url}/{ticker}"
+            logger.debug(f"Fetching Finology articles for {ticker} from {url}")
+            response = get_webpage_content(url, custom_header=False)
+            if not response:
+                logger.warning(f"No response from Finology for {ticker}")
+                return self.articles
+
+            soup = BeautifulSoup(response, 'html.parser')
+            article_elements = soup.select(self.article_selector)
+
+            for article in article_elements:
+                try:
+                    headline = article.select_one(self.headline_selector).text.strip()
+                    date_str = article.select_one(self.date_selector).text.strip()
+                    logger.debug(f"Date string: {date_str}")
+
+                    # Convert Finology date format to YYYY-MM-DD
+                    date_posted = parse_date(date_str, relative=False, format="%d %b, %I:%M %p")
+
+                    self.articles.append({
+                        'ticker': ticker,
+                        'headline': headline,
+                        'date_posted': date_posted,
+                        'article_link': url,
+                        'news_source': 'Finology'
+                    })
+                except Exception as e:
+                    logger.warning(f"Error parsing Finology article for {ticker}: {str(e)}")
+                    continue
+
+        except Exception as e:
+            logger.error(f"Error fetching from Finology for {ticker}: {str(e)}")
+        return self.articles
+
 if __name__ == "__main__":
     # Example usage
     ticker = "DIXON"
-    google_finance_source = GoogleFinanceSource()
-    articles = google_finance_source.get_articles(ticker)
-    for article in articles:
-        print(article)
-    # Example usage for Yahoo Finance
-    yahoo_finance_source = YahooFinanceSource()
-    articles = yahoo_finance_source.get_articles(ticker)
+    # google_finance_source = GoogleFinanceSource()
+    # articles = google_finance_source.get_articles(ticker)
+    # for article in articles:
+    #     print(article)
+    # # Example usage for Yahoo Finance
+    # yahoo_finance_source = YahooFinanceSource()
+    # articles = yahoo_finance_source.get_articles(ticker)
+    # for article in articles:
+    #     print(article)
+
+    # Example usage for Finology
+    finology_source = FinologySource()
+    articles = finology_source.get_articles(ticker)
     for article in articles:
         print(article)
