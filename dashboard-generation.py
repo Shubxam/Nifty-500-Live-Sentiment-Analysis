@@ -161,7 +161,7 @@ def main():
     st.header(f"{universe_string} stocks Sentiment Analyzer")
 
     st.markdown(
-        f"This dashboard gives users an almost real-time comprehensive visual overview on the sentiments of various NIFTY indices. \\It analyses the ticker specific news from the **{date_filter}** from the internet."
+        f"This dashboard gives users an almost real-time comprehensive visual overview on the sentiments of various NIFTY indices. It analyses the ticker specific news from the **{date_filter}** from the internet."
     )
 
     # --- Treemap Chart ---
