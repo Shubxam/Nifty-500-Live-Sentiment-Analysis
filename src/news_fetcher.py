@@ -11,15 +11,6 @@ class NewsSource(ABC):
         """Fetch articles for a given ticker"""
         pass
 
-GOOGLE_FINANCE = {
-    "base_url": "https://www.google.com/finance/quote",
-    "article_selector": "div.z4rs2b",
-    "headline_selector": "div.Yfwt5",
-    "date_selector": "div.Adak",
-    "source_selector": "div.sfyJob",
-    "link_selector": "a"
-}
-
 @final
 class GoogleFinanceSource(NewsSource):
     def __init__(self):
