@@ -151,7 +151,7 @@ class DatabaseManager:
                     )
                     SELECT 
                         ticker, headline, date_posted, source, article_link,
-                        neutral_sentiment, negative_sentiment, positive_sentiment, compound_sentiment, CURRENT_TIMESTAMP
+                        Neutral, Negative, Positive, compound, CURRENT_TIMESTAMP
                     FROM articles_df
                     ON CONFLICT (ticker, headline) DO NOTHING;
                     """
