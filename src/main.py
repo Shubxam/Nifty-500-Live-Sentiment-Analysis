@@ -9,7 +9,7 @@ import sys
 import pandas as pd
 from loguru import logger
 from tqdm import tqdm
-
+from config import Index
 import utils as utils
 from database import DatabaseManager
 from news_fetcher import TickerNewsObject
@@ -33,16 +33,16 @@ def worker_collect_news(ticker_obj: TickerNewsObject) -> list[dict[str, str]]:
         return [] # Return empty list on error
 
 
-def get_news(universe: str = "nifty_50", multiprocess:bool =False) -> None:
+def get_news(universe: Index = Index.NIFTY_50, multiprocess:bool =False) -> None:
 
     dbm = DatabaseManager()
 
     # Fetch the tickers
-    tickers_df = dbm.get_index_constituents(universe).loc[0:5, "ticker"]
+    tickers_df = dbm.get_index_constituents(universe).loc[:, "ticker"]
     ticker_objs: list[TickerNewsObject] = [TickerNewsObject(ticker) for ticker in tickers_df]
 
     # Fetch and process news data for all tickers.
-    logger.info(f"Start Processing {len(ticker_objs)} Tickers for {universe}")
+    logger.info(f"Start Processing {len(ticker_objs)} Tickers for {universe.value}")
 
     all_articles: list[dict[str, str]] = []  # Renamed to clarify it holds all articles
 
@@ -114,7 +114,7 @@ def compute_and_update_sentiment(n: int=200):
 if __name__ == "__main__":
     # Example usage: Fetch data for Nifty 50.
     # Choose the universe: "nifty_50", "nifty_100", "nifty_200", "nifty_500"
-    universe: str = "nifty_50"
+    universe: Index = Index.NIFTY_50
     multiprocess: bool = True
     # Call the function to fetch news
     get_news(universe, multiprocess)

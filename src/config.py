@@ -1,3 +1,5 @@
+from enum import Enum
+
 SENTIMENT_MODEL_NAME = "yiyanghkust/finbert-tone"
 BATCH_SIZE = 8
 HEADER: dict[str, str] = {
@@ -15,3 +17,10 @@ HEADER: dict[str, str] = {
     "Sec-Fetch-User": "?1",
     "Cache-Control": "max-age=0"
 }
+
+class Index(str, Enum):
+    """Enum representing available stock indices."""
+    NIFTY_50 = "nifty_50"
+    NIFTY_100 = "nifty_100"
+    NIFTY_200 = "nifty_200"
+    NIFTY_500 = "nifty_500"
