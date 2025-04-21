@@ -144,8 +144,16 @@ class DatabaseManager:
                 # todo: Using UPSERT pattern (INSERT OR REPLACE)
                 conn.execute(
                     """
-                    INSERT OR REPLACE INTO article_data 
-                    SELECT *, CURRENT_TIMESTAMP FROM articles_df
+                    INSERT INTO article_data (
+                        ticker, headline, date_posted, source, article_link,
+                        neutral_sentiment, negative_sentiment, positive_sentiment, compound_sentiment, created_at
+            
+                    )
+                    SELECT 
+                        ticker, headline, date_posted, source, article_link,
+                        neutral_sentiment, negative_sentiment, positive_sentiment, compound_sentiment, CURRENT_TIMESTAMP
+                    FROM articles_df
+                    ON CONFLICT (ticker, headline) DO NOTHING;
                     """
                 )
             else:
@@ -154,9 +162,12 @@ class DatabaseManager:
                 )
                 conn.execute(
                     """
-                    INSERT OR REPLACE INTO article_data 
+                    INSERT INTO article_data 
                     (ticker, headline, date_posted, source, article_link, created_at) 
-                    SELECT *, CURRENT_TIMESTAMP FROM articles_df
+                    SELECT 
+                        ticker, headline, date_posted, source, article_link, CURRENT_TIMESTAMP 
+                    FROM articles_df
+                    ON CONFLICT (ticker, headline) DO NOTHING;
                     """
                 )
 
