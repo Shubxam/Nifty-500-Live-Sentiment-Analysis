@@ -286,7 +286,7 @@ class StockDataFetcher:
             )
 
         # Use DatabaseManager to handle database operations
-        db_manager = DatabaseManager("./datasets/ticker_data.db")
+        db_manager = DatabaseManager()
 
         if not sentiment_scores_df.empty:
             # Insert articles with sentiment scores
