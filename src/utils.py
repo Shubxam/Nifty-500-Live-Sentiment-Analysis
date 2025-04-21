@@ -7,13 +7,12 @@ from dateutil.relativedelta import relativedelta
 from loguru import logger
 from nse import NSE
 from tqdm import tqdm
-from pprint import pprint
-from config import BATCH_SIZE, SENTIMENT_MODEL_NAME
+from config import BATCH_SIZE, SENTIMENT_MODEL_NAME, HEADER
 
 # META_FIELDS = [None] #todo
 
 
-def get_webpage_content(url: str) -> str:
+def get_webpage_content(url: str, custom_header:bool = True) -> str:
     """
     Fetches the content of a webpage given its URL.
 
@@ -24,15 +23,15 @@ def get_webpage_content(url: str) -> str:
         str: The content of the webpage.
     """
     try:
-        response = httpx.get(url)
+        response = httpx.get(url, headers=HEADER, follow_redirects=True) if custom_header else httpx.get(url, follow_redirects=True)
         response.raise_for_status()  # Raise an error for bad responses
         return response.text
 
     except httpx.HTTPStatusError as e:
-        logger.warning(f"Error {e.response.status_code}")
+        logger.warning(f"Error {e.response.status_code} for URL: {url}")
         return ""
     except Exception as e:
-        logger.warning(f"Error: {e}")
+        logger.warning(f"Error fetching {url}: {e}")
         return ""
 
 
@@ -69,13 +68,15 @@ def fetch_metadata(ticker: str):
     return [ticker, sector, industry, mCap, companyName]
 
 
-def parse_relative_date(date_string: str) -> datetime | None:
+def parse_date(date_string: str, relative: bool = True, format: str|None = None) -> str:
     """google news contains date info in relative format. This method parses the relative date and turns into absolute dates.
 
     Parameters
     ----------
     date_string : str
         article date in relative terms
+    relative : bool
+        indicates if the date_string is in relative format
 
     Returns
     -------
@@ -83,35 +84,55 @@ def parse_relative_date(date_string: str) -> datetime | None:
         datetime object
     """
     now: datetime = datetime.now()
-    parts: list[str] = date_string.split()
+    if relative:
+        parts: list[str] = date_string.split()
+        
+        datetime_object: datetime
 
-    if len(parts) != 2 and len(parts) != 3:
-        return None
+        if len(parts) != 2 and len(parts) != 3:
+            return ""
 
-    value: int = int(parts[0]) if parts[0] != "a" else 1
-    unit: str = parts[1]
+        value: int = int(parts[0]) if parts[0] not in ["a", "last"] else 1
+        unit: str = parts[1]
 
-    if unit.startswith("minute"):
-        return now - timedelta(minutes=value)
-    elif unit.startswith("hour"):
-        return now - timedelta(hours=value)
-    elif unit.startswith("day"):
-        return now - timedelta(days=value)
-    elif unit.startswith("week"):
-        return now - timedelta(weeks=value)
-    elif unit.startswith("month"):
-        return now - relativedelta(months=value)
-    elif unit.startswith("year"):
-        return now - relativedelta(years=value)
-    elif unit.startswith("yesterday"):
-        return now - timedelta(days=1)
-    elif unit.startswith("today"):
-        return now
+        if unit.startswith("minute"):
+            datetime_object = now - timedelta(minutes=value)
+        elif unit.startswith("hour"):
+            datetime_object = now - timedelta(hours=value)
+        elif unit.startswith("day"):
+            datetime_object = now - timedelta(days=value)
+        elif unit.startswith("week"):
+            datetime_object = now - timedelta(weeks=value)
+        elif unit.startswith("month"):
+            datetime_object = now - relativedelta(months=value)
+        elif unit.startswith("year"):
+            datetime_object = now - relativedelta(years=value)
+        elif unit.startswith("yesterday"):
+            datetime_object = now - timedelta(days=1)
+        elif unit.startswith("today"):
+            datetime_object = now
+        else:
+            logger.warning(f"Unknown date format: {date_string}")
+            return ""
     else:
-        return None
+        if not format:
+            logger.error("Format string is required for absolute date parsing.")
+            return ""
+        try:
+            datetime_object = datetime.strptime(date_string, format).replace(year=2025)
+            datetime_object = datetime_object if datetime_object < now else datetime_object.replace(year=datetime_object.year - 1)
+                            
+        except Exception as e:
+            logger.warning(f"Error parsing date '{date_string}': {e}")
+            return ""
+
+    # Format the datetime object to a string
+    datetime_format: str = "%Y-%m-%d %H:%M:%S"
+    formatted_date: str = datetime_object.strftime(datetime_format)
+    return formatted_date
 
 
-def analyse_sentiment(headlines: list[str]):
+def analyse_sentiment(headlines: list[str]) -> pd.DataFrame:
     """
     Perform Sentiment Analysis using finBERT model. Create a dataframe from the results.
 
@@ -123,7 +144,8 @@ def analyse_sentiment(headlines: list[str]):
     Returns
     -------
     pd.DataFrame
-        returns sentiment scores in a df with positive negative and compound columns.
+        returns sentiment scores in a df with following columns:
+        Positive, Negative, Neutral, compound
     """
 
     from transformers.models.bert import BertForSequenceClassification, BertTokenizer
@@ -204,60 +226,4 @@ if __name__ == "__main__":
         "Market volatility increases",
     ]
     sentiment_results = analyse_sentiment(test_headlines)
-    pprint(sentiment_results)
-
-# use when getting news from multiple sites for same ticker
-# # ... other imports ...
-# import httpx
-# from bs4 import BeautifulSoup
-# # ...
-
-# # Function to be run by each process
-# def worker_process_ticker(ticker_info):
-#     ticker, header, news_url = ticker_info # Unpack necessary info
-#     # Create a client *inside* the worker process
-#     with httpx.Client(headers=header, timeout=10.0) as client:
-#         _ticker: str = ticker + ":NSE"
-#         url: str = f"{news_url}/{_ticker}"
-#         logger.debug(f"Fetching data for {ticker} from {url}")
-#         try:
-#             response: Response = client.get(url) # Use the process-local client
-#             response.raise_for_status()
-#             soup: BeautifulSoup = BeautifulSoup(response.text, "lxml")
-#             # ... rest of the processing for this ticker ...
-#             # Fetch meta, articles etc. (You might need to pass more info or adjust logic)
-#             # For simplicity, assuming get_url_content logic is moved/adapted here
-#             # meta = fetch_meta(ticker) # Placeholder for meta fetching logic
-#             # article_data, no_news = fetch_articles(ticker, soup) # Placeholder
-
-#             # Return results
-#             # return { ... }
-#         except Exception as e:
-#             logger.warning(f"Error processing {ticker} in worker: {e}")
-#             # return { "ticker": ticker, "unavailable": True, ... } # Return error state
-
-# # In your main run method:
-# class StockDataFetcher:
-#     # ... __init__ ...
-
-#     # ... other methods ...
-
-#     def run(self) -> None:
-#         # ... fetch tickers ...
-#         tickers_list = list(tickers_df["Symbol"])
-
-#         if self.parallel_process:
-#             # Prepare data to pass to workers (avoid passing self)
-#             worker_args = [(ticker, self.header, self.news_url) for ticker in tickers_list]
-#             with mp.Pool(processes=mp.cpu_count()) as pool:
-#                 # Use the worker function
-#                 ticker_data = list(
-#                     tqdm(
-#                         pool.imap(worker_process_ticker, worker_args),
-#                         total=len(tickers_list),
-#                     )
-#                 )
-#         else:
-#              # ... serial processing ...
-
-#         # ... process results ...
+    logger.debug(f"Sentiment Results: {sentiment_results}")
