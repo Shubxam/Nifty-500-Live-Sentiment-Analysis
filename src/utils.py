@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from loguru import logger
 from nse import NSE
 from tqdm import tqdm
-
+from pprint import pprint
 from config import BATCH_SIZE, SENTIMENT_MODEL_NAME
 
 # META_FIELDS = [None] #todo
@@ -204,7 +204,7 @@ if __name__ == "__main__":
         "Market volatility increases",
     ]
     sentiment_results = analyse_sentiment(test_headlines)
-    logger.debug(f"Sentiment Results: {sentiment_results}")
+    pprint(sentiment_results)
 
 # use when getting news from multiple sites for same ticker
 # # ... other imports ...
