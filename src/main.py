@@ -8,13 +8,11 @@ import sys
 
 import pandas as pd
 from loguru import logger
-from torch import mul
 from tqdm import tqdm
 
 import utils as utils
 from database import DatabaseManager
 from news_fetcher import TickerNewsObject
-from pprint import pprint
 
 # Remove the default logger to prevent duplicate log entries.
 logger.remove()
@@ -87,13 +85,30 @@ def get_news(universe: str = "nifty_50", multiprocess:bool =False) -> None:
 
     # Drop rows where essential info might be missing (e.g., headline)
     articles_df.dropna(subset=['headline'], inplace=True)
-    pprint(articles_df.head())
+    
+    dbm.insert_articles(articles_df, has_sentiment=False)
 
-def SentimentAnalyzer():
+def compute_and_update_sentiment(n: int=200):
     # get 200 latest articles without sentiment score from the database
-    # and perform sentiment analysis on them
-    # and update the database with the sentiment scores
-    pass
+    dbm: DatabaseManager = DatabaseManager()
+    articles_df: pd.DataFrame = dbm.get_articles(n=n, has_sentiment=False, latest=True)
+    if articles_df.empty:
+        logger.warning("No articles without sentiment scores found in the database.")
+        return
+    logger.info(f"Fetched {articles_df.shape[0]} articles without sentiment scores from the database")
+    # perform sentiment analysis on them
+    headlines: list[str] = articles_df["headline"].tolist()
+    sentiment_scores = utils.analyse_sentiment(headlines)
+    articles_df_with_sentiment = articles_df.merge(
+        sentiment_scores,
+        left_index=True,
+        right_index=True,
+        how='inner')
+    # update the database with the sentiment scores
+    # we can use insert function since all the duplicate articles (ticker, headline) will be replaced
+    # and the new sentiment scores will be added.
+    dbm.insert_articles(articles_df_with_sentiment, has_sentiment=True) 
+    logger.success(f"Updated database with sentiment scores for {articles_df_with_sentiment.shape[0]} articles.")
 
 
 if __name__ == "__main__":
@@ -103,3 +118,4 @@ if __name__ == "__main__":
     multiprocess: bool = True
     # Call the function to fetch news
     get_news(universe, multiprocess)
+    compute_and_update_sentiment()
