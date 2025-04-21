@@ -71,6 +71,9 @@ def deduplicate_db() -> None:
         logger.success(f"Deleted {duplicates_count} duplicate rows from database.")
 
 
+# todo: add function to update ticker_meta everyday
+# todo: add function to update indices_constituents 
+
 if __name__ == "__main__":
     query_duplicates()
     # deduplicate_db()
