@@ -133,7 +133,7 @@ def parse_date(date_string: str, relative: bool = True, format: str|None = None)
     return formatted_date
 
 
-def analyse_sentiment(headlines: list[str]):
+def analyse_sentiment(headlines: list[str]) -> pd.DataFrame:
     """
     Perform Sentiment Analysis using finBERT model. Create a dataframe from the results.
 
@@ -145,7 +145,8 @@ def analyse_sentiment(headlines: list[str]):
     Returns
     -------
     pd.DataFrame
-        returns sentiment scores in a df with positive negative and compound columns.
+        returns sentiment scores in a df with following columns:
+        Positive, Negative, Neutral, compound
     """
 
     from transformers.models.bert import BertForSequenceClassification, BertTokenizer
@@ -227,59 +228,3 @@ if __name__ == "__main__":
     ]
     sentiment_results = analyse_sentiment(test_headlines)
     logger.debug(f"Sentiment Results: {sentiment_results}")
-
-# use when getting news from multiple sites for same ticker
-# # ... other imports ...
-# import httpx
-# from bs4 import BeautifulSoup
-# # ...
-
-# # Function to be run by each process
-# def worker_process_ticker(ticker_info):
-#     ticker, header, news_url = ticker_info # Unpack necessary info
-#     # Create a client *inside* the worker process
-#     with httpx.Client(headers=header, timeout=10.0) as client:
-#         _ticker: str = ticker + ":NSE"
-#         url: str = f"{news_url}/{_ticker}"
-#         logger.debug(f"Fetching data for {ticker} from {url}")
-#         try:
-#             response: Response = client.get(url) # Use the process-local client
-#             response.raise_for_status()
-#             soup: BeautifulSoup = BeautifulSoup(response.text, "lxml")
-#             # ... rest of the processing for this ticker ...
-#             # Fetch meta, articles etc. (You might need to pass more info or adjust logic)
-#             # For simplicity, assuming get_url_content logic is moved/adapted here
-#             # meta = fetch_meta(ticker) # Placeholder for meta fetching logic
-#             # article_data, no_news = fetch_articles(ticker, soup) # Placeholder
-
-#             # Return results
-#             # return { ... }
-#         except Exception as e:
-#             logger.warning(f"Error processing {ticker} in worker: {e}")
-#             # return { "ticker": ticker, "unavailable": True, ... } # Return error state
-
-# # In your main run method:
-# class StockDataFetcher:
-#     # ... __init__ ...
-
-#     # ... other methods ...
-
-#     def run(self) -> None:
-#         # ... fetch tickers ...
-#         tickers_list = list(tickers_df["Symbol"])
-
-#         if self.parallel_process:
-#             # Prepare data to pass to workers (avoid passing self)
-#             worker_args = [(ticker, self.header, self.news_url) for ticker in tickers_list]
-#             with mp.Pool(processes=mp.cpu_count()) as pool:
-#                 # Use the worker function
-#                 ticker_data = list(
-#                     tqdm(
-#                         pool.imap(worker_process_ticker, worker_args),
-#                         total=len(tickers_list),
-#                     )
-#                 )
-#         else:
-#              # ... serial processing ...
-
-#         # ... process results ...
