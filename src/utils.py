@@ -7,7 +7,6 @@ from dateutil.relativedelta import relativedelta
 from loguru import logger
 from nse import NSE
 from tqdm import tqdm
-
 from config import BATCH_SIZE, SENTIMENT_MODEL_NAME, HEADER
 
 # META_FIELDS = [None] #todo
