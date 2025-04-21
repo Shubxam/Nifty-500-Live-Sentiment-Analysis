@@ -136,40 +136,33 @@ class DatabaseManager:
             articles_df: DataFrame with article data
             has_sentiment: Whether the DataFrame includes sentiment columns
         """
+        logger.info(f"Inserting {articles_df.shape[0]} articles {'with' if has_sentiment else 'without'} sentiment into the database")
         with self.get_connection() as conn:
             if has_sentiment:
-                logger.info(
-                    f"Inserting articles with sentiment scores for {len(articles_df)} news articles"
-                )
-                # todo: Using UPSERT pattern (INSERT OR REPLACE)
                 conn.execute(
                     """
-                    INSERT INTO article_data (
+                    INSERT OR REPLACE INTO article_data (
                         ticker, headline, date_posted, source, article_link,
                         neutral_sentiment, negative_sentiment, positive_sentiment, compound_sentiment, created_at
             
                     )
                     SELECT 
                         ticker, headline, date_posted, source, article_link,
-                        neutral_sentiment, negative_sentiment, positive_sentiment, compound_sentiment, CURRENT_TIMESTAMP
-                    FROM articles_df
-                    ON CONFLICT (ticker, headline) DO NOTHING;
+                        Neutral, Negative, Positive, compound, CURRENT_TIMESTAMP
+                    FROM articles_df;
                     """
                 )
             else:
-                logger.info(
-                    f"Inserting articles without sentiment scores for {len(articles_df)} news articles"
-                )
                 conn.execute(
                     """
-                    INSERT INTO article_data 
+                    INSERT OR REPLACE INTO article_data 
                     (ticker, headline, date_posted, source, article_link, created_at) 
                     SELECT 
                         ticker, headline, date_posted, source, article_link, CURRENT_TIMESTAMP 
-                    FROM articles_df
-                    ON CONFLICT (ticker, headline) DO NOTHING;
+                    FROM articles_df;
                     """
                 )
+        logger.success(f"Inserted {articles_df.shape[0]} articles into the database")
 
     def insert_ticker_metadata(self, ticker_meta: list[list[str | float | None]]) -> None:
         """
