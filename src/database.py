@@ -229,6 +229,12 @@ class DatabaseManager:
             return conn.execute("SELECT * FROM ticker_meta").fetchdf()
 
 
+    def get_index_constituents(self, index: str = "nifty_50") -> pd.DataFrame:
+        """get index constituents from the database"""
+        with self.get_connection() as conn:
+            return conn.execute(f"select ticker from indices_constituents where {index} = true;").fetchdf()
+
+
 if __name__ == "__main__":
     # Example usage
     db_manager = DatabaseManager()
