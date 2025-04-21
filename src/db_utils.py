@@ -4,7 +4,12 @@ from loguru import logger
 
 from database import DatabaseManager
 
-db_connection = DatabaseManager().get_connection()
+INDEX_CONSTITUENTS_URL: dict[str, str] = {
+    "nifty_500": "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
+    "nifty_200": "https://archives.nseindia.com/content/indices/ind_nifty200list.csv",
+    "nifty_100": "https://archives.nseindia.com/content/indices/ind_nifty100list.csv",
+    "nifty_50": "https://archives.nseindia.com/content/indices/ind_nifty50list.csv",
+}
 
 query_duplicates_cmd = """
 with duplicates_cte as (
@@ -42,9 +47,8 @@ delete from article_data
 where rowid in (select rowid from duplicates_cte);
 """
 
-
 def query_duplicates(return_df: bool = False) -> pd.DataFrame | None:
-    with db_connection as conn:
+    with DatabaseManager().get_connection() as conn:
         # Select duplicates
         duplicates_df: pd.DataFrame = conn.execute(query_duplicates_cmd).fetchdf()
         duplicate_rows_count: int = duplicates_df.shape[0]
@@ -66,7 +70,7 @@ def deduplicate_db() -> None:
         logger.info("No duplicates found to delete.")
         return
 
-    with db_connection as conn:
+    with DatabaseManager().get_connection() as conn:
         conn.execute(delete_duplicates_cmd)
         logger.success(f"Deleted {duplicates_count} duplicate rows from database.")
 
