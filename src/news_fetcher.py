@@ -131,7 +131,7 @@ class YahooFinanceSource(NewsSource):
                         'headline': headline,
                         'date_posted': date_posted,
                         'article_link': article_link,
-                        'news_source': source
+                        'source': source
                     }
                     self.articles.append(data_dict)
                 except Exception as e:
@@ -182,7 +182,7 @@ class FinologySource(NewsSource):
                         'headline': headline,
                         'date_posted': date_posted,
                         'article_link': url, # Finology links point back to the main page
-                        'news_source': 'Finology'
+                        'source': 'Finology'
                     })
                 except Exception as e:
                     logger.warning(f"Error parsing Finology article for {ticker}: {str(e)}")
@@ -210,7 +210,7 @@ class TickerNewsObject():
             logger.info(f"Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}")
             if fetched_articles:
                 self.articles.extend(fetched_articles)
-        logger.info(f"Collected {len(self.articles)} articles in total for {self.ticker}")
+        logger.success(f"Collected {len(self.articles)} articles in total for {self.ticker}")
         return self.articles
 
 
