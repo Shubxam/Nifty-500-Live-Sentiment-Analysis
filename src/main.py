@@ -38,7 +38,7 @@ def get_news(universe: str = "nifty_50", multiprocess:bool =False) -> None:
     dbm = DatabaseManager()
 
     # Fetch the tickers
-    tickers_df = dbm.get_index_constituents(universe).loc[0:5, "ticker"]
+    tickers_df = dbm.get_index_constituents(universe).loc[:, "ticker"]
     ticker_objs: list[TickerNewsObject] = [TickerNewsObject(ticker) for ticker in tickers_df]
 
     # Fetch and process news data for all tickers.
