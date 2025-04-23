@@ -118,13 +118,16 @@ def parse_date(date_string: str, relative: bool = True, format: str|None = None)
         if not format:
             logger.error("Format string is required for absolute date parsing.")
             return ""
-        try:
-            datetime_object = datetime.strptime(date_string, format).replace(year=2025)
-            datetime_object = datetime_object if datetime_object < now else datetime_object.replace(year=datetime_object.year - 1)
-                            
-        except Exception as e:
-            logger.warning(f"Error parsing date '{date_string}': {e}")
-            return ""
+        elif format.__contains__("%Y"):
+            datetime_object: datetime = datetime.strptime(date_string, format)
+        else:
+            try:
+                datetime_object = datetime.strptime(date_string, format).replace(year=2025)
+                datetime_object = datetime_object if datetime_object < now else datetime_object.replace(year=datetime_object.year - 1)
+                                
+            except Exception as e:
+                logger.warning(f"Error parsing date '{date_string}': {e}")
+                return ""
 
     # Format the datetime object to a string
     datetime_format: str = "%Y-%m-%d %H:%M:%S"
