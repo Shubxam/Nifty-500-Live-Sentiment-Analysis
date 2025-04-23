@@ -198,7 +198,7 @@ class TickerNewsObject():
         self.news_sources: dict[str, NewsSource] = {
             "GoogleFinance": GoogleFinanceSource(),
             "YahooFinance": YahooFinanceSource(),
-            "Finology": FinologySource()
+            # "Finology": FinologySource() #disabled for now due to constant error 403
         }
         self.articles: list[dict[str, str]] = []
 
