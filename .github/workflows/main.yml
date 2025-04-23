@@ -11,7 +11,6 @@ jobs:
 
     env: # shared across this job
       python_version: "3.13"
-      HF_API_KEY: ${{ secrets.HF_API_KEY }}
     
     permissions:
       contents: write # required to push changes to the repo
@@ -36,7 +35,7 @@ jobs:
       - name: Execute python script to update sentiment page
         run: make dashboard
 
-      - name: save csv file
+      - name: save updated db file
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions[bot]"
