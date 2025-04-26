@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import final, override
+from pprint import pprint
+from typing import Literal, final, override
 
 from utils import get_webpage_content, parse_date
 from bs4 import BeautifulSoup, Tag
@@ -192,6 +193,79 @@ class FinologySource(NewsSource):
             logger.error(f"Error fetching from Finology for {ticker}: {str(e)}")
         return self.articles
 
+@final
+class GoogleNewsSource(NewsSource):
+    def __init__(self):
+        self.base_url = "https://news.google.com/search?q={}+when:{}" # news.google.com/search?q="Power+Grid+Corporation+of+India+Limited"+OR+"POWERGRID"+when:1d
+        self.time_frame: Literal["1h", "1d", "7d", "1y"] = "1d"
+        self.ticker: str 
+        self.articles: list[dict[str, str]] = []
+        self.article_selector: str = "article.IFHyqb.DeXSAc"
+        self.headline_selector: str = "a.JtKRv"
+        self.date_selector: str = "time"
+        self.link_selector: str = "a.JtKRv"
+        self.source_selector:str = "div.vr1PYe"
+
+    def _sanitize_url(self) -> str:
+        if self.ticker:
+            search_query = f'"{self.ticker}"'
+            search_url = self.base_url.format(search_query, self.time_frame)
+            sanitized_url = search_url.replace(" ", "+")
+            return sanitized_url
+        return ""
+
+    @override
+    def get_articles(self, ticker: str, ticker_full_name: str|None = None) -> list[dict[str, str]]:
+        self.ticker = ticker
+        try:
+            url = self._sanitize_url()
+            logger.debug(f"Fetching articles from Google News for {ticker}: {url}")
+            response = get_webpage_content(url)
+            if not response:
+                logger.warning(f"No response from Google Finance for {ticker}")
+                return self.articles
+            soup = BeautifulSoup(response, 'html.parser')
+            article_elements = soup.select(self.article_selector)
+            logger.debug(f"Found {len(article_elements)} articles for {ticker} in Google News")
+
+            for article in article_elements:
+                try:
+                    headline_tag: Tag | None = article.select_one(self.headline_selector)
+                    date_tag: Tag | None = article.select_one(self.date_selector)
+                    source_tag: Tag | None = article.select_one(self.source_selector)
+                    link_tag: Tag | None = article.select_one(self.link_selector)
+
+                    if not all([headline_tag, date_tag, source_tag, link_tag]):
+                        logger.warning(f"Missing elements in Google Finance article for {ticker}")
+                        continue
+
+                    headline: str = headline_tag.text.strip().replace("\n", " ")
+                    date_posted_utc: str = date_tag.get("datetime")
+                    source: str = source_tag.text.strip().replace("\n", " ")
+                    article_link_raw = link_tag.get("href")
+                    article_link: str = f"https://news.google.com{article_link_raw[1:]}" if article_link_raw else ""
+
+                    if not article_link:
+                         logger.warning(f"Missing article link in Google Finance article for {ticker}")
+
+                    date_posted: str | None = parse_date(date_posted_utc, relative=False, format="%Y-%m-%dT%H:%M:%S%z")
+
+                    self.articles.append({
+                        'ticker': ticker,
+                        'headline': headline,
+                        'date_posted': date_posted,
+                        'article_link': article_link,
+                        'source': source
+                    })
+                except Exception as e:
+                    logger.warning(f"Error parsing Google Finance article for {ticker}: {str(e)}")
+                    continue
+
+        except Exception as e:
+            logger.error(f"Error fetching from Google Finance for {ticker}: {str(e)}")
+        return self.articles
+
+
 class TickerNewsObject():
     def __init__(self, ticker: str) -> None:
         self.ticker: str = ticker
@@ -199,6 +273,7 @@ class TickerNewsObject():
             "GoogleFinance": GoogleFinanceSource(),
             "YahooFinance": YahooFinanceSource(),
             # "Finology": FinologySource() #disabled for now due to constant error 403
+            "GoogleNews": GoogleNewsSource(),
         }
         self.articles: list[dict[str, str]] = []
 
@@ -216,8 +291,12 @@ class TickerNewsObject():
 
 if __name__ == "__main__":
 
-    ticker = "SBIN"
+    ticker = "POWERGRID"
 
-    ticker_news = TickerNewsObject(ticker)
-    articles = ticker_news.collect_news()
-    logger.info(f"Collected {len(articles)} articles for {ticker}")
+    # ticker_news = TickerNewsObject(ticker)
+    # articles = ticker_news.collect_news()
+    # logger.info(f"Collected {len(articles)} articles for {ticker}")
+
+    goog_news = GoogleNewsSource()
+    articles = goog_news.get_articles(ticker)
+    pprint(articles)
