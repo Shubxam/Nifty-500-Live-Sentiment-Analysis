@@ -16,15 +16,9 @@ permissions:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        # Update this as needed:
-        # Common platforms: ["ubuntu-latest", "macos-latest", "windows-latest"]
-        os: ["ubuntu-latest"]
-        python-version: ["3.13"]
-
-    # Linux only by default. Use ${{ matrix.os }} for other OSes.
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    env:
+      python-version: "3.13"
 
     steps:
       # Generally following uv docs:
@@ -42,7 +36,7 @@ jobs:
           # Update this as needed:
           version: "0.6.11"
           enable-cache: true
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ env.python-version }}
 
       - name: Set up Python (using uv)
         run: make install
