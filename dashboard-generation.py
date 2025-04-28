@@ -168,7 +168,8 @@ def main():
     if not final_df.empty:
         fig = create_treemap(final_df, universe_string)
         if fig:
-            st.plotly_chart(fig, height=800, use_container_width=True)
+            st.plotly_chart(fig, height=800, use_container_width=True, theme="streamlit")
+            
         else:
             st.warning("Could not generate treemap.")
     else:
