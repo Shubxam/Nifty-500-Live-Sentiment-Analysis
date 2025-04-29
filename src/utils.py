@@ -53,19 +53,20 @@ def fetch_metadata(ticker: str):
 
     # Extract metadata fields
     try:
+        companyName: str = meta["info"]["companyName"]
+        isin_code: str = meta.get('info').get("isin")
         sector: str = meta["industryInfo"]["macro"]
         industry: str = meta["industryInfo"]["industry"]
         previousClose: float = meta["priceInfo"]["previousClose"]
         issuedSize: int = meta["securityInfo"]["issuedSize"]
         # Calculate market capitalization in billions
         mCap: float = round(previousClose * issuedSize / 1e9, 2)
-        companyName: str = meta["info"]["companyName"]
 
     except KeyError as e:
         logger.warning(f"KeyError: {e} for ticker {ticker}")
         return None
 
-    return [ticker, sector, industry, mCap, companyName]
+    return [ticker, companyName, isin_code, sector, industry, mCap]
 
 
 def parse_date(date_string: str, relative: bool = True, format: str|None = None) -> str:

@@ -124,7 +124,8 @@ class DatabaseManager:
                     sector TEXT NOT NULL,
                     industry TEXT NOT NULL,
                     mCap REAL,
-                    companyName TEXT NOT NULL
+                    companyName TEXT NOT NULL,
+                    alias TEXT DEFAULT NULL
                 )"""
             )
 
@@ -177,8 +178,9 @@ class DatabaseManager:
             for meta in ticker_meta:
                 conn.execute(
                     """
-                    INSERT OR REPLACE INTO ticker_meta 
-                    VALUES (?, ?, ?, ?, ?)
+                    INSERT OR REPLACE INTO ticker_meta
+                    (ticker, companyName, ISIN, sector, industry, mCap)
+                    VALUES (?, ?, ?, ?, ?, ?)
                     """,
                     meta,
                 )
