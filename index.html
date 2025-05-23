@@ -8,10 +8,11 @@
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
     />
 
-    <title>Stitch Design</title>
+    <title>Nifty Index Generator</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div
@@ -39,8 +40,8 @@
             <div class="@container">
               <div class="@[480px]:p-4">
                 <div
-                  class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-lg items-center justify-center p-4"
-                  style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDkOPXi57S1hvReJvCnBuEEXrwuc3I7E-ElkZzRJ5nPMENqT2Q6a2BmNNlX4XEloLCPIdfbXZXDhqlXEDV4XDdjRs-qhdn7b5vmZWWx9ns7QVw-12c3BX9KFbCIGLMSn2kS_mr4hOfIC_wMZoOjHSAmUKU5NsF5sGcqzNyY0LvvPxEnuFj15g5PwuocarKqBl_7N5YI8H6W225K5W6yIBk4uO2MXfSKWRrWczRGqZQJdUVLKR1-571UNHo8HI1pTO31Dj5fFEQSgLTf");'
+                  class="flex min-h-[336px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-lg items-center justify-center p-4"
+                  style='background-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDkOPXi57S1hvReJvCnBuEEXrwuc3I7E-ElkZzRJ5nPMENqT2Q6a2BmNNlX4XEloLCPIdfbXZXDhqlXEDV4XDdjRs-qhdn7b5vmZWWx9ns7QVw-12c3BX9KFbCIGLMSn2kS_mr4hOfIC_wMZoOjHSAmUKU5NsF5sGcqzNyY0LvvPxEnuFj15g5PwuocarKqBl_7N5YI8H6W225K5W6yIBk4uO2MXfSKWRrWczRGqZQJdUVLKR1-571UNHo8HI1pTO31Dj5fFEQSgLTf");'
                 >
                   <div class="flex flex-col gap-2 text-center">
                     <h1
@@ -54,11 +55,13 @@
                   </div>
                   <div class="flex-wrap gap-3 flex justify-center">
                     <button
+                      id="existingIndexBtn"
                       class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#0c7bf2] text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
                     >
                       <span class="truncate">Explore Existing Indices</span>
                     </button>
                     <button
+                      id="customIndexBtn"
                       class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#223549] text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
                     >
                       <span class="truncate">Create Custom Index</span>
@@ -67,70 +70,858 @@
                 </div>
               </div>
             </div>
-            <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Explore Existing Indices</h2>
-            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-              <label class="flex flex-col min-w-40 flex-1">
-                <select
-                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-14 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-base font-normal leading-normal"
-                >
-                  <option value="one">Select an Index</option>
-                  <option value="two">two</option>
-                  <option value="three">three</option>
-                </select>
-              </label>
-            </div>
-            <div class="pb-3">
-              <div class="flex border-b border-[#314c68] px-4 gap-8">
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#0c7bf2] text-white pb-[13px] pt-4" href="#">
-                  <p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">Performance Analytics</p>
-                </a>
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#90accb] pb-[13px] pt-4" href="#">
-                  <p class="text-[#90accb] text-sm font-bold leading-normal tracking-[0.015em]">Sentiment Analytics</p>
-                </a>
+            <!-- Existing Indices Section -->
+            <div id="existingSection" class="hidden">
+              <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Explore Existing Indices</h2>
+              <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                  <select
+                    id="existingIndexSelect"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-14 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-base font-normal leading-normal"
+                  >
+                    <option value="">Select an Index</option>
+                    <option value="nifty_50">Nifty 50</option>
+                    <option value="nifty_100">Nifty 100</option>
+                    <option value="nifty_200">Nifty 200</option>
+                    <option value="nifty_500">Nifty 500</option>
+                  </select>
+                </label>
+              </div>
+              
+              <div id="existingIndexTabs" class="hidden">
+                <div class="pb-3">
+                  <div class="flex border-b border-[#314c68] px-4 gap-8">
+                    <a id="existingPerformanceTab" class="flex flex-col items-center justify-center border-b-[3px] border-b-[#0c7bf2] text-white pb-[13px] pt-4 cursor-pointer">
+                      <p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">Performance Analytics</p>
+                    </a>
+                    <a id="existingSentimentTab" class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#90accb] pb-[13px] pt-4 cursor-pointer">
+                      <p class="text-[#90accb] text-sm font-bold leading-normal tracking-[0.015em]">Sentiment Analytics</p>
+                    </a>
+                  </div>
+                </div>
+                
+                <!-- Performance Analytics Content -->
+                <div id="existingPerformanceContent" class="px-4">
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Compare Against Benchmark</h3>
+                    <div class="flex max-w-[480px] flex-wrap items-end gap-4">
+                      <label class="flex flex-col min-w-40 flex-1">
+                        <select
+                          id="benchmarkSelect"
+                          class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-12 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-sm font-normal leading-normal"
+                        >
+                          <option value="">Select Benchmark (Optional)</option>
+                          <option value="nifty_50">Nifty 50</option>
+                          <option value="nifty_100">Nifty 100</option>
+                          <option value="nifty_200">Nifty 200</option>
+                          <option value="nifty_500">Nifty 500</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Index Performance Chart</h3>
+                    <div class="bg-[#223549] rounded-lg p-4">
+                      <canvas id="performanceChart" width="400" height="200"></canvas>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Performance Statistics</h3>
+                    <div class="flex max-w-[300px] flex-wrap items-end gap-4 mb-4">
+                      <label class="flex flex-col min-w-40 flex-1">
+                        <select
+                          id="performancePeriodSelect"
+                          class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-12 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-sm font-normal leading-normal"
+                        >
+                          <option value="1m">1 Month</option>
+                          <option value="3m">3 Months</option>
+                          <option value="6m">6 Months</option>
+                          <option value="1y">1 Year</option>
+                          <option value="3y">3 Years</option>
+                          <option value="5y">5 Years</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="bg-[#223549] rounded-lg p-4">
+                      <div id="performanceStats" class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                          <p class="text-[#90accb] text-sm">Returns</p>
+                          <p class="text-white text-xl font-bold">+12.5%</p>
+                        </div>
+                        <div class="text-center">
+                          <p class="text-[#90accb] text-sm">Volatility</p>
+                          <p class="text-white text-xl font-bold">18.2%</p>
+                        </div>
+                        <div class="text-center">
+                          <p class="text-[#90accb] text-sm">Sharpe Ratio</p>
+                          <p class="text-white text-xl font-bold">0.68</p>
+                        </div>
+                        <div class="text-center">
+                          <p class="text-[#90accb] text-sm">Max Drawdown</p>
+                          <p class="text-white text-xl font-bold">-8.4%</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Index Constituents</h3>
+                    <div class="bg-[#223549] rounded-lg overflow-hidden">
+                      <div class="overflow-x-auto">
+                        <table class="w-full">
+                          <thead class="bg-[#314c68]">
+                            <tr>
+                              <th class="text-left text-white text-sm font-medium p-3">Stock</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Weight</th>
+                              <th class="text-left text-white text-sm font-medium p-3">1M Return</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Score</th>
+                            </tr>
+                          </thead>
+                          <tbody id="constituentsTable">
+                            <tr class="border-b border-[#314c68]">
+                              <td class="text-white p-3">RELIANCE</td>
+                              <td class="text-white p-3">8.5%</td>
+                              <td class="text-green-400 p-3">+2.3%</td>
+                              <td class="text-white p-3">85</td>
+                            </tr>
+                            <tr class="border-b border-[#314c68]">
+                              <td class="text-white p-3">TCS</td>
+                              <td class="text-white p-3">7.2%</td>
+                              <td class="text-red-400 p-3">-1.1%</td>
+                              <td class="text-white p-3">78</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Sentiment Analytics Content -->
+                <div id="existingSentimentContent" class="px-4 hidden">
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Select Time Period</h3>
+                    <div class="flex max-w-[300px] flex-wrap items-end gap-4">
+                      <label class="flex flex-col min-w-40 flex-1">
+                        <select
+                          id="sentimentPeriodSelect"
+                          class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-12 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-sm font-normal leading-normal"
+                        >
+                          <option value="1D">1 Day</option>
+                          <option value="7D">7 Days</option>
+                          <option value="1M" selected>1 Month</option>
+                          <option value="3M">3 Months</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Sentiment Tree Map</h3>
+                    <div class="bg-[#223549] rounded-lg p-4 h-64">
+                      <div id="sentimentTreeMap" class="w-full h-full flex items-center justify-center">
+                        <p class="text-[#90accb]">Interactive tree map showing sector and stock sentiment</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Stock News Analysis</h3>
+                    <div class="mb-4">
+                      <select
+                        id="stockNewsSelect"
+                        class="form-input flex w-full max-w-[300px] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-12 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-sm font-normal leading-normal"
+                      >
+                        <option value="">Select a stock</option>
+                        <option value="RELIANCE">RELIANCE</option>
+                        <option value="TCS">TCS</option>
+                        <option value="INFY">INFY</option>
+                      </select>
+                    </div>
+                    <div class="bg-[#223549] rounded-lg overflow-hidden">
+                      <div class="overflow-x-auto">
+                        <table class="w-full">
+                          <thead class="bg-[#314c68]">
+                            <tr>
+                              <th class="text-left text-white text-sm font-medium p-3">Date</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Headline</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Sentiment</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Score</th>
+                            </tr>
+                          </thead>
+                          <tbody id="newsTable">
+                            <tr class="border-b border-[#314c68]">
+                              <td class="text-white p-3">2024-01-15</td>
+                              <td class="text-white p-3">Company reports strong quarterly results</td>
+                              <td class="text-green-400 p-3">Positive</td>
+                              <td class="text-white p-3">0.85</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Create Custom Index</h2>
-            <div class="px-4 py-3">
-              <label class="flex flex-col min-w-40 h-12 w-full">
-                <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
-                  <div
-                    class="text-[#90accb] flex border-none bg-[#223549] items-center justify-center pl-4 rounded-l-lg border-r-0"
-                    data-icon="MagnifyingGlass"
-                    data-size="24px"
-                    data-weight="regular"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
-                      ></path>
-                    </svg>
+
+            <!-- Custom Index Section -->
+            <div id="customSection" class="hidden">
+              <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Create Custom Index</h2>
+              <div class="px-4 py-3">
+                <label class="flex flex-col min-w-40 h-12 w-full">
+                  <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                    <div
+                      class="text-[#90accb] flex border-none bg-[#223549] items-center justify-center pl-4 rounded-l-lg border-r-0"
+                      data-icon="MagnifyingGlass"
+                      data-size="24px"
+                      data-weight="regular"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <input
+                      id="customIndexQuery"
+                      placeholder="Enter your query to generate a custom index (e.g., 'AI and technology companies')"
+                      class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#223549] focus:border-none h-full placeholder:text-[#90accb] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                      value=""
+                    />
+                    <button
+                      id="generateIndexBtn"
+                      class="bg-[#0c7bf2] text-white px-6 rounded-r-lg hover:bg-[#0a6ad1] transition-colors"
+                    >
+                      Generate
+                    </button>
                   </div>
-                  <input
-                    placeholder="Enter your query to generate a custom index"
-                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#223549] focus:border-none h-full placeholder:text-[#90accb] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
-                    value=""
-                  />
+                </label>
+              </div>
+              
+              <div id="loadingSection" class="hidden flex flex-col gap-3 p-4">
+                <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Generating Index...</p></div>
+                <div class="rounded bg-[#314c68]"><div id="progressBar" class="h-2 rounded bg-[#0c7bf2] transition-all duration-300" style="width: 0%;"></div></div>
+                <p class="text-[#90accb] text-sm font-normal leading-normal">This may take a few minutes.</p>
+              </div>
+              
+              <div id="customIndexTabs" class="hidden">
+                <div class="pb-3">
+                  <div class="flex border-b border-[#314c68] px-4 gap-8">
+                    <a id="customPerformanceTab" class="flex flex-col items-center justify-center border-b-[3px] border-b-[#0c7bf2] text-white pb-[13px] pt-4 cursor-pointer">
+                      <p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">Performance Analytics</p>
+                    </a>
+                    <a id="customSentimentTab" class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#90accb] pb-[13px] pt-4 cursor-pointer">
+                      <p class="text-[#90accb] text-sm font-bold leading-normal tracking-[0.015em]">Sentiment Analytics</p>
+                    </a>
+                  </div>
                 </div>
-              </label>
-            </div>
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Generating Index...</p></div>
-              <div class="rounded bg-[#314c68]"><div class="h-2 rounded bg-[#0c7bf2]" style="width: 60%;"></div></div>
-              <p class="text-[#90accb] text-sm font-normal leading-normal">This may take a few minutes.</p>
-            </div>
-            <div class="pb-3">
-              <div class="flex border-b border-[#314c68] px-4 gap-8">
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#0c7bf2] text-white pb-[13px] pt-4" href="#">
-                  <p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">Performance Analytics</p>
-                </a>
-                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#90accb] pb-[13px] pt-4" href="#">
-                  <p class="text-[#90accb] text-sm font-bold leading-normal tracking-[0.015em]">Sentiment Analytics</p>
-                </a>
+                
+                <!-- Custom Performance Analytics Content -->
+                <div id="customPerformanceContent" class="px-4">
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Select Benchmark</h3>
+                    <div class="flex max-w-[480px] flex-wrap items-end gap-4">
+                      <label class="flex flex-col min-w-40 flex-1">
+                        <select
+                          id="customBenchmarkSelect"
+                          class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-12 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-sm font-normal leading-normal"
+                        >
+                          <option value="nifty_50">Nifty 50</option>
+                          <option value="nifty_100">Nifty 100</option>
+                          <option value="nifty_200">Nifty 200</option>
+                          <option value="nifty_500">Nifty 500</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Custom Index vs Benchmark</h3>
+                    <div class="bg-[#223549] rounded-lg p-4">
+                      <canvas id="customPerformanceChart" width="400" height="200"></canvas>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Performance Statistics</h3>
+                    <div class="flex max-w-[300px] flex-wrap items-end gap-4 mb-4">
+                      <label class="flex flex-col min-w-40 flex-1">
+                        <select
+                          id="customPerformancePeriodSelect"
+                          class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-12 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-sm font-normal leading-normal"
+                        >
+                          <option value="1m">1 Month</option>
+                          <option value="3m">3 Months</option>
+                          <option value="6m">6 Months</option>
+                          <option value="1y">1 Year</option>
+                          <option value="3y">3 Years</option>
+                          <option value="5y">5 Years</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="bg-[#223549] rounded-lg p-4">
+                      <div id="customPerformanceStats" class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                          <p class="text-[#90accb] text-sm">Returns</p>
+                          <p class="text-white text-xl font-bold">+15.8%</p>
+                        </div>
+                        <div class="text-center">
+                          <p class="text-[#90accb] text-sm">Volatility</p>
+                          <p class="text-white text-xl font-bold">22.1%</p>
+                        </div>
+                        <div class="text-center">
+                          <p class="text-[#90accb] text-sm">Sharpe Ratio</p>
+                          <p class="text-white text-xl font-bold">0.71</p>
+                        </div>
+                        <div class="text-center">
+                          <p class="text-[#90accb] text-sm">Max Drawdown</p>
+                          <p class="text-white text-xl font-bold">-12.3%</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Custom Index Constituents</h3>
+                    <div class="bg-[#223549] rounded-lg overflow-hidden">
+                      <div class="overflow-x-auto">
+                        <table class="w-full">
+                          <thead class="bg-[#314c68]">
+                            <tr>
+                              <th class="text-left text-white text-sm font-medium p-3">Stock</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Weight</th>
+                              <th class="text-left text-white text-sm font-medium p-3">1M Return</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Score</th>
+                            </tr>
+                          </thead>
+                          <tbody id="customConstituentsTable">
+                            <tr class="border-b border-[#314c68]">
+                              <td class="text-white p-3">INFY</td>
+                              <td class="text-white p-3">12.3%</td>
+                              <td class="text-green-400 p-3">+3.8%</td>
+                              <td class="text-white p-3">92</td>
+                            </tr>
+                            <tr class="border-b border-[#314c68]">
+                              <td class="text-white p-3">TCS</td>
+                              <td class="text-white p-3">11.5%</td>
+                              <td class="text-green-400 p-3">+2.1%</td>
+                              <td class="text-white p-3">89</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Custom Sentiment Analytics Content -->
+                <div id="customSentimentContent" class="px-4 hidden">
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Select Time Period</h3>
+                    <div class="flex max-w-[300px] flex-wrap items-end gap-4">
+                      <label class="flex flex-col min-w-40 flex-1">
+                        <select
+                          id="customSentimentPeriodSelect"
+                          class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-12 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-sm font-normal leading-normal"
+                        >
+                          <option value="1D">1 Day</option>
+                          <option value="7D">7 Days</option>
+                          <option value="1M" selected>1 Month</option>
+                          <option value="3M">3 Months</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <h3 class="text-white text-lg font-semibold mb-4">Custom Index Sentiment Tree Map</h3>
+                    <div class="bg-[#223549] rounded-lg p-4 h-64">
+                      <div id="customSentimentTreeMap" class="w-full h-full flex items-center justify-center">
+                        <p class="text-[#90accb]">Interactive tree map showing custom index sentiment</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Stock News Analysis</h3>
+                    <div class="mb-4">
+                      <select
+                        id="customStockNewsSelect"
+                        class="form-input flex w-full max-w-[300px] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border border-[#314c68] bg-[#182634] focus:border-[#314c68] h-12 bg-[image:--select-button-svg] placeholder:text-[#90accb] p-[15px] text-sm font-normal leading-normal"
+                      >
+                        <option value="">Select a stock</option>
+                        <option value="INFY">INFY</option>
+                        <option value="TCS">TCS</option>
+                        <option value="WIPRO">WIPRO</option>
+                      </select>
+                    </div>
+                    <div class="bg-[#223549] rounded-lg overflow-hidden">
+                      <div class="overflow-x-auto">
+                        <table class="w-full">
+                          <thead class="bg-[#314c68]">
+                            <tr>
+                              <th class="text-left text-white text-sm font-medium p-3">Date</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Headline</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Sentiment</th>
+                              <th class="text-left text-white text-sm font-medium p-3">Score</th>
+                            </tr>
+                          </thead>
+                          <tbody id="customNewsTable">
+                            <tr class="border-b border-[#314c68]">
+                              <td class="text-white p-3">2024-01-15</td>
+                              <td class="text-white p-3">Tech sector shows strong AI adoption</td>
+                              <td class="text-green-400 p-3">Positive</td>
+                              <td class="text-white p-3">0.92</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
+    <script>
+      // Global variables
+      let performanceChart = null;
+      let customPerformanceChart = null;
+      
+      // Initialize the application
+      document.addEventListener('DOMContentLoaded', function() {
+        initializeEventListeners();
+        setDefaultDates();
+      });
+      
+      function initializeEventListeners() {
+        // Main navigation buttons
+        document.getElementById('existingIndexBtn').addEventListener('click', () => showSection('existing'));
+        document.getElementById('customIndexBtn').addEventListener('click', () => showSection('custom'));
+        
+        // Existing index functionality
+        document.getElementById('existingIndexSelect').addEventListener('change', handleExistingIndexSelect);
+        document.getElementById('existingPerformanceTab').addEventListener('click', () => switchExistingTab('performance'));
+        document.getElementById('existingSentimentTab').addEventListener('click', () => switchExistingTab('sentiment'));
+        
+        // Custom index functionality
+        document.getElementById('generateIndexBtn').addEventListener('click', generateCustomIndex);
+        document.getElementById('customPerformanceTab').addEventListener('click', () => switchCustomTab('performance'));
+        document.getElementById('customSentimentTab').addEventListener('click', () => switchCustomTab('sentiment'));
+        
+        // Performance analytics event listeners
+        document.getElementById('benchmarkSelect').addEventListener('change', updatePerformanceChart);
+        document.getElementById('performancePeriodSelect').addEventListener('change', updatePerformanceStats);
+        document.getElementById('customBenchmarkSelect').addEventListener('change', updateCustomPerformanceChart);
+        document.getElementById('customPerformancePeriodSelect').addEventListener('change', updateCustomPerformanceStats);
+        
+        // Sentiment analytics event listeners
+        document.getElementById('sentimentPeriodSelect').addEventListener('change', updateSentimentAnalysis);
+        document.getElementById('stockNewsSelect').addEventListener('change', updateNewsTable);
+        document.getElementById('customSentimentPeriodSelect').addEventListener('change', updateCustomSentimentAnalysis);
+        document.getElementById('customStockNewsSelect').addEventListener('change', updateCustomNewsTable);
+      }
+      
+      function showSection(section) {
+        // Hide all sections
+        document.getElementById('existingSection').classList.add('hidden');
+        document.getElementById('customSection').classList.add('hidden');
+        
+        // Show selected section
+        if (section === 'existing') {
+          document.getElementById('existingSection').classList.remove('hidden');
+          // Update button styles
+          document.getElementById('existingIndexBtn').classList.remove('bg-[#223549]');
+          document.getElementById('existingIndexBtn').classList.add('bg-[#0c7bf2]');
+          document.getElementById('customIndexBtn').classList.remove('bg-[#0c7bf2]');
+          document.getElementById('customIndexBtn').classList.add('bg-[#223549]');
+        } else if (section === 'custom') {
+          document.getElementById('customSection').classList.remove('hidden');
+          // Update button styles
+          document.getElementById('customIndexBtn').classList.remove('bg-[#223549]');
+          document.getElementById('customIndexBtn').classList.add('bg-[#0c7bf2]');
+          document.getElementById('existingIndexBtn').classList.remove('bg-[#0c7bf2]');
+          document.getElementById('existingIndexBtn').classList.add('bg-[#223549]');
+        }
+      }
+      
+      function handleExistingIndexSelect() {
+        const selectedIndex = document.getElementById('existingIndexSelect').value;
+        if (selectedIndex) {
+          document.getElementById('existingIndexTabs').classList.remove('hidden');
+          createPerformanceChart();
+          updateConstituentsTable(selectedIndex);
+        } else {
+          document.getElementById('existingIndexTabs').classList.add('hidden');
+        }
+      }
+      
+      function switchExistingTab(tab) {
+        // Update tab styling
+        if (tab === 'performance') {
+          document.getElementById('existingPerformanceTab').classList.add('border-b-[#0c7bf2]', 'text-white');
+          document.getElementById('existingPerformanceTab').classList.remove('border-b-transparent', 'text-[#90accb]');
+          document.getElementById('existingPerformanceTab').querySelector('p').classList.add('text-white');
+          document.getElementById('existingPerformanceTab').querySelector('p').classList.remove('text-[#90accb]');
+          
+          document.getElementById('existingSentimentTab').classList.add('border-b-transparent', 'text-[#90accb]');
+          document.getElementById('existingSentimentTab').classList.remove('border-b-[#0c7bf2]', 'text-white');
+          document.getElementById('existingSentimentTab').querySelector('p').classList.add('text-[#90accb]');
+          document.getElementById('existingSentimentTab').querySelector('p').classList.remove('text-white');
+          
+          // Show/hide content
+          document.getElementById('existingPerformanceContent').classList.remove('hidden');
+          document.getElementById('existingSentimentContent').classList.add('hidden');
+        } else {
+          document.getElementById('existingSentimentTab').classList.add('border-b-[#0c7bf2]', 'text-white');
+          document.getElementById('existingSentimentTab').classList.remove('border-b-transparent', 'text-[#90accb]');
+          document.getElementById('existingSentimentTab').querySelector('p').classList.add('text-white');
+          document.getElementById('existingSentimentTab').querySelector('p').classList.remove('text-[#90accb]');
+          
+          document.getElementById('existingPerformanceTab').classList.add('border-b-transparent', 'text-[#90accb]');
+          document.getElementById('existingPerformanceTab').classList.remove('border-b-[#0c7bf2]', 'text-white');
+          document.getElementById('existingPerformanceTab').querySelector('p').classList.add('text-[#90accb]');
+          document.getElementById('existingPerformanceTab').querySelector('p').classList.remove('text-white');
+          
+          // Show/hide content
+          document.getElementById('existingSentimentContent').classList.remove('hidden');
+          document.getElementById('existingPerformanceContent').classList.add('hidden');
+        }
+      }
+      
+      function switchCustomTab(tab) {
+        // Update tab styling
+        if (tab === 'performance') {
+          document.getElementById('customPerformanceTab').classList.add('border-b-[#0c7bf2]', 'text-white');
+          document.getElementById('customPerformanceTab').classList.remove('border-b-transparent', 'text-[#90accb]');
+          document.getElementById('customPerformanceTab').querySelector('p').classList.add('text-white');
+          document.getElementById('customPerformanceTab').querySelector('p').classList.remove('text-[#90accb]');
+          
+          document.getElementById('customSentimentTab').classList.add('border-b-transparent', 'text-[#90accb]');
+          document.getElementById('customSentimentTab').classList.remove('border-b-[#0c7bf2]', 'text-white');
+          document.getElementById('customSentimentTab').querySelector('p').classList.add('text-[#90accb]');
+          document.getElementById('customSentimentTab').querySelector('p').classList.remove('text-white');
+          
+          // Show/hide content
+          document.getElementById('customPerformanceContent').classList.remove('hidden');
+          document.getElementById('customSentimentContent').classList.add('hidden');
+        } else {
+          document.getElementById('customSentimentTab').classList.add('border-b-[#0c7bf2]', 'text-white');
+          document.getElementById('customSentimentTab').classList.remove('border-b-transparent', 'text-[#90accb]');
+          document.getElementById('customSentimentTab').querySelector('p').classList.add('text-white');
+          document.getElementById('customSentimentTab').querySelector('p').classList.remove('text-[#90accb]');
+          
+          document.getElementById('customPerformanceTab').classList.add('border-b-transparent', 'text-[#90accb]');
+          document.getElementById('customPerformanceTab').classList.remove('border-b-[#0c7bf2]', 'text-white');
+          document.getElementById('customPerformanceTab').querySelector('p').classList.add('text-[#90accb]');
+          document.getElementById('customPerformanceTab').querySelector('p').classList.remove('text-white');
+          
+          // Show/hide content
+          document.getElementById('customSentimentContent').classList.remove('hidden');
+          document.getElementById('customPerformanceContent').classList.add('hidden');
+        }
+      }
+      
+      function generateCustomIndex() {
+        const query = document.getElementById('customIndexQuery').value.trim();
+        if (!query) {
+          alert('Please enter a query to generate a custom index');
+          return;
+        }
+        
+        // Show loading section
+        document.getElementById('loadingSection').classList.remove('hidden');
+        document.getElementById('customIndexTabs').classList.add('hidden');
+        
+        // Simulate progress
+        let progress = 0;
+        const progressBar = document.getElementById('progressBar');
+        const interval = setInterval(() => {
+          progress += Math.random() * 15;
+          if (progress > 100) progress = 100;
+          progressBar.style.width = progress + '%';
+          
+          if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              document.getElementById('loadingSection').classList.add('hidden');
+              document.getElementById('customIndexTabs').classList.remove('hidden');
+              createCustomPerformanceChart();
+              updateCustomConstituentsTable();
+            }, 500);
+          }
+        }, 200);
+      }
+      
+      function createPerformanceChart() {
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        if (performanceChart) performanceChart.destroy();
+        
+        performanceChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+              label: 'Selected Index',
+              data: [100, 105, 103, 108, 112, 115],
+              borderColor: '#0c7bf2',
+              backgroundColor: 'rgba(12, 123, 242, 0.1)',
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                labels: {
+                  color: '#ffffff'
+                }
+              }
+            },
+            scales: {
+              x: {
+                ticks: {
+                  color: '#90accb'
+                },
+                grid: {
+                  color: '#314c68'
+                }
+              },
+              y: {
+                ticks: {
+                  color: '#90accb'
+                },
+                grid: {
+                  color: '#314c68'
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      function createCustomPerformanceChart() {
+        const ctx = document.getElementById('customPerformanceChart').getContext('2d');
+        if (customPerformanceChart) customPerformanceChart.destroy();
+        
+        customPerformanceChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+              label: 'Custom Index',
+              data: [100, 107, 105, 112, 118, 122],
+              borderColor: '#0c7bf2',
+              backgroundColor: 'rgba(12, 123, 242, 0.1)',
+              tension: 0.4
+            }, {
+              label: 'Benchmark',
+              data: [100, 105, 103, 108, 112, 115],
+              borderColor: '#90accb',
+              backgroundColor: 'rgba(144, 172, 203, 0.1)',
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                labels: {
+                  color: '#ffffff'
+                }
+              }
+            },
+            scales: {
+              x: {
+                ticks: {
+                  color: '#90accb'
+                },
+                grid: {
+                  color: '#314c68'
+                }
+              },
+              y: {
+                ticks: {
+                  color: '#90accb'
+                },
+                grid: {
+                  color: '#314c68'
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      function updatePerformanceChart() {
+        // This would update the chart based on benchmark selection
+        if (performanceChart) {
+          // Simulate adding benchmark data
+          const benchmarkData = [100, 105, 103, 108, 112, 115];
+          if (performanceChart.data.datasets.length === 1) {
+            performanceChart.data.datasets.push({
+              label: 'Benchmark',
+              data: benchmarkData,
+              borderColor: '#90accb',
+              backgroundColor: 'rgba(144, 172, 203, 0.1)',
+              tension: 0.4
+            });
+          }
+          performanceChart.update();
+        }
+      }
+      
+      function updateCustomPerformanceChart() {
+        // This would update the custom chart based on benchmark selection
+        if (customPerformanceChart) {
+          customPerformanceChart.update();
+        }
+      }
+      
+      function updatePerformanceStats() {
+        // This would fetch and update performance statistics
+        console.log('Updating performance stats...');
+      }
+      
+      function updateCustomPerformanceStats() {
+        // This would fetch and update custom performance statistics
+        console.log('Updating custom performance stats...');
+      }
+      
+      function updateConstituentsTable(indexType) {
+        // This would populate the table with actual data
+        const sampleData = {
+          nifty_50: [
+            { stock: 'RELIANCE', weight: '8.5%', return: '+2.3%', score: 85 },
+            { stock: 'TCS', weight: '7.2%', return: '-1.1%', score: 78 },
+            { stock: 'HDFCBANK', weight: '6.8%', return: '+1.8%', score: 82 }
+          ],
+          nifty_100: [
+            { stock: 'RELIANCE', weight: '6.2%', return: '+2.3%', score: 85 },
+            { stock: 'TCS', weight: '5.8%', return: '-1.1%', score: 78 },
+            { stock: 'INFY', weight: '4.5%', return: '+3.2%', score: 88 }
+          ]
+        };
+        
+        const tableBody = document.getElementById('constituentsTable');
+        const data = sampleData[indexType] || sampleData.nifty_50;
+        
+        tableBody.innerHTML = data.map(item => `
+          <tr class="border-b border-[#314c68]">
+            <td class="text-white p-3">${item.stock}</td>
+            <td class="text-white p-3">${item.weight}</td>
+            <td class="${item.return.startsWith('+') ? 'text-green-400' : 'text-red-400'} p-3">${item.return}</td>
+            <td class="text-white p-3">${item.score}</td>
+          </tr>
+        `).join('');
+      }
+      
+      function updateCustomConstituentsTable() {
+        const sampleData = [
+          { stock: 'INFY', weight: '12.3%', return: '+3.8%', score: 92 },
+          { stock: 'TCS', weight: '11.5%', return: '+2.1%', score: 89 },
+          { stock: 'WIPRO', weight: '8.7%', return: '+1.5%', score: 85 },
+          { stock: 'HCLTECH', weight: '7.2%', return: '+4.2%', score: 91 }
+        ];
+        
+        const tableBody = document.getElementById('customConstituentsTable');
+        tableBody.innerHTML = sampleData.map(item => `
+          <tr class="border-b border-[#314c68]">
+            <td class="text-white p-3">${item.stock}</td>
+            <td class="text-white p-3">${item.weight}</td>
+            <td class="${item.return.startsWith('+') ? 'text-green-400' : 'text-red-400'} p-3">${item.return}</td>
+            <td class="text-white p-3">${item.score}</td>
+          </tr>
+        `).join('');
+      }
+      
+      function updateSentimentAnalysis() {
+        const selectedPeriod = document.getElementById('sentimentPeriodSelect').value;
+        // This would update sentiment analysis based on selected time period
+        console.log('Updating sentiment analysis for period:', selectedPeriod);
+      }
+      
+      function updateCustomSentimentAnalysis() {
+        const selectedPeriod = document.getElementById('customSentimentPeriodSelect').value;
+        // This would update custom sentiment analysis based on selected time period
+        console.log('Updating custom sentiment analysis for period:', selectedPeriod);
+      }
+      
+      function updateNewsTable() {
+        const selectedStock = document.getElementById('stockNewsSelect').value;
+        if (!selectedStock) return;
+        
+        // This would fetch and display news for the selected stock
+        const sampleNews = [
+          {
+            date: '2024-01-15',
+            headline: `${selectedStock} reports strong quarterly results`,
+            sentiment: 'Positive',
+            score: '0.85'
+          },
+          {
+            date: '2024-01-14',
+            headline: `${selectedStock} announces new strategic partnership`,
+            sentiment: 'Positive',
+            score: '0.72'
+          }
+        ];
+        
+        const tableBody = document.getElementById('newsTable');
+        tableBody.innerHTML = sampleNews.map(item => `
+          <tr class="border-b border-[#314c68]">
+            <td class="text-white p-3">${item.date}</td>
+            <td class="text-white p-3">${item.headline}</td>
+            <td class="text-green-400 p-3">${item.sentiment}</td>
+            <td class="text-white p-3">${item.score}</td>
+          </tr>
+        `).join('');
+      }
+      
+      function updateCustomNewsTable() {
+        const selectedStock = document.getElementById('customStockNewsSelect').value;
+        if (!selectedStock) return;
+        
+        // This would fetch and display news for the selected stock
+        const sampleNews = [
+          {
+            date: '2024-01-15',
+            headline: `${selectedStock} shows strong AI adoption trends`,
+            sentiment: 'Positive',
+            score: '0.92'
+          },
+          {
+            date: '2024-01-14',
+            headline: `${selectedStock} expands digital transformation services`,
+            sentiment: 'Positive',
+            score: '0.88'
+          }
+        ];
+        
+        const tableBody = document.getElementById('customNewsTable');
+        tableBody.innerHTML = sampleNews.map(item => `
+          <tr class="border-b border-[#314c68]">
+            <td class="text-white p-3">${item.date}</td>
+            <td class="text-white p-3">${item.headline}</td>
+            <td class="text-green-400 p-3">${item.sentiment}</td>
+            <td class="text-white p-3">${item.score}</td>
+          </tr>
+        `).join('');
+      }
+      
+      function setDefaultDates() {
+        // Set default period to 1 Month (already set in HTML with selected attribute)
+        // No additional initialization needed for dropdowns
+      }
+      
+      // Show existing section by default
+      showSection('existing');
+    </script>
   </body>
 </html>
