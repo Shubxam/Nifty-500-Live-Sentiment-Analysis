@@ -2,13 +2,14 @@
 import pandas as pd
 from loguru import logger
 
+from config import Index
 from database import DatabaseManager
 
-INDEX_CONSTITUENTS_URL: dict[str, str] = {
-    "nifty_500": "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
-    "nifty_200": "https://archives.nseindia.com/content/indices/ind_nifty200list.csv",
-    "nifty_100": "https://archives.nseindia.com/content/indices/ind_nifty100list.csv",
-    "nifty_50": "https://archives.nseindia.com/content/indices/ind_nifty50list.csv",
+INDEX_CONSTITUENTS_URL: dict[Index, str] = {
+    Index.NIFTY_500: "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
+    Index.NIFTY_200: "https://archives.nseindia.com/content/indices/ind_nifty200list.csv",
+    Index.NIFTY_100: "https://archives.nseindia.com/content/indices/ind_nifty100list.csv",
+    Index.NIFTY_50: "https://archives.nseindia.com/content/indices/ind_nifty50list.csv",
 }
 
 query_duplicates_cmd = """
