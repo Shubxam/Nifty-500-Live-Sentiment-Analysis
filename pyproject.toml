@@ -9,11 +9,10 @@ Repository = "https://github.com/shubxam/Nifty-500-Live-Sentiment-Analysis"
 name = "Nifty-500-Live-Sentiment-Analysis"
 description = "real time sentiment analysis of nifty indices"
 authors = [
-    { name="shubham soni", email="shubxam@gmail.com" },
+    { name="Shubham Soni", email="shubxam@gmail.com" },
 ]
-readme = ""
+readme = "README.md"
 license = "MIT"
-version = "0.1.0"  # Using static version instead of dynamic
 requires-python = ">=3.11,<4.0"
 
 # ---- Main dependencies ----
@@ -41,19 +40,16 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=8.3.5",
-    "ruff>=0.11.0",
+    "pytest-sugar>=1.0.0",
+    "ruff>=0.11.9",
     "codespell>=2.4.1",
     "rich>=13.9.4",
     "basedpyright>=1.28.2",
-    "funlog>=0.2.0",
+    "funlog>=0.2.1",
     "ipykernel>=6.29.5",
     "iprogress>=0.4",
     "ipywidgets>=8.1.6",
 ]
-
-[project.scripts]
-# Add script entry points here:
-Nifty-500-Live-Sentiment-Analysis = "src:main"
 
 # ---- Settings ----
 
@@ -122,10 +118,9 @@ reportIgnoreCommentWithoutRule = false
 # Reports `# type: ignore` comments that are no longer necessary (e.g., code changed, error fixed).
 # Opinion: Generally useful (`true`) to keep ignore comments clean and relevant. Setting to `false` might be done temporarily during heavy refactoring.
 reportUnnecessaryTypeIgnoreComment = false
-
-# A few typically noisy warnings, comment/uncomment as desired:
-# Reports errors when trying to import a module for which no type stubs (external type information) are found.
-# Opinion: Can be noisy for libraries without stubs. Setting to `false` is common if you don't want to generate/find stubs for all dependencies. `true` encourages better type coverage.
+# A few typically noisy warnings are next.
+# How many you enable is up to you. The first few are off by default, but you can
+# comment/uncomment these as desired:
 reportMissingTypeStubs = false
 # Reports when the result of a function call (that might have side effects or return important values) is not used.
 # Opinion: Can be helpful to catch potential bugs where a return value should have been checked or used. Can also be noisy if functions are called purely for side effects and don't return anything meaningful (`None`). Setting to `false` reduces noise in such cases.
