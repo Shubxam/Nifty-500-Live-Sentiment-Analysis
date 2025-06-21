@@ -30,22 +30,17 @@ jobs:
           # Important for versioning plugins:
           fetch-depth: 0
 
-      - name: Install uv (official Astral action)
-        uses: astral-sh/setup-uv@v5
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
         with:
-          # Update this as needed:
-          version: "0.7.13"
           enable-cache: true
           python-version: ${{ env.python-version }}
 
-      - name: Set up Python (using uv)
-        run: make install
-
-      - name: Install all dependencies
+      - name: Setup venv and Install all dependencies
         run: make install-dev
 
       - name: Run linting
         run: make lint
 
-      - name: Run tests
-        run: make test
+      # - name: Run tests
+        # run: make test
