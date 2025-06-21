@@ -45,11 +45,10 @@ dev = [
     "ruff>=0.11.9",
     "codespell>=2.4.1",
     "rich>=13.9.4",
-    "basedpyright>=1.28.2",
     "funlog>=0.2.1",
     "ipykernel>=6.29.5",
-    "iprogress>=0.4",
-    "ipywidgets>=8.1.6",
+    "ty>=0.0.1a11",
+    "pre-commit>=4.2.0",
 ]
 
 # ---- Settings ----
@@ -106,37 +105,6 @@ ignore = [
     "ISC002", # https://docs.astral.sh/ruff/rules/multi-line-implicit-string-concatenation/
 ]
 
-[tool.basedpyright]
-# BasedPyright currently seems like the best type checker option, much faster
-# than mypy and with a good extension for VSCode/Cursor.
-# https://marketplace.visualstudio.com/items?itemName=detachhead.basedpyright
-# https://docs.basedpyright.com/latest/configuration/config-files/#sample-pyprojecttoml-file
-include = ["src", "tests", "devtools"]
-# By default BasedPyright is very strict, so you almost certainly want to disable
-# some of the rules.
-# First, these turn off warnings about (yes) how you ignore warnings:
-reportIgnoreCommentWithoutRule = false
-# Reports `# type: ignore` comments that are no longer necessary (e.g., code changed, error fixed).
-# Opinion: Generally useful (`true`) to keep ignore comments clean and relevant. Setting to `false` might be done temporarily during heavy refactoring.
-reportUnnecessaryTypeIgnoreComment = false
-# A few typically noisy warnings are next.
-# How many you enable is up to you. The first few are off by default, but you can
-# comment/uncomment these as desired:
-reportMissingTypeStubs = false
-# Reports when the result of a function call (that might have side effects or return important values) is not used.
-# Opinion: Can be helpful to catch potential bugs where a return value should have been checked or used. Can also be noisy if functions are called purely for side effects and don't return anything meaningful (`None`). Setting to `false` reduces noise in such cases.
-reportUnusedCallResult = false
-reportAny = false
-reportExplicitAny = false
-reportImplicitStringConcatenation = false
-reportUnreachable = false
-# reportPrivateImportUsage = false
-# reportPrivateLocalImportUsage = false
-# reportMissingImports = false
-# reportUnnecessaryIsInstance = false
-# reportUnknownVariableType = false
-# reportUnknownArgumentType = false
-
 [tool.codespell]
 ignore-words-list = "foo,bar,IST"
 # skip = "foo.py,bar.py"
@@ -149,5 +117,3 @@ testpaths = [
     "src",
     "tests",
 ]
-norecursedirs = []
-filterwarnings = []
