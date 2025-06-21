@@ -19,7 +19,7 @@ from typing import Literal, final
 import duckdb
 import pandas as pd
 from loguru import logger
-
+from config import Index
 
 class DatabaseConnection:
     """
@@ -233,10 +233,10 @@ class DatabaseManager:
             return conn.execute("SELECT * FROM ticker_meta").fetchdf()
 
 
-    def get_index_constituents(self, index: str = "nifty_50") -> pd.DataFrame:
+    def get_index_constituents(self, index: Index = Index.NIFTY_50) -> pd.DataFrame:
         """get index constituents from the database"""
         with self.get_connection() as conn:
-            return conn.execute(f"select ticker from indices_constituents where {index} = true;").fetchdf()
+            return conn.execute(f"select ticker from indices_constituents where {index.value} = true;").fetchdf()
 
 
 if __name__ == "__main__":
