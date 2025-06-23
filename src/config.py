@@ -138,7 +138,7 @@ DB_UTILS = {
         -- delete statement
         delete from article_data
         where rowid in (select rowid from duplicates_cte);
-    """
+    """,
 }
 
 
