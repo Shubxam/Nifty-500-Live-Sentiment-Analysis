@@ -76,7 +76,7 @@ class DatabaseManager:
         if db_path is None:
             # Construct path relative to this file's directory
             script_dir = os.path.dirname(os.path.abspath(__file__))
-            self.db_path = os.path.join(script_dir, "..", "datasets", "ticker_data.db")
+            self.db_path = os.path.join(script_dir, '..', 'datasets', 'ticker_data.db')
         else:
             self.db_path = db_path
         self._initialize_db()
@@ -136,7 +136,9 @@ class DatabaseManager:
             articles_df: DataFrame with article data
             has_sentiment: Whether the DataFrame includes sentiment columns
         """
-        logger.info(f"Inserting {articles_df.shape[0]} articles {'with' if has_sentiment else 'without'} sentiment into the database")
+        logger.info(
+            f"Inserting {articles_df.shape[0]} articles {'with' if has_sentiment else 'without'} sentiment into the database"
+        )
         with self.get_connection() as conn:
             if has_sentiment:
                 conn.execute(
@@ -144,9 +146,9 @@ class DatabaseManager:
                     INSERT OR REPLACE INTO article_data (
                         ticker, headline, date_posted, source, article_link,
                         neutral_sentiment, negative_sentiment, positive_sentiment, compound_sentiment, created_at
-            
+
                     )
-                    SELECT 
+                    SELECT
                         ticker, headline, date_posted, source, article_link,
                         Neutral, Negative, Positive, compound, CURRENT_TIMESTAMP
                     FROM articles_df;
@@ -155,10 +157,10 @@ class DatabaseManager:
             else:
                 conn.execute(
                     """
-                    INSERT OR REPLACE INTO article_data 
-                    (ticker, headline, date_posted, source, article_link, created_at) 
-                    SELECT 
-                        ticker, headline, date_posted, source, article_link, CURRENT_TIMESTAMP 
+                    INSERT OR REPLACE INTO article_data
+                    (ticker, headline, date_posted, source, article_link, created_at)
+                    SELECT
+                        ticker, headline, date_posted, source, article_link, CURRENT_TIMESTAMP
                     FROM articles_df;
                     """
                 )
@@ -177,7 +179,7 @@ class DatabaseManager:
             for meta in ticker_meta:
                 conn.execute(
                     """
-                    INSERT OR REPLACE INTO ticker_meta 
+                    INSERT OR REPLACE INTO ticker_meta
                     VALUES (?, ?, ?, ?, ?)
                     """,
                     meta,
@@ -203,43 +205,42 @@ class DatabaseManager:
             DataFrame containing the filtered articles
         """
         with self.get_connection() as conn:
-            query_parts = ["SELECT * FROM article_data WHERE 1=1"]
+            query_parts = ['SELECT * FROM article_data WHERE 1=1']
             params = []
 
             # Apply sentiment filter
             if not has_sentiment:
-                query_parts.append("AND compound_sentiment IS NULL")
+                query_parts.append('AND compound_sentiment IS NULL')
 
             # Apply date filter
             if after_date is not None:
-                query_parts.append("AND date_posted >= ?")
+                query_parts.append('AND date_posted >= ?')
                 params.append(after_date)
 
             # Apply ordering
-            order_direction: Literal["DESC", "ASC"] = "DESC" if latest else "ASC"
+            order_direction: Literal['DESC', 'ASC'] = 'DESC' if latest else 'ASC'
             query_parts.append(f"ORDER BY date_posted {order_direction}")
 
             # Apply limit
-            query_parts.append("LIMIT ?")
+            query_parts.append('LIMIT ?')
             params.append(n)
 
             # Build and execute query
-            query = " ".join(query_parts)
+            query = ' '.join(query_parts)
             return conn.execute(query, params).fetchdf()
 
     def get_ticker_metadata(self) -> pd.DataFrame:
         """Retrieve all ticker metadata from the database."""
         with self.get_connection() as conn:
-            return conn.execute("SELECT * FROM ticker_meta").fetchdf()
+            return conn.execute('SELECT * FROM ticker_meta').fetchdf()
 
-
-    def get_index_constituents(self, index: str = "nifty_50") -> pd.DataFrame:
+    def get_index_constituents(self, index: str = 'nifty_50') -> pd.DataFrame:
         """get index constituents from the database"""
         with self.get_connection() as conn:
-            return conn.execute(f"select ticker from indices_constituents where {index} = true;").fetchdf()
+            return conn.execute(f"SELECT ticker FROM indices_constituents WHERE {index} = true;").fetchdf()  # nosec B608
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Example usage
     db_manager = DatabaseManager()
     articles_df = db_manager.get_articles(has_sentiment=False, n=100)
