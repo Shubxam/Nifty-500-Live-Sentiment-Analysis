@@ -238,18 +238,18 @@ class FinologySource(NewsSource):
 class TickerNewsObject:
     def __init__(self, ticker: str) -> None:
         self.ticker: str = ticker
-        self.news_sources: dict[str, NewsSource] = {
-            'GoogleFinance': GoogleFinanceSource(),
-            'YahooFinance': YahooFinanceSource(),
-            'Finology': FinologySource(),  # disabled for now due to constant error 403
+        self.news_sources: dict[str, type[GoogleFinanceSource] | type[YahooFinanceSource] | type[FinologySource]] = {
+            'GoogleFinance': GoogleFinanceSource,
+            'YahooFinance': YahooFinanceSource,
+            'Finology': FinologySource,
         }
         self.articles: list[dict[str, str]] = []
 
     def collect_news(self) -> list[dict[str, str]]:
-        for source_name, source_obj in self.news_sources.items():
+        for source_name, source_cls in self.news_sources.items():
             logger.info(f'Fetching articles from {source_name} for {self.ticker}')
             # Pass the shared client to the source object
-            fetched_articles: list[dict[str, str]] = source_obj.get_articles(
+            fetched_articles: list[dict[str, str]] = source_cls().get_articles(
                 self.ticker
             )
             logger.info(
