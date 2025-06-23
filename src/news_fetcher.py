@@ -4,7 +4,7 @@ from typing import final, override  # type: ignore
 from bs4 import BeautifulSoup, Tag
 from loguru import logger
 
-from utils import get_webpage_content, parse_date
+from .utils import get_webpage_content, parse_date
 
 
 class NewsSource(ABC):
@@ -51,10 +51,14 @@ class GoogleFinanceSource(NewsSource):
                         )
                         continue
 
-                    headline: str = headline_tag.text.strip().replace('\\n', '')
-                    relative_date_str: str = date_tag.text
-                    source: str = source_tag.text
-                    article_link_raw = link_tag.get('href')
+                    headline: str = (
+                        headline_tag.text.strip().replace('\\n', '')
+                        if headline_tag
+                        else ''
+                    )
+                    relative_date_str: str = date_tag.text if date_tag else ''
+                    source: str = source_tag.text if source_tag else ''
+                    article_link_raw = link_tag.get('href', '') if link_tag else ''
                     article_link: str = (
                         str(article_link_raw) if article_link_raw else ''
                     )
@@ -89,6 +93,7 @@ class GoogleFinanceSource(NewsSource):
 
 @final
 class YahooFinanceSource(NewsSource):
+    # TODO: #124 fix error 404 for Yahoo Finance
     def __init__(self):
         self.base_url = 'https://finance.yahoo.com/quote'
         self.articles: list[dict[str, str]] = []
@@ -236,7 +241,7 @@ class TickerNewsObject:
         self.news_sources: dict[str, NewsSource] = {
             'GoogleFinance': GoogleFinanceSource(),
             'YahooFinance': YahooFinanceSource(),
-            # "Finology": FinologySource() #disabled for now due to constant error 403
+            'Finology': FinologySource(),  # disabled for now due to constant error 403
         }
         self.articles: list[dict[str, str]] = []
 

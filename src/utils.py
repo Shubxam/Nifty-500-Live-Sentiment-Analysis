@@ -11,8 +11,6 @@ from tqdm import tqdm
 from .config import BATCH_SIZE, DB_UTILS, HEADER, SENTIMENT_MODEL_NAME
 from .database import DatabaseManager
 
-# META_FIELDS = [None] #todo
-
 
 def get_webpage_content(url: str, custom_header: bool = True) -> str:
     """
@@ -237,7 +235,7 @@ def analyse_sentiment(headlines: list[str]) -> pd.DataFrame:
     return df
 
 
-# database utility functions
+# ------------------ database utility functions ---------------------------
 
 
 def query_duplicates(return_df: bool = False) -> pd.DataFrame | None:
