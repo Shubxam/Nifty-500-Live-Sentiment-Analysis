@@ -128,7 +128,9 @@ class DatabaseManager:
                 )"""
             )
 
-    def insert_articles(self, articles_df: pd.DataFrame, has_sentiment: bool = False) -> None:
+    def insert_articles(
+        self, articles_df: pd.DataFrame, has_sentiment: bool = False
+    ) -> None:
         """
         Insert articles into the database with conflict resolution to avoid duplicates.
 
@@ -166,7 +168,9 @@ class DatabaseManager:
                 )
         logger.success(f"Inserted {articles_df.shape[0]} articles into the database")
 
-    def insert_ticker_metadata(self, ticker_meta: list[list[str | float | None]]) -> None:
+    def insert_ticker_metadata(
+        self, ticker_meta: list[list[str | float | None]]
+    ) -> None:
         """
         Insert or replace ticker metadata.
 
@@ -237,7 +241,9 @@ class DatabaseManager:
     def get_index_constituents(self, index: str = 'nifty_50') -> pd.DataFrame:
         """get index constituents from the database"""
         with self.get_connection() as conn:
-            return conn.execute(f"SELECT ticker FROM indices_constituents WHERE {index} = true;").fetchdf()  # nosec B608
+            return conn.execute(
+                f"SELECT ticker FROM indices_constituents WHERE {index} = true;"  # nosec B608
+            ).fetchdf()
 
 
 if __name__ == '__main__':

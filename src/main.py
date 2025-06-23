@@ -17,9 +17,9 @@ from news_fetcher import TickerNewsObject
 # Remove the default logger to prevent duplicate log entries.
 logger.remove()
 # Define the logging format.
-fmt: str = "<white>{time:HH:mm:ss!UTC}({elapsed})</white> - <level> {level} - {message} </level>"
+fmt: str = '<white>{time:HH:mm:ss!UTC}({elapsed})</white> - <level> {level} - {message} </level>'
 # Add a new logger configuration.
-logger.add(sys.stderr, colorize=True, level="INFO", format=fmt, enqueue=True)
+logger.add(sys.stderr, colorize=True, level='INFO', format=fmt, enqueue=True)
 
 
 # Define the worker function outside the class for multiprocessing
@@ -30,16 +30,17 @@ def worker_collect_news(ticker_obj: TickerNewsObject) -> list[dict[str, str]]:
         return news
     except Exception as e:
         logger.error(f"Error collecting news for {ticker_obj.ticker}: {e}")
-        return [] # Return empty list on error
+        return []  # Return empty list on error
 
 
-def get_news(universe: str = "nifty_50", multiprocess:bool =False) -> None:
-
+def get_news(universe: str = 'nifty_50', multiprocess: bool = False) -> None:
     dbm = DatabaseManager()
 
     # Fetch the tickers
-    tickers_df = dbm.get_index_constituents(universe).loc[:, "ticker"]
-    ticker_objs: list[TickerNewsObject] = [TickerNewsObject(ticker) for ticker in tickers_df]
+    tickers_df = dbm.get_index_constituents(universe).loc[:, 'ticker']
+    ticker_objs: list[TickerNewsObject] = [
+        TickerNewsObject(ticker) for ticker in tickers_df
+    ]
 
     # Fetch and process news data for all tickers.
     logger.info(f"Start Processing {len(ticker_objs)} Tickers for {universe}")
@@ -48,13 +49,15 @@ def get_news(universe: str = "nifty_50", multiprocess:bool =False) -> None:
 
     if not multiprocess:
         # Process tickers sequentially.
-        logger.info("Processing tickers sequentially.")
-        for ticker_obj in tqdm(ticker_objs, desc="Processing Tickers"):
+        logger.info('Processing tickers sequentially.')
+        for ticker_obj in tqdm(ticker_objs, desc='Processing Tickers'):
             try:
                 news = ticker_obj.collect_news()
                 all_articles.extend(news)
             except Exception as e:
-                    logger.error(f"Error collecting news for {ticker_obj.ticker} (sequential): {e}")
+                logger.error(
+                    f"Error collecting news for {ticker_obj.ticker} (sequential): {e}"
+                )
     else:
         # Process tickers in parallel using multiprocessing.
         logger.info(f"Processing tickers in parallel using {mp.cpu_count()} processes.")
@@ -64,57 +67,70 @@ def get_news(universe: str = "nifty_50", multiprocess:bool =False) -> None:
             # The result is a list of lists (one list of articles per ticker)
             results_list_of_lists = list(
                 tqdm(
-                    pool.map(worker_collect_news, ticker_objs), # Pass the worker function and the objects
-                    total=len(ticker_objs), # Use the correct list length
-                    desc="Processing Tickers (Parallel)",
+                    pool.map(
+                        worker_collect_news, ticker_objs
+                    ),  # Pass the worker function and the objects
+                    total=len(ticker_objs),  # Use the correct list length
+                    desc='Processing Tickers (Parallel)',
                 )
             )
             # Flatten the list of lists into a single list of articles
-            all_articles = [article for sublist in results_list_of_lists for article in sublist]
+            all_articles = [
+                article for sublist in results_list_of_lists for article in sublist
+            ]
 
     # --- Aggregation and Processing ---
-    logger.success(f"Collected {len(all_articles)} articles in total for {len(ticker_objs)} tickers")
+    logger.success(
+        f"Collected {len(all_articles)} articles in total for {len(ticker_objs)} tickers"
+    )
     # Check if any articles were collected
     if not all_articles:
-        logger.warning("No news articles found for any ticker after processing. Exiting!")
+        logger.warning(
+            'No news articles found for any ticker after processing. Exiting!'
+        )
         return
-    
+
     # Create DataFrame directly from the flattened list
     articles_df = pd.DataFrame(all_articles)
-    logger.info(f"Fetched {articles_df.shape[0]} articles from {len(ticker_objs)} tickers")
+    logger.info(
+        f"Fetched {articles_df.shape[0]} articles from {len(ticker_objs)} tickers"
+    )
 
     # Drop rows where essential info might be missing (e.g., headline)
     articles_df.dropna(subset=['headline'], inplace=True)
-    
+
     dbm.insert_articles(articles_df, has_sentiment=False)
 
-def compute_and_update_sentiment(n: int=200):
+
+def compute_and_update_sentiment(n: int = 200):
     # get 200 latest articles without sentiment score from the database
     dbm: DatabaseManager = DatabaseManager()
     articles_df: pd.DataFrame = dbm.get_articles(n=n, has_sentiment=False, latest=True)
     if articles_df.empty:
-        logger.warning("No articles without sentiment scores found in the database.")
+        logger.warning('No articles without sentiment scores found in the database.')
         return
-    logger.info(f"Fetched {articles_df.shape[0]} articles without sentiment scores from the database")
+    logger.info(
+        f"Fetched {articles_df.shape[0]} articles without sentiment scores from the database"
+    )
     # perform sentiment analysis on them
-    headlines: list[str] = articles_df["headline"].tolist()
+    headlines: list[str] = articles_df['headline'].tolist()
     sentiment_scores = utils.analyse_sentiment(headlines)
     articles_df_with_sentiment = articles_df.merge(
-        sentiment_scores,
-        left_index=True,
-        right_index=True,
-        how='inner')
+        sentiment_scores, left_index=True, right_index=True, how='inner'
+    )
     # update the database with the sentiment scores
     # we can use insert function since all the duplicate articles (ticker, headline) will be replaced
     # and the new sentiment scores will be added.
-    dbm.insert_articles(articles_df_with_sentiment, has_sentiment=True) 
-    logger.success(f"Updated database with sentiment scores for {articles_df_with_sentiment.shape[0]} articles.")
+    dbm.insert_articles(articles_df_with_sentiment, has_sentiment=True)
+    logger.success(
+        f"Updated database with sentiment scores for {articles_df_with_sentiment.shape[0]} articles."
+    )
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Example usage: Fetch data for Nifty 50.
     # Choose the universe: "nifty_50", "nifty_100", "nifty_200", "nifty_500"
-    universe: str = "nifty_50"
+    universe: str = 'nifty_50'
     multiprocess: bool = True
     # Call the function to fetch news
     get_news(universe, multiprocess)
