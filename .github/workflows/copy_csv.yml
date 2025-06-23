@@ -24,7 +24,7 @@ jobs:
       - name: copy db file
         shell: bash
         run: |
-          cp src/datasets/* dest/datasets/
+          cp src/database/* dest/datasets/
 
       - name: commit files
         working-directory: dest

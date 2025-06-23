@@ -22,12 +22,12 @@ dev-setup: install
 	@echo "Development environment ready!"
 
 lint:
-	uv run devtools/lint.py
+	uv run ./src/devtools/lint.py
 
 check:
-	uv run ruff check src/
-	uv run ruff format src/ --check
-	uv run ty check
+	uv run ruff check src/*.py
+	uv run ruff format src/*.py --check
+	uv run ty check src/*.py
 
 test:
 	uv run pytest

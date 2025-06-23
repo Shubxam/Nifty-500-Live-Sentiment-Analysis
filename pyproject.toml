@@ -67,6 +67,7 @@ torch = [
 [tool.ruff]
 line-length = 88
 indent-width = 4
+extend-exclude = ["*.ipynb"]
 
 [tool.ruff.lint]
 # Allow fix for all enabled rules (when `--fix`) is provided.
@@ -150,3 +151,6 @@ skips = ["B101", "B601"]
 
 [tool.bandit.assert_used]
 skips = ['*_test.py', 'test_*.py']
+
+[tool.ty.src]
+exclude = ["*.ipynb"]
