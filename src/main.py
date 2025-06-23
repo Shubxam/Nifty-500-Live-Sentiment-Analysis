@@ -10,9 +10,9 @@ import pandas as pd
 from loguru import logger
 from tqdm import tqdm
 
-import utils as utils
-from database import DatabaseManager
-from news_fetcher import TickerNewsObject
+from . import utils as utils
+from .database import DatabaseManager
+from .news_fetcher import TickerNewsObject
 
 # Remove the default logger to prevent duplicate log entries.
 logger.remove()
