@@ -11,7 +11,7 @@ jobs:
 
     env: # shared across this job
       python_version: "3.13"
-    
+
     permissions:
       contents: write # required to push changes to the repo
 
@@ -24,7 +24,7 @@ jobs:
           enable-cache: true
           cache-dependency-glob: "**/pyproject.toml"
           python-version: ${{ env.python_version }}
-          
+
       - name: Install necessary libraries using uv
         run: make install
 
