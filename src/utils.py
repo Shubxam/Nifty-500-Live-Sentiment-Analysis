@@ -8,7 +8,8 @@ from loguru import logger
 from nse import NSE
 from tqdm import tqdm
 
-from config import BATCH_SIZE, HEADER, SENTIMENT_MODEL_NAME
+from .config import BATCH_SIZE, DB_UTILS, HEADER, SENTIMENT_MODEL_NAME
+from .database import DatabaseManager
 
 # META_FIELDS = [None] #todo
 
@@ -236,16 +237,56 @@ def analyse_sentiment(headlines: list[str]) -> pd.DataFrame:
     return df
 
 
+# database utility functions
+
+
+def query_duplicates(return_df: bool = False) -> pd.DataFrame | None:
+    with DatabaseManager().get_connection() as conn:
+        # Select duplicates
+        duplicates_df: pd.DataFrame = conn.execute(
+            DB_UTILS['query_duplicates']
+        ).fetchdf()
+        duplicate_rows_count: int = duplicates_df.shape[0]
+
+        if duplicate_rows_count == 0:
+            logger.info('No duplicates found in database')
+            return None
+
+        logger.info(f'{duplicate_rows_count} duplicates found in database')
+
+        if return_df:
+            return duplicates_df
+
+
+def deduplicate_db() -> None:
+    duplicates_df: pd.DataFrame | None = query_duplicates(return_df=True)
+
+    if duplicates_df is None:
+        logger.info('No duplicates found to delete.')
+        return
+
+    duplicates_count: int = duplicates_df.shape[0]
+
+    if duplicates_count == 0:
+        logger.info('No duplicates found to delete.')
+        return
+
+    with DatabaseManager().get_connection() as conn:
+        conn.execute(DB_UTILS['delete_duplicates'])
+        logger.success(f'Deleted {duplicates_count} duplicate rows from database.')
+
+
 if __name__ == '__main__':
     # Example usage
     # url = "https://www.example.com"
     # content = get_webpage_content(url)
     # print(content)
 
-    test_headlines = [
-        'ADANIENT Publishes news about quarterly results',
-        'Equity markets are down',
-        'Market volatility increases',
-    ]
-    sentiment_results = analyse_sentiment(test_headlines)
-    logger.debug(f'Sentiment Results: {sentiment_results}')
+    # test_headlines = [
+    #     'ADANIENT Publishes news about quarterly results',
+    #     'Equity markets are down',
+    #     'Market volatility increases',
+    # ]
+    # sentiment_results = analyse_sentiment(test_headlines)
+    # logger.debug(f'Sentiment Results: {sentiment_results}')
+    query_duplicates(return_df=False)

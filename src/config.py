@@ -24,6 +24,13 @@ HEADER: dict[str, str] = {
     'Cache-Control': 'max-age=0',
 }
 
+INDEX_CONSTITUENTS_URL: dict[str, str] = {
+    'nifty_500': 'https://archives.nseindia.com/content/indices/ind_nifty500list.csv',
+    'nifty_200': 'https://archives.nseindia.com/content/indices/ind_nifty200list.csv',
+    'nifty_100': 'https://archives.nseindia.com/content/indices/ind_nifty100list.csv',
+    'nifty_50': 'https://archives.nseindia.com/content/indices/ind_nifty50list.csv',
+}
+
 # Database Configuration
 DB_PATH = os.path.join(BASE_DIR, 'database')
 DB_NAME = 'ticker_data.db'
@@ -95,9 +102,47 @@ GET_DATA = {
     """,
 }
 
+
+# Database Utilities Script
+DB_UTILS = {
+    'query_duplicates': """
+        with duplicates_cte as (
+        select
+        ROW_NUMBER() OVER (
+            partition by ticker, headline order by created_at asc
+        ) as rn,
+        ticker,
+        headline,
+        date_posted,
+        article_link,
+        created_at
+        from article_data
+        ) select * from duplicates_cte where rn > 1;
+    """,
+    'delete_duplicates': """
+        with duplicates_cte as (
+        -- cte table with duplicates
+        select
+            rowid, rn
+        from (
+            -- filter duplicates and get their rowid
+            select
+            rowid,
+            ROW_NUMBER() OVER (
+            partition by ticker, headline order by created_at asc
+            ) as rn
+            from article_data
+        ) sub
+        where rn > 1
+        )
+        -- delete statement
+        delete from article_data
+        where rowid in (select rowid from duplicates_cte);
+    """
+}
+
+
 # Query building utilities
-
-
 def build_articles_query(
     has_sentiment: bool = True,
     after_date: str | None = None,
