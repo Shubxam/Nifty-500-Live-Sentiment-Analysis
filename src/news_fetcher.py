@@ -10,7 +10,9 @@ from .utils import get_webpage_content, parse_date
 class NewsSource(ABC):
     @abstractmethod
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
-        """Fetch articles for a given ticker"""
+        """
+        make http request to the news source, parse the response, and return a list of articles
+        """
         pass
 
 
@@ -246,6 +248,9 @@ class TickerNewsObject:
         self.articles: list[dict[str, str]] = []
 
     def collect_news(self) -> list[dict[str, str]]:
+        """
+        Calls each news source's get_articles method to fetch articles for the ticker.
+        """
         for source_name, source_cls in self.news_sources.items():
             logger.info(f'Fetching articles from {source_name} for {self.ticker}')
             # Pass the shared client to the source object

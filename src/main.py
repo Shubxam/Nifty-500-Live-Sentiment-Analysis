@@ -1,7 +1,7 @@
-# Note: During multiprocessing, individual processes do not share memory.
-# Data is returned from each process and aggregated, not stored in a class variable directly.
-# This script fetches stock news articles, adds them to a database,
-# and computes sentiment scores for articles that don't have them yet.
+"""
+This script fetches stock news articles, adds them to a database and computes sentiment scores for articles that don't have them yet.
+"""
+# Note: During multiprocessing, individual processes do not share memory. Hence, data is returned from each process and aggregated and not stored in a class variable directly.
 
 import multiprocessing as mp
 import sys
@@ -24,7 +24,7 @@ logger.add(sys.stderr, colorize=True, level='INFO', format=fmt, enqueue=True)
 
 # Define the worker function outside the class for multiprocessing
 def worker_collect_news(ticker_obj: TickerNewsObject) -> list[dict[str, str]]:
-    """Collects news for a ticker object and closes its client."""
+    """Collects news for a ticker object."""
     try:
         news = ticker_obj.collect_news()
         return news
@@ -33,7 +33,10 @@ def worker_collect_news(ticker_obj: TickerNewsObject) -> list[dict[str, str]]:
         return []  # Return empty list on error
 
 
-def get_news(universe: str = 'nifty_50', multiprocess: bool = False) -> None:
+def get_news(universe: str, multiprocess: bool) -> None:
+    """
+    Collect the news articles for a given universe of tickers and store them in the database.
+    """
     dbm = DatabaseManager()
 
     # Fetch the tickers
@@ -74,10 +77,10 @@ def get_news(universe: str = 'nifty_50', multiprocess: bool = False) -> None:
                     desc='Processing Tickers (Parallel)',
                 )
             )
-            # Flatten the list of lists into a single list of articles
-            all_articles = [
-                article for sublist in results_list_of_lists for article in sublist
-            ]
+        # Flatten the list of lists into a single list of articles
+        all_articles: list[dict[str, str]] = [
+            article for sublist in results_list_of_lists for article in sublist
+        ]
 
     # --- Aggregation and Processing ---
     logger.success(
@@ -103,6 +106,10 @@ def get_news(universe: str = 'nifty_50', multiprocess: bool = False) -> None:
 
 
 def compute_and_update_sentiment(n: int = 200):
+    """
+    Fetch the latest N articles without sentiment scores from the database and compute their sentiment scores.
+    Then, update the database with the computed sentiment scores.
+    """
     # get 200 latest articles without sentiment score from the database
     dbm: DatabaseManager = DatabaseManager()
     articles_df: pd.DataFrame = dbm.get_articles(n=n, has_sentiment=False, latest=True)
