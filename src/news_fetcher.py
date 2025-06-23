@@ -240,7 +240,10 @@ class FinologySource(NewsSource):
 class TickerNewsObject:
     def __init__(self, ticker: str) -> None:
         self.ticker: str = ticker
-        self.news_sources: dict[str, type[GoogleFinanceSource] | type[YahooFinanceSource] | type[FinologySource]] = {
+        self.news_sources: dict[
+            str,
+            type[GoogleFinanceSource] | type[YahooFinanceSource] | type[FinologySource],
+        ] = {
             'GoogleFinance': GoogleFinanceSource,
             'YahooFinance': YahooFinanceSource,
             'Finology': FinologySource,
