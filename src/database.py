@@ -10,21 +10,32 @@ This module includes:
 It uses DuckDB for storage and Pandas DataFrames for data manipulation.
 """
 
-# implement duckdb cursor to write to same db with multiple threads
+# TODO: evaluate the need to implement duckdb cursor to write to same db with multiple threads
+# TODO: make all sql queries consistent and use parameterized queries to prevent SQL injection
 
 import os
 from types import TracebackType
-from typing import Literal, final
+from typing import final
 
 import duckdb
 import pandas as pd
 from loguru import logger
 
+from .config import (
+    BASE_DIR,
+    CREATE_TABLE,
+    DB_NAME,
+    GET_DATA,
+    INSERT_DATA,
+    build_articles_query,
+)
+
+DB_PATH = os.path.join(BASE_DIR, 'database')
+
 
 class DatabaseConnection:
     """
-    A context manager for DuckDB database connections.
-    Allows for simplified database access with automatic resource cleanup.
+    A context manager class for DuckDB database connections.
     """
 
     def __init__(self, db_path: str) -> None:
@@ -50,16 +61,11 @@ class DatabaseConnection:
     def __exit__(
         self,
         exc_type: BaseException | None,
-        exc_val: BaseException | None,
-        exc_tb: TracebackType | None,
+        exc_value: BaseException | None,
+        traceback: TracebackType | None,
     ) -> None:
         """
         Exit the context manager, closing the database connection.
-
-        Args:
-            exc_type: Exception type if an exception was raised
-            exc_val: Exception value if an exception was raised
-            exc_tb: Exception traceback if an exception was raised
         """
         if self.conn:
             self.conn.close()
@@ -71,12 +77,11 @@ class DatabaseManager:
     A class to handle database operations.
     """
 
-    def __init__(self, db_path: str | None = None):
+    def __init__(self, db_path: str = ''):
         """Initialize the database manager with the database path."""
-        if db_path is None:
+        if not db_path:
             # Construct path relative to this file's directory
-            script_dir = os.path.dirname(os.path.abspath(__file__))
-            self.db_path = os.path.join(script_dir, '..', 'datasets', 'ticker_data.db')
+            self.db_path = os.path.join(DB_PATH, DB_NAME)
         else:
             self.db_path = db_path
         self._initialize_db()
@@ -101,32 +106,10 @@ class DatabaseManager:
         """Initialize the database tables if they don't exist."""
         with self.get_connection() as conn:
             # Create article data table with composite primary key
-            conn.execute(
-                """CREATE TABLE IF NOT EXISTS article_data (
-                    ticker TEXT NOT NULL,
-                    headline TEXT NOT NULL,
-                    date_posted TEXT NOT NULL,
-                    source TEXT,
-                    article_link TEXT,
-                    negative_sentiment FLOAT DEFAULT NULL,
-                    positive_sentiment FLOAT DEFAULT NULL,
-                    neutral_sentiment FLOAT DEFAULT NULL,
-                    compound_sentiment FLOAT DEFAULT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    PRIMARY KEY (ticker, headline)
-                )"""
-            )
+            conn.execute(CREATE_TABLE['article_data'])
 
             # Create ticker metadata table with ticker as primary key
-            conn.execute(
-                """CREATE TABLE IF NOT EXISTS ticker_meta (
-                    ticker TEXT PRIMARY KEY NOT NULL,
-                    sector TEXT NOT NULL,
-                    industry TEXT NOT NULL,
-                    mCap REAL,
-                    companyName TEXT NOT NULL
-                )"""
-            )
+            conn.execute(CREATE_TABLE['ticker_meta'])
 
     def insert_articles(
         self, articles_df: pd.DataFrame, has_sentiment: bool = False
@@ -143,29 +126,9 @@ class DatabaseManager:
         )
         with self.get_connection() as conn:
             if has_sentiment:
-                conn.execute(
-                    """
-                    INSERT OR REPLACE INTO article_data (
-                        ticker, headline, date_posted, source, article_link,
-                        neutral_sentiment, negative_sentiment, positive_sentiment, compound_sentiment, created_at
-
-                    )
-                    SELECT
-                        ticker, headline, date_posted, source, article_link,
-                        Neutral, Negative, Positive, compound, CURRENT_TIMESTAMP
-                    FROM articles_df;
-                    """
-                )
+                conn.execute(INSERT_DATA['article_data_with_sentiment'])
             else:
-                conn.execute(
-                    """
-                    INSERT OR REPLACE INTO article_data
-                    (ticker, headline, date_posted, source, article_link, created_at)
-                    SELECT
-                        ticker, headline, date_posted, source, article_link, CURRENT_TIMESTAMP
-                    FROM articles_df;
-                    """
-                )
+                conn.execute(INSERT_DATA['article_data_without_sentiment'])
         logger.success(f'Inserted {articles_df.shape[0]} articles into the database')
 
     def insert_ticker_metadata(
@@ -181,13 +144,7 @@ class DatabaseManager:
             logger.info(f'Inserting metadata for {len(ticker_meta)} tickers')
             # Using UPSERT pattern for each row
             for meta in ticker_meta:
-                conn.execute(
-                    """
-                    INSERT OR REPLACE INTO ticker_meta
-                    VALUES (?, ?, ?, ?, ?)
-                    """,
-                    meta,
-                )
+                conn.execute(INSERT_DATA['ticker_meta'], meta)
 
     def get_articles(
         self,
@@ -209,45 +166,29 @@ class DatabaseManager:
             DataFrame containing the filtered articles
         """
         with self.get_connection() as conn:
-            query_parts = ['SELECT * FROM article_data WHERE 1=1']
-            params = []
-
-            # Apply sentiment filter
-            if not has_sentiment:
-                query_parts.append('AND compound_sentiment IS NULL')
-
-            # Apply date filter
-            if after_date is not None:
-                query_parts.append('AND date_posted >= ?')
-                params.append(after_date)
-
-            # Apply ordering
-            order_direction: Literal['DESC', 'ASC'] = 'DESC' if latest else 'ASC'
-            query_parts.append(f'ORDER BY date_posted {order_direction}')
-
-            # Apply limit
-            query_parts.append('LIMIT ?')
-            params.append(n)
-
-            # Build and execute query
-            query = ' '.join(query_parts)
+            query, params = build_articles_query(
+                has_sentiment=has_sentiment,
+                after_date=after_date,
+                latest=latest,
+                limit=n,
+            )
             return conn.execute(query, params).fetchdf()
 
     def get_ticker_metadata(self) -> pd.DataFrame:
         """Retrieve all ticker metadata from the database."""
         with self.get_connection() as conn:
-            return conn.execute('SELECT * FROM ticker_meta').fetchdf()
+            return conn.execute(GET_DATA['ticker_meta']).fetchdf()
 
     def get_index_constituents(self, index: str = 'nifty_50') -> pd.DataFrame:
         """get index constituents from the database"""
         with self.get_connection() as conn:
             return conn.execute(
-                f'SELECT ticker FROM indices_constituents WHERE {index} = true;'  # nosec B608
+                GET_DATA['index_constituents'].format(index)  # nosec B608
             ).fetchdf()
 
 
 if __name__ == '__main__':
     # Example usage
     db_manager = DatabaseManager()
-    articles_df = db_manager.get_articles(has_sentiment=False, n=100)
+    articles_df = db_manager.get_articles(has_sentiment=True, n=100)
     logger.info(f'Retrieved {articles_df.shape[0]} articles from the database.')
