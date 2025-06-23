@@ -26,7 +26,7 @@ logger.add(sys.stderr, colorize=True, level='INFO', format=fmt, enqueue=True)
 def worker_collect_news(ticker_obj: TickerNewsObject) -> list[dict[str, str]]:
     """Collects news for a ticker object."""
     try:
-        news = ticker_obj.collect_news()
+        news: list[dict[str, str]] = ticker_obj.collect_news()
         return news
     except Exception as e:
         logger.error(f'Error collecting news for {ticker_obj.ticker}: {e}')
@@ -40,7 +40,7 @@ def get_news(universe: str, multiprocess: bool) -> None:
     dbm = DatabaseManager()
 
     # Fetch the tickers
-    tickers_df = dbm.get_index_constituents(universe).loc[:, 'ticker']
+    tickers_df: pd.Series[str] = dbm.get_index_constituents(universe).loc[:, 'ticker']
     ticker_objs: list[TickerNewsObject] = [
         TickerNewsObject(ticker) for ticker in tickers_df
     ]
@@ -48,14 +48,14 @@ def get_news(universe: str, multiprocess: bool) -> None:
     # Fetch and process news data for all tickers.
     logger.info(f'Start Processing {len(ticker_objs)} Tickers for {universe}')
 
-    all_articles: list[dict[str, str]] = []  # Renamed to clarify it holds all articles
+    all_articles: list[dict[str, str]] = []
 
     if not multiprocess:
         # Process tickers sequentially.
         logger.info('Processing tickers sequentially.')
         for ticker_obj in tqdm(ticker_objs, desc='Processing Tickers'):
             try:
-                news = ticker_obj.collect_news()
+                news: list[dict[str, str]] = ticker_obj.collect_news()
                 all_articles.extend(news)
             except Exception as e:
                 logger.error(
@@ -64,11 +64,10 @@ def get_news(universe: str, multiprocess: bool) -> None:
     else:
         # Process tickers in parallel using multiprocessing.
         logger.info(f'Processing tickers in parallel using {mp.cpu_count()} processes.')
-        # Use try-with-resources for the pool
         with mp.Pool(processes=mp.cpu_count()) as pool:
             # pool.map applies worker_collect_news to each item in ticker_objs
             # The result is a list of lists (one list of articles per ticker)
-            results_list_of_lists = list(
+            results_list_of_lists: list[list[dict[str, str]]] = list(
                 tqdm(
                     pool.map(
                         worker_collect_news, ticker_objs
@@ -102,7 +101,10 @@ def get_news(universe: str, multiprocess: bool) -> None:
     # Drop rows where essential info might be missing (e.g., headline)
     articles_df.dropna(subset=['headline'], inplace=True)
 
-    dbm.insert_articles(articles_df, has_sentiment=False)
+    try:
+        dbm.insert_articles(articles_df, has_sentiment=False)
+    except Exception as e:
+        logger.error(f'Error inserting articles into database: {e}')
 
 
 def compute_and_update_sentiment(n: int = 200):
