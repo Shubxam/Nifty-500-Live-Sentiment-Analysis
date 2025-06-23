@@ -20,11 +20,11 @@ else:
 from database import DatabaseManager
 
 tempdir_path = tempfile.mkdtemp()
-print(f"Temporary directory created at: {tempdir_path}")
+print(f'Temporary directory created at: {tempdir_path}')
 
 
 def cleanup_dir():
-    print(f"Cleaning up temporary directory: {tempdir_path}")
+    print(f'Cleaning up temporary directory: {tempdir_path}')
     shutil.rmtree(tempdir_path)
 
 
@@ -35,7 +35,7 @@ atexit.register(cleanup_dir)
 @pytest.fixture(scope='module')
 def db_manager():
     """Provides a DatabaseManager instance with an in-memory database for tests."""
-    test_db_path = f"{tempdir_path}/test.db"  # Use in-memory database
+    test_db_path = f'{tempdir_path}/test.db'  # Use in-memory database
     manager = DatabaseManager(db_path=test_db_path)
     yield manager
 

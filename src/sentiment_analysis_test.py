@@ -11,25 +11,25 @@ def main():
     conn = db.DatabaseManager()
     articles_df = conn.get_articles(has_sentiment=False, n=1000)
 
-    headlines = articles_df["headline"].to_list()
+    headlines = articles_df['headline'].to_list()
 
     finbert_1 = BertForSequenceClassification.from_pretrained(
-        "yiyanghkust/finbert-tone",
+        'yiyanghkust/finbert-tone',
         num_labels=3,
         use_safetensors=True,  # Use safe tensors
     )
 
-    tokenizer_1 = BertTokenizer.from_pretrained("yiyanghkust/finbert-tone")
+    tokenizer_1 = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
 
     # set top_k=1 to get the most likely label or top_k=None to get all labels
     # device=-1 means CPU
     nlp_1 = pipeline(
-        "sentiment-analysis",
+        'sentiment-analysis',
         model=finbert_1,
         tokenizer=tokenizer_1,
         device=-1,
         top_k=1,
-        framework="pt",
+        framework='pt',
     )
 
     # nlp_1_res = nlp_1(headlines, batch_size=512) # Remove or comment out the original single run
@@ -38,7 +38,7 @@ def main():
 
     results = {}
 
-    print(f"Testing inference time for {len(headlines)} headlines on CPU...")
+    print(f'Testing inference time for {len(headlines)} headlines on CPU...')
 
     for batch_size in batch_sizes:
         start_time = time.time()
@@ -50,18 +50,18 @@ def main():
             tqdm(
                 nlp_1(headlines, batch_size=batch_size),
                 total=len(headlines),
-                desc=f"Batch Size {batch_size}",
+                desc=f'Batch Size {batch_size}',
             )
         )
         end_time = time.time()
         duration = end_time - start_time
         results[batch_size] = duration
-        print(f"Batch Size: {batch_size}, Time Taken: {duration:.4f} seconds")
+        print(f'Batch Size: {batch_size}, Time Taken: {duration:.4f} seconds')
 
-    print("\nInference Time Results:")
+    print('\nInference Time Results:')
     for bs, t in results.items():
-        print(f"Batch Size: {bs}, Time: {t:.4f} seconds")
+        print(f'Batch Size: {bs}, Time: {t:.4f} seconds')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

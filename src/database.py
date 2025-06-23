@@ -139,7 +139,7 @@ class DatabaseManager:
             has_sentiment: Whether the DataFrame includes sentiment columns
         """
         logger.info(
-            f"Inserting {articles_df.shape[0]} articles {'with' if has_sentiment else 'without'} sentiment into the database"
+            f'Inserting {articles_df.shape[0]} articles {"with" if has_sentiment else "without"} sentiment into the database'
         )
         with self.get_connection() as conn:
             if has_sentiment:
@@ -166,7 +166,7 @@ class DatabaseManager:
                     FROM articles_df;
                     """
                 )
-        logger.success(f"Inserted {articles_df.shape[0]} articles into the database")
+        logger.success(f'Inserted {articles_df.shape[0]} articles into the database')
 
     def insert_ticker_metadata(
         self, ticker_meta: list[list[str | float | None]]
@@ -178,7 +178,7 @@ class DatabaseManager:
             ticker_meta: List of ticker metadata [ticker, sector, industry, mCap, companyName]
         """
         with self.get_connection() as conn:
-            logger.info(f"Inserting metadata for {len(ticker_meta)} tickers")
+            logger.info(f'Inserting metadata for {len(ticker_meta)} tickers')
             # Using UPSERT pattern for each row
             for meta in ticker_meta:
                 conn.execute(
@@ -223,7 +223,7 @@ class DatabaseManager:
 
             # Apply ordering
             order_direction: Literal['DESC', 'ASC'] = 'DESC' if latest else 'ASC'
-            query_parts.append(f"ORDER BY date_posted {order_direction}")
+            query_parts.append(f'ORDER BY date_posted {order_direction}')
 
             # Apply limit
             query_parts.append('LIMIT ?')
@@ -242,7 +242,7 @@ class DatabaseManager:
         """get index constituents from the database"""
         with self.get_connection() as conn:
             return conn.execute(
-                f"SELECT ticker FROM indices_constituents WHERE {index} = true;"  # nosec B608
+                f'SELECT ticker FROM indices_constituents WHERE {index} = true;'  # nosec B608
             ).fetchdf()
 
 
@@ -250,4 +250,4 @@ if __name__ == '__main__':
     # Example usage
     db_manager = DatabaseManager()
     articles_df = db_manager.get_articles(has_sentiment=False, n=100)
-    logger.info(f"Retrieved {articles_df.shape[0]} articles from the database.")
+    logger.info(f'Retrieved {articles_df.shape[0]} articles from the database.')

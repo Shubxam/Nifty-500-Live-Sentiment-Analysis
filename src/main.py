@@ -29,7 +29,7 @@ def worker_collect_news(ticker_obj: TickerNewsObject) -> list[dict[str, str]]:
         news = ticker_obj.collect_news()
         return news
     except Exception as e:
-        logger.error(f"Error collecting news for {ticker_obj.ticker}: {e}")
+        logger.error(f'Error collecting news for {ticker_obj.ticker}: {e}')
         return []  # Return empty list on error
 
 
@@ -43,7 +43,7 @@ def get_news(universe: str = 'nifty_50', multiprocess: bool = False) -> None:
     ]
 
     # Fetch and process news data for all tickers.
-    logger.info(f"Start Processing {len(ticker_objs)} Tickers for {universe}")
+    logger.info(f'Start Processing {len(ticker_objs)} Tickers for {universe}')
 
     all_articles: list[dict[str, str]] = []  # Renamed to clarify it holds all articles
 
@@ -56,11 +56,11 @@ def get_news(universe: str = 'nifty_50', multiprocess: bool = False) -> None:
                 all_articles.extend(news)
             except Exception as e:
                 logger.error(
-                    f"Error collecting news for {ticker_obj.ticker} (sequential): {e}"
+                    f'Error collecting news for {ticker_obj.ticker} (sequential): {e}'
                 )
     else:
         # Process tickers in parallel using multiprocessing.
-        logger.info(f"Processing tickers in parallel using {mp.cpu_count()} processes.")
+        logger.info(f'Processing tickers in parallel using {mp.cpu_count()} processes.')
         # Use try-with-resources for the pool
         with mp.Pool(processes=mp.cpu_count()) as pool:
             # pool.map applies worker_collect_news to each item in ticker_objs
@@ -81,7 +81,7 @@ def get_news(universe: str = 'nifty_50', multiprocess: bool = False) -> None:
 
     # --- Aggregation and Processing ---
     logger.success(
-        f"Collected {len(all_articles)} articles in total for {len(ticker_objs)} tickers"
+        f'Collected {len(all_articles)} articles in total for {len(ticker_objs)} tickers'
     )
     # Check if any articles were collected
     if not all_articles:
@@ -93,7 +93,7 @@ def get_news(universe: str = 'nifty_50', multiprocess: bool = False) -> None:
     # Create DataFrame directly from the flattened list
     articles_df = pd.DataFrame(all_articles)
     logger.info(
-        f"Fetched {articles_df.shape[0]} articles from {len(ticker_objs)} tickers"
+        f'Fetched {articles_df.shape[0]} articles from {len(ticker_objs)} tickers'
     )
 
     # Drop rows where essential info might be missing (e.g., headline)
@@ -110,7 +110,7 @@ def compute_and_update_sentiment(n: int = 200):
         logger.warning('No articles without sentiment scores found in the database.')
         return
     logger.info(
-        f"Fetched {articles_df.shape[0]} articles without sentiment scores from the database"
+        f'Fetched {articles_df.shape[0]} articles without sentiment scores from the database'
     )
     # perform sentiment analysis on them
     headlines: list[str] = articles_df['headline'].tolist()
@@ -123,7 +123,7 @@ def compute_and_update_sentiment(n: int = 200):
     # and the new sentiment scores will be added.
     dbm.insert_articles(articles_df_with_sentiment, has_sentiment=True)
     logger.success(
-        f"Updated database with sentiment scores for {articles_df_with_sentiment.shape[0]} articles."
+        f'Updated database with sentiment scores for {articles_df_with_sentiment.shape[0]} articles.'
     )
 
 

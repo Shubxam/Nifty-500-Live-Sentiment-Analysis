@@ -33,10 +33,10 @@ def get_webpage_content(url: str, custom_header: bool = True) -> str:
         return response.text
 
     except httpx.HTTPStatusError as e:
-        logger.warning(f"Error {e.response.status_code} for URL: {url}")
+        logger.warning(f'Error {e.response.status_code} for URL: {url}')
         return ''
     except Exception as e:
-        logger.warning(f"Error fetching {url}: {e}")
+        logger.warning(f'Error fetching {url}: {e}')
         return ''
 
 
@@ -52,7 +52,7 @@ def fetch_metadata(ticker: str):
               Returns None for fields if data is unavailable.
     """
     # Fetch quote data from NSE
-    logger.debug(f"Fetching metadata for {ticker}")
+    logger.debug(f'Fetching metadata for {ticker}')
     with NSE('./') as nse:
         meta: dict[str, Any] = nse.quote(ticker)
 
@@ -67,7 +67,7 @@ def fetch_metadata(ticker: str):
         companyName: str = meta['info']['companyName']
 
     except KeyError as e:
-        logger.warning(f"KeyError: {e} for ticker {ticker}")
+        logger.warning(f'KeyError: {e} for ticker {ticker}')
         return None
 
     return [ticker, sector, industry, mCap, companyName]
@@ -119,7 +119,7 @@ def parse_date(
         elif unit.startswith('today'):
             datetime_object = now
         else:
-            logger.warning(f"Unknown date format: {date_string}")
+            logger.warning(f'Unknown date format: {date_string}')
             return ''
     else:
         if not format:
@@ -195,17 +195,17 @@ def analyse_sentiment(headlines: list[str]) -> pd.DataFrame:
             headlines, batch_size=BATCH_SIZE
         )
     except Exception as e:
-        logger.warning(f"Error: {e}")
+        logger.warning(f'Error: {e}')
         return pd.DataFrame()
 
     # Check if the results are empty or contain only one result
     if len(results) != len(headlines):
         logger.warning(
-            f"Sentiment analysis returned {len(results)} results for {len(headlines)} headlines."
+            f'Sentiment analysis returned {len(results)} results for {len(headlines)} headlines.'
         )
         return pd.DataFrame()
 
-    logger.debug(f"Articles for which Sentiment Score is available: {len(results)}")
+    logger.debug(f'Articles for which Sentiment Score is available: {len(results)}')
 
     # Initialize an empty list to hold the flattened data
     # we will transform a list of list of dictionaries into a list of dictionaries
@@ -222,7 +222,7 @@ def analyse_sentiment(headlines: list[str]) -> pd.DataFrame:
     # Create the DataFrame
     df = pd.DataFrame(flattened_data)
     df.fillna(0, inplace=True)  # Fill NaN values with 0
-    logger.debug(f"DataFrame: {df}")
+    logger.debug(f'DataFrame: {df}')
 
     # Calculate the compound score
     df.loc[:, 'compound'] = (
@@ -248,4 +248,4 @@ if __name__ == '__main__':
         'Market volatility increases',
     ]
     sentiment_results = analyse_sentiment(test_headlines)
-    logger.debug(f"Sentiment Results: {sentiment_results}")
+    logger.debug(f'Sentiment Results: {sentiment_results}')

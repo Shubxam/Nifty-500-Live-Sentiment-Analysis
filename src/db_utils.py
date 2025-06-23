@@ -58,7 +58,7 @@ def query_duplicates(return_df: bool = False) -> pd.DataFrame | None:
             logger.info('No duplicates found in database')
             return None
 
-        logger.info(f"{duplicate_rows_count} duplicates found in database")
+        logger.info(f'{duplicate_rows_count} duplicates found in database')
 
         if return_df:
             return duplicates_df
@@ -73,7 +73,7 @@ def deduplicate_db() -> None:
 
     with DatabaseManager().get_connection() as conn:
         conn.execute(delete_duplicates_cmd)
-        logger.success(f"Deleted {duplicates_count} duplicate rows from database.")
+        logger.success(f'Deleted {duplicates_count} duplicate rows from database.')
 
 
 # todo: add function to update ticker_meta everyday

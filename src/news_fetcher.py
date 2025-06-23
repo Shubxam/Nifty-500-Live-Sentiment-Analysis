@@ -28,10 +28,10 @@ class GoogleFinanceSource(NewsSource):
     @override
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
-            url = f"{self.base_url}/{ticker}:NSE"
+            url = f'{self.base_url}/{ticker}:NSE'
             response = get_webpage_content(url)
             if not response:
-                logger.warning(f"No response from Google Finance for {ticker}")
+                logger.warning(f'No response from Google Finance for {ticker}')
                 return self.articles
             soup = BeautifulSoup(response, 'html.parser')
             article_elements = soup.select(self.article_selector)
@@ -47,7 +47,7 @@ class GoogleFinanceSource(NewsSource):
 
                     if not all([headline_tag, date_tag, source_tag, link_tag]):
                         logger.warning(
-                            f"Missing elements in Google Finance article for {ticker}"
+                            f'Missing elements in Google Finance article for {ticker}'
                         )
                         continue
 
@@ -61,7 +61,7 @@ class GoogleFinanceSource(NewsSource):
 
                     if not article_link:
                         logger.warning(
-                            f"Missing article link in Google Finance article for {ticker}"
+                            f'Missing article link in Google Finance article for {ticker}'
                         )
                         continue
 
@@ -78,12 +78,12 @@ class GoogleFinanceSource(NewsSource):
                     )
                 except Exception as e:
                     logger.warning(
-                        f"Error parsing Google Finance article for {ticker}: {str(e)}"
+                        f'Error parsing Google Finance article for {ticker}: {str(e)}'
                     )
                     continue
 
         except Exception as e:
-            logger.error(f"Error fetching from Google Finance for {ticker}: {str(e)}")
+            logger.error(f'Error fetching from Google Finance for {ticker}: {str(e)}')
         return self.articles
 
 
@@ -100,10 +100,10 @@ class YahooFinanceSource(NewsSource):
     @override
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
-            url = f"{self.base_url}/{ticker}.NS/news/"
+            url = f'{self.base_url}/{ticker}.NS/news/'
             response = get_webpage_content(url)
             if not response:
-                logger.warning(f"No response from Yahoo Finance for {ticker}")
+                logger.warning(f'No response from Yahoo Finance for {ticker}')
                 return self.articles
 
             soup = BeautifulSoup(response, 'html.parser')
@@ -119,7 +119,7 @@ class YahooFinanceSource(NewsSource):
 
                     if not link_tag or not headline_tag:  # Footer is optional
                         logger.warning(
-                            f"Missing link or headline in Yahoo Finance article for {ticker}"
+                            f'Missing link or headline in Yahoo Finance article for {ticker}'
                         )
                         continue
 
@@ -129,7 +129,7 @@ class YahooFinanceSource(NewsSource):
                     )
                     if not article_link:
                         logger.warning(
-                            f"Missing article link in Yahoo Finance article for {ticker}"
+                            f'Missing article link in Yahoo Finance article for {ticker}'
                         )
                         continue
 
@@ -160,12 +160,12 @@ class YahooFinanceSource(NewsSource):
                     self.articles.append(data_dict)
                 except Exception as e:
                     logger.warning(
-                        f"Error parsing Yahoo Finance article for {ticker}: {str(e)}"
+                        f'Error parsing Yahoo Finance article for {ticker}: {str(e)}'
                     )
                     continue
 
         except Exception as e:
-            logger.error(f"Error fetching from Yahoo Finance for {ticker}: {str(e)}")
+            logger.error(f'Error fetching from Yahoo Finance for {ticker}: {str(e)}')
         return self.articles
 
 
@@ -181,10 +181,10 @@ class FinologySource(NewsSource):
     @override
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
-            url = f"{self.base_url}/{ticker}"
+            url = f'{self.base_url}/{ticker}'
             response = get_webpage_content(url, custom_header=False)
             if not response:
-                logger.warning(f"No response from Finology for {ticker}")
+                logger.warning(f'No response from Finology for {ticker}')
                 return self.articles
 
             soup = BeautifulSoup(response, 'html.parser')
@@ -199,7 +199,7 @@ class FinologySource(NewsSource):
 
                     if not headline_tag or not date_tag:
                         logger.warning(
-                            f"Missing elements in Finology article for {ticker}"
+                            f'Missing elements in Finology article for {ticker}'
                         )
                         continue
 
@@ -221,12 +221,12 @@ class FinologySource(NewsSource):
                     )
                 except Exception as e:
                     logger.warning(
-                        f"Error parsing Finology article for {ticker}: {str(e)}"
+                        f'Error parsing Finology article for {ticker}: {str(e)}'
                     )
                     continue
 
         except Exception as e:
-            logger.error(f"Error fetching from Finology for {ticker}: {str(e)}")
+            logger.error(f'Error fetching from Finology for {ticker}: {str(e)}')
         return self.articles
 
 
@@ -242,18 +242,18 @@ class TickerNewsObject:
 
     def collect_news(self) -> list[dict[str, str]]:
         for source_name, source_obj in self.news_sources.items():
-            logger.info(f"Fetching articles from {source_name} for {self.ticker}")
+            logger.info(f'Fetching articles from {source_name} for {self.ticker}')
             # Pass the shared client to the source object
             fetched_articles: list[dict[str, str]] = source_obj.get_articles(
                 self.ticker
             )
             logger.info(
-                f"Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}"
+                f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
             )
             if fetched_articles:
                 self.articles.extend(fetched_articles)
         logger.success(
-            f"Collected {len(self.articles)} articles in total for {self.ticker}"
+            f'Collected {len(self.articles)} articles in total for {self.ticker}'
         )
         return self.articles
 
@@ -263,4 +263,4 @@ if __name__ == '__main__':
 
     ticker_news = TickerNewsObject(ticker)
     articles = ticker_news.collect_news()
-    logger.info(f"Collected {len(articles)} articles for {ticker}")
+    logger.info(f'Collected {len(articles)} articles for {ticker}')
