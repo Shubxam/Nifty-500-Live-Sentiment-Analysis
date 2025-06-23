@@ -3,7 +3,7 @@
 
 .DEFAULT_GOAL := default
 
-.PHONY: default run dashboard install install-dev lint test upgrade clean
+.PHONY: default run dashboard install dev-setup lint test upgrade clean check
 
 default: install lint test
 
@@ -16,11 +16,18 @@ dashboard:
 install:
 	uv sync
 
-install-dev:
+dev-setup: install
 	uv sync --all-extras --dev
+	uv run pre-commit install
+	@echo "Development environment ready!"
 
 lint:
-	uv run python devtools/lint.py
+	uv run devtools/lint.py
+
+check:
+	uv run ruff check src/
+	uv run ruff format src/ --check
+	uv run ty check
 
 test:
 	uv run pytest
