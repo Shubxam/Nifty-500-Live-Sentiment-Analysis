@@ -1,3 +1,5 @@
+import random
+import time
 from datetime import datetime, timedelta
 from typing import Any
 
@@ -13,38 +15,68 @@ from config import BATCH_SIZE, DB_UTILS, HEADER, SENTIMENT_MODEL_NAME
 from database import DatabaseManager
 
 
-def get_webpage_content(url: str, custom_header: bool = True, impersonate: bool = False) -> str:
+def get_webpage_content(url: str, custom_header: bool = True, impersonate: bool = False, max_retries: int = 3) -> str:
     """
-    Fetches the content of a webpage given its URL.
+    Fetches the content of a webpage given its URL with exponential backoff for rate limiting.
 
     Args:
         url (str): The URL of the webpage to fetch.
         custom_header (bool): If True, uses a custom header for the request.
         impersonate (bool): If True, uses curl_cffi to impersonate a browser.
+        max_retries (int): Maximum number of retry attempts for 429 responses.
 
     Returns:
         str: The content of the webpage.
     """
-    try:
-        if impersonate:
-            # Use curl_cffi to impersonate a browser
-            response = requests.get(url, impersonate='chrome')
-            response.raise_for_status()  # Raise an error for bad responses
+    # Random delay to spread requests across processes and avoid overwhelming servers
+    delay = random.uniform(0.1, 0.5)  # 100-500ms random delay
+    time.sleep(delay)
+    
+    for attempt in range(max_retries + 1):
+        try:
+            if impersonate:
+                response = requests.get(url, impersonate='chrome')
+                response.raise_for_status()
+                return response.text
+            
+            response = (
+                httpx.get(url, headers=HEADER, follow_redirects=True, timeout=10)
+                if custom_header
+                else httpx.get(url, follow_redirects=True, timeout=10)
+            )
+            response.raise_for_status()
             return response.text
-        response = (
-            httpx.get(url, headers=HEADER, follow_redirects=True, timeout=10)
-            if custom_header
-            else httpx.get(url, follow_redirects=True, timeout=10)
-        )
-        response.raise_for_status()  # Raise an error for bad responses
-        return response.text
 
-    except httpx.HTTPStatusError as e:
-        logger.warning(f'Error {e.response.status_code} for URL: {url}')
-        return ''
-    except Exception as e:
-        logger.warning(f'Error fetching {url}: {e}')
-        return ''
+        # except httpx.HTTPStatusError as e:
+        #     if e.response.status_code == 429 and attempt < max_retries:
+        #         retry_after = int(e.response.headers.get('Retry-After', 2 ** attempt))
+        #         wait_time = min(retry_after, 2 ** attempt * 2)  # Cap at reasonable time
+        #         logger.warning(f'Rate limited (429) for {url}. Retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})')
+        #         time.sleep(wait_time)
+        #         continue
+        #     elif e.response.status_code == 429:
+        #         logger.error(f'Rate limited (429) for {url}. Max retries ({max_retries}) exceeded')
+        #     else:
+        #         logger.warning(f'HTTP error {e.response.status_code} for URL: {url}')
+        #     return ''
+        except Exception as e:
+            # Handle curl_cffi and other exceptions
+            if hasattr(e, 'response') and hasattr(e.response, 'status_code'):
+                if e.response.status_code == 429 and attempt < max_retries:
+                    retry_after = int(getattr(e.response, 'headers', {}).get('Retry-After', 2 ** attempt))
+                    wait_time = min(retry_after, 2 ** attempt * 2)
+                    logger.warning(f'Rate limited (429) for {url}. Retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})')
+                    time.sleep(wait_time)
+                    continue
+                elif e.response.status_code == 429:
+                    logger.error(f'Rate limited (429) for {url}. Max retries ({max_retries}) exceeded')
+                    return ''
+                logger.warning(f'HTTP error {e.response.status_code} for URL: {url}')
+                return ''
+            logger.warning(f'Error fetching {url}: {e}')
+            return ''
+    
+    return ''
 
 
 def fetch_metadata(ticker: str):

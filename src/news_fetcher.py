@@ -256,21 +256,18 @@ class TickerNewsObject:
         """
         for source_name, source_cls in self.news_sources.items():
             logger.info(f'Fetching articles from {source_name} for {self.ticker}')
-            # Pass the shared client to the source object
-            fetched_articles: list[dict[str, str]] = source_cls().get_articles(
-                self.ticker
-            )
-            logger.info(
-                f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
-            )
-            fetched_articles: list[dict[str, str]] = source_cls().get_articles(
-                self.ticker
-            )
-            logger.info(
-                f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
-            )
-            if fetched_articles:
-                self.articles.extend(fetched_articles)
+            try:
+                fetched_articles: list[dict[str, str]] = source_cls().get_articles(
+                    self.ticker
+                )
+                logger.info(
+                    f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
+                )
+                if fetched_articles:
+                    self.articles.extend(fetched_articles)
+            except Exception as e:
+                logger.error(f'Failed to fetch from {source_name} for {self.ticker}: {e}')
+                continue
         logger.success(
             f'Collected {len(self.articles)} articles in total for {self.ticker}'
         )
