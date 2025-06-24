@@ -8,10 +8,10 @@
 default: install lint test
 
 run:
-	uv run ./src/main.py
+	uv run src/main.py
 
 dashboard:
-	uv run ./src/dashboard-generation.py
+	uv run src/dashboard-generation.py
 
 install:
 	uv sync
@@ -22,7 +22,7 @@ dev-setup: install
 	@echo "Development environment ready!"
 
 lint:
-	uv run ./src/devtools/lint.py
+	uv run src/devtools/lint.py
 
 check:
 	uv run ruff check src/*.py

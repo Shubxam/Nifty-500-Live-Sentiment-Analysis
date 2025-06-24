@@ -8,8 +8,8 @@ from loguru import logger
 from nse import NSE
 from tqdm import tqdm
 
-from .config import BATCH_SIZE, DB_UTILS, HEADER, SENTIMENT_MODEL_NAME
-from .database import DatabaseManager
+from config import BATCH_SIZE, DB_UTILS, HEADER, SENTIMENT_MODEL_NAME
+from database import DatabaseManager
 
 
 def get_webpage_content(url: str, custom_header: bool = True) -> str:
