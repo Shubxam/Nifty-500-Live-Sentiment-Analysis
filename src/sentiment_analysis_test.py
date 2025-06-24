@@ -4,7 +4,7 @@ from tqdm import tqdm  # Import tqdm
 from transformers.models.bert import BertForSequenceClassification, BertTokenizer
 from transformers.pipelines import pipeline
 
-from . import database as db
+import database as db
 
 
 def main():

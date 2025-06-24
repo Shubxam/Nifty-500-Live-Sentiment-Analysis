@@ -21,7 +21,7 @@ import duckdb
 import pandas as pd
 from loguru import logger
 
-from .config import (
+from config import (
     BASE_DIR,
     CREATE_TABLE,
     DB_NAME,

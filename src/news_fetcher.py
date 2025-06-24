@@ -4,7 +4,7 @@ from typing import final, override  # type: ignore
 from bs4 import BeautifulSoup, Tag
 from loguru import logger
 
-from .utils import get_webpage_content, parse_date
+from utils import get_webpage_content, parse_date
 
 
 class NewsSource(ABC):

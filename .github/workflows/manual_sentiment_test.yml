@@ -22,4 +22,4 @@ jobs:
       run: make install
 
     - name: Run sentiment analysis test script
-      run: uv run ./src/sentiment_analysis_test.py
+      run: uv run src/sentiment_analysis_test.py
