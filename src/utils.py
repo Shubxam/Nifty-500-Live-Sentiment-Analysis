@@ -15,7 +15,12 @@ from config import BATCH_SIZE, DB_UTILS, HEADER, SENTIMENT_MODEL_NAME
 from database import DatabaseManager
 
 
-def get_webpage_content(url: str, custom_header: bool = True, impersonate: bool = False, max_retries: int = 3) -> str:
+def get_webpage_content(
+    url: str,
+    custom_header: bool = True,
+    impersonate: bool = False,
+    max_retries: int = 3,
+) -> str:
     """
     Fetches the content of a webpage given its URL with exponential backoff for rate limiting.
 
@@ -29,16 +34,17 @@ def get_webpage_content(url: str, custom_header: bool = True, impersonate: bool 
         str: The content of the webpage.
     """
     # Random delay to spread requests across processes and avoid overwhelming servers
-    delay = random.uniform(0.1, 0.5)  # 100-500ms random delay
+    # 100-500ms random delay
+    delay = random.uniform(0.1, 0.5)  # nosec B311: not a security risk
     time.sleep(delay)
-    
+
     for attempt in range(max_retries + 1):
         try:
             if impersonate:
                 response = requests.get(url, impersonate='chrome')
                 response.raise_for_status()
                 return response.text
-            
+
             response = (
                 httpx.get(url, headers=HEADER, follow_redirects=True, timeout=10)
                 if custom_header
@@ -63,19 +69,27 @@ def get_webpage_content(url: str, custom_header: bool = True, impersonate: bool 
             # Handle curl_cffi and other exceptions
             if hasattr(e, 'response') and hasattr(e.response, 'status_code'):
                 if e.response.status_code == 429 and attempt < max_retries:
-                    retry_after = int(getattr(e.response, 'headers', {}).get('Retry-After', 2 ** attempt))
-                    wait_time = min(retry_after, 2 ** attempt * 2)
-                    logger.warning(f'Rate limited (429) for {url}. Retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})')
+                    retry_after = int(
+                        getattr(e.response, 'headers', {}).get(
+                            'Retry-After', 2**attempt
+                        )
+                    )
+                    wait_time = min(retry_after, 2**attempt * 2)
+                    logger.warning(
+                        f'Rate limited (429) for {url}. Retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})'
+                    )
                     time.sleep(wait_time)
                     continue
                 elif e.response.status_code == 429:
-                    logger.error(f'Rate limited (429) for {url}. Max retries ({max_retries}) exceeded')
+                    logger.error(
+                        f'Rate limited (429) for {url}. Max retries ({max_retries}) exceeded'
+                    )
                     return ''
                 logger.warning(f'HTTP error {e.response.status_code} for URL: {url}')
                 return ''
             logger.warning(f'Error fetching {url}: {e}')
             return ''
-    
+
     return ''
 
 

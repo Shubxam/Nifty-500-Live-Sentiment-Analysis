@@ -266,7 +266,9 @@ class TickerNewsObject:
                 if fetched_articles:
                     self.articles.extend(fetched_articles)
             except Exception as e:
-                logger.error(f'Failed to fetch from {source_name} for {self.ticker}: {e}')
+                logger.error(
+                    f'Failed to fetch from {source_name} for {self.ticker}: {e}'
+                )
                 continue
         logger.success(
             f'Collected {len(self.articles)} articles in total for {self.ticker}'
