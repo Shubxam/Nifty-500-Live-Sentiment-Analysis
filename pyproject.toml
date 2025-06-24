@@ -140,7 +140,7 @@ testpaths = [
 
 [tool.bandit]
 # See: https://bandit.readthedocs.io/en/latest/config.html
-# use `# nosesc issue-code` to ignore specific issues in code
+# use `# nosec issue-code` to ignore specific issues in code
 # Specify the directories to scan for security issues
 targets = [
     "src",
