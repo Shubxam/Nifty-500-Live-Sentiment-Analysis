@@ -187,7 +187,7 @@ class FinologySource(NewsSource):
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
             url = f'{self.base_url}/{ticker}'
-            response = get_webpage_content(url, custom_header=True)
+            response = get_webpage_content(url, custom_header=False, impersonate=True)
             if not response:
                 logger.warning(f'No response from Finology for {ticker}')
                 return self.articles
