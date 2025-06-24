@@ -181,6 +181,7 @@ class DatabaseManager:
 
     def get_index_constituents(self, index: str = 'nifty_50') -> pd.DataFrame:
         """get index constituents from the database"""
+        # TODO: validate index input against known indices
         with self.get_connection() as conn:
             return conn.execute(
                 GET_DATA['index_constituents'].format(index)  # nosec B608

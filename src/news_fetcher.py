@@ -263,6 +263,12 @@ class TickerNewsObject:
             logger.info(
                 f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
             )
+            fetched_articles: list[dict[str, str]] = source_cls().get_articles(
+                self.ticker
+            )
+            logger.info(
+                f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
+            )
             if fetched_articles:
                 self.articles.extend(fetched_articles)
         logger.success(
