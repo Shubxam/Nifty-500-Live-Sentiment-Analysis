@@ -37,7 +37,7 @@ jobs:
           python-version: ${{ env.python-version }}
 
       - name: Setup venv and Install all dependencies
-        run: make install-dev
+        run: make dev-setup
 
       - name: Run linting
         run: make lint
