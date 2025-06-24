@@ -3,6 +3,7 @@ from typing import Any
 
 import httpx
 import pandas as pd
+from curl_cffi import requests
 from dateutil.relativedelta import relativedelta
 from loguru import logger
 from nse import NSE
@@ -12,17 +13,24 @@ from config import BATCH_SIZE, DB_UTILS, HEADER, SENTIMENT_MODEL_NAME
 from database import DatabaseManager
 
 
-def get_webpage_content(url: str, custom_header: bool = True) -> str:
+def get_webpage_content(url: str, custom_header: bool = True, impersonate: bool = False) -> str:
     """
     Fetches the content of a webpage given its URL.
 
     Args:
         url (str): The URL of the webpage to fetch.
+        custom_header (bool): If True, uses a custom header for the request.
+        impersonate (bool): If True, uses curl_cffi to impersonate a browser.
 
     Returns:
         str: The content of the webpage.
     """
     try:
+        if impersonate:
+            # Use curl_cffi to impersonate a browser
+            response = requests.get(url, impersonate='chrome')
+            response.raise_for_status()  # Raise an error for bad responses
+            return response.text
         response = (
             httpx.get(url, headers=HEADER, follow_redirects=True, timeout=10)
             if custom_header

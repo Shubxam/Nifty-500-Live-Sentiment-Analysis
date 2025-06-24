@@ -99,7 +99,7 @@ class YahooFinanceSource(NewsSource):
     def __init__(self):
         self.base_url = 'https://finance.yahoo.com/quote'
         self.articles: list[dict[str, str]] = []
-        self.article_selector: str = 'div.content.yf-1y7058a'
+        self.article_selector: str = 'li.stream-item.story-item.yf-1drgw5l'
         self.headline_selector: str = 'a h3'
         self.footer_selector: str = 'div.publishing.yf-1weyqlp'
         self.link_selector: str = 'a'
@@ -108,7 +108,7 @@ class YahooFinanceSource(NewsSource):
     def get_articles(self, ticker: str) -> list[dict[str, str]]:
         try:
             url = f'{self.base_url}/{ticker}.NS/news/'
-            response = get_webpage_content(url)
+            response = get_webpage_content(url, impersonate=True)
             if not response:
                 logger.warning(f'No response from Yahoo Finance for {ticker}')
                 return self.articles
