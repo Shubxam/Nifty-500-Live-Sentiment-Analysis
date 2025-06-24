@@ -73,13 +73,15 @@ class GoogleFinanceSource(NewsSource):
 
                     date_posted: str | None = parse_date(relative_date_str)
 
-                    self.articles.append({
-                        'ticker': ticker,
-                        'headline': headline,
-                        'date_posted': date_posted,
-                        'article_link': article_link,
-                        'source': source,
-                    })
+                    self.articles.append(
+                        {
+                            'ticker': ticker,
+                            'headline': headline,
+                            'date_posted': date_posted,
+                            'article_link': article_link,
+                            'source': source,
+                        }
+                    )
                 except Exception as e:
                     logger.warning(
                         f'Error parsing Google Finance article for {ticker}: {str(e)}'
@@ -93,7 +95,6 @@ class GoogleFinanceSource(NewsSource):
 
 @final
 class YahooFinanceSource(NewsSource):
-    # TODO: #124 fix error 404 for Yahoo Finance
     def __init__(self):
         self.base_url = 'https://finance.yahoo.com/quote'
         self.articles: list[dict[str, str]] = []
@@ -215,13 +216,15 @@ class FinologySource(NewsSource):
                         date_str, relative=False, format='%d %b, %I:%M %p'
                     )
 
-                    self.articles.append({
-                        'ticker': ticker,
-                        'headline': headline,
-                        'date_posted': date_posted,
-                        'article_link': url,  # Finology links point back to the main page
-                        'source': 'Finology',
-                    })
+                    self.articles.append(
+                        {
+                            'ticker': ticker,
+                            'headline': headline,
+                            'date_posted': date_posted,
+                            'article_link': url,  # Finology links point back to the main page
+                            'source': 'Finology',
+                        }
+                    )
                 except Exception as e:
                     logger.warning(
                         f'Error parsing Finology article for {ticker}: {str(e)}'
