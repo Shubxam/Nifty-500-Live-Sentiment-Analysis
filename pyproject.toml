@@ -49,6 +49,7 @@ dev = [
     "ipykernel>=6.29.5",
     "ty>=0.0.1a11",
     "pre-commit>=4.2.0",
+    "bandit>=1.8.5",
 ]
 
 # ---- Settings ----
@@ -64,10 +65,15 @@ torch = [
 ]
 
 [tool.ruff]
-# Set as desired, typically 88 (black standard) or 100 (wide).
-line-length = 100
+line-length = 88
+indent-width = 4
+extend-exclude = ["*.ipynb"]
 
 [tool.ruff.lint]
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
 select = [
     # See: https://docs.astral.sh/ruff/rules/
     # Basic list from: https://docs.astral.sh/ruff/linter/#rule-selection
@@ -81,7 +87,6 @@ select = [
     # "Q" # https://docs.astral.sh/ruff/rules/#flake8-quotes-q
     # "COM" # https://docs.astral.sh/ruff/rules/#flake8-commas-com
     # "SIM", # https://docs.astral.sh/ruff/rules/#flake8-simplify-sim
-
 ]
 ignore = [
     # Disable some rules that are overly pedantic. Add/remove as desired:
@@ -105,9 +110,23 @@ ignore = [
     "ISC002", # https://docs.astral.sh/ruff/rules/multi-line-implicit-string-concatenation/
 ]
 
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "single"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
 [tool.codespell]
-ignore-words-list = "foo,bar,IST"
-# skip = "foo.py,bar.py"
+ignore-words-list = "IST,ist"
+skip = "*.ipynb,*.csv,NIFTY_500_live_sentiment.html,*.yml"
+# write-changes = true
 
 [tool.pytest.ini_options]
 python_files = ["*.py"]
@@ -117,3 +136,21 @@ testpaths = [
     "src",
     "tests",
 ]
+
+[tool.bandit]
+# See: https://bandit.readthedocs.io/en/latest/config.html
+# use `# nosesc issue-code` to ignore specific issues in code
+# Specify the directories to scan for security issues
+targets = [
+    "src",
+    "tests",
+    "devtools",
+]
+
+skips = ["B101", "B601"]
+
+[tool.bandit.assert_used]
+skips = ['*_test.py', 'test_*.py']
+
+[tool.ty.src]
+exclude = ["*.ipynb"]

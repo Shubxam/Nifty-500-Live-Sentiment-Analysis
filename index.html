@@ -87,7 +87,7 @@
                   </select>
                 </label>
               </div>
-              
+
               <div id="existingIndexTabs" class="hidden">
                 <div class="pb-3">
                   <div class="flex border-b border-[#314c68] px-4 gap-8">
@@ -99,7 +99,7 @@
                     </a>
                   </div>
                 </div>
-                
+
                 <!-- Performance Analytics Content -->
                 <div id="existingPerformanceContent" class="px-4">
                   <div class="mb-6">
@@ -119,14 +119,14 @@
                       </label>
                     </div>
                   </div>
-                  
+
                   <div class="mb-6">
                     <h3 class="text-white text-lg font-semibold mb-4">Index Performance Chart</h3>
                     <div class="bg-[#223549] rounded-lg p-4">
                       <canvas id="performanceChart" width="400" height="200"></canvas>
                     </div>
                   </div>
-                  
+
                   <div class="mb-6">
                     <h3 class="text-white text-lg font-semibold mb-4">Performance Statistics</h3>
                     <div class="flex max-w-[300px] flex-wrap items-end gap-4 mb-4">
@@ -165,7 +165,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <div>
                     <h3 class="text-white text-lg font-semibold mb-4">Index Constituents</h3>
                     <div class="bg-[#223549] rounded-lg overflow-hidden">
@@ -198,7 +198,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <!-- Sentiment Analytics Content -->
                 <div id="existingSentimentContent" class="px-4 hidden">
                   <div class="mb-6">
@@ -217,7 +217,7 @@
                       </label>
                     </div>
                   </div>
-                  
+
                   <div class="mb-6">
                     <h3 class="text-white text-lg font-semibold mb-4">Sentiment Tree Map</h3>
                     <div class="bg-[#223549] rounded-lg p-4 h-64">
@@ -226,7 +226,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <div>
                     <h3 class="text-white text-lg font-semibold mb-4">Stock News Analysis</h3>
                     <div class="mb-4">
@@ -300,13 +300,13 @@
                   </div>
                 </label>
               </div>
-              
+
               <div id="loadingSection" class="hidden flex flex-col gap-3 p-4">
                 <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Generating Index...</p></div>
                 <div class="rounded bg-[#314c68]"><div id="progressBar" class="h-2 rounded bg-[#0c7bf2] transition-all duration-300" style="width: 0%;"></div></div>
                 <p class="text-[#90accb] text-sm font-normal leading-normal">This may take a few minutes.</p>
               </div>
-              
+
               <div id="customIndexTabs" class="hidden">
                 <div class="pb-3">
                   <div class="flex border-b border-[#314c68] px-4 gap-8">
@@ -318,7 +318,7 @@
                     </a>
                   </div>
                 </div>
-                
+
                 <!-- Custom Performance Analytics Content -->
                 <div id="customPerformanceContent" class="px-4">
                   <div class="mb-6">
@@ -337,14 +337,14 @@
                       </label>
                     </div>
                   </div>
-                  
+
                   <div class="mb-6">
                     <h3 class="text-white text-lg font-semibold mb-4">Custom Index vs Benchmark</h3>
                     <div class="bg-[#223549] rounded-lg p-4">
                       <canvas id="customPerformanceChart" width="400" height="200"></canvas>
                     </div>
                   </div>
-                  
+
                   <div class="mb-6">
                     <h3 class="text-white text-lg font-semibold mb-4">Performance Statistics</h3>
                     <div class="flex max-w-[300px] flex-wrap items-end gap-4 mb-4">
@@ -383,7 +383,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <div>
                     <h3 class="text-white text-lg font-semibold mb-4">Custom Index Constituents</h3>
                     <div class="bg-[#223549] rounded-lg overflow-hidden">
@@ -416,7 +416,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <!-- Custom Sentiment Analytics Content -->
                 <div id="customSentimentContent" class="px-4 hidden">
                   <div class="mb-6">
@@ -435,7 +435,7 @@
                       </label>
                     </div>
                   </div>
-                  
+
                   <div class="mb-6">
                     <h3 class="text-white text-lg font-semibold mb-4">Custom Index Sentiment Tree Map</h3>
                     <div class="bg-[#223549] rounded-lg p-4 h-64">
@@ -444,7 +444,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <div>
                     <h3 class="text-white text-lg font-semibold mb-4">Stock News Analysis</h3>
                     <div class="mb-4">
@@ -488,51 +488,51 @@
         </div>
       </div>
     </div>
-    
+
     <script>
       // Global variables
       let performanceChart = null;
       let customPerformanceChart = null;
-      
+
       // Initialize the application
       document.addEventListener('DOMContentLoaded', function() {
         initializeEventListeners();
         setDefaultDates();
       });
-      
+
       function initializeEventListeners() {
         // Main navigation buttons
         document.getElementById('existingIndexBtn').addEventListener('click', () => showSection('existing'));
         document.getElementById('customIndexBtn').addEventListener('click', () => showSection('custom'));
-        
+
         // Existing index functionality
         document.getElementById('existingIndexSelect').addEventListener('change', handleExistingIndexSelect);
         document.getElementById('existingPerformanceTab').addEventListener('click', () => switchExistingTab('performance'));
         document.getElementById('existingSentimentTab').addEventListener('click', () => switchExistingTab('sentiment'));
-        
+
         // Custom index functionality
         document.getElementById('generateIndexBtn').addEventListener('click', generateCustomIndex);
         document.getElementById('customPerformanceTab').addEventListener('click', () => switchCustomTab('performance'));
         document.getElementById('customSentimentTab').addEventListener('click', () => switchCustomTab('sentiment'));
-        
+
         // Performance analytics event listeners
         document.getElementById('benchmarkSelect').addEventListener('change', updatePerformanceChart);
         document.getElementById('performancePeriodSelect').addEventListener('change', updatePerformanceStats);
         document.getElementById('customBenchmarkSelect').addEventListener('change', updateCustomPerformanceChart);
         document.getElementById('customPerformancePeriodSelect').addEventListener('change', updateCustomPerformanceStats);
-        
+
         // Sentiment analytics event listeners
         document.getElementById('sentimentPeriodSelect').addEventListener('change', updateSentimentAnalysis);
         document.getElementById('stockNewsSelect').addEventListener('change', updateNewsTable);
         document.getElementById('customSentimentPeriodSelect').addEventListener('change', updateCustomSentimentAnalysis);
         document.getElementById('customStockNewsSelect').addEventListener('change', updateCustomNewsTable);
       }
-      
+
       function showSection(section) {
         // Hide all sections
         document.getElementById('existingSection').classList.add('hidden');
         document.getElementById('customSection').classList.add('hidden');
-        
+
         // Show selected section
         if (section === 'existing') {
           document.getElementById('existingSection').classList.remove('hidden');
@@ -550,7 +550,7 @@
           document.getElementById('existingIndexBtn').classList.add('bg-[#223549]');
         }
       }
-      
+
       function handleExistingIndexSelect() {
         const selectedIndex = document.getElementById('existingIndexSelect').value;
         if (selectedIndex) {
@@ -561,7 +561,7 @@
           document.getElementById('existingIndexTabs').classList.add('hidden');
         }
       }
-      
+
       function switchExistingTab(tab) {
         // Update tab styling
         if (tab === 'performance') {
@@ -569,12 +569,12 @@
           document.getElementById('existingPerformanceTab').classList.remove('border-b-transparent', 'text-[#90accb]');
           document.getElementById('existingPerformanceTab').querySelector('p').classList.add('text-white');
           document.getElementById('existingPerformanceTab').querySelector('p').classList.remove('text-[#90accb]');
-          
+
           document.getElementById('existingSentimentTab').classList.add('border-b-transparent', 'text-[#90accb]');
           document.getElementById('existingSentimentTab').classList.remove('border-b-[#0c7bf2]', 'text-white');
           document.getElementById('existingSentimentTab').querySelector('p').classList.add('text-[#90accb]');
           document.getElementById('existingSentimentTab').querySelector('p').classList.remove('text-white');
-          
+
           // Show/hide content
           document.getElementById('existingPerformanceContent').classList.remove('hidden');
           document.getElementById('existingSentimentContent').classList.add('hidden');
@@ -583,18 +583,18 @@
           document.getElementById('existingSentimentTab').classList.remove('border-b-transparent', 'text-[#90accb]');
           document.getElementById('existingSentimentTab').querySelector('p').classList.add('text-white');
           document.getElementById('existingSentimentTab').querySelector('p').classList.remove('text-[#90accb]');
-          
+
           document.getElementById('existingPerformanceTab').classList.add('border-b-transparent', 'text-[#90accb]');
           document.getElementById('existingPerformanceTab').classList.remove('border-b-[#0c7bf2]', 'text-white');
           document.getElementById('existingPerformanceTab').querySelector('p').classList.add('text-[#90accb]');
           document.getElementById('existingPerformanceTab').querySelector('p').classList.remove('text-white');
-          
+
           // Show/hide content
           document.getElementById('existingSentimentContent').classList.remove('hidden');
           document.getElementById('existingPerformanceContent').classList.add('hidden');
         }
       }
-      
+
       function switchCustomTab(tab) {
         // Update tab styling
         if (tab === 'performance') {
@@ -602,12 +602,12 @@
           document.getElementById('customPerformanceTab').classList.remove('border-b-transparent', 'text-[#90accb]');
           document.getElementById('customPerformanceTab').querySelector('p').classList.add('text-white');
           document.getElementById('customPerformanceTab').querySelector('p').classList.remove('text-[#90accb]');
-          
+
           document.getElementById('customSentimentTab').classList.add('border-b-transparent', 'text-[#90accb]');
           document.getElementById('customSentimentTab').classList.remove('border-b-[#0c7bf2]', 'text-white');
           document.getElementById('customSentimentTab').querySelector('p').classList.add('text-[#90accb]');
           document.getElementById('customSentimentTab').querySelector('p').classList.remove('text-white');
-          
+
           // Show/hide content
           document.getElementById('customPerformanceContent').classList.remove('hidden');
           document.getElementById('customSentimentContent').classList.add('hidden');
@@ -616,29 +616,29 @@
           document.getElementById('customSentimentTab').classList.remove('border-b-transparent', 'text-[#90accb]');
           document.getElementById('customSentimentTab').querySelector('p').classList.add('text-white');
           document.getElementById('customSentimentTab').querySelector('p').classList.remove('text-[#90accb]');
-          
+
           document.getElementById('customPerformanceTab').classList.add('border-b-transparent', 'text-[#90accb]');
           document.getElementById('customPerformanceTab').classList.remove('border-b-[#0c7bf2]', 'text-white');
           document.getElementById('customPerformanceTab').querySelector('p').classList.add('text-[#90accb]');
           document.getElementById('customPerformanceTab').querySelector('p').classList.remove('text-white');
-          
+
           // Show/hide content
           document.getElementById('customSentimentContent').classList.remove('hidden');
           document.getElementById('customPerformanceContent').classList.add('hidden');
         }
       }
-      
+
       function generateCustomIndex() {
         const query = document.getElementById('customIndexQuery').value.trim();
         if (!query) {
           alert('Please enter a query to generate a custom index');
           return;
         }
-        
+
         // Show loading section
         document.getElementById('loadingSection').classList.remove('hidden');
         document.getElementById('customIndexTabs').classList.add('hidden');
-        
+
         // Simulate progress
         let progress = 0;
         const progressBar = document.getElementById('progressBar');
@@ -646,7 +646,7 @@
           progress += Math.random() * 15;
           if (progress > 100) progress = 100;
           progressBar.style.width = progress + '%';
-          
+
           if (progress >= 100) {
             clearInterval(interval);
             setTimeout(() => {
@@ -658,11 +658,11 @@
           }
         }, 200);
       }
-      
+
       function createPerformanceChart() {
         const ctx = document.getElementById('performanceChart').getContext('2d');
         if (performanceChart) performanceChart.destroy();
-        
+
         performanceChart = new Chart(ctx, {
           type: 'line',
           data: {
@@ -705,11 +705,11 @@
           }
         });
       }
-      
+
       function createCustomPerformanceChart() {
         const ctx = document.getElementById('customPerformanceChart').getContext('2d');
         if (customPerformanceChart) customPerformanceChart.destroy();
-        
+
         customPerformanceChart = new Chart(ctx, {
           type: 'line',
           data: {
@@ -758,7 +758,7 @@
           }
         });
       }
-      
+
       function updatePerformanceChart() {
         // This would update the chart based on benchmark selection
         if (performanceChart) {
@@ -776,24 +776,24 @@
           performanceChart.update();
         }
       }
-      
+
       function updateCustomPerformanceChart() {
         // This would update the custom chart based on benchmark selection
         if (customPerformanceChart) {
           customPerformanceChart.update();
         }
       }
-      
+
       function updatePerformanceStats() {
         // This would fetch and update performance statistics
         console.log('Updating performance stats...');
       }
-      
+
       function updateCustomPerformanceStats() {
         // This would fetch and update custom performance statistics
         console.log('Updating custom performance stats...');
       }
-      
+
       function updateConstituentsTable(indexType) {
         // This would populate the table with actual data
         const sampleData = {
@@ -808,10 +808,10 @@
             { stock: 'INFY', weight: '4.5%', return: '+3.2%', score: 88 }
           ]
         };
-        
+
         const tableBody = document.getElementById('constituentsTable');
         const data = sampleData[indexType] || sampleData.nifty_50;
-        
+
         tableBody.innerHTML = data.map(item => `
           <tr class="border-b border-[#314c68]">
             <td class="text-white p-3">${item.stock}</td>
@@ -821,7 +821,7 @@
           </tr>
         `).join('');
       }
-      
+
       function updateCustomConstituentsTable() {
         const sampleData = [
           { stock: 'INFY', weight: '12.3%', return: '+3.8%', score: 92 },
@@ -829,7 +829,7 @@
           { stock: 'WIPRO', weight: '8.7%', return: '+1.5%', score: 85 },
           { stock: 'HCLTECH', weight: '7.2%', return: '+4.2%', score: 91 }
         ];
-        
+
         const tableBody = document.getElementById('customConstituentsTable');
         tableBody.innerHTML = sampleData.map(item => `
           <tr class="border-b border-[#314c68]">
@@ -840,23 +840,23 @@
           </tr>
         `).join('');
       }
-      
+
       function updateSentimentAnalysis() {
         const selectedPeriod = document.getElementById('sentimentPeriodSelect').value;
         // This would update sentiment analysis based on selected time period
         console.log('Updating sentiment analysis for period:', selectedPeriod);
       }
-      
+
       function updateCustomSentimentAnalysis() {
         const selectedPeriod = document.getElementById('customSentimentPeriodSelect').value;
         // This would update custom sentiment analysis based on selected time period
         console.log('Updating custom sentiment analysis for period:', selectedPeriod);
       }
-      
+
       function updateNewsTable() {
         const selectedStock = document.getElementById('stockNewsSelect').value;
         if (!selectedStock) return;
-        
+
         // This would fetch and display news for the selected stock
         const sampleNews = [
           {
@@ -872,7 +872,7 @@
             score: '0.72'
           }
         ];
-        
+
         const tableBody = document.getElementById('newsTable');
         tableBody.innerHTML = sampleNews.map(item => `
           <tr class="border-b border-[#314c68]">
@@ -883,11 +883,11 @@
           </tr>
         `).join('');
       }
-      
+
       function updateCustomNewsTable() {
         const selectedStock = document.getElementById('customStockNewsSelect').value;
         if (!selectedStock) return;
-        
+
         // This would fetch and display news for the selected stock
         const sampleNews = [
           {
@@ -903,7 +903,7 @@
             score: '0.88'
           }
         ];
-        
+
         const tableBody = document.getElementById('customNewsTable');
         tableBody.innerHTML = sampleNews.map(item => `
           <tr class="border-b border-[#314c68]">
@@ -914,12 +914,12 @@
           </tr>
         `).join('');
       }
-      
+
       function setDefaultDates() {
         // Set default period to 1 Month (already set in HTML with selected attribute)
         // No additional initialization needed for dropdowns
       }
-      
+
       // Show existing section by default
       showSection('existing');
     </script>

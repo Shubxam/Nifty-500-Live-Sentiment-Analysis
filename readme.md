@@ -29,6 +29,8 @@ Live instances of the app can be found on [Streamlit Cloud](https://nifty-sad.st
 
 Here is the link to [Companion Article](https://xumitcapital.medium.com/sentiment-analysis-dashboard-using-python-d40506e2709d).
 
+<!--  # TODO: update installation and usage methods  -->
+
 ## Installation
 
 ```bash

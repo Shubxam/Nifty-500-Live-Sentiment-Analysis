@@ -1,6 +1,6 @@
 name: Copy sentiment_data.csv to streamlit branch
 
-on: 
+on:
   workflow_run:
     workflows: ["Get Sentiment and update GitHub page"]
     types:
@@ -10,7 +10,7 @@ on:
 jobs:
   copy-csv:
     runs-on: ubuntu-latest
-    steps:          
+    steps:
       - uses: actions/checkout@v4
         with:
           ref: streamlit
@@ -20,12 +20,12 @@ jobs:
         with:
           ref: main
           path: src
-      
+
       - name: copy db file
         shell: bash
         run: |
-          cp src/datasets/* dest/datasets/ 
-          
+          cp src/database/* dest/datasets/
+
       - name: commit files
         working-directory: dest
         shell: bash

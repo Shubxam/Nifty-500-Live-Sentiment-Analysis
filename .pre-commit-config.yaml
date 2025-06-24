@@ -1,0 +1,34 @@
+# See https://pre-commit.com for more information
+repos:
+  # General hooks for file quality
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: debug-statements
+      - id: check-docstring-first
+      - id: check-added-large-files
+      - id: check-ast
+
+  # Check for outdated Python syntax
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.20.0
+    hooks:
+      - id: pyupgrade
+        args: [--py311-plus]
+
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ""
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
