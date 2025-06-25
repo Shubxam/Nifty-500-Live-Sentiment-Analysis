@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from typing import final, override  # type: ignore
 
 from bs4 import BeautifulSoup, Tag
@@ -7,9 +8,20 @@ from loguru import logger
 from utils import get_webpage_content, parse_date
 
 
+@dataclass
+class Article:
+    """Represents a single news article."""
+
+    ticker: str
+    headline: str
+    date_posted: str | None
+    article_link: str
+    source: str
+
+
 class NewsSource(ABC):
     @abstractmethod
-    def get_articles(self, ticker: str) -> list[dict[str, str]]:
+    def get_articles(self, ticker: str) -> list[Article]:
         """
         make http request to the news source, parse the response, and return a list of articles
         """
@@ -20,7 +32,7 @@ class NewsSource(ABC):
 class GoogleFinanceSource(NewsSource):
     def __init__(self):
         self.base_url: str = 'https://www.google.com/finance/quote'
-        self.articles: list[dict[str, str]] = []
+        self.articles: list[Article] = []
         self.article_selector: str = 'div.z4rs2b'
         self.headline_selector: str = 'div.Yfwt5'
         self.date_selector: str = 'div.Adak'
@@ -28,7 +40,7 @@ class GoogleFinanceSource(NewsSource):
         self.link_selector: str = 'a'
 
     @override
-    def get_articles(self, ticker: str) -> list[dict[str, str]]:
+    def get_articles(self, ticker: str) -> list[Article]:
         try:
             url = f'{self.base_url}/{ticker}:NSE'
             response = get_webpage_content(url)
@@ -54,7 +66,7 @@ class GoogleFinanceSource(NewsSource):
                         continue
 
                     headline: str = (
-                        headline_tag.text.strip().replace('\\n', '')
+                        headline_tag.text.strip().replace('\n', '')
                         if headline_tag
                         else ''
                     )
@@ -74,13 +86,13 @@ class GoogleFinanceSource(NewsSource):
                     date_posted: str | None = parse_date(relative_date_str)
 
                     self.articles.append(
-                        {
-                            'ticker': ticker,
-                            'headline': headline,
-                            'date_posted': date_posted,
-                            'article_link': article_link,
-                            'source': source,
-                        }
+                        Article(
+                            ticker=ticker,
+                            headline=headline,
+                            date_posted=date_posted,
+                            article_link=article_link,
+                            source=source,
+                        )
                     )
                 except Exception as e:
                     logger.warning(
@@ -98,14 +110,14 @@ class YahooFinanceSource(NewsSource):
     # TODO: #124 fix error 404 for Yahoo Finance
     def __init__(self):
         self.base_url = 'https://finance.yahoo.com/quote'
-        self.articles: list[dict[str, str]] = []
+        self.articles: list[Article] = []
         self.article_selector: str = 'div.content.yf-1y7058a'
         self.headline_selector: str = 'a h3'
         self.footer_selector: str = 'div.publishing.yf-1weyqlp'
         self.link_selector: str = 'a'
 
     @override
-    def get_articles(self, ticker: str) -> list[dict[str, str]]:
+    def get_articles(self, ticker: str) -> list[Article]:
         try:
             url = f'{self.base_url}/{ticker}.NS/news/'
             response = get_webpage_content(url)
@@ -157,14 +169,15 @@ class YahooFinanceSource(NewsSource):
 
                     date_posted: str = parse_date(time_str)
 
-                    data_dict = {
-                        'ticker': ticker,
-                        'headline': headline,
-                        'date_posted': date_posted,
-                        'article_link': article_link,
-                        'source': source,
-                    }
-                    self.articles.append(data_dict)
+                    self.articles.append(
+                        Article(
+                            ticker=ticker,
+                            headline=headline,
+                            date_posted=date_posted,
+                            article_link=article_link,
+                            source=source,
+                        )
+                    )
                 except Exception as e:
                     logger.warning(
                         f'Error parsing Yahoo Finance article for {ticker}: {str(e)}'
@@ -180,13 +193,13 @@ class YahooFinanceSource(NewsSource):
 class FinologySource(NewsSource):
     def __init__(self):
         self.base_url = 'https://ticker.finology.in/company'
-        self.articles: list[dict[str, str]] = []
+        self.articles: list[Article] = []
         self.article_selector: str = 'div#newsarticles a#btnDetails.newslink'
         self.headline_selector: str = 'span'
         self.date_selector: str = 'small'
 
     @override
-    def get_articles(self, ticker: str) -> list[dict[str, str]]:
+    def get_articles(self, ticker: str) -> list[Article]:
         try:
             url = f'{self.base_url}/{ticker}'
             response = get_webpage_content(url, custom_header=False)
@@ -218,13 +231,13 @@ class FinologySource(NewsSource):
                     )
 
                     self.articles.append(
-                        {
-                            'ticker': ticker,
-                            'headline': headline,
-                            'date_posted': date_posted,
-                            'article_link': url,  # Finology links point back to the main page
-                            'source': 'Finology',
-                        }
+                        Article(
+                            ticker=ticker,
+                            headline=headline,
+                            date_posted=date_posted,
+                            article_link=url,  # Finology links point back to the main page
+                            source='Finology',
+                        )
                     )
                 except Exception as e:
                     logger.warning(
@@ -248,22 +261,22 @@ class TickerNewsObject:
             'YahooFinance': YahooFinanceSource,
             'Finology': FinologySource,
         }
-        self.articles: list[dict[str, str]] = []
+        self.articles: list[Article] = []
 
-    def collect_news(self) -> list[dict[str, str]]:
+    def collect_news(self) -> list[Article]:
         """
         Calls each news source's get_articles method to fetch articles for the ticker.
         """
         for source_name, source_cls in self.news_sources.items():
             logger.info(f'Fetching articles from {source_name} for {self.ticker}')
             # Pass the shared client to the source object
-            fetched_articles: list[dict[str, str]] = source_cls().get_articles(
+            fetched_articles: list[Article] = source_cls().get_articles(
                 self.ticker
             )
             logger.info(
                 f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
             )
-            fetched_articles: list[dict[str, str]] = source_cls().get_articles(
+            fetched_articles: list[Article] = source_cls().get_articles(
                 self.ticker
             )
             logger.info(
@@ -275,6 +288,7 @@ class TickerNewsObject:
             f'Collected {len(self.articles)} articles in total for {self.ticker}'
         )
         return self.articles
+
 
 
 if __name__ == '__main__':
