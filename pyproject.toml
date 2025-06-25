@@ -21,7 +21,9 @@ requires-python = ">=3.11,<4.0"
 dependencies = [
     "beautifulsoup4>=4.13.3",
     "curl-cffi>=0.11.4",
+    "dotenv>=0.9.9",
     "duckdb>=1.2.1",
+    "google-genai>=1.21.1",
     "httpx>=0.28.1",
     "loguru>=0.7.3",
     "lxml>=5.3.1",
