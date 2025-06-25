@@ -107,11 +107,10 @@ class GoogleFinanceSource(NewsSource):
 
 @final
 class YahooFinanceSource(NewsSource):
-    # TODO: #124 fix error 404 for Yahoo Finance
     def __init__(self):
         self.base_url = 'https://finance.yahoo.com/quote'
         self.articles: list[Article] = []
-        self.article_selector: str = 'div.content.yf-1y7058a'
+        self.article_selector: str = 'li.stream-item.story-item.yf-1drgw5l'
         self.headline_selector: str = 'a h3'
         self.footer_selector: str = 'div.publishing.yf-1weyqlp'
         self.link_selector: str = 'a'
@@ -120,7 +119,7 @@ class YahooFinanceSource(NewsSource):
     def get_articles(self, ticker: str) -> list[Article]:
         try:
             url = f'{self.base_url}/{ticker}.NS/news/'
-            response = get_webpage_content(url)
+            response = get_webpage_content(url, impersonate=True)
             if not response:
                 logger.warning(f'No response from Yahoo Finance for {ticker}')
                 return self.articles
@@ -202,7 +201,7 @@ class FinologySource(NewsSource):
     def get_articles(self, ticker: str) -> list[Article]:
         try:
             url = f'{self.base_url}/{ticker}'
-            response = get_webpage_content(url, custom_header=False)
+            response = get_webpage_content(url, custom_header=True, impersonate=True)
             if not response:
                 logger.warning(f'No response from Finology for {ticker}')
                 return self.articles
@@ -269,21 +268,20 @@ class TickerNewsObject:
         """
         for source_name, source_cls in self.news_sources.items():
             logger.info(f'Fetching articles from {source_name} for {self.ticker}')
-            # Pass the shared client to the source object
-            fetched_articles: list[Article] = source_cls().get_articles(
-                self.ticker
-            )
-            logger.info(
-                f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
-            )
-            fetched_articles: list[Article] = source_cls().get_articles(
-                self.ticker
-            )
-            logger.info(
-                f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
-            )
-            if fetched_articles:
-                self.articles.extend(fetched_articles)
+            try:
+                fetched_articles: list[Article] = source_cls().get_articles(
+                    self.ticker
+                )
+                logger.info(
+                    f'Fetched {len(fetched_articles)} articles from {source_name} for {self.ticker}'
+                )
+                if fetched_articles:
+                    self.articles.extend(fetched_articles)
+            except Exception as e:
+                logger.error(
+                    f'Failed to fetch from {source_name} for {self.ticker}: {e}'
+                )
+                continue
         logger.success(
             f'Collected {len(self.articles)} articles in total for {self.ticker}'
         )

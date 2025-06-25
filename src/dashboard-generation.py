@@ -7,7 +7,7 @@ from whenever import Instant
 from database import DatabaseManager
 
 # Initialize database manager
-db_manager = DatabaseManager('./datasets/ticker_data.db')
+db_manager = DatabaseManager()
 
 # Get data from database
 article_data = db_manager.get_articles()
