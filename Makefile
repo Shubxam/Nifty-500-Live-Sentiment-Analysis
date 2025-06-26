@@ -18,7 +18,8 @@ install:
 
 dev-setup: install
 	uv sync --all-extras --dev
-	uv run pre-commit install
+# 	uv run pre-commit install
+	uv pip install -e .
 	@echo "Development environment ready!"
 
 lint:
@@ -42,3 +43,4 @@ clean:
 	-rm -rf .mypy_cache/
 	-rm -rf .venv/
 	-find . -type d -name "__pycache__" -exec rm -rf {} +
+	-rm -rf .ruff_cache/
