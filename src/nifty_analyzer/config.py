@@ -142,42 +142,6 @@ DB_UTILS = {
 }
 
 
-# Query building utilities
-def build_articles_query(
-    has_sentiment: bool = True,
-    after_date: str | None = None,
-    latest: bool = True,
-    limit: int = 20,
-) -> tuple[str, list]:
-    """
-    Build dynamic query for articles with filters and parameters.
-
-    Returns:
-        tuple: (query_string, parameters_list)
-    """
-    query_parts = [GET_DATA['articles_base']]
-    params = []
-
-    # Apply sentiment filter
-    if not has_sentiment:
-        query_parts.append('AND compound_sentiment IS NULL')
-
-    # Apply date filter
-    if after_date is not None:
-        query_parts.append('AND date_posted >= ?')
-        params.append(after_date)
-
-    # Apply ordering
-    order_direction = 'DESC' if latest else 'ASC'
-    query_parts.append(f'ORDER BY date_posted {order_direction}')
-
-    # Apply limit
-    query_parts.append('LIMIT ?')
-    params.append(limit)
-
-    return ' '.join(query_parts), params
-
-
 if __name__ == '__main__':
     # This block is for testing purposes only
     pass

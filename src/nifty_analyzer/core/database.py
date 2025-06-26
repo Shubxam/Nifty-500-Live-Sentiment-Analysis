@@ -27,9 +27,8 @@ from nifty_analyzer.config import (
     DB_NAME,
     GET_DATA,
     INSERT_DATA,
-    build_articles_query,
 )
-from nifty_analyzer.core.utils import setup_logger
+from nifty_analyzer.core.utils import build_articles_query, setup_logger
 
 DB_PATH = os.path.join(BASE_DIR, 'database')
 
