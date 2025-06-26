@@ -1,23 +1,11 @@
 import atexit
-import os
 import shutil
-import sys
 import tempfile
 
 import pandas as pd
 import pytest
 
-# This adds the 'src' directory to the Python path.
-src_rel_path = '../src'
-src_abs_path = os.path.abspath(src_rel_path)
-
-if src_abs_path not in sys.path:
-    sys.path.append(src_abs_path)
-    print(f"Added '{src_abs_path}' to sys.path")
-else:
-    print(f"'{src_abs_path}' is already in sys.path")
-
-from database import DatabaseManager
+from nifty_analyzer.core.database import DatabaseManager
 
 tempdir_path = tempfile.mkdtemp()
 print(f'Temporary directory created at: {tempdir_path}')

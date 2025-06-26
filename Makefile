@@ -8,10 +8,10 @@
 default: install lint test
 
 run:
-	uv run src/main.py
+	uv run -m nifty_analyzer
 
 dashboard:
-	uv run src/dashboard-generation.py
+	uv run -m nifty_analyzer.app.dashboard
 
 install:
 	uv sync
@@ -22,12 +22,12 @@ dev-setup: install
 	@echo "Development environment ready!"
 
 lint:
-	uv run src/devtools/lint.py
+	uv run devtools/lint.py
 
 check:
-	uv run ruff check src/*.py
-	uv run ruff format src/*.py --check
-	uv run ty check src/*.py
+	uv run ruff check src/nifty_analyzer
+	uv run ruff format src/nifty_analyzer --check
+	uv run ty check src/nifty_analyzer
 
 test:
 	uv run pytest

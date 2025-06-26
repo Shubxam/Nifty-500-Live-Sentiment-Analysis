@@ -157,3 +157,6 @@ skips = ['*_test.py', 'test_*.py']
 
 [tool.ty.src]
 exclude = ["*.ipynb"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
