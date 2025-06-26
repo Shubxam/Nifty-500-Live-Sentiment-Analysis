@@ -34,14 +34,14 @@ def get_news(universe: str, multiprocess: bool) -> None:
     # Fetch and process news data for all tickers.
     logger.info(f'Start Processing {len(ticker_objs)} Tickers for {universe}')
 
-    all_articles: list[dict[str, str]] = []
+    all_articles: list[Article] = []
 
     if not multiprocess:
         # Process tickers sequentially.
         logger.info('Processing tickers sequentially.')
         for ticker_obj in tqdm(ticker_objs, desc='Processing Tickers'):
             try:
-                news: list[dict[str, str]] = ticker_obj.collect_news()
+                news: list[Article] = ticker_obj.collect_news()
                 all_articles.extend(news)
             except Exception as e:
                 logger.error(
