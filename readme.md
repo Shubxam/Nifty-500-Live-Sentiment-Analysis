@@ -6,6 +6,8 @@ Real-time sentiment analysis of Nifty-500 stocks and Indices.
 
 ## Overview
 
+![Alt](https://repobeats.axiom.co/api/embed/ff35eee02b7cadaba90d5a6699bcb47aea0040f9.svg "Repobeats analytics image")
+
 This project analyzes the sentiment of Nifty-500 stocks in real-time, providing insights into market trends and investor sentiment.
 
 Ticker specific articles are sourced from the following sources everyday and stored in a persistent (duckdb) database
