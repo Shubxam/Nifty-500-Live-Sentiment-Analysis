@@ -53,14 +53,10 @@ class GoogleFinanceSource(NewsSource):
                         )
                         continue
 
-                    headline: str = (
-                        headline_tag.text.strip().replace('\\n', '')
-                        if headline_tag
-                        else ''
-                    )
-                    relative_date_str: str = date_tag.text if date_tag else ''
-                    source: str = source_tag.text if source_tag else ''
-                    article_link_raw = link_tag.get('href', '') if link_tag else ''
+                    headline: str = headline_tag.text.strip().replace('\\n', '')
+                    relative_date_str: str = date_tag.text
+                    source: str = source_tag.text
+                    article_link_raw = link_tag.get('href', '')
                     article_link: str = (
                         str(article_link_raw) if article_link_raw else ''
                     )

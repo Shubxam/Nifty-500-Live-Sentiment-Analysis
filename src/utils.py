@@ -45,10 +45,12 @@ def get_webpage_content(
                 response.raise_for_status()
                 return response.text
 
-            response = (
-                httpx.get(url, headers=HEADER, follow_redirects=True, timeout=10)
-                if custom_header
-                else httpx.get(url, follow_redirects=True, timeout=10)
+            headers = HEADER if custom_header else None
+            response = httpx.get(
+                url,
+                headers=headers,
+                follow_redirects=True,
+                timeout=10,
             )
             response.raise_for_status()
             return response.text
@@ -155,25 +157,26 @@ def parse_date(
         value: int = int(parts[0]) if parts[0] not in ['a', 'last'] else 1
         unit: str = parts[1]
 
-        if unit.startswith('minute'):
-            datetime_object = now - timedelta(minutes=value)
-        elif unit.startswith('hour'):
-            datetime_object = now - timedelta(hours=value)
-        elif unit.startswith('day'):
-            datetime_object = now - timedelta(days=value)
-        elif unit.startswith('week'):
-            datetime_object = now - timedelta(weeks=value)
-        elif unit.startswith('month'):
-            datetime_object = now - relativedelta(months=value)
-        elif unit.startswith('year'):
-            datetime_object = now - relativedelta(years=value)
-        elif unit.startswith('yesterday'):
-            datetime_object = now - timedelta(days=1)
-        elif unit.startswith('today'):
-            datetime_object = now
-        else:
-            logger.warning(f'Unknown date format: {date_string}')
-            return ''
+        match unit:
+            case _ if unit.startswith('minute'):
+                datetime_object = now - timedelta(minutes=value)
+            case _ if unit.startswith('hour'):
+                datetime_object = now - timedelta(hours=value)
+            case _ if unit.startswith('day'):
+                datetime_object = now - timedelta(days=value)
+            case _ if unit.startswith('week'):
+                datetime_object = now - timedelta(weeks=value)
+            case _ if unit.startswith('month'):
+                datetime_object = now - relativedelta(months=value)
+            case _ if unit.startswith('year'):
+                datetime_object = now - relativedelta(years=value)
+            case _ if unit.startswith('yesterday'):
+                datetime_object = now - timedelta(days=1)
+            case _ if unit.startswith('today'):
+                datetime_object = now
+            case _:
+                logger.warning(f'Unknown date format: {date_string}')
+                return ''
     else:
         if not format:
             logger.error('Format string is required for absolute date parsing.')
@@ -262,15 +265,15 @@ def analyse_sentiment(headlines: list[str]) -> pd.DataFrame:
 
     # Initialize an empty list to hold the flattened data
     # we will transform a list of list of dictionaries into a list of dictionaries
-    flattened_data: list[dict[str, float]] = []
-
-    for news_item_sentiment_list in tqdm(iterable=results, desc='Processing Sentiment'):
-        news_item_sentiment_dict = {}
-        for individual_label_dict in news_item_sentiment_list:
-            news_item_sentiment_dict[individual_label_dict['label']] = (
-                individual_label_dict['score']
-            )
-        flattened_data.append(news_item_sentiment_dict)
+    flattened_data: list[dict[str, float]] = [
+        {
+            individual_label_dict['label']: individual_label_dict['score']
+            for individual_label_dict in news_item_sentiment_list
+        }
+        for news_item_sentiment_list in tqdm(
+            iterable=results, desc='Processing Sentiment'
+        )
+    ]
 
     # Create the DataFrame
     df = pd.DataFrame(flattened_data)

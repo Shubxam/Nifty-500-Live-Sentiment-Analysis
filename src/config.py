@@ -74,7 +74,7 @@ INSERT_DATA = {
         )
         SELECT
             ticker, headline, date_posted, source, article_link,
-            Neutral, Negative, Positive, compound, CURRENT_TIMESTAMP
+            neutral_sentiment, negative_sentiment, positive_sentiment, compound_sentiment, CURRENT_TIMESTAMP
         FROM articles_df;
     """,
     'article_data_without_sentiment': """
