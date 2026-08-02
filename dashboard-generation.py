@@ -196,12 +196,12 @@ def main():
     st.markdown("---") # Add a separator
     st.markdown(
         """
-    - [GitHub Repo](https://github.com/Shubxam/Nifty-500-Live-Sentiment-Analysis)
+    - [GitHub Repo](https://github.com/pags666/sanjay)
     - [Companion Article](https://xumitcapital.medium.com/sentiment-analysis-dashboard-using-python-d40506e2709d)
     """
     )
     st.info(
-        f"""This dashboard is updated everyday at 17:30 IST. Last Refreshed: {datetime_now} ({now.tz})"""
+        f"""This dashboard is updated for every 5 hours. Last Refreshed: {datetime_now} ({now.tz})"""
     )
 
 
